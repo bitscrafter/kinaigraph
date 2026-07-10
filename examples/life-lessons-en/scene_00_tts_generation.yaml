@@ -1,0 +1,47 @@
+# ------------------------------------------
+# Life Lessons - Audio Generation (English)
+# ------------------------------------------
+# Generates the English TTS narration for each life-lessons phrase.
+# Run once (or when the scripts change) before rendering the scenes.
+# Path resolution: `file:` inputs resolve against THIS yaml's own directory
+# (the compiler uses the input file's folder as the source dir) -- which IS the example root (the yaml sits at the top). `export:` outputs resolve against the
+# -outdir you pass (e.g. `-outdir ./out` -> ./out/audio/...).
+# Run from the example root:  kinaigraph ./scene_00_tts_generation.yaml -outdir ./out
+
+metadata:
+    title: "Life Lessons - Audio Generation (English)"
+    description: "Generate the English TTS narration for the life-lessons phrases"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            #voice: "6bPfTtSpgxgD0GeBVfqu" # Zen (English)
+            # voice: "MFZUKuGQUsGJPQjTS4wC" # Jon (English)
+            voice: "Hsmirri4X6khvaZNtgT5" # Chris (English)
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        # ------------------------------------------
+        # Scene 01: Gratitude / perspective
+        # ------------------------------------------
+        audio_scene_01_gratitude_perspective:
+            file: "script/scene_01_gratitude_perspective.txt"
+            export: "./audio/scene_01_gratitude_perspective.mp3"
+
+        # ------------------------------------------
+        # Scene 02: The meaning of life
+        # ------------------------------------------
+        audio_scene_02_life_meaning:
+            file: "script/scene_02_life_meaning.txt"
+            export: "./audio/scene_02_life_meaning.mp3"

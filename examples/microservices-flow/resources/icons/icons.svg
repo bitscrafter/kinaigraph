@@ -1,0 +1,81 @@
+<!--
+  Canonical icon library for the microservices-flow sample.
+
+  Symbols defined here are mirrored inline into the scene SVGs that consume them
+  (chevron_layer.svg, etc.) because kinaigraph's pipeline does not consume cross-file
+  `<use href="other.svg#id">` references. Keep symbols here in sync with their inline
+  copies. This file is the source of truth — diagram inlines are reflections.
+
+  Pattern follows doc/_scratches/icons.svg: theme system via CSS class on the root
+  svg (.dark-mode / .light-mode), with prefers-color-scheme fallback. Each symbol
+  is defined in <defs> with viewBox="0 0 24 24"; instances are placed via
+  <use href="#id" x="..." y="..." width="..." height="..." />.
+-->
+<svg id="icons" width="320" height="220" class="dark-mode" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style>
+            @media (prefers-color-scheme: light) {
+                svg#icons:not(.dark-mode):not(.light-mode) {
+                    --canvas-bg: #F5F5F7;
+                    --icon-color: #0066CC;
+                    --text-color: #1A1A1A;
+                    --rule-color: #CCCCCC;
+                }
+            }
+
+            @media (prefers-color-scheme: dark) {
+                svg#icons:not(.dark-mode):not(.light-mode) {
+                    --canvas-bg: #1A1A1A;
+                    --icon-color: #FFCC00;
+                    --text-color: #FFFFFF;
+                    --rule-color: #444444;
+                }
+            }
+
+            svg#icons.light-mode {
+                --canvas-bg: #F5F5F7;
+                --icon-color: #0066CC;
+                --text-color: #1A1A1A;
+                --rule-color: #CCCCCC;
+            }
+
+            svg#icons.dark-mode {
+                --canvas-bg: #1A1A1A;
+                --icon-color: #FFCC00;
+                --text-color: #FFFFFF;
+                --rule-color: #444444;
+            }
+
+            .canvas-bg { fill: var(--canvas-bg); }
+            .text-primary { fill: var(--text-color); font-family: sans-serif; }
+            .rule { stroke: var(--rule-color); stroke-width: 1; }
+            .icon-color { color: var(--icon-color); }
+        </style>
+
+        <!-- chevron_right: two right-pointing chevrons (»). Used as the moving packet
+             glyph in animation flows. Stroke uses currentColor so the surrounding `color`
+             property drives it (set on the wrapper <g> via CSS var or inline). -->
+        <symbol id="chevron_right" viewBox="0 0 24 24">
+            <path d="M 6 7 L 10 12 L 6 17 M 12 7 L 16 12 L 12 17"
+                  fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+    </defs>
+
+    <rect class="canvas-bg" width="100%" height="100%" />
+
+    <text x="20" y="35" class="text-primary" font-size="16" font-weight="600">microservices-flow icons</text>
+    <line x1="20" y1="50" x2="300" y2="50" class="rule" />
+
+    <!-- chevron_right at 3× (72×72) for legibility. -->
+    <g class="icon-color">
+        <use href="#chevron_right" x="74" y="90" width="72" height="72" />
+    </g>
+    <text x="110" y="185" class="text-primary" font-size="12" text-anchor="middle">chevron_right (3×)</text>
+
+    <!-- chevron_right at native size (24×24) for visual reference. -->
+    <g class="icon-color">
+        <use href="#chevron_right" x="220" y="114" width="24" height="24" />
+    </g>
+    <text x="232" y="185" class="text-primary" font-size="12" text-anchor="middle">chevron_right (1×)</text>
+</svg>

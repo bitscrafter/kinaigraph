@@ -1,0 +1,55 @@
+Kinaigraph Pre-Release License
+Copyright (c) 2026 José Luis Ríos Treviño. All rights reserved.
+
+Kinaigraph is pre-release (alpha/beta) software. This repository contains three
+kinds of material, each covered by its own terms below. A single "No Warranty"
+clause at the end applies to all of them.
+
+  1. Binaries      — the Kinaigraph executables and other compiled artifacts.
+  2. Examples      — the contents of the examples/ directory.
+  3. Documentation — all other written material (guides, references, READMEs).
+
+--------------------------------------------------------------------------------
+1. Binaries
+--------------------------------------------------------------------------------
+You are granted a non-exclusive, royalty-free right to download, run, and use
+the Kinaigraph binaries for non-commercial purposes only.
+
+You may NOT use the Kinaigraph binaries for commercial purposes. "Commercial
+purposes" means any use primarily intended for or directed toward commercial
+advantage or monetary compensation.
+
+You may redistribute the binaries only in their original, unmodified form, and
+only for non-commercial purposes.
+
+You may NOT modify, adapt, decompile, disassemble, reverse-engineer, or create
+derivative works of the binaries.
+
+The binaries are pre-release software provided on an "AS IS" basis. No guarantee
+is made as to whether or how they work, and no support of any kind is provided.
+Use them at your own risk.
+
+--------------------------------------------------------------------------------
+2. Examples
+--------------------------------------------------------------------------------
+The example projects in the examples/ directory may be copied, modified, and
+used for non-commercial purposes only, with attribution. You may NOT use them
+for commercial purposes (as defined in the Binaries section above).
+
+--------------------------------------------------------------------------------
+3. Documentation
+--------------------------------------------------------------------------------
+The documentation is a best-effort description of how to use Kinaigraph. It is
+provided with no guarantee of accuracy, completeness, or currency. You may read,
+quote, and redistribute it for the purpose of using Kinaigraph.
+
+--------------------------------------------------------------------------------
+No Warranty and Limitation of Liability (applies to all material above)
+--------------------------------------------------------------------------------
+ALL MATERIAL IN THIS REPOSITORY IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO
+EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES,
+OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE,
+ARISING FROM, OUT OF, OR IN CONNECTION WITH THE MATERIAL OR THE USE OR OTHER
+DEALINGS IN THE MATERIAL.

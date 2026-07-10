@@ -1,0 +1,1 @@
+Re-run the binary, and the user service now reads from the data store — its timing fits the narration automatically.

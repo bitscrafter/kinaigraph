@@ -1,0 +1,54 @@
+<!--
+  Diff panel — the on-screen v1 → v2 one-line YAML diff (scene_02_diff_reveal.yaml).
+
+  Styled as a One Dark code editor (palette mirrors hello-world-lang's
+  scene_02_definitions SVG). Syntax colors are applied inline per <tspan>
+  (keys green, strings light-blue, asset names blue, punctuation gray) rather
+  than via a <style> class block, matching the inline-fill convention used by
+  the other SVGs in this example (overview_v1.svg, chevron_layer.svg).
+
+  Animated element IDs consumed by scene_02_diff_reveal.yaml — DO NOT rename:
+    diff_panel (root)  highlight-old   gutter-old   line-new (group)   caption
+
+  The one changing line is the style asset's `file:` value. The differing
+  token — theme_dark vs theme_light — is accent-colored (red on the removed
+  line, green on the added line) so the viewer's eye lands on the exact change.
+-->
+<svg id="diff_panel" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="var(--kg-scene-bg, #1a1a1a)" />
+
+  <!-- Content authored on the original 800×600 grid, centered into the 1280×720 frame. -->
+  <g transform="translate(240 60)">
+
+  <!-- Code editor panel (One Dark) -->
+  <rect x="60" y="85" width="680" height="410" rx="12" fill="#181c24" stroke="#2c313a" stroke-width="1.5" />
+
+  <!-- File tab -->
+  <rect x="84" y="99" width="252" height="30" rx="6" fill="#21252b" />
+  <text id="filename-header" x="210" y="119" text-anchor="middle" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" fill="#7f848e">scene_01_v1_flow.yaml</text>
+
+  <!-- Divider under the tab row -->
+  <line x1="60" y1="143" x2="740" y2="143" stroke="#13161c" stroke-width="1" />
+
+  <!-- === Context lines (always visible) === -->
+  <text id="line-1" x="96" y="185" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="22"><tspan fill="#61afef">defs</tspan><tspan fill="#abb2bf">:</tspan></text>
+  <text id="line-2" x="96" y="223" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="22" xml:space="preserve"><tspan fill="#abb2bf">  </tspan><tspan fill="#61afef">assets</tspan><tspan fill="#abb2bf">:</tspan></text>
+  <text id="line-3" x="96" y="261" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="22" xml:space="preserve"><tspan fill="#abb2bf">    </tspan><tspan fill="#e5c07b">style</tspan><tspan fill="#abb2bf">:</tspan></text>
+  <text id="line-4" x="96" y="299" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="22" xml:space="preserve"><tspan fill="#abb2bf">      </tspan><tspan fill="#98c379">type</tspan><tspan fill="#abb2bf">: </tspan><tspan fill="#96d0ff">"style"</tspan></text>
+
+  <!-- === Removed line (old theme) — red highlight + "-" gutter fade in on solution === -->
+  <rect id="highlight-old" x="66" y="315" width="668" height="34" rx="4" fill="#6e2b2b" opacity="0" />
+  <text id="gutter-old" x="72" y="337" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="22" font-weight="bold" fill="#e06c75" opacity="0">-</text>
+  <text id="line-old" x="96" y="337" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="22" xml:space="preserve"><tspan fill="#abb2bf">      </tspan><tspan fill="#98c379">file</tspan><tspan fill="#abb2bf">: </tspan><tspan fill="#96d0ff">"./resources/css/</tspan><tspan fill="#e06c75" font-weight="bold">theme_dark</tspan><tspan fill="#96d0ff">.css"</tspan></text>
+
+  <!-- === Added line (new theme) — green highlight + "+" gutter, whole group fades in on solution === -->
+  <g id="line-new" opacity="0">
+    <rect x="66" y="353" width="668" height="34" rx="4" fill="#2e7d32" opacity="0.30" />
+    <text x="72" y="375" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="22" font-weight="bold" fill="#98c379">+</text>
+    <text x="96" y="375" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="22" xml:space="preserve"><tspan fill="#abb2bf">      </tspan><tspan fill="#98c379">file</tspan><tspan fill="#abb2bf">: </tspan><tspan fill="#96d0ff">"./resources/css/</tspan><tspan fill="#98c379" font-weight="bold">theme_light</tspan><tspan fill="#96d0ff">.css"</tspan></text>
+  </g>
+
+  <!-- Caption — fades in last -->
+  <text id="caption" x="400" y="555" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="500" fill="var(--kg-text-title, #ffffff)" opacity="0">One line. Re-themed.</text>
+  </g>
+</svg>

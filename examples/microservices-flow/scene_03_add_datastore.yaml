@@ -1,0 +1,252 @@
+# ------------------------------------------
+# Microservices Flow - Scene 03: Add the missing data store
+# ------------------------------------------
+# The evolution beat. We "forgot" a shared data store — so the diagram is swapped
+# for overview_v2 (one extra node + one leg: the User service reads the store;
+# auth is stateless JWT authn/authz, so it does NOT consult a store). The change
+# is shown, not just stated:
+#
+#   - omission beat: the data-store node, its link-store-user wire, and a
+#     speech-bubble callout ("now with a / data store") FADE IN — you watch the
+#     structure get added.
+#   - store beat: the chevron glides gateway -> user -> data-store at CONSTANT
+#     SPEED (`rate_factor: distance` splits the duration by each leg's travel
+#     distance, `linear` keeps it uniform within a leg — no slow-down at the
+#     user waypoint), timed from its narration. The store pulses on arrival.
+#
+# The new leg's motion is timed from its narration exactly like every other step,
+# so re-running the binary re-fits the timing with no manual edits. Text overlay
+# (the speech bubble); no logo. Dark theme (as scenes 1-2).
+
+defs:
+    assets:
+        # The v2 diagram — overview_v1 + data-store + link-store-user + the callout.
+        diagram:
+            type: "scene"
+            file: "./resources/diagram/overview_v2.svg"
+
+        chevron_layer:
+            type: "scene"
+            file: "./resources/diagram/chevron_layer.svg"
+
+        chevron_marker:
+            type: "actor"
+            part_of: chevron_layer
+            id: chevron-packet
+            origin: center
+
+        chevron_marker_up:
+            type: "actor"
+            part_of: chevron_layer
+            id: chevron-packet-up
+            origin: center
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+
+        style:
+            type: "style"
+            file: "./resources/css/theme_dark.css"
+
+        audio_shot_01_omission:
+            type: "audio"
+            file: "./audio/scene_03_01_omission.mp3"
+        audio_shot_02_store:
+            type: "audio"
+            file: "./audio/scene_03_02_store.mp3"
+
+    const:
+        FADE_WINDOW: 300
+        VIDEO_MARGIN: 500
+
+        # Pulse cycles per node — change here to retune every node at once.
+        PULSE_CYCLES: 2
+
+        # Slower fade for the added structure + the speech-bubble callout.
+        TEXT_FADE: 800
+
+        # Chevron end-cap insets near each node, and the perpendicular offset that
+        # keeps the chevron riding just off the connector line. The diagram nodes
+        # live in a different scene (`diagram`) from the chevron (`chevron_layer`);
+        # cross-scene anchors within a section resolve in the shared canvas, so the
+        # chevron tracks the real node geometry instead of hard-coded coordinates.
+        CHEVRON_INSET: 16
+        CHEVRON_INSET_DOWN_LEFT: 31
+        CHEVRON_INSET_DOWN_RIGHT: 11
+        CHEVRON_DISTANCE: 16
+
+        OMISSION_DURATION: "audio_shot_01_omission.duration"
+        STEP01_DURATION: "audio_shot_02_store.duration * 3 / 4"
+        STEP02_DURATION: "audio_shot_02_store.duration * 1 / 4"
+        PULSE_DURATION: "audio_shot_02_store.duration"
+        SETUP_DURATION: "VIDEO_MARGIN"
+        TEAR_DOWN_DURATION: "VIDEO_MARGIN"
+
+animation:
+    defaults:
+        assets:
+            scene: diagram
+
+    timeline:
+        # --- Setup: v1 architecture up; the NEW v2 elements (store, its wire, the
+        #     callout) and the chevron start hidden, ready to fade in. ---
+        0 @ setup_ts:
+            - diagram:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "SETUP_DURATION"
+            - chevron_marker:
+                  - show:
+                        opacity: 0
+            - chevron_marker_up:
+                  - show:
+                        opacity: 0
+            - data-store:
+                  - show:
+                        opacity: 0
+            - link-store-user:
+                  - show:
+                        opacity: 0
+            - store-callout:
+                  - show:
+                        opacity: 0
+
+        # --- Omission beat: the store node, its wire, and the speech-bubble callout
+        #     fade in (you watch the structure get added); nothing travels yet. ---
+        setup_ts.end @ omission_ts:
+            - data-store:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: TEXT_FADE
+            - link-store-user:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: TEXT_FADE
+            - store-callout:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: TEXT_FADE
+                        hold:
+                            before: TEXT_FADE
+            - diagram:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: OMISSION_DURATION
+
+        # --- Store beat: the chevron glides gateway -> user -> data-store at constant
+        #     speed (rate_factor: distance + linear), timed from its narration; the
+        #     store pulses in the arrival teal. ---
+        omission_ts.end @ store_step01_ts:
+            - chevron_marker:
+                  - move:
+                        duration: STEP01_DURATION
+                        easing: linear
+                        actions:
+                            - show:
+                                  duration: FADE_WINDOW
+                                  opacity:
+                                      from: 0
+                                      to: 1
+                            - move:
+                                  from:
+                                      anchor:
+                                          asset: diagram::api-gateway
+                                          pos: right
+                                  to:
+                                      anchor:
+                                          asset: diagram::user-service
+                                          pos: left
+                                  inset:
+                                      from: CHEVRON_INSET_DOWN_LEFT
+                                      to: CHEVRON_INSET_DOWN_RIGHT
+                                  lateral:
+                                      side: right
+                                      distance: CHEVRON_DISTANCE
+                                  affinity_family: "move_right"
+
+                            - show:
+                                  duration: 0
+                                  opacity: 0
+                                  affinity_family: "move_right"
+
+        store_step01_ts.end @ store_step02_ts:
+            - chevron_marker_up:
+                  - move:
+                        duration: STEP02_DURATION
+                        easing: linear
+                        actions:
+                            - show:
+                                  duration: 0
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      anchor:
+                                          asset: diagram::user-service
+                                          pos: top
+                                  to:
+                                      anchor:
+                                          asset: diagram::data-store
+                                          pos: bottom
+                                  inset:
+                                      from: CHEVRON_INSET
+                                      to: CHEVRON_INSET
+                                  lateral:
+                                      side: right
+                                      distance: CHEVRON_DISTANCE
+                                  affinity_family: "move_up"
+                            - show:
+                                  duration: FADE_WINDOW
+                                  opacity: 0
+                                  affinity_family: "move_up"
+        omission_ts.end @ store_pulse_ts:
+            - data-store-box:
+                  - pulse:
+                        duration: PULSE_DURATION
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Tear-down: hold the final frame; tail VIDEO_MARGIN pad of quiet. ---
+        store_step01_ts.end @ tear_down_ts:
+            - diagram:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: TEAR_DOWN_DURATION
+
+    capture:
+        video_animated_scene_03_add_datastore:
+            output: "./video/scene_03_add_datastore_animation.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        "0":
+            - video_animated_scene_03_add_datastore:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::omission_ts.start"
+                        asset: audio_shot_01_omission
+                  - mix:
+                        span:
+                            from: "animation::store_step01_ts.start"
+                        asset: audio_shot_02_store
+
+    capture:
+        video_composition_scene_03_add_datastore:
+            output: "./video/scene_03_add_datastore_composition.mp4"
+            fps: 30

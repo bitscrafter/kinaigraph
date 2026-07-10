@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Define the grain filter -->
+    <filter id="grainy-filter">
+      <feTurbulence 
+        type="fractalNoise" 
+        baseFrequency="0.65" 
+        numOctaves="3" 
+        stitchTiles="stitch" />
+      <!-- Optional: Adjust contrast/opacity of the grain -->
+      <!-- <feColorMatrix 
+        type="matrix" 
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.2 0" /> -->
+
+	<feColorMatrix type="matrix" values="
+			.8 0 0 0 0 
+			0 .8 0 0 0 
+			0 0 .5 0 0 
+			0 0 0 0.67 0" />		
+    </filter>
+  </defs>
+
+  <!-- Apply the filter to a background rectangle -->
+  <rect width="1280" height="720" fill="#f0f4f8" filter="url(#grainy-filter)" />
+</svg>

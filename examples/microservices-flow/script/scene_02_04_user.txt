@@ -1,0 +1,1 @@
+Authenticated, the request moves to the User service, which fetches the profile data.

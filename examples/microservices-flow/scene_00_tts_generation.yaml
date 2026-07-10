@@ -1,0 +1,82 @@
+# ------------------------------------------
+# Microservices Flow - Audio Generation
+# ------------------------------------------
+# Generates all TTS audio files for the microservices capabilities showcase.
+# Run once (or when scripts change) before rendering the scenes.
+
+metadata:
+  title: "Microservices Flow - Audio Generation"
+  description: "Generate all TTS audio files for the microservices showcase"
+  version: "2.0"
+
+defs:
+  assets:
+    elevenlabs_credentials:
+      type: "credentials"
+      env: "ELEVENLABS_API_KEY"
+
+  defaults:
+    tts:
+      provider: "elevenlabs"
+      credentials: "elevenlabs_credentials"
+      voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+  context:
+    status: active
+
+  tts:
+    # ------------------------------------------
+    # Scene 01: Intro / overview (single narration)
+    # ------------------------------------------
+    audio_scene_01_intro:
+      file: "./script/scene_01_intro.txt"
+      export: "./audio/scene_01_intro.mp3"
+
+    # ------------------------------------------
+    # Scene 02: Per-step narration (synced motion)
+    # ------------------------------------------
+    audio_scene_02_01_intro:
+      file: "./script/scene_02_01_intro.txt"
+      export: "./audio/scene_02_01_intro.mp3"
+
+    audio_scene_02_02_client_to_gateway:
+      file: "./script/scene_02_02_client_to_gateway.txt"
+      export: "./audio/scene_02_02_client_to_gateway.mp3"
+
+    audio_scene_02_03_auth:
+      file: "./script/scene_02_03_auth.txt"
+      export: "./audio/scene_02_03_auth.mp3"
+
+    audio_scene_02_04_user:
+      file: "./script/scene_02_04_user.txt"
+      export: "./audio/scene_02_04_user.mp3"
+
+    audio_scene_02_05_response:
+      file: "./script/scene_02_05_response.txt"
+      export: "./audio/scene_02_05_response.mp3"
+
+    # ------------------------------------------
+    # Scene 03: Add the missing data store
+    # ------------------------------------------
+    audio_scene_03_01_omission:
+      file: "./script/scene_03_01_omission.txt"
+      export: "./audio/scene_03_01_omission.mp3"
+
+    audio_scene_03_02_store:
+      file: "./script/scene_03_02_store.txt"
+      export: "./audio/scene_03_02_store.mp3"
+
+    # ------------------------------------------
+    # Scene 04: Re-theme (light)
+    # ------------------------------------------
+    audio_scene_04_retheme:
+      file: "./script/scene_04_retheme.txt"
+      export: "./audio/scene_04_retheme.mp3"
+
+    # ------------------------------------------
+    # Scene 05: Conclusion
+    # ------------------------------------------
+    audio_scene_05_conclusion:
+      file: "./script/scene_05_conclusion.txt"
+      export: "./audio/scene_05_conclusion.mp3"

@@ -1,0 +1,8 @@
+<svg id="life_meaning" xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" xml:lang="en">
+  <!-- life-lessons · scene_02 · foreground (transparent). Visual styling in resources/css/theme_life_lessons.css (referenced as a `type: style` asset by the scene). Composite over resources/backgrounds/paper_texture_rough_01.svg -->
+  <title>The meaning of life isn't found in a destination, but in the path that leads there.</title>
+  <g id="quote" class="quote">
+    <text id="line_1" x="50%" y="46%" text-anchor="middle">The meaning of life isn't found in a destination,</text>
+    <text id="line_2" x="50%" y="54%" text-anchor="middle">but in the path that leads there.</text>
+  </g>
+</svg>

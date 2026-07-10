@@ -1,0 +1,27 @@
+# ── OS / editor ──
+.DS_Store
+*.swp
+
+# ── Node (if a static-site toolchain is added later) ──
+node_modules/
+dist/
+
+# ── Generated example artifacts (regenerate from *.yaml + script/ via the engine + TTS) ──
+examples/**/out/
+examples/**/audio/
+examples/**/video/
+examples/**/.capture/
+examples/**/*.mp4
+examples/**/*.mp3
+examples/**/animation.html
+
+# ── "thank you" example pieces — kept local, not published ──
+examples/**/thank_you*
+
+# ── AI-assistant config — local tooling, not published ──
+.claude/
+/CLAUDE.md
+/GEMINI.md
+
+# Experimental diagram assets — kept local, not tracked
+examples/microservices-flow/resources/diagram/grainy_background.svg

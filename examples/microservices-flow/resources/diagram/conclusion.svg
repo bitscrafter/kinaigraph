@@ -1,0 +1,50 @@
+<svg id="conclusion" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- Closing recap card for scene_05_conclusion. Four bullet rows fade in
+       sequentially (each group starts opacity 0; the scene animates them).
+
+       Theming: each element carries a class matching its id; the style block below
+       maps that class to the kg-* theme variables and the element's typography. -->
+
+  <style>
+    .scene-bg    { fill: var(--kg-scene-bg, #1a1a1a); }
+    .recap-title { fill: var(--kg-text-title, #ffffff); font-family: var(--kg-font-family, sans-serif); font-size: 30px; font-weight: 700; text-anchor: middle; }
+    .divider     { stroke: var(--kg-link, #555555); stroke-width: 1; }
+
+    .bullet-1 circle, .bullet-2 circle, .bullet-3 circle, .bullet-4 circle { fill: var(--kg-bookmark-bg, #ffcc00); }
+    .bullet-1 text, .bullet-2 text, .bullet-3 text, .bullet-4 text {
+      fill: var(--kg-text-body, #eeeeee); font-family: var(--kg-font-family, sans-serif); font-size: 22px; text-anchor: start;
+    }
+
+    .wordmark { fill: var(--kg-text-title, #ffffff); font-family: var(--kg-font-family, sans-serif); font-size: 20px; font-weight: 600; text-anchor: middle; }
+  </style>
+
+  <rect class="scene-bg" width="1280" height="720" />
+
+  <!-- Content authored on the original 800×600 grid, centered into the 1280×720 frame. -->
+  <g transform="translate(240 60)">
+  <text id="recap-title" class="recap-title" x="400" y="120">What we just built</text>
+  <line id="divider" class="divider" x1="200" y1="148" x2="600" y2="148" />
+
+  <g id="bullet-1" class="bullet-1" opacity="0">
+    <circle cx="180" cy="222" r="6" />
+    <text x="205" y="228">Motion synced to the narration</text>
+  </g>
+
+  <g id="bullet-2" class="bullet-2" opacity="0">
+    <circle cx="180" cy="290" r="6" />
+    <text x="205" y="296">A service added &#8212; one node, one leg</text>
+  </g>
+
+  <g id="bullet-3" class="bullet-3" opacity="0">
+    <circle cx="180" cy="358" r="6" />
+    <text x="205" y="364">Re-themed from a single line</text>
+  </g>
+
+  <g id="bullet-4" class="bullet-4" opacity="0">
+    <circle cx="180" cy="426" r="6" />
+    <text x="205" y="432">All from one binary &#8212; no video editor</text>
+  </g>
+
+  <text id="wordmark" class="wordmark" x="400" y="530" opacity="0">kinaigraph</text>
+  </g>
+</svg>

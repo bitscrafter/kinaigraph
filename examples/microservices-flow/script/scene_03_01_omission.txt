@@ -1,0 +1,1 @@
+We left something out — a shared data store. No need to start over: add one node and two legs to the diagram.

@@ -1,0 +1,15 @@
+/* Life Lessons - foreground quote styling.
+ *
+ * Applied to the transparent text SVGs in resources/foreground/<lang>/ when a
+ * scene references THIS file as a `type: style` asset. Language-neutral: one
+ * look for both en and es. Tune font-size here to resize every quote at once.
+ *
+ * Positioning stays in the SVGs (alignment, not visual styling): each <text>
+ * carries text-anchor="middle" + x="50%" to center itself, so there are no
+ * hardcoded pixel coordinates. This CSS only controls the look.
+ */
+.quote text {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 42px;
+    fill: #000000;
+}

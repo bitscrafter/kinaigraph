@@ -1,0 +1,107 @@
+# ------------------------------------------
+# Microservices Flow - Scene 05: Conclusion
+# ------------------------------------------
+# The closing beat. A recap card whose four bullets fade in one after another,
+# staggered across the single recap narration, then the wordmark. Pure text
+# animation (show.opacity sequenced via hold.before). Dark theme.
+
+defs:
+  assets:
+    diagram:
+      type: "scene"
+      file: "./resources/diagram/conclusion.svg"
+
+    template:
+      type: "template"
+      file: "./resources/template/main.html"
+      style: style
+
+    style:
+      type: "style"
+      file: "./resources/css/theme_dark.css"
+
+    audio_shot_conclusion:
+      type: "audio"
+      file: "./audio/scene_05_conclusion.mp3"
+
+  const:
+    fadeNormal: 800
+    delayMargin: 500
+
+animation:
+  defaults:
+    assets:
+      scene: diagram
+
+  timeline:
+    # === PHASE 0: Initialize — card up, bullets + wordmark hidden ===
+    0 @ init_entry:
+      - diagram:
+          - show:
+              opacity: 1
+              hold: delayMargin
+      - bullet-1:
+          - show: { opacity: 0 }
+      - bullet-2:
+          - show: { opacity: 0 }
+      - bullet-3:
+          - show: { opacity: 0 }
+      - bullet-4:
+          - show: { opacity: 0 }
+      - wordmark:
+          - show: { opacity: 0 }
+
+    # === PHASE 1: Recap — bullets stagger in across the narration, wordmark last ===
+    init_entry.end @ audio_conclusion:
+      - bullet-1:
+          - show:
+              opacity: { from: 0, to: 1 }
+              duration: fadeNormal
+      - bullet-2:
+          - show:
+              opacity: { from: 0, to: 1 }
+              duration: fadeNormal
+              hold: { before: "audio_shot_conclusion.duration / 5" }
+      - bullet-3:
+          - show:
+              opacity: { from: 0, to: 1 }
+              duration: fadeNormal
+              hold: { before: "audio_shot_conclusion.duration * 2 / 5" }
+      - bullet-4:
+          - show:
+              opacity: { from: 0, to: 1 }
+              duration: fadeNormal
+              hold: { before: "audio_shot_conclusion.duration * 3 / 5" }
+      - wordmark:
+          - show:
+              opacity: { from: 0, to: 1 }
+              duration: fadeNormal
+              hold: { before: "audio_shot_conclusion.duration * 4 / 5" }
+      - diagram:
+          - show:
+              opacity: 1
+              hold: audio_shot_conclusion.duration + delayMargin
+
+  capture:
+    video_animated_scene_05_conclusion:
+      output: "./video/scene_05_conclusion_animation.mp4"
+      fps: 30
+
+composition:
+  context:
+    status: active
+
+  timeline:
+    "0":
+      - video_animated_scene_05_conclusion:
+          - roll: {}
+          - mix:
+              span:
+                from: "animation::audio_conclusion.start"
+                to: "animation::audio_conclusion.start + audio_shot_conclusion.duration"
+              asset: audio_shot_conclusion
+
+  capture:
+    video_composition_scene_05_conclusion:
+      output: "./video/scene_05_conclusion_composition.mp4"
+      fps: 30

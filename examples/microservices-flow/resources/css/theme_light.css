@@ -1,0 +1,47 @@
+/* Kinaigraph Microservices Flow - Light Theme */
+
+:root {
+    /* Page & Scene */
+    --kg-page-bg: #f5f5f7;
+    --kg-scene-bg: #ffffff;
+
+    /* Structural Hierarchy */
+    --kg-group-bg: #ebebee;
+    --kg-group-stroke: #cccccc;
+    --kg-node-bg: #ffffff;
+    --kg-node-stroke: #999999;
+
+    /* Connections */
+    --kg-link: #999999;
+
+    /* Text */
+    --kg-text-title: #1a1a1a;
+    --kg-text-body: #333333;
+
+    /* Step badges */
+    --kg-step-bg: #f0f0f0;
+    --kg-step-stroke: #999999;
+
+    /* Accents & States */
+    --kg-bookmark-bg: #5b87b2;
+    --kg-pulse-fill: #0066cc;
+    --kg-callout-bg: #a1b1c1;
+    /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
+     The `from` is each node's own rest stroke (omitted in the DSL ⇒ defaults to
+     it), so the pulse returns to rest per node. In light mode the border darkens
+     to stand out against the pale background. */
+    --kg-pulse-stroke: #333333;
+    --kg-pulse-stroke-width: 3;
+
+    /* Stroke weights (per role) — lighter than dark to suit the brighter ground */
+    --kg-group-stroke-width: 1.5;
+    --kg-node-stroke-width: 1.5;
+    --kg-badge-stroke-width: 1.25;
+    --kg-link-width: 1.5;
+
+    /* Link dash pattern */
+    --kg-link-dash: 4 4;
+
+    /* Typography */
+    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}

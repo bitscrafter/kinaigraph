@@ -1,0 +1,8 @@
+<svg id="gratitude_perspective" xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" xml:lang="en">
+  <!-- life-lessons · scene_01 · foreground (transparent). Visual styling in resources/css/theme_life_lessons.css (referenced as a `type: style` asset by the scene). Composite over resources/backgrounds/paper_texture_rough_01.svg -->
+  <title>Gratitude won't change your situation, but it will change your perspective.</title>
+  <g id="quote" class="quote">
+    <text id="line_1" x="50%" y="46%" text-anchor="middle">Gratitude won't change your situation,</text>
+    <text id="line_2" x="50%" y="54%" text-anchor="middle">but it will change your perspective.</text>
+  </g>
+</svg>

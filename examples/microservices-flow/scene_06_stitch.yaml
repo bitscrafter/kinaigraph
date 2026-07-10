@@ -1,0 +1,61 @@
+# ------------------------------------------
+# Microservices Flow - Stitch (headline deliverable)
+# ------------------------------------------
+# One continuous video sequencing the five per-scene composition outputs
+# (Scene 1 -> 5). Each scene's *_composition.mp4 already carries its mixed
+# narration, so a plain sequential `roll` of the video assets concatenates
+# both the visuals and the audio into a single soundtrack.
+#
+# Timeline keys are expression-driven from each clip's probed `.duration`
+# (populated by the Pass-3 media inspector). Because a full `roll:` plays
+# exactly `<clip>.duration` and the next entry starts at the running sum of
+# the same probed values, every boundary satisfies the composition no-gaps
+# rule (t_n + d_n == t_{n+1}, millisecond-exact) by construction - and the
+# offsets self-adjust whenever a scene is re-rendered to a new length.
+#
+# Prerequisite: render scenes 01-05 first (their *_composition.mp4 must exist
+# so the inspector can probe each clip's duration at compile time).
+
+defs:
+    assets:
+        scene_01:
+            type: video
+            file: "./video/scene_01_intro_composition.mp4"
+        scene_02:
+            type: video
+            file: "./video/scene_02_step_flow_composition.mp4"
+        scene_03:
+            type: video
+            file: "./video/scene_03_add_datastore_composition.mp4"
+        scene_04:
+            type: video
+            file: "./video/scene_04_retheme_composition.mp4"
+        scene_05:
+            type: video
+            file: "./video/scene_05_conclusion_composition.mp4"
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        "0 @ scene01_bk":
+            - scene_01:
+                  - roll:
+        "scene01_bk.end @ scene02_bk":
+            - scene_02:
+                  - roll:
+        "scene02_bk.end @ scene03_bk":
+            - scene_03:
+                  - roll:
+        "scene03_bk.end @ scene04_bk":
+            - scene_04:
+                  - roll:
+        "scene04_bk.end @ scene05_bk":
+            - scene_05:
+                  - roll:
+
+    capture:
+        video_microservices_flow_full:
+            output: "./video/microservices_flow_full.mp4"
+            fps: 30

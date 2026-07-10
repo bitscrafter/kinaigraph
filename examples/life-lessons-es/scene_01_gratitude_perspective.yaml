@@ -1,0 +1,142 @@
+# ------------------------------------------
+# Life Lessons - Scene 01: Gratitude / Perspective (Spanish)
+# ------------------------------------------
+# Layers the styled quote (foreground) over the paper texture (background) using
+# a 1x1 grid LAYOUT: both scenes sit in the single cell [0, 0] and z-stack in
+# DECLARATION ORDER - background first (behind), foreground second (front). The
+# quote then fades in over the paper. Visual styling of the text (font, size,
+# fill) lives in resources/css/theme_life_lessons.css, attached to the foreground scene
+# as a `type: style` asset; positioning (centering) stays in the SVG.
+#
+# Path resolution (as in the tts yaml): `file:` inputs resolve against THIS
+# yaml.s own folder, which IS the example root (the yaml sits at the top), so file: paths need no ../.
+# Capture `output:` resolves against the -outdir you pass.
+# Run from the example root:
+#   kinaigraph ./scene_01_gratitude_perspective.yaml -outdir ./out
+
+metadata:
+    title: "Life Lessons - Scene 01: Gratitude / Perspective (Spanish)"
+    description: "The gratitude / perspective quote (Spanish), fading in over paper texture"
+    version: "1.0"
+
+defs:
+    assets:
+        # Bottom layer: the paper-texture background, baked to an embedded JPEG. The
+        # JPEG pre-smooths the paper's high-frequency noise, so the H.264 output video
+        # compresses far smaller than the live feTurbulence texture would. Re-bake
+        # recipe is in the svg's header comment.
+        background:
+            type: "scene"
+            file: "resources/backgrounds/paper_background_medium.svg"
+
+        # Top layer: the transparent quote text (shares the 1280x720 viewBox).
+        foreground:
+            type: "scene"
+            file: "resources/foreground/scene_01_gratitude_perspective.svg"
+            style: quote_style
+
+        # Visual styling for the quote text (font, size, fill).
+        quote_style:
+            type: "style"
+            file: "resources/css/theme_life_lessons.css"
+
+        # 1x1 grid: both scenes occupy the single cell and z-stack by declaration
+        # order. This is the layout that gives the background/foreground precedence.
+        stage:
+            type: "layout"
+            kind: "grid"
+            rows: 1
+            cols: 1
+
+        # The quote group inside the foreground SVG (<g id="quote">) - faded in as one.
+        quote:
+            type: "actor"
+            part_of: foreground
+            id: quote
+
+        # Narration: the chosen TTS take, copied from out/audio into a
+        # committable input dir (audio). Its .duration paces the hold below.
+        narration:
+            type: "audio"
+            file: "audio/scene_01_gratitude_perspective.mp3"
+
+    const:
+        MARGIN: 350 # head pad of quiet before the quote appears
+        FADE: "narration.duration * 2.75 / 4" # fade-in duration for the quote
+
+animation:
+    context:
+        layout: stage
+        scenes:
+            - asset: background
+              cell:
+                  - 0
+                  - 0
+            - asset: foreground
+              cell:
+                  - 0
+                  - 0
+
+    timeline:
+        # Head: paper up, quote hidden, for MARGIN.
+        0 @ setup:
+            - background:
+                  - show:
+                        opacity: 1
+                        hold:
+                            before: "MARGIN"
+            - quote:
+                  - show:
+                        opacity: 0
+
+        # Reveal: the quote fades in over the paper.
+        setup.end @ reveal_quote:
+            - quote:
+                  - show:
+                        opacity: 1
+                        duration: "FADE"
+
+        # Narrate: hold the scene through the narration (this bookmark also anchors
+        # where the mix starts in the composition below).
+        setup.end @ narrate_quote:
+            - background:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "narration.duration"
+
+        # Teardown: a tail of quiet.
+        narrate_quote.end @ teardown:
+            - background:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "MARGIN"
+
+    capture:
+        # Silent animation (paper + fading quote). The composition below rolls
+        # this and mixes the narration into the final video.
+        video_scene_01_animation:
+            output: "./video/scene_01_gratitude_perspective_animation.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        # Roll the animation and lay the narration over it, starting at the
+        # narrate_quote bookmark in the animation.
+        "0":
+            - video_scene_01_animation:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::narrate_quote.start"
+                        asset: narration
+
+    capture:
+        # Final scene: the animation with the narration mixed in.
+        video_scene_01:
+            output: "./video/scene_01_gratitude_perspective.mp4"
+            fps: 30

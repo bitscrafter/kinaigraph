@@ -1,0 +1,128 @@
+# ------------------------------------------
+# Microservices Flow - Scene 04: Re-theme (light)
+# ------------------------------------------
+# The theming beat. Same diagram (overview_v2, data store included), same motion logic
+# as the overview sweep — the ONLY authored difference from the dark scenes is the
+# style asset's file: theme_light.css instead of theme_dark.css. One line, re-rendered,
+# every frame re-themed. Single narration sets the pace.
+
+defs:
+  assets:
+    diagram:
+      type: "scene"
+      file: "./resources/diagram/overview_v2.svg"
+
+    chevron_layer:
+      type: "scene"
+      file: "./resources/diagram/chevron_layer.svg"
+
+    chevron_marker:
+      type: "actor"
+      part_of: chevron_layer
+      id: chevron-packet
+      origin: center
+
+    template:
+      type: "template"
+      file: "./resources/template/main.html"
+      style: style
+
+    # The one-line diff vs every other scene: light theme instead of dark.
+    style:
+      type: "style"
+      file: "./resources/css/theme_light.css"
+
+    audio_shot_retheme:
+      type: "audio"
+      file: "./audio/scene_04_retheme.mp3"
+
+  const:
+    fadeFast: 300
+    delayMargin: 500
+
+animation:
+  defaults:
+    assets:
+      scene: diagram
+
+  timeline:
+    0 @ init_entry:
+      - diagram:
+          - show:
+              opacity: 1
+              hold: delayMargin
+      - chevron_marker:
+          - show:
+              opacity: 0
+
+    init_entry.end @ audio_retheme:
+      - chevron_marker:
+          - show:
+              opacity: { from: 0, to: 1 }
+              duration: fadeFast
+          # Same overview sweep as scene_01, on the v2 diagram (data store included):
+          # Client → Gateway → Auth → Gateway → User → Gateway → Client.
+          - move:
+              anchor:
+                asset: diagram::api-gateway
+                pos: center
+              duration: "(audio_shot_retheme.duration - fadeFast) / 6"
+              easing: ease_in_out_quad
+          - move:
+              anchor:
+                asset: diagram::auth-service
+                pos: center
+              duration: "(audio_shot_retheme.duration - fadeFast) / 6"
+              easing: ease_in_out_quad
+          - move:
+              anchor:
+                asset: diagram::api-gateway
+                pos: center
+              duration: "(audio_shot_retheme.duration - fadeFast) / 6"
+              easing: ease_in_out_quad
+          - move:
+              anchor:
+                asset: diagram::user-service
+                pos: center
+              duration: "(audio_shot_retheme.duration - fadeFast) / 6"
+              easing: ease_in_out_quad
+          - move:
+              anchor:
+                asset: diagram::api-gateway
+                pos: center
+              duration: "(audio_shot_retheme.duration - fadeFast) / 6"
+              easing: ease_in_out_quad
+          - move:
+              anchor:
+                asset: diagram::client
+                pos: center
+              duration: "(audio_shot_retheme.duration - fadeFast) / 6"
+              easing: ease_in_out_quad
+      - diagram:
+          - show:
+              opacity: 1
+              hold: audio_shot_retheme.duration + delayMargin
+
+  capture:
+    video_animated_scene_04_retheme:
+      output: "./video/scene_04_retheme_animation.mp4"
+      fps: 30
+
+composition:
+  context:
+    status: active
+
+  timeline:
+    "0":
+      - video_animated_scene_04_retheme:
+          - roll: {}
+          - mix:
+              span:
+                from: "animation::audio_retheme.start"
+                to: "animation::audio_retheme.start + audio_shot_retheme.duration"
+              asset: audio_shot_retheme
+
+  capture:
+    video_composition_scene_04_retheme:
+      output: "./video/scene_04_retheme_composition.mp4"
+      fps: 30

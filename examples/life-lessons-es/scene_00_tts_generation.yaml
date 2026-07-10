@@ -1,0 +1,48 @@
+# ------------------------------------------
+# Life Lessons - Audio Generation (Spanish)
+# ------------------------------------------
+# Generates the Spanish TTS narration for each life-lessons phrase.
+# Run once (or when the scripts change) before rendering the scenes.
+# Path resolution: `file:` inputs resolve against THIS yaml's own directory
+# (the compiler uses the input file's folder as the source dir) -- which IS the example root (the yaml sits at the top). `export:` outputs resolve against the
+# -outdir you pass (e.g. `-outdir ./out` -> ./out/audio/...).
+# Run from the example root:  kinaigraph ./scene_00_tts_generation.yaml -outdir ./out
+
+metadata:
+    title: "Life Lessons - Audio Generation (Spanish)"
+    description: "Generate the Spanish TTS narration for the life-lessons phrases"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            #voice: "Y4A7VD8bsOlWNzF8WIRV" # Gabriel (Spanish)
+            #voice: "NWJYfWwtJp5Ud8GCYoZB" # Daniel Yvker (Spanish)
+            #voice: "gV6hxeVYFRxKsMjfOkUK" # Daniel (Spanish)
+            voice: "80lPKtzJMPh1vjYMUgwe" # Benjamin (Spanish)
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        # ------------------------------------------
+        # Scene 01: Gratitude / perspective
+        # ------------------------------------------
+        audio_scene_01_gratitude_perspective:
+            file: "script/scene_01_gratitude_perspective.txt"
+            export: "./audio/scene_01_gratitude_perspective.mp3"
+
+        # ------------------------------------------
+        # Scene 02: The meaning of life
+        # ------------------------------------------
+        audio_scene_02_life_meaning:
+            file: "script/scene_02_life_meaning.txt"
+            export: "./audio/scene_02_life_meaning.mp3"

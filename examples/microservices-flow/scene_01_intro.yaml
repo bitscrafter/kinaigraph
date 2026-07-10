@@ -1,0 +1,412 @@
+# ------------------------------------------
+# Microservices Flow - Scene 01: Intro / Overview
+# ------------------------------------------
+# The opening beat. ONE narration (audio_01_intro) sets the use case; the whole
+# scene's pace derives from that single narration's duration, divided into SEVEN
+# equal beats — an establishing step 00 plus the six request-path legs:
+#
+#   step 00                             (all four nodes pulse together)
+#   1. client        -> api-gateway     (right chevron; api-gateway pulses)
+#   2. api-gateway   -> auth-service    (right chevron; auth-service pulses)
+#   3. auth-service  -> api-gateway     (left chevron;  api-gateway pulses)
+#   4. api-gateway   -> user-service    (right chevron; user-service pulses)
+#   5. user-service  -> api-gateway     (left chevron;  api-gateway pulses)
+#   6. api-gateway   -> client          (left chevron;  client pulses)
+#
+# Step 00 is an establishing beat: all four services pulse once together (the
+# "here's the whole system" shot) while nothing moves and the narration opens.
+# Then the packet sweeps the path, and only the RECEIVING node of each leg pulses
+# as the packet arrives — the pulse reads as the node reacting, not decoration.
+# (api-gateway is the hub, so it reacts on legs 1/3/5.)
+#
+# Two chevron actors (right- and left-pointing) take turns: only one is ever
+# visible (right runs legs 1/2/4, left runs legs 3/5/6). Each leg is a `move`
+# whose sub-actions reveal and traverse together: the move's explicit `from`/`to`
+# anchors fix the leg's start point, so the paired `show` reveals the chevron
+# already in place (no wrong-position flash), and the outgoing chevron is hidden
+# as the next leg's chevron takes over. The chevron fades in once at the very
+# start (leg 1, over FADE_WINDOW) and fades out once at the very end (leg 6);
+# every hand-off in between is instantaneous (`show` duration 0). The sweep is
+# framed by a VIDEO_MARGIN of quiet at the head and tail.
+#
+# Each beat lasts one seventh of the narration (audio_01_intro.duration / 7) and
+# follows the previous beat by STEP_PADDING. Beats are separate timestamps chained
+# by `.end` (setup -> step_00 -> step_01 ... step_06 -> tear_down), so the timing
+# reads top-to-bottom without hand-computed offsets.
+#
+# Dark theme throughout the showcase until Scene 04.
+
+defs:
+    assets:
+        # Bottom layer: the static architecture diagram (no data store yet — added in Scene 03).
+        diagram:
+            type: "scene"
+            file: "./resources/diagram/overview_v1.svg"
+
+        # Top layer: the chevron-packet, stacked over the diagram (shared 0 0 1280 720 viewBox).
+        chevron_layer:
+            type: "scene"
+            file: "./resources/diagram/chevron_layer.svg"
+
+        # Right-pointing chevron — used for the outbound legs (1, 2, 4).
+        chevron_marker:
+            type: "actor"
+            part_of: chevron_layer
+            id: chevron-packet
+            origin: center
+
+        # Left-pointing chevron — used for the return legs (3, 5, 6).
+        chevron_marker_left:
+            type: "actor"
+            part_of: chevron_layer
+            id: chevron-packet-left
+            origin: center
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+
+        style:
+            type: "style"
+            file: "./resources/css/theme_dark.css"
+
+        audio_01_intro:
+            type: "audio"
+            file: "./audio/scene_01_intro.mp3"
+
+    const:
+        FADE_WINDOW: 300
+        VIDEO_MARGIN: 500
+        STEP_PADDING: 150
+
+        # Pulse cycles per node — change here to retune every node at once.
+        PULSE_CYCLES: 2
+
+        # Chevron end-cap insets near each node, and the perpendicular offset that
+        # keeps the chevron riding just off the connector line.
+        CHEVRON_INSET: 16
+        CHEVRON_INSET_UP_LEFT: 31
+        CHEVRON_INSET_UP_RIGHT: 11
+        CHEVRON_INSET_DOWN_LEFT: 31
+        CHEVRON_INSET_DOWN_RIGHT: 11
+        CHEVRON_DISTANCE: 16
+
+animation:
+    defaults:
+        assets:
+            scene: diagram
+
+    timeline:
+        # Each beat is its own timestamp, chained by `.end` so the timing reads
+        # top-to-bottom. Step 00 pulses all nodes; each leg then pulses only the
+        # node the packet arrives at, concurrently with the traversal.
+        0 @ setup_ts:
+            # --- Stage: diagram up; head VIDEO_MARGIN pad of quiet before the intro ---
+            - diagram:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+
+            # --- Initial chevron state: both hidden ---
+            - chevron_marker:
+                  - show:
+                        opacity: 0
+            - chevron_marker_left:
+                  - show:
+                        opacity: 0
+
+        # --- Step 00: establishing beat — all four nodes pulse once together;
+        #     nothing sweeps yet, and the narration opens. ---
+        setup_ts.end @ step_00_ts:
+            - client:
+                  - pulse:
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+            - api-gateway:
+                  - pulse:
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+            - auth-service:
+                  - pulse:
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+            - user-service:
+                  - pulse:
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 1: client -> api-gateway; api-gateway (the receiver) pulses ---
+        step_00_ts.end @ step_01_ts:
+            - chevron_marker:
+                  - move:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        easing: ease_in_out_quad
+                        actions:
+                            - show:
+                                  duration: FADE_WINDOW
+                                  opacity: 1
+
+                            - move:
+                                  from:
+                                      anchor:
+                                          asset: diagram::client
+                                          pos: center_right
+                                  to:
+                                      anchor:
+                                          asset: diagram::api-gateway
+                                          pos: center_left
+                                  inset:
+                                      from: CHEVRON_INSET
+                                      to: CHEVRON_INSET
+                                  lateral:
+                                      side: left
+                                      distance: CHEVRON_DISTANCE
+            - api-gateway:
+                  - pulse:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 2: api-gateway -> auth-service; auth-service pulses ---
+        step_01_ts.end @ step_02_ts:
+            - chevron_marker:
+                  - move:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        easing: ease_in_out_quad
+                        actions:
+                            - show:
+                                  duration: 0
+                                  opacity: 1
+
+                            - move:
+                                  from:
+                                      anchor:
+                                          asset: diagram::api-gateway
+                                          pos: center_right
+                                  to:
+                                      anchor:
+                                          asset: diagram::auth-service
+                                          pos: center_left
+                                  inset:
+                                      from: CHEVRON_INSET_UP_LEFT
+                                      to: CHEVRON_INSET_UP_RIGHT
+                                  lateral:
+                                      side: left
+                                      distance: CHEVRON_DISTANCE
+            - auth-service:
+                  - pulse:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 3: auth-service -> api-gateway; api-gateway pulses ---
+        step_02_ts.end @ step_03_ts:
+            - chevron_marker:
+                  - show:
+                        opacity: 0
+            - chevron_marker_left:
+                  - move:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        easing: ease_in_out_quad
+                        actions:
+                            - show:
+                                  duration: 0
+                                  opacity: 1
+
+                            - move:
+                                  from:
+                                      anchor:
+                                          asset: diagram::auth-service
+                                          pos: center_left
+                                  to:
+                                      anchor:
+                                          asset: diagram::api-gateway
+                                          pos: center_right
+                                  inset:
+                                      from: CHEVRON_INSET_UP_RIGHT
+                                      to: CHEVRON_INSET_UP_LEFT
+                                  lateral:
+                                      side: right
+                                      distance: CHEVRON_DISTANCE
+            - api-gateway:
+                  - pulse:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 4: api-gateway -> user-service; user-service pulses ---
+        step_03_ts.end @ step_04_ts:
+            - chevron_marker_left:
+                  - show:
+                        opacity: 0
+            - chevron_marker:
+                  - move:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        easing: ease_in_out_quad
+                        actions:
+                            - show:
+                                  duration: 0
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      anchor:
+                                          asset: diagram::api-gateway
+                                          pos: center_right
+                                  to:
+                                      anchor:
+                                          asset: diagram::user-service
+                                          pos: center_left
+                                  inset:
+                                      from: CHEVRON_INSET_DOWN_LEFT
+                                      to: CHEVRON_INSET_DOWN_RIGHT
+                                  lateral:
+                                      side: right
+                                      distance: CHEVRON_DISTANCE
+            - user-service:
+                  - pulse:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 5: user-service -> api-gateway; api-gateway pulses ---
+        step_04_ts.end @ step_05_ts:
+            - chevron_marker:
+                  - show:
+                        opacity: 0
+
+            - chevron_marker_left:
+                  - move:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        easing: ease_in_out_quad
+                        actions:
+                            - show:
+                                  duration: 0
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      anchor:
+                                          asset: diagram::user-service
+                                          pos: center_left
+                                  to:
+                                      anchor:
+                                          asset: diagram::api-gateway
+                                          pos: center_right
+                                  inset:
+                                      from: CHEVRON_INSET_DOWN_RIGHT
+                                      to: CHEVRON_INSET_DOWN_LEFT
+                                  lateral:
+                                      side: left
+                                      distance: CHEVRON_DISTANCE
+            - api-gateway:
+                  - pulse:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 6: api-gateway -> client; client pulses; chevron fades out ---
+        step_05_ts.end @ step_06_ts:
+            - chevron_marker:
+                  - show:
+                        opacity: 0
+            - chevron_marker_left:
+                  - move:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        easing: ease_in_out_quad
+                        actions:
+                            - show:
+                                  duration: 0
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      anchor:
+                                          asset: diagram::api-gateway
+                                          pos: center_left
+                                  to:
+                                      anchor:
+                                          asset: diagram::client
+                                          pos: center_right
+                                  inset: CHEVRON_INSET
+                                  lateral:
+                                      side: right
+                                      distance: CHEVRON_DISTANCE
+                                  affinity_family: "final_position"
+                            - show:
+                                  duration: FADE_WINDOW
+                                  opacity: 0
+                                  affinity_family: "final_position"
+            - client:
+                  - pulse:
+                        hold:
+                            before: "STEP_PADDING"
+                        duration: "audio_01_intro.duration / 7"
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        step_06_ts.end @ tear_down_ts:
+            - diagram:
+                  - show:
+                        hold:
+                            after: "VIDEO_MARGIN"
+                        opacity: 1
+
+    capture:
+        video_animated_scene_01_intro:
+            output: "./video/scene_01_intro_animation.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        "0":
+            - video_animated_scene_01_intro:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::step_00_ts.start"
+                            #to: "animation::step_06_ts.end"
+                        asset: audio_01_intro
+
+    capture:
+        video_composition_scene_01_intro:
+            output: "./video/scene_01_intro_composition.mp4"
+            fps: 30

@@ -1,0 +1,1 @@
+Let's document how a request travels through a microservices architecture — from the client, through the gateway, out to the services, and back.

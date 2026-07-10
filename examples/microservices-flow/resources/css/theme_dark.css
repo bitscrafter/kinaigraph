@@ -1,0 +1,50 @@
+/* Kinaigraph Microservices Flow - Dark Theme */
+
+:root {
+    /* Page & Scene */
+    --kg-page-bg: #121212;
+    --kg-scene-bg: #1a1a1a;
+
+    /* Structural Hierarchy */
+    --kg-group-bg: #222222;
+    --kg-group-stroke: #444444;
+    --kg-node-bg: #333333;
+    --kg-node-stroke: #555555;
+
+    /* Connections */
+    --kg-link: #666666;
+
+    /* Text */
+    --kg-text-title: #ffffff;
+    --kg-text-body: #eeeeee;
+
+    /* Step badges */
+    --kg-step-bg: #444444;
+    --kg-step-stroke: #888888;
+
+    /* Accents & States */
+    --kg-bookmark-bg: #ffcc00;
+    --kg-pulse-fill: #ffcc00;
+    --kg-callout-bg: #c5a450;
+    /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
+     The `from` is each node's own rest stroke (omitted in the DSL ⇒ defaults to
+     it), so the pulse returns to rest per node. */
+    --kg-pulse-stroke: #dddddd;
+    --kg-pulse-stroke-width: 3;
+    /* Packet-arrival tint: the `to` colour the RECEIVING node's pulse brightens to
+     as the packet lands, distinguishing "a request arrived here" from the neutral
+     step-00 "system alive" pulse (which uses --kg-pulse-stroke). */
+    --kg-arrive-stroke: #b5e48c;
+
+    /* Stroke weights (per role) */
+    --kg-group-stroke-width: 2;
+    --kg-node-stroke-width: 2;
+    --kg-badge-stroke-width: 1.5;
+    --kg-link-width: 2;
+
+    /* Link dash pattern */
+    --kg-link-dash: 6 4;
+
+    /* Typography */
+    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
