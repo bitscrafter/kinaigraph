@@ -1,0 +1,57 @@
+# ------------------------------------------
+# service-interaction — Audio Generation
+# ------------------------------------------
+# Generates the narration for the three beats. Run ONCE, before rendering them, and
+# again whenever a script changes.
+#
+# This is the FIRST step of the build, not an afterthought, because the narration is
+# what the animation is timed to. Each beat declares its own line as an audio asset and
+# derives its dwell from that clip's probed `.duration`, so the visuals stretch to the
+# voice rather than the voice being trimmed to fit. Re-record a line and the scene
+# re-fits itself on the next render; nothing is measured by hand and pasted across.
+#
+#     ./kinaigraph scene_00_tts_generation.yaml -outdir .
+#
+# Needs ELEVENLABS_API_KEY in the environment. Every run costs credits and calls out to
+# the provider, so it is deliberately a separate file from the scenes — re-rendering a
+# beat must not re-synthesise audio that did not change.
+
+metadata:
+    title: "Service Interaction - Audio Generation"
+    description: "Generate the narration for the three interaction beats"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        # Beat 1 — the flow. Establishes the system so the next two beats have
+        # something to change. Carries the thesis: the picture IS the source.
+        audio_beat_01_flow:
+            file: "./script/beat_01_flow.txt"
+            export: "./audio/beat_01_flow.mp3"
+
+        # Beat 2 — structural evolution. The diagram gains a node it was missing, by
+        # editing the source rather than redrawing anything.
+        audio_beat_02_store:
+            file: "./script/beat_02_store.txt"
+            export: "./audio/beat_02_store.mp3"
+
+        # Beat 3 — compile-time theming. The same document re-rendered against a
+        # different stylesheet; the only authored difference is one asset's `file:`.
+        audio_beat_03_theme:
+            file: "./script/beat_03_theme.txt"
+            export: "./audio/beat_03_theme.mp3"

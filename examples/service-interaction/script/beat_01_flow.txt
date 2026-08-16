@@ -1,0 +1,1 @@
+A request reaches the gateway, which checks it with auth, fetches the profile from the user service, and carries the answer back. What you are watching is not a drawing of that system — it is the source.

@@ -1,0 +1,97 @@
+<svg id="get_user_info_v1" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- Static architecture diagram (Scenes 01-02). The chevron-packet that animates
+       through this flow lives in a separate, stacked scene asset
+       (resources/diagram/chevron_layer.svg). Both SVGs share the 0 0 1280 720 viewBox
+       so the DSL move coordinates apply across layers.
+
+       Theming: each element carries a class matching its id; the style block below
+       maps that class to the kg-* theme variables and the element's typography.
+       Swap the attached theme CSS to retheme. -->
+
+  <style>
+    .scene-bg { fill: var(--kg-scene-bg, #1a1a1a); }
+
+    .title    { fill: var(--kg-text-title, #ffffff); font-family: var(--kg-font-family, sans-serif); font-size: 26px; font-weight: 600; text-anchor: middle; }
+
+    .link-client-gateway,
+    .link-gateway-auth,
+    .link-gateway-user { stroke: var(--kg-link, #555555); stroke-width: var(--kg-link-width, 2); stroke-dasharray: var(--kg-link-dash, 6 4); }
+
+    /* Every node carries its stroke on the GROUP (not the rect) so a stroke pulse
+       on the actor — which targets the group element — reaches the rect via
+       inheritance; the rect keeps only its own fill, and the text opts out of the
+       stroke so the pulse highlights the border only. */
+    .client            { stroke: var(--kg-node-stroke, #555555); stroke-width: var(--kg-node-stroke-width, 2); }
+    .client rect       { fill: var(--kg-node-bg, #333333); }
+    .client text       { fill: var(--kg-text-body, #eeeeee); stroke: none; font-family: var(--kg-font-family, sans-serif); font-size: 14px; text-anchor: middle; }
+
+    .api-gateway       { stroke: var(--kg-group-stroke, #444444); stroke-width: var(--kg-group-stroke-width, 2); }
+    .api-gateway rect  { fill: var(--kg-group-bg, #222222); }
+    .api-gateway text  { fill: var(--kg-text-title, #cccccc); stroke: none; font-family: var(--kg-font-family, sans-serif); font-size: 16px; font-weight: bold; text-anchor: middle; }
+
+    .auth-service      { stroke: var(--kg-node-stroke, #555555); stroke-width: var(--kg-node-stroke-width, 2); }
+    .auth-service rect { fill: var(--kg-node-bg, #333333); }
+    .auth-service text { fill: var(--kg-text-body, #eeeeee); stroke: none; font-family: var(--kg-font-family, sans-serif); font-size: 14px; text-anchor: middle; }
+
+    .user-service      { stroke: var(--kg-node-stroke, #555555); stroke-width: var(--kg-node-stroke-width, 2); }
+    .user-service rect { fill: var(--kg-node-bg, #333333); }
+    .user-service text { fill: var(--kg-text-body, #eeeeee); stroke: none; font-family: var(--kg-font-family, sans-serif); font-size: 14px; text-anchor: middle; }
+
+    .step-1-badge circle, .step-2-badge circle, .step-3-badge circle, .step-4-badge circle {
+      fill: var(--kg-step-bg, #444444); stroke: var(--kg-step-stroke, #888888); stroke-width: var(--kg-badge-stroke-width, 1.5);
+    }
+    .step-1-badge text, .step-2-badge text, .step-3-badge text, .step-4-badge text {
+      fill: var(--kg-text-title, #ffffff); font-family: var(--kg-font-family, sans-serif); font-size: 13px; font-weight: bold; text-anchor: middle;
+    }
+  </style>
+
+  <rect class="scene-bg" width="1280" height="720" />
+
+  <text id="title" class="title" x="640" y="115" text-anchor="middle">Get User Info</text>
+
+  <!-- Connection lines: center-to-center geometry; in-box portions hidden by the node groups. -->
+  <path id="link-client-gateway" class="link-client-gateway" d="M 290 360 L 580 360" />
+  <path id="link-gateway-auth" class="link-gateway-auth" d="M 700 360 L 980 260" />
+  <path id="link-gateway-user" class="link-gateway-user" d="M 700 360 L 980 460" />
+
+  <g id="client" class="client">
+    <rect x="190" y="310" width="100" height="100" rx="10" />
+    <text x="240" y="365">Client</text>
+  </g>
+
+  <g id="api-gateway" class="api-gateway">
+    <rect x="580" y="260" width="120" height="200" rx="10" />
+    <text x="640" y="365">API Gateway</text>
+  </g>
+
+  <g id="auth-service" class="auth-service">
+    <rect x="980" y="220" width="120" height="80" rx="8" />
+    <text x="1040" y="265">Auth Service</text>
+  </g>
+
+  <g id="user-service" class="user-service">
+    <rect x="980" y="420" width="120" height="80" rx="8" />
+    <text x="1040" y="465">User Service</text>
+  </g>
+
+  <g id="step-1-badge" class="step-1-badge">
+    <circle cx="240" cy="285" r="14" />
+    <text x="240" y="290">1</text>
+  </g>
+
+  <g id="step-2-badge" class="step-2-badge">
+    <circle cx="640" cy="235" r="14" />
+    <text x="640" y="240">2</text>
+  </g>
+
+  <g id="step-3-badge" class="step-3-badge">
+    <circle cx="1040" cy="195" r="14" />
+    <text x="1040" y="200">3</text>
+  </g>
+
+  <g id="step-4-badge" class="step-4-badge">
+    <circle cx="1040" cy="395" r="14" />
+    <text x="1040" y="400">4</text>
+  </g>
+
+</svg>

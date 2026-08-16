@@ -1,0 +1,61 @@
+/* Service Interaction — Pastel theme
+ *
+ * Sunlit paper: a warm cream ground, structure in dusty rose and sage, and the moving
+ * parts in coral. Everything is desaturated except the accent, so the packet still
+ * carries the eye without the diagram shouting.
+ *
+ * Pairs with theme_blueprint.css. The two differ in hue, saturation AND lightness,
+ * which is the point: swapping them should look like the same diagram in a different
+ * world, not the same picture with the lights turned on. The scene files differ by
+ * exactly one line — which stylesheet the style asset points at.
+ *
+ * Strokes are lighter than the blueprint's throughout: a dark line on a pale ground
+ * reads heavier than a light line on a dark one at the same width, so matching the
+ * numbers would make this theme look clumsy beside its pair.
+ */
+
+:root {
+    /* Page & Scene */
+    --kg-page-bg: #fbf3e8;
+    --kg-scene-bg: #fffaf2;
+
+    /* Structural Hierarchy */
+    --kg-group-bg: #f3e3e6;
+    --kg-group-stroke: #c9a0ad;
+    --kg-node-bg: #ffffff;
+    --kg-node-stroke: #a3b8a0;
+
+    /* Connections */
+    --kg-link: #b9a7c4;
+
+    /* Text */
+    --kg-text-title: #4a3b52;
+    --kg-text-body: #6b5d75;
+
+    /* Step badges */
+    --kg-step-bg: #f7ece2;
+    --kg-step-stroke: #c9a0ad;
+
+    /* Accents & States */
+    --kg-bookmark-bg: #a3b8a0;
+    --kg-pulse-fill: #e8705f;
+    --kg-callout-bg: #f6d9c8;
+    /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
+     Coral is the one saturated tone in the palette, so it carries the motion alone. */
+    --kg-pulse-stroke: #e8705f;
+    --kg-pulse-stroke-width: 3;
+    /* Arrival tint — distinguishes "the request landed here" from the neutral pulse. */
+    --kg-arrive-stroke: #7fb069;
+
+    /* Stroke weights (per role) — lighter than the blueprint's, to suit a pale ground */
+    --kg-group-stroke-width: 1.5;
+    --kg-node-stroke-width: 1.5;
+    --kg-badge-stroke-width: 1.25;
+    --kg-link-width: 1.5;
+
+    /* Link dash pattern */
+    --kg-link-dash: 4 4;
+
+    /* Typography */
+    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}

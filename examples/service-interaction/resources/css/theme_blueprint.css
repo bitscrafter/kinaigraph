@@ -1,0 +1,58 @@
+/* Service Interaction — Blueprint theme
+ *
+ * An engineering drawing: a deep navy ground, structure picked out in cyan, and the
+ * moving parts in warm amber. The warm accent against the cool field is what makes the
+ * packet read instantly — a cool accent on a cool ground would sink into the diagram
+ * it is travelling over.
+ *
+ * Pairs with theme_pastel.css. The two differ in hue, saturation AND lightness, which
+ * is the point: swapping them should look like the same diagram in a different world,
+ * not the same picture with the lights turned off. The scene files differ by exactly
+ * one line — which stylesheet the style asset points at.
+ */
+
+:root {
+    /* Page & Scene */
+    --kg-page-bg: #081521;
+    --kg-scene-bg: #0d2137;
+
+    /* Structural Hierarchy */
+    --kg-group-bg: #143654;
+    --kg-group-stroke: #3d8fc4;
+    --kg-node-bg: #102c47;
+    --kg-node-stroke: #4cc9f0;
+
+    /* Connections */
+    --kg-link: #6fd3ef;
+
+    /* Text */
+    --kg-text-title: #eafaff;
+    --kg-text-body: #b8e2f2;
+
+    /* Step badges */
+    --kg-step-bg: #143654;
+    --kg-step-stroke: #4cc9f0;
+
+    /* Accents & States */
+    --kg-bookmark-bg: #4cc9f0;
+    --kg-pulse-fill: #ffc857;
+    --kg-callout-bg: #1b4f72;
+    /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
+     Warm against the cool field, so an arriving packet reads at a glance. */
+    --kg-pulse-stroke: #ffc857;
+    --kg-pulse-stroke-width: 3.5;
+    /* Arrival tint — distinguishes "the request landed here" from the neutral pulse. */
+    --kg-arrive-stroke: #52ffb8;
+
+    /* Stroke weights (per role) */
+    --kg-group-stroke-width: 2;
+    --kg-node-stroke-width: 2;
+    --kg-badge-stroke-width: 1.5;
+    --kg-link-width: 2;
+
+    /* Link dash pattern */
+    --kg-link-dash: 6 4;
+
+    /* Typography */
+    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}

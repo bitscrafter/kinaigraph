@@ -1,0 +1,1 @@
+And the whole thing re-themes from a single line — the stylesheet the template points at. Same diagram, same timings, a different skin.

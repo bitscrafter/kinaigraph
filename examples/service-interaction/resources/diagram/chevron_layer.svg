@@ -1,0 +1,73 @@
+<!--
+  Chevron icon layer — stacked on top of the diagram as a separate scene asset.
+  Four directional packet icons live here, independent of the diagram, one per
+  travel direction: `chevron-packet` points RIGHT, `chevron-packet-left` LEFT,
+  `chevron-packet-up` UP, `chevron-packet-down` DOWN — pick the one matching a
+  leg's direction (e.g. the up-pointing packet for user → data-store). Each is the
+  same twin-chevron rotated/mirrored. All share the viewBox (0 0 1280 720), so the
+  DSL move action positions a chevron at diagram coordinates directly (e.g.
+  translate(640 360) = API Gateway). Background is transparent; the diagram
+  beneath shows through.
+
+  Theming: the chevron-packet class sets the icon color from the kg-bookmark-bg
+  theme variable; the inner use inherits it via currentColor.
+
+  Only `chevron-packet` (RIGHT) starts visible; the LEFT/UP/DOWN packets start
+  hidden (opacity 0) — wire one from the timeline (show/move it) when you want a
+  packet in that direction; until then it does not paint.
+-->
+<svg id="chevron_layer" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .chevron-packet { color: var(--kg-bookmark-bg, #ffcc00); }
+  </style>
+
+  <defs>
+    <symbol id="chevron_right" viewBox="0 0 24 24">
+      <path d="M 6 7 L 10 12 L 6 17 M 12 7 L 16 12 L 12 17"
+            fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <!-- Left-pointing twin: the chevron_right path mirrored about x=12 (x → 24−x). -->
+    <symbol id="chevron_left" viewBox="0 0 24 24">
+      <path d="M 18 7 L 14 12 L 18 17 M 12 7 L 8 12 L 12 17"
+            fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <!-- Up-pointing twin: the chevron_right path rotated 90° CW about (12,12) ((x,y) → (y, 24−x)). -->
+    <symbol id="chevron_up" viewBox="0 0 24 24">
+      <path d="M 7 18 L 12 14 L 17 18 M 7 12 L 12 8 L 17 12"
+            fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <!-- Down-pointing twin: chevron_up mirrored about y=12 (y → 24−y). -->
+    <symbol id="chevron_down" viewBox="0 0 24 24">
+      <path d="M 7 6 L 12 10 L 17 6 M 7 12 L 12 16 L 17 12"
+            fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+  </defs>
+
+  <!-- chevron-packet (RIGHT): the symbol is centered at the group's translate
+       origin via x=-12,y=-12 + width=24,height=24 on the use. translate(240 360)
+       places the chevron's visual center at (240, 360) — the client node center. -->
+  <g id="chevron-packet" class="chevron-packet" transform="translate(240 360)" opacity="1">
+    <use href="#chevron_right" x="-12" y="-12" width="24" height="24" />
+  </g>
+
+  <!-- chevron-packet-left (LEFT): same centering convention; starts hidden until
+       the timeline shows/moves it. -->
+  <g id="chevron-packet-left" class="chevron-packet" transform="translate(240 360)" opacity="0">
+    <use href="#chevron_left" x="-12" y="-12" width="24" height="24" />
+  </g>
+
+  <!-- chevron-packet-up (UP): for upward legs (e.g. user → data-store). Hidden
+       until the timeline shows/moves it. -->
+  <g id="chevron-packet-up" class="chevron-packet" transform="translate(240 360)" opacity="0">
+    <use href="#chevron_up" x="-12" y="-12" width="24" height="24" />
+  </g>
+
+  <!-- chevron-packet-down (DOWN): for downward legs. Hidden until shown/moved. -->
+  <g id="chevron-packet-down" class="chevron-packet" transform="translate(240 360)" opacity="0">
+    <use href="#chevron_down" x="-12" y="-12" width="24" height="24" />
+  </g>
+</svg>

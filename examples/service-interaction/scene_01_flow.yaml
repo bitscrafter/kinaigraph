@@ -1,0 +1,358 @@
+# ------------------------------------------
+# service-interaction — Beat 1: the request
+# ------------------------------------------
+# A "Get User Info" request walks the system: the client calls the gateway, the gateway
+# checks the caller with auth, fetches the profile from the user service, and carries
+# the answer home. Six legs over three drawn connectors, each ridden twice.
+#
+# The packet rides the LINKS THEMSELVES — `move … along` naming the `<path>` the diagram
+# draws — so the route travelled and the route drawn cannot drift apart. There is ONE
+# packet, not one per direction: `orient: auto` turns it onto each leg's heading, which
+# is why the marker layer's pre-drawn left/up/down chevrons go unused here.
+#
+# Outbound and return share a connector, and would otherwise retrace the identical
+# pixels. `lateral` offsets the ride onto a parallel lane — and because a side is
+# relative to the DIRECTION OF TRAVEL, `side: left` on every leg puts the return on the
+# opposite side of the line from the outbound pass automatically. One keyword, no
+# per-leg bookkeeping, and the two passes read as distinct.
+#
+# WHY SIX ENTRIES rather than one `move` with six sub-actions and `rate_factor:
+# distance`: a sub-action is not addressable from the timeline, so nothing could hang a
+# badge pulse on a leg boundary. Six entries buy that addressability; the cost is the
+# six lengths below, which `rate_factor` would otherwise have derived.
+
+defs:
+    assets:
+        # v1 — no data store. Beat 2 introduces it, so it must genuinely be absent here
+        # rather than hidden; the change is the point of that beat.
+        get_user_info_v1:
+            type: "scene"
+            file: "./resources/diagram/get_user_info_v1.svg"
+        # Stacked ABOVE the diagram (declaration order is render order), so the packet
+        # travels over the connectors rather than under them.
+        chevrons:
+            type: "scene"
+            file: "./resources/diagram/chevron_layer.svg"
+
+        # The connectors the packet rides. Each is a `<path>`; `along` rides it by its
+        # declared name — bare, since a defs key names one actor wherever it is written.
+        link_client_gateway:
+            type: "actor"
+            part_of: get_user_info_v1
+            id: link-client-gateway
+        link_gateway_auth:
+            type: "actor"
+            part_of: get_user_info_v1
+            id: link-gateway-auth
+        link_gateway_user:
+            type: "actor"
+            part_of: get_user_info_v1
+            id: link-gateway-user
+
+        # The step badges. Each leg pulses the badge of the node it is ARRIVING at, so
+        # the numbers stop being decoration and become a running position indicator.
+        badge_client:
+            type: "actor"
+            part_of: get_user_info_v1
+            id: step-1-badge
+        badge_gateway:
+            type: "actor"
+            part_of: get_user_info_v1
+            id: step-2-badge
+        badge_auth:
+            type: "actor"
+            part_of: get_user_info_v1
+            id: step-3-badge
+        badge_user:
+            type: "actor"
+            part_of: get_user_info_v1
+            id: step-4-badge
+
+        # ONE packet. `orient: auto` supplies every heading it needs.
+        packet:
+            type: "actor"
+            part_of: chevrons
+            id: chevron-packet
+            origin: center
+
+        # ── Feature legend ────────────────────────────────────────────────────────
+        chip_capability_text:
+            type: "text"
+            content: |
+                Capabilities
+                riding the drawn line,
+                offset and oriented
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 15
+            font_color: "#8a5a44"
+
+        # Declared for its DURATION, not played here — the clip takes its length from
+        # the voice. All three lines mix once, in the stitch.
+        narration:
+            type: "audio"
+            file: "./audio/beat_01_flow.mp3"
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resources/css/theme_blueprint.css"
+
+    const:
+        VIDEO_MARGIN: 350
+        PULSE_CYCLES: 1
+
+        # ── Geometry ──────────────────────────────────────────────────────────────
+        # Drawn length of each connector, from its `<path>` endpoints. These are the
+        # only geometry figures authored here: with one `move` and sub-actions,
+        # `rate_factor: distance` would derive them, but sub-actions cannot be
+        # referenced from the timeline and the badge pulses need that reference.
+        # Re-position a node in the SVG and these must follow.
+        LEG_1_PX: 400 # client  -> gateway
+        LEG_2_PX: 313 # gateway -> auth
+        LEG_3_PX: 313 # auth    -> gateway
+        LEG_4_PX: 313 # gateway -> user
+        LEG_5_PX: 313 # user    -> gateway
+        LEG_6_PX: 400 # gateway -> client
+        PATH_PX: "LEG_1_PX + LEG_2_PX + LEG_3_PX + LEG_4_PX + LEG_5_PX + LEG_6_PX"
+
+        # ── Derived timings ───────────────────────────────────────────────────────
+        # The clip is exactly as long as the line that narrates it; the walk fills what
+        # is left after the head and tail pads. Every leg divides one budget in
+        # proportion to its own length, so the packet holds one speed throughout —
+        # a property of the arithmetic, not of six numbers agreeing.
+        FIXED_MS: "VIDEO_MARGIN * 2"
+        TRAVEL_MS: "narration.duration - FIXED_MS"
+        LEG_1_MS: "LEG_1_PX / PATH_PX * TRAVEL_MS"
+        LEG_2_MS: "LEG_2_PX / PATH_PX * TRAVEL_MS"
+        LEG_3_MS: "LEG_3_PX / PATH_PX * TRAVEL_MS"
+        LEG_4_MS: "LEG_4_PX / PATH_PX * TRAVEL_MS"
+        LEG_5_MS: "LEG_5_PX / PATH_PX * TRAVEL_MS"
+        LEG_6_MS: "LEG_6_PX / PATH_PX * TRAVEL_MS"
+
+        # Keeps the packet clear of the node boxes at each end of a connector, instead
+        # of sliding under them. Whole-path arc-length trim, both ends.
+        LINK_INSET: 14
+        # Perpendicular offset of the ride. Sized to clear the connector's own stroke
+        # so the two passes never overlap.
+        LANE_OFFSET: 11
+
+        # ── Feature legend ────────────────────────────────────────────────────────
+        CHIP_X: 44
+        CHIP_Y: 948
+        CHIP_WIDTH: 215
+        CHIP_HEIGHT: 88
+        CHIP_PADDING: 13
+        CHIP_REVEAL_MS: 420
+
+animation:
+    defaults:
+        assets:
+            scene: get_user_info_v1
+
+    annotations:
+        # A note with NO pointer is just an author-sized box. The legend keeps one
+        # palette across all three beats — it is commentary about the video, not part
+        # of the diagram, so it deliberately does not follow the theme.
+        chip_capability:
+            note:
+                text: chip_capability_text
+                width: CHIP_WIDTH
+                height: CHIP_HEIGHT
+                padding: CHIP_PADDING
+                align: left
+            at:
+                x: CHIP_X
+                y: CHIP_Y
+            origin: top_left
+            fill: "#f5ebe0"
+            stroke: "#8a5a44"
+            stroke_width: 1.5
+
+    timeline:
+        0 @ setup_ts:
+            - get_user_info_v1:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - packet:
+                  - show:
+                        opacity: 0
+            - chip_capability:
+                  - show:
+                        opacity: 0
+
+        # --- Leg 1: client -> gateway. The packet arrives on stage once, here. ---
+        setup_ts.end @ leg1_ts:
+            - packet:
+                  - show:
+                        opacity: 1
+                  - move:
+                        duration: LEG_1_MS
+                        easing: linear
+                        orient: auto
+                        along:
+                            segments:
+                                - asset: link_client_gateway
+                        inset:
+                            from: LINK_INSET
+                            to: LINK_INSET
+                        lateral:
+                            side: left
+                            distance: LANE_OFFSET
+            - badge_gateway:
+                  - pulse:
+                        duration: LEG_1_MS
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+            - chip_capability:
+                  - show:
+                        duration: CHIP_REVEAL_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+
+        # --- Leg 2: gateway -> auth. Natural head: the line is drawn gateway-first. ---
+        leg1_ts.end @ leg2_ts:
+            - packet:
+                  - move:
+                        duration: LEG_2_MS
+                        easing: linear
+                        orient: auto
+                        along:
+                            segments:
+                                - asset: link_gateway_auth
+                        inset:
+                            from: LINK_INSET
+                            to: LINK_INSET
+                        lateral:
+                            side: left
+                            distance: LANE_OFFSET
+            - badge_auth:
+                  - pulse:
+                        duration: LEG_2_MS
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 3: auth -> gateway. `head: end` enters from the far end, reversing
+        #     the traversal; `side: left` is relative to travel, so the return rides
+        #     the opposite lane from leg 2 without naming a different side. ---
+        leg2_ts.end @ leg3_ts:
+            - packet:
+                  - move:
+                        duration: LEG_3_MS
+                        easing: linear
+                        orient: auto
+                        along:
+                            segments:
+                                - asset: link_gateway_auth
+                                  head: right
+                        inset:
+                            from: LINK_INSET
+                            to: LINK_INSET
+                        lateral:
+                            side: left
+                            distance: LANE_OFFSET
+            - badge_gateway:
+                  - pulse:
+                        duration: LEG_3_MS
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 4: gateway -> user ---
+        leg3_ts.end @ leg4_ts:
+            - packet:
+                  - move:
+                        duration: LEG_4_MS
+                        easing: linear
+                        orient: auto
+                        along:
+                            segments:
+                                - asset: link_gateway_user
+                        inset:
+                            from: LINK_INSET
+                            to: LINK_INSET
+                        lateral:
+                            side: left
+                            distance: LANE_OFFSET
+            - badge_user:
+                  - pulse:
+                        duration: LEG_4_MS
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 5: user -> gateway ---
+        leg4_ts.end @ leg5_ts:
+            - packet:
+                  - move:
+                        duration: LEG_5_MS
+                        easing: linear
+                        orient: auto
+                        along:
+                            segments:
+                                - asset: link_gateway_user
+                                  head: right
+                        inset:
+                            from: LINK_INSET
+                            to: LINK_INSET
+                        lateral:
+                            side: left
+                            distance: LANE_OFFSET
+            - badge_gateway:
+                  - pulse:
+                        duration: LEG_5_MS
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- Leg 6: gateway -> client. The answer comes home. ---
+        leg5_ts.end @ leg6_ts:
+            - packet:
+                  - move:
+                        duration: LEG_6_MS
+                        easing: linear
+                        orient: auto
+                        along:
+                            segments:
+                                - asset: link_client_gateway
+                                  head: right
+                        inset:
+                            from: LINK_INSET
+                            to: LINK_INSET
+                        lateral:
+                            side: left
+                            distance: LANE_OFFSET
+            - badge_client:
+                  - pulse:
+                        duration: LEG_6_MS
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-pulse-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # --- The request is answered; the packet leaves and the legend clears. ---
+        leg6_ts.end @ tear_down_ts:
+            - packet:
+                  - show:
+                        opacity: 0
+            - chip_capability:
+                  - show:
+                        opacity: 0
+            - get_user_info_v1:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+
+    capture:
+        video_beat_01_flow:
+            output: "./video/beat_01_flow_animation.mp4"
+            fps: 30
