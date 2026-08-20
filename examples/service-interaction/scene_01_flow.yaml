@@ -16,10 +16,10 @@
 # opposite side of the line from the outbound pass automatically. One keyword, no
 # per-leg bookkeeping, and the two passes read as distinct.
 #
-# WHY SIX ENTRIES rather than one `move` with six sub-actions and `rate_factor:
+# WHY SIX ENTRIES rather than one `move` with six sub-actions and `pace_by:
 # distance`: a sub-action is not addressable from the timeline, so nothing could hang a
 # badge pulse on a leg boundary. Six entries buy that addressability; the cost is the
-# six lengths below, which `rate_factor` would otherwise have derived.
+# six lengths below, which `pace_by` would otherwise have derived.
 
 defs:
     assets:
@@ -107,7 +107,7 @@ defs:
         # ── Geometry ──────────────────────────────────────────────────────────────
         # Drawn length of each connector, from its `<path>` endpoints. These are the
         # only geometry figures authored here: with one `move` and sub-actions,
-        # `rate_factor: distance` would derive them, but sub-actions cannot be
+        # `pace_by: distance` would derive them, but sub-actions cannot be
         # referenced from the timeline and the badge pulses need that reference.
         # Re-position a node in the SVG and these must follow.
         LEG_1_PX: 400 # client  -> gateway

@@ -10,7 +10,7 @@
 #   - `- move @ leg1:`      a bookmark on an action / sub-action
 #   - `leg1.start`          a sub-action bookmark used as a timestamp key
 #   - `leg1.duration`       its window, as a value
-#   - `rate_factor: distance` on a parent whose sub-actions are bookmarked
+#   - `pace_by: distance` on a parent whose sub-actions are bookmarked
 #
 # ⚡ IT IS ALSO MORE CORRECT THAN `scene_01_flow.yaml`, not merely shorter. Both put the
 # packet on the road at 350 ms and take it off at 13442.7 ms — the envelope matches to a
@@ -23,7 +23,7 @@
 # The compiler's numbers hold ONE speed across every leg — 372.0/2674.2 and 269.3/1936.1
 # are both 0.1391 px/ms. The hand-measured consts give leg 1 a length ratio of 1.278
 # where the true arc ratio is 1.381, so the packet SPEEDS UP AND SLOWS DOWN at each leg
-# boundary. That is the whole point of `rate_factor: distance`, and it was silently not
+# boundary. That is the whole point of `pace_by: distance`, and it was silently not
 # being delivered: the consts were measured on the raw `<path>`, while the ride is
 # `inset` 14 px at both ends and pushed onto a parallel lane by `lateral`. The script
 # measured a line the packet never travels.
@@ -139,7 +139,7 @@ defs:
         # what is left after the head and tail pads.
         #
         # ⚠️ THE SIX `LEG_n_PX` AND SIX `LEG_n_MS` CONSTS ARE GONE, AND SO IS
-        # `PATH_PX`. `rate_factor: distance` on the parent `move` splits TRAVEL_MS
+        # `PATH_PX`. `pace_by: distance` on the parent `move` splits TRAVEL_MS
         # across the six legs in proportion to each leg's own arc length, which the
         # compiler measures. Re-position a node in the SVG and the timing follows by
         # itself — previously these thirteen numbers had to be re-measured by hand
@@ -201,7 +201,7 @@ animation:
                         opacity: 0
 
         # ── The whole journey, as ONE move ────────────────────────────────────────
-        # Six legs over three connectors, each ridden twice. `rate_factor: distance`
+        # Six legs over three connectors, each ridden twice. `pace_by: distance`
         # splits TRAVEL_MS among them in proportion to arc length, so the packet holds
         # ONE speed throughout — a property the engine guarantees rather than
         # arithmetic the author maintains.
@@ -215,7 +215,7 @@ animation:
         # `along`, so it has no tangent to face — and it would still claim the rotation
         # window, which then rejects the per-leg spelling as an overlapping write. The
         # rule generalises: a field that WRITES a property belongs on the rung that owns
-        # the geometry it writes from. `duration` and `rate_factor` pace the group and
+        # the geometry it writes from. `duration` and `pace_by` pace the group and
         # belong on the parent; `orient` does not.
         setup_ts.end @ walk_ts:
             - packet:
@@ -223,7 +223,7 @@ animation:
                         opacity: 1
                   - move @ walk:
                         duration: TRAVEL_MS
-                        rate_factor: distance
+                        pace_by: distance
                         easing: linear
                         actions:
                             # Leg 1: client -> gateway. Natural head.

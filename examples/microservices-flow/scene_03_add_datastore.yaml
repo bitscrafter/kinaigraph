@@ -10,7 +10,7 @@
 #     speech-bubble callout ("now with a / data store") FADE IN — you watch the
 #     structure get added.
 #   - store beat: the chevron glides gateway -> user -> data-store at CONSTANT
-#     SPEED (`rate_factor: distance` splits the duration by each leg's travel
+#     SPEED (`pace_by: distance` splits the duration by each leg's travel
 #     distance, `linear` keeps it uniform within a leg — no slow-down at the
 #     user waypoint), timed from its narration. The store pulses on arrival.
 #
@@ -144,7 +144,7 @@ animation:
                             after: OMISSION_DURATION
 
         # --- Store beat: the chevron glides gateway -> user -> data-store at constant
-        #     speed (rate_factor: distance + linear), timed from its narration; the
+        #     speed (pace_by: distance + linear), timed from its narration; the
         #     store pulses in the arrival teal. ---
         omission_ts.end @ store_step01_ts:
             - chevron_marker:
