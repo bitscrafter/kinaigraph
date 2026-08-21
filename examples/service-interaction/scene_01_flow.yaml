@@ -195,8 +195,7 @@ animation:
                         easing: linear
                         orient: auto
                         along:
-                            segments:
-                                - asset: link_client_gateway
+                            asset: link_client_gateway
                         inset:
                             from: LINK_INSET
                             to: LINK_INSET
@@ -226,8 +225,7 @@ animation:
                         easing: linear
                         orient: auto
                         along:
-                            segments:
-                                - asset: link_gateway_auth
+                            asset: link_gateway_auth
                         inset:
                             from: LINK_INSET
                             to: LINK_INSET
@@ -251,9 +249,8 @@ animation:
                         easing: linear
                         orient: auto
                         along:
-                            segments:
-                                - asset: link_gateway_auth
-                                  head: right
+                            asset: link_gateway_auth
+                            head: right
                         inset:
                             from: LINK_INSET
                             to: LINK_INSET
@@ -275,8 +272,7 @@ animation:
                         easing: linear
                         orient: auto
                         along:
-                            segments:
-                                - asset: link_gateway_user
+                            asset: link_gateway_user
                         inset:
                             from: LINK_INSET
                             to: LINK_INSET
@@ -298,9 +294,8 @@ animation:
                         easing: linear
                         orient: auto
                         along:
-                            segments:
-                                - asset: link_gateway_user
-                                  head: right
+                            asset: link_gateway_user
+                            head: right
                         inset:
                             from: LINK_INSET
                             to: LINK_INSET
@@ -322,9 +317,8 @@ animation:
                         easing: linear
                         orient: auto
                         along:
-                            segments:
-                                - asset: link_client_gateway
-                                  head: right
+                            asset: link_client_gateway
+                            head: right
                         inset:
                             from: LINK_INSET
                             to: LINK_INSET
