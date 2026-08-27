@@ -1,0 +1,66 @@
+# ------------------------------------------
+# bio-journey — Audio Generation
+# ------------------------------------------
+# Generates the narration for the beats. Run ONCE before rendering them, and again
+# whenever a script changes.
+#
+# This is the FIRST step of the build, not an afterthought, because the narration is
+# what the animations are timed to. Each beat declares its own line as an audio asset
+# and derives its dwell from that clip's probed `.duration`, so the visuals stretch to
+# the voice rather than the voice being trimmed to the visuals. Re-record a line and
+# the beat re-fits itself on the next render; nothing is measured by hand and pasted.
+#
+#     kinaigraph scene_00_tts_generation.yaml -outdir .
+#
+# Needs ELEVENLABS_API_KEY in the environment. Every run costs credits and calls out to
+# the provider, so it is deliberately a separate file from the scenes — re-rendering a
+# beat must not re-synthesise audio that did not change.
+#
+# ⚠️ Beat 1's line NAMES THE SUBJECT. Re-record it as part of the genericising swap,
+# together with resources/foreground/intro_card.svg — those two files are the only
+# places a personal detail appears.
+#
+# ⚠️ Beat 2's SENTENCE LENGTHS are load-bearing. Its scene spaces the four stations by
+# each sentence's share of the line, estimated from word counts. Rewriting that script
+# without re-deriving the fractions in `scene_02_timeline.yaml` puts the stations off
+# their words — re-recording the SAME words is safe, a rewrite is not.
+
+metadata:
+    title: "Bio Journey - Audio Generation"
+    description: "Generate the narration for the bio-journey beats"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        # Beat 1 — the intro card. Seven words: a name, a role, a place. The place is
+        # load-bearing rather than decorative, because beat 3 flies out of it.
+        audio_beat_01_intro:
+            file: "./script/beat_01_intro.txt"
+            export: "./audio/beat_01_intro.mp3"
+
+        # Beat 2 — the career timeline. Four sentences, one per station, and their
+        # RELATIVE LENGTHS are what space the stations. See the warning above.
+        audio_beat_02_timeline:
+            file: "./script/beat_02_timeline.txt"
+            export: "./audio/beat_02_timeline.mp3"
+
+        # Beat 3 — the flight map. Names the two destinations in the order the planes
+        # depart, which is what the scene's stagger is built around.
+        audio_beat_03_map:
+            file: "./script/beat_03_map.txt"
+            export: "./audio/beat_03_map.mp3"

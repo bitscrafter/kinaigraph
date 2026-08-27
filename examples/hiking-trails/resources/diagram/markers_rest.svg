@@ -1,0 +1,93 @@
+<!--
+  Marker layer — VIEWPOINT REST STOP. The glyphs that ride and terminate that one
+  route. Stacks ABOVE map.svg and route_layer_rest.svg on the shared 0 0 1920 1080
+  viewBox, so all three address one coordinate space.
+
+  Layer order is DECLARATION order in the scene file's `defs.assets`
+  (painter's algorithm, ADR §47 D-Z1): map, then route_layer_rest, then markers_rest.
+  Declare this one last or the route will paint over its own markers.
+
+  ONE marker layer PER ROUTE, rather than one shared layer holding every route's
+  furniture. Each scene then reads exactly its own glyphs, and re-tracing one route
+  cannot disturb another's. The cost is that the <symbol> geometry below is repeated
+  across the marker layers; it is stable, and the alternative — qualifying every id by
+  route in a single file — makes each scene carry furniture it never shows.
+
+  HAND-AUTHORED — unlike route_layer_rest.svg, which ./make_route_svg.py regenerates
+  from the owner's trace. Keeping the glyphs here is what lets the route be regenerated
+  freely without clobbering them. A rider here can still `move … along` a path that
+  lives in route_layer_rest.svg: move-along resolves an asset segment cross-scene
+  within a frame.
+
+  Shapes come from tech-docs/internal/design/diagram/icons.svg (`star`,
+  `navigation-arrow`), reproduced on the 24x24 grid with the same geometry. Only the
+  palette differs — the icon set is themed for documentation via CSS vars, while these
+  carry the map's own trail tones.
+
+  The `transform` on each traveller is a RESTING POSE only: it is where the glyph sits
+  during its fade-in, before its first `move` takes over and places it. The values
+  track the trace's trailhead and first hidden-stretch start as reported by the
+  generator; if a re-trace moves those appreciably, nudge them to match (a stale pose
+  shows as a marker that jumps on its first leg).
+-->
+<svg id="markers_rest" width="1920" height="1080" viewBox="0 0 1920 1080"
+     xmlns="http://www.w3.org/2000/svg">
+  <!-- One hue per route, three lightnesses. This layer carries the STRONG tone of the
+       rest stop's gold; the route line in route_layer_rest.svg is the same hue held
+       darker, and the callout text darker still. The line is pushed darker than the
+       summit's equivalent because the map's own trails are already sandy gold — at the
+       summit's lightness this route disappears into the path it rides. The marker tone
+       stays bright, so the pair still reads as one hue at two strengths. -->
+  <style>
+    .marker      { color: #c78c16; }
+    .dest-ring   { fill: none; stroke: #c78c16; stroke-width: 5; }
+    .dest-star   { fill: #c78c16; stroke: #fbf3ea; stroke-width: 1.2;
+                   stroke-linejoin: round; }
+  </style>
+
+  <defs>
+    <!-- Navigation arrow (icons.svg `navigation-arrow`), used AS AUTHORED. The
+         icon set points directional glyphs +x at rest — the engine's zero
+         rotation — so `orient: auto` turns it onto the travel tangent with no
+         correction here. The notch in the tail is what makes it read as
+         direction-of-travel rather than a plain marker. -->
+    <symbol id="nav_arrow_solid" viewBox="0 0 24 24">
+      <path d="M 21.0,12.0 L 3.5,19.5 L 7.4,12.0 L 3.5,4.5 Z"
+            fill="currentColor" stroke="#ffffff" stroke-width="1.5"
+            stroke-linejoin="round" />
+    </symbol>
+    <!-- Ghost twin — outline only, for the stretches that ride behind something. -->
+    <symbol id="nav_arrow_ghost" viewBox="0 0 24 24">
+      <path d="M 21.0,12.0 L 3.5,19.5 L 7.4,12.0 L 3.5,4.5 Z"
+            fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linejoin="round" />
+    </symbol>
+    <!-- Star (icons.svg `star`). Geometry is nudged down 0.86 from centre so the
+         BOUNDING BOX sits on 12,12 — a five-point star's mass is high, and
+         centring on the true centroid leaves it looking lifted inside the ring. -->
+    <symbol id="arrival_star" viewBox="0 0 24 24">
+      <path d="M 12.00,3.86 L 14.20,9.83 L 20.56,10.08 L 15.57,14.02
+               L 17.29,20.14 L 12.00,16.61 L 6.71,20.14 L 8.43,14.02
+               L 3.44,10.08 L 9.80,9.83 Z"
+            class="dest-star" />
+    </symbol>
+  </defs>
+
+  <!-- Destination: the campfire clearing above the cabin, where the trace ends. A
+       ring that pulses on arrival, with the star seated inside it. Two actors, not
+       one — the ring animates its stroke while the star simply appears, so they need
+       independent timelines. -->
+  <circle id="dest-ring" class="dest-ring" cx="1652" cy="633" r="18" opacity="0" />
+  <g id="dest-star" transform="translate(1652 633)" opacity="0">
+    <use href="#arrival_star" x="-16" y="-16" width="32" height="32" />
+  </g>
+
+  <!-- Travelling markers. Both inherit the icon set's +x rest heading, so
+       `orient: auto` turns them onto the travel tangent unaided. -->
+  <g id="traveller-solid" class="marker" transform="translate(1641 1002)" opacity="0">
+    <use href="#nav_arrow_solid" x="-16" y="-16" width="32" height="32" />
+  </g>
+  <g id="traveller-ghost" class="marker" transform="translate(1762 803)" opacity="0">
+    <use href="#nav_arrow_ghost" x="-16" y="-16" width="32" height="32" />
+  </g>
+</svg>

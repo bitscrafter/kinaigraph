@@ -1,0 +1,45 @@
+<svg id="frame_layer" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- The plot WINDOW: the two margins that bound it, and the y scale that labels it.
+       Declared after the plot surface, so it draws ABOVE the generated curves.
+
+       Why this layer exists. Beat 4 demonstrates a phase shift the honest way — by
+       actually translating the curve — and a finite curve slid sideways travels out
+       through the side of the window. Without a frame it crosses the y-axis and the
+       scale labels and hangs in the margin, which reads as a mistake rather than as
+       "the wave continues past here". These two rectangles are painted in the scene
+       background, so anything leaving the plotting area is simply gone.
+
+       The y scale rides on this layer rather than on the surface for the same reason:
+       a label a wave can slide over becomes unreadable exactly when the wave is being
+       moved, which is the moment it is needed. Above the curve, it always reads.
+
+       ⚠️ The mattes must agree with the plot's geometry contract — they abut the
+       y-axis at x = 120 and the last gridline at x = 1180. Change either in plot.svg
+       and change it here. -->
+
+  <style>
+    .matte  { fill: var(--kg-scene-bg, #0d1117); }
+    .tick   { fill: var(--kg-tick-text, #6e7681);
+              font-family: var(--kg-font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+              font-size: 17px; }
+    .tick-y { text-anchor: end; }
+  </style>
+
+  <!-- ⚠️ The mattes STOP at y = 630, above the x tick row. They are centred on their
+       own gridlines, so a matte reaching the baseline would eat the outer half of
+       "0°" and of "360°" — the two labels that name the window's edges, and the two a
+       viewer most needs while a wave is sliding through them. The band they do cover
+       (96..630) still contains the whole plotting area, which is all a curve can
+       reach: ±2 amplitude units is 140..620. -->
+  <g id="mattes">
+    <rect class="matte" x="0"    y="96" width="119" height="534"/>
+    <rect class="matte" x="1181" y="96" width="99"  height="534"/>
+  </g>
+
+  <g id="ticks-y">
+    <text class="tick tick-y" x="104" y="147">2</text>
+    <text class="tick tick-y" x="104" y="267">1</text>
+    <text class="tick tick-y" x="104" y="507">−1</text>
+    <text class="tick tick-y" x="104" y="627">−2</text>
+  </g>
+</svg>

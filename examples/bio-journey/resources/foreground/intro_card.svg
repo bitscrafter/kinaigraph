@@ -1,0 +1,50 @@
+<!--
+  Intro card — bio-journey, beat 1.
+  ──────────────────────────────────────────────────────────────────────────
+  ⚠️ THIS IS THE ONE FILE THAT HOLDS PERSONAL DETAILS.
+
+  The name, role and both meta lines live here and nowhere else in the example.
+  That is deliberate: the piece is built for a named person first and genericised
+  later, so the swap has to be one file rather than a hunt through scene files and
+  narration. When it goes public, replace the four strings below and re-record
+  `script/beat_01_intro.txt` — nothing else refers to them.
+
+  The narration for this beat names the same person, so the script is the second
+  half of that swap. Everything else in the example (the map, the routes, the
+  timings) is about cities, not about her.
+
+  Typography is in resources/css/theme_bio.css, attached as a `type: style` asset.
+  Only POSITION lives here, which is why the classes carry no coordinates: a
+  re-skin is the stylesheet, a re-layout is this file.
+
+  Actor ids are the four things that animate independently, in reading order:
+  intro-name, intro-rule, intro-role, intro-meta. Each starts hidden here as well
+  as in the scene's setup entry — the artwork should never flash before the
+  timeline takes over.
+-->
+<svg id="intro_card" width="1920" height="1080" viewBox="0 0 1920 1080"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <!-- The scene's own backdrop. The engine emits layout invariants but no page
+       colour, so a scene that wants a background paints one. -->
+  <rect id="intro-bg" class="intro-bg" x="0" y="0" width="1920" height="1080" />
+
+  <!-- Left-aligned block, optically centred: the rule sits on the canvas midline
+       and the name hangs above it, which reads steadier than centring the group's
+       bounding box. -->
+  <g id="intro-name" opacity="0">
+    <text class="intro-name" x="200" y="500">Jane Doe</text>
+  </g>
+
+  <line id="intro-rule" class="intro-rule" x1="200" y1="545" x2="760" y2="545"
+        opacity="0" />
+
+  <g id="intro-role" opacity="0">
+    <text class="intro-role" x="200" y="602">Developer Manager</text>
+  </g>
+
+  <g id="intro-meta" opacity="0">
+    <text class="intro-meta" x="200" y="672">Austin, Texas</text>
+    <text class="intro-meta" x="200" y="714">Leads a team of twelve</text>
+  </g>
+</svg>

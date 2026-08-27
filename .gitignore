@@ -8,12 +8,31 @@ dist/
 
 # ── Generated example artifacts (regenerate from *.yaml + script/ via the engine + TTS) ──
 examples/**/out/
-examples/**/audio/
+examples/**/out_*/
+# The GENERATED narration lands in each example's own `audio/`; scoped to one level so
+# it does not also swallow hand-placed source audio under `resources/`.
+examples/*/audio/
 examples/**/video/
 examples/**/.capture/
 examples/**/*.mp4
 examples/**/*.mp3
 examples/**/animation.html
+
+# Source audio under `resources/audio/` stays UNPUBLISHED, deliberately. It is an input
+# rather than a build output — a clone cannot regenerate it the way it regenerates TTS
+# narration — but stock-audio licences commonly forbid redistributing the file itself
+# in substantially its original form, which is exactly what committing it would be.
+# Each example's README names the track and where to fetch it instead.
+#
+# An example that ships audio it genuinely owns can override this with a negation
+# (`!examples/*/resources/audio/<file>`), per file, once that right is established.
+
+# ── Working scratch — source-art variants, editor projects, intermediate exports ──
+# Anything an example actually needs is archived INTO that example, never referenced
+# out of here (the hiking-trails trace lives at resources/diagram/hiking_trace.png
+# for exactly this reason).
+examples/temp/
+*.zip
 
 # ── "thank you" example pieces — kept local, not published ──
 examples/**/thank_you*

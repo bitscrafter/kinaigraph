@@ -1,0 +1,330 @@
+# ------------------------------------------
+# bio-journey — Beat 2: the career timeline
+# ------------------------------------------
+# The headline beat. Four stations arrive on one axis, each as its own sentence is
+# spoken, so the viewer reads a life left to right at the pace of the voice.
+#
+# What this beat is a good place to NOTICE is that the four arrivals are NOT evenly
+# spaced. Each step holds for its own sentence's share of the line, and those shares
+# are wildly unequal — 22%, 13%, 30%, 35% — because the script's sentences are 9, 5,
+# 12 and 14 words long. Equal quarters is the obvious first move and it is wrong for
+# any script that has a lead-in, a quick middle and a closing clause, which is every
+# script written to teach a subject: things get named in the order they happen, and
+# the words are not distributed evenly over them.
+#
+# The fractions below are derived from WORD COUNTS, and they have been MEASURED against
+# the real narration rather than assumed. Deriving a span from `narration.duration` says
+# how much of the line a step gets; it does not say where the words land inside it, so
+# the two had to be checked against each other:
+#
+#     ffmpeg -i audio/beat_02_timeline.mp3 \
+#         -af "silencedetect=noise=-32dB:d=0.18" -f null /dev/null
+#
+# On the 15.000 s take, the inter-sentence pauses put each sentence's END at 3.208 s,
+# 5.000 s and 9.348 s into the line. The word-count model predicts 3.218, 5.005 and
+# 9.295 — within 10 ms, 5 ms and 53 ms. So each step begins in the pause before its own
+# sentence, and because a step takes `SEG_DRAW_MS + STATION_FADE_MS` (540 ms) to land,
+# every station finishes appearing about 27 ms BEFORE the voice starts the sentence that
+# explains it. That is the alignment worth preserving: the picture cues the words.
+#
+# ⚠️ The measurement belongs to THIS take of THESE words. Re-recording the same script
+# is safe; a different voice or provider is worth re-measuring; a rewrite that changes
+# sentence LENGTHS invalidates the fractions outright, because they are those lengths.
+# Two of the six detected gaps are intra-sentence commas ("testing," at 1.17 s and
+# "twelve," at 11.98 s) — do not mistake them for boundaries.
+#
+#     kinaigraph scene_02_timeline.yaml -outdir ./out
+
+metadata:
+    title: "Bio Journey - Beat 2: Career Timeline"
+    description: "Four stations arriving on one axis, paced by the narration"
+    version: "1.0"
+
+defs:
+    assets:
+        timeline_card:
+            type: "scene"
+            file: "./resources/foreground/timeline_card.svg"
+
+        # Axis segments. Each is revealed as its own station arrives, so the line
+        # grows toward the next stop rather than being there from the start.
+        tl_seg_1:
+            type: "actor"
+            part_of: timeline_card
+            id: tl-seg-1
+        tl_seg_2:
+            type: "actor"
+            part_of: timeline_card
+            id: tl-seg-2
+        tl_seg_3:
+            type: "actor"
+            part_of: timeline_card
+            id: tl-seg-3
+        tl_seg_4:
+            type: "actor"
+            part_of: timeline_card
+            id: tl-seg-4
+
+        # Stations: year, dot and role as one group, because they arrive together.
+        tl_station_1:
+            type: "actor"
+            part_of: timeline_card
+            id: tl-station-1
+        tl_station_2:
+            type: "actor"
+            part_of: timeline_card
+            id: tl-station-2
+        tl_station_3:
+            type: "actor"
+            part_of: timeline_card
+            id: tl-station-3
+        tl_station_4:
+            type: "actor"
+            part_of: timeline_card
+            id: tl-station-4
+
+        # The dashed tail past the present. Arrives last, and points at beat 3.
+        tl_future:
+            type: "actor"
+            part_of: timeline_card
+            id: tl-future
+
+        narration:
+            type: "audio"
+            file: "./audio/beat_02_timeline.mp3"
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resources/css/theme_bio.css"
+
+    const:
+        VIDEO_MARGIN: 350
+
+        # How long a segment takes to draw and a station to fade. Kept well under the
+        # shortest step span (13% of the line) so even the quick middle step is fully
+        # on screen before its sentence ends.
+        SEG_DRAW_MS: 300
+        STATION_FADE_MS: 240
+        FUTURE_DRAW_MS: 500
+
+        # ── Where the sentences land ───────────────────────────────────────────────
+        # Fractions of the SPOKEN BODY (the clip minus its two margins), one per
+        # sentence, from the word counts in script/beat_02_timeline.txt:
+        #
+        #   "She started in testing..."          9 words   ->  0.225
+        #   "Then she started fixing them."      5 words   ->  0.125
+        #   "Six years later..."                12 words   ->  0.300
+        #   "Today she runs a team of twelve..." 14 words   ->  0.350
+        #
+        # See the warning in this file's header before changing them.
+        BODY_MS: "narration.duration - VIDEO_MARGIN * 2"
+        STEP_1_MS: "BODY_MS * 0.225"
+        STEP_2_MS: "BODY_MS * 0.125"
+        STEP_3_MS: "BODY_MS * 0.300"
+        # The ELASTIC term: the remainder rather than `BODY_MS * 0.350`, so the four
+        # spans sum to the body exactly and rounding cannot drift the clip off the
+        # line's length.
+        STEP_4_MS: "BODY_MS - STEP_1_MS - STEP_2_MS - STEP_3_MS"
+
+        # Each step draws its segment, fades its station, then waits out the rest of
+        # its sentence. The wait is what makes the step land on the words.
+        STEP_1_HOLD_MS: "STEP_1_MS - SEG_DRAW_MS - STATION_FADE_MS"
+        STEP_2_HOLD_MS: "STEP_2_MS - SEG_DRAW_MS - STATION_FADE_MS"
+        STEP_3_HOLD_MS: "STEP_3_MS - SEG_DRAW_MS - STATION_FADE_MS"
+        # The last step also draws the dashed tail, so its fixed part is longer.
+        STEP_4_HOLD_MS: "STEP_4_MS - SEG_DRAW_MS - STATION_FADE_MS - FUTURE_DRAW_MS"
+
+        # ── The tail ──────────────────────────────────────────────────────────────
+        # The narration is mixed starting at VIDEO_MARGIN, so the clip has to run to
+        # VIDEO_MARGIN + narration.duration + VIDEO_MARGIN for the line to finish with
+        # quiet after it. The elastic hold above already subtracted two margins, which
+        # leaves the ANIMATED body ending before the voice does — so the tail covers
+        # that overhang plus the closing quiet, rather than one margin.
+        #
+        # Getting this wrong truncates the last ~320 ms of every line. It is easy to
+        # miss because TTS tends to end with a little silence, so the first take that
+        # exposes it is the one that does not.
+        BODY_END_MS: "VIDEO_MARGIN + BODY_MS"
+        TAIL_MS: "VIDEO_MARGIN * 2 + narration.duration - BODY_END_MS"
+
+animation:
+    timeline:
+        0 @ setup:
+            - timeline_card:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - tl_seg_1:
+                  - show:
+                        opacity: 0
+            - tl_seg_2:
+                  - show:
+                        opacity: 0
+            - tl_seg_3:
+                  - show:
+                        opacity: 0
+            - tl_seg_4:
+                  - show:
+                        opacity: 0
+            - tl_station_1:
+                  - show:
+                        opacity: 0
+            - tl_station_2:
+                  - show:
+                        opacity: 0
+            - tl_station_3:
+                  - show:
+                        opacity: 0
+            - tl_station_4:
+                  - show:
+                        opacity: 0
+            - tl_future:
+                  - show:
+                        opacity: 0
+
+        # ── Step 1: testing ──────────────────────────────────────────────────────
+        # The segment draws, then the station fades in on the end of it: actions on
+        # one actor sequence, and the two actors run concurrently within the entry, so
+        # the dot appears as the line reaches it rather than before.
+        setup.end @ step_1:
+            - tl_seg_1:
+                  - show:
+                        duration: SEG_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - tl_station_1:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: STATION_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_1_HOLD_MS"
+
+        # ── Step 2: fixing them ──────────────────────────────────────────────────
+        # The shortest sentence in the script, and therefore the shortest span.
+        step_1.end @ step_2:
+            - tl_seg_2:
+                  - show:
+                        duration: SEG_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - tl_station_2:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: STATION_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_2_HOLD_MS"
+
+        # ── Step 3: the platform ─────────────────────────────────────────────────
+        step_2.end @ step_3:
+            - tl_seg_3:
+                  - show:
+                        duration: SEG_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - tl_station_3:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: STATION_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_3_HOLD_MS"
+
+        # ── Step 4: today ────────────────────────────────────────────────────────
+        # The longest sentence, the accent-coloured station, and the dashed tail that
+        # sets up the map. The tail draws after the station so it reads as a
+        # consequence of arriving at the present rather than as part of the axis.
+        step_3.end @ step_4:
+            - tl_seg_4:
+                  - show:
+                        duration: SEG_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - tl_station_4:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: STATION_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+            # ⚠️ FADES, it does not `reveal`. The tail carries its own
+            # `stroke-dasharray` in the stylesheet, and `reveal` drives that same
+            # attribute to draw a stroke on progressively — so revealing a line that is
+            # already dashed renders NOTHING, silently. Either the dashes or the draw-on,
+            # not both. The dashes matter more here: they are what make the tail read as
+            # "still going", and they echo the flight routes in the next beat.
+            - tl_future:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS + STATION_FADE_MS"
+                  - show:
+                        duration: FUTURE_DRAW_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_4_HOLD_MS"
+
+        step_4.end @ teardown:
+            - timeline_card:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "TAIL_MS"
+
+    capture:
+        video_timeline_animation:
+            output: "./video/scene_02_timeline_animation.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        # ⚠️ Explicit `span.from`: a spanless mix at a non-zero timestamp is subject to
+        # a known defect that places the audio at output 0.
+        "0":
+            - video_timeline_animation:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::step_1.start"
+                        asset: narration
+
+    capture:
+        video_timeline:
+            output: "./video/scene_02_timeline.mp4"
+            fps: 30

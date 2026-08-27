@@ -1,0 +1,27 @@
+<svg id="pitch_text" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  
+
+  
+
+  <text id="line-1" class="line-1" opacity="0">
+    <tspan x="72" y="176">Kinaigraph is a declarative language for</tspan>
+    <tspan x="72" y="224">animation and motion graphics.</tspan>
+  </text>
+
+  <text id="line-2" class="line-2" opacity="0">
+    <tspan x="72" y="298">You author scenes in YAML that bring together your SVG</tspan>
+    <tspan x="72" y="334">artwork and narration scripts, declaring how they work</tspan>
+    <tspan x="72" y="370">together and what happens when.</tspan>
+  </text>
+
+  <text id="line-3" class="line-3" opacity="0">
+    <tspan x="72" y="440">Kinaigraph does the tedious, exacting work: timing motion</tspan>
+    <tspan x="72" y="476">to narration, interpolating every frame, and keeping</tspan>
+    <tspan x="72" y="512">audio and video in sync.</tspan>
+  </text>
+
+  <text id="line-4" class="line-4" opacity="0">
+    <tspan x="72" y="582">Then it renders the scene as a video file,</tspan>
+    <tspan x="72" y="618">or live playback in the browser.</tspan>
+  </text>
+</svg>

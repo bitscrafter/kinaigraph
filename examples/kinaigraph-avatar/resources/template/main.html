@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinaigraph — Presenter Avatar</title>
+
+    <!-- Each Kinaigraph token is a bare HTML comment; the compiler replaces it
+         with a COMPLETE element. You place the comment where the element should
+         go and never write the surrounding style/script tag yourself. -->
+
+    <!-- Styles: emitted as a full style block (layout invariants + each
+         active asset's effective CSS). -->
+    <!-- KINAI_STYLE::PLACEHOLDER -->
+</head>
+<body>
+    <!-- Scenes: emitted as the full <div class="kinai-scene-container">...</div>
+         block (one <div class="kinai-scene"> per scene asset). Don't wrap it. -->
+    <!-- KINAI_ANIMATION::PLACEHOLDER -->
+
+    <!-- Runtime: three script elements, emitted in the required order. -->
+
+    <!-- 1. Player bundle: applies each frame's instruction buffer to the DOM. -->
+    <!-- KINAI_EXECUTOR::PLACEHOLDER -->
+
+    <!-- 2. Compiled bytecode: emits its own self-binding script element (sets the
+            interpreter's global). You never write the global name. -->
+    <!-- KINAI_BYTECODE::PLACEHOLDER -->
+
+    <!-- 3. WASM interpreter + bootstrap; auto-runs once the bytecode is present. -->
+    <!-- KINAI_INTERPRETER::PLACEHOLDER -->
+</body>
+</html>

@@ -1,0 +1,31 @@
+# ------------------------------------------
+# Presenter Avatar - Audio Generation
+# ------------------------------------------
+# Generates the narration MP3 for the avatar intro scene.
+# Run once (or when the script changes) before rendering.
+
+metadata:
+  title: "Presenter Avatar - Audio Generation"
+  description: "Generate TTS audio for the avatar intro scene"
+  version: "1.0"
+
+defs:
+  assets:
+    elevenlabs_credentials:
+      type: "credentials"
+      env: "ELEVENLABS_API_KEY"
+
+  defaults:
+    tts:
+      provider: "elevenlabs"
+      credentials: "elevenlabs_credentials"
+      voice: "Uh6UEmMIUnnL0GOOUghh" # Ray — swap for your own cloned voice
+
+synthesis:
+  context:
+    status: active
+
+  tts:
+    audio_avatar_intro:
+      file: "./script/avatar_intro.txt"
+      export: "./audio/avatar_intro.mp3"

@@ -1,0 +1,67 @@
+/* Kinaigraph Wave Anatomy — dark theme.
+ *
+ * The palette is built around one decision: three tiers of visual weight, so a
+ * viewer never has to work out which line is which.
+ *
+ *   grid  — scaffolding. Dim enough to read past, present enough to count against.
+ *   axes  — the thing measured against. Warm, and the only warm element on screen.
+ *   waves — the subject. Cool and bright, so they never read as part of the surface.
+ *
+ * The ghost is the same hue as the live curve at low opacity rather than a
+ * different colour, because it IS the same curve — a previous value of the same
+ * parameter, not a second quantity.
+ */
+
+:root {
+    /* Page & plot surface */
+    --kg-page-bg: #010409;
+    --kg-scene-bg: #0d1117;
+
+    /* Plot furniture — the two tiers that are not the subject */
+    --kg-grid: #21262d;
+    --kg-grid-width: 1;
+    --kg-axis: #a1764a;
+    --kg-axis-width: 2.5;
+    --kg-tick-text: #6e7681;
+
+    /* The curves. `live` is the value under discussion; `ghost` is the value it
+       replaced, kept on screen so every change is visibly a change FROM something. */
+    --kg-wave-live: #58a6ff;
+    --kg-wave-ghost: #58a6ff;
+    --kg-wave-width: 3.5;
+    --kg-wave-ghost-width: 2.5;
+    --kg-wave-ghost-opacity: 0.28;
+
+    /* A SECOND quantity, not a second value of the same one — used once, in beat 4,
+       for the cosine laid over the shifted sine. It gets its own hue precisely
+       because the claim being made is that two differently-named curves coincide;
+       the same hue would beg the question. */
+    --kg-wave-alt: #d2a8ff;
+    --kg-wave-alt-width: 3.5;
+
+    /* The travelling dot that marks position along the curve */
+    --kg-rider: #f0883e;
+
+    /* Labels: the parameter tag, and the source line in beat 1 */
+    --kg-label-bg: #161b22;
+    --kg-label-stroke: #58a6ff;
+    --kg-label-text: #e6edf3;
+    --kg-source-stroke: #3fb950;
+    --kg-source-text: #7ee787;
+
+    /* The capability legend. Deliberately desaturated and deliberately OFF the palette
+       the plot uses: it is commentary about the video, not part of the diagram, and a
+       viewer following the mathematics should be able to ignore it without effort. */
+    --kg-chip-bg: #16130f;
+    --kg-chip-stroke: #57534e;
+    --kg-chip-title: #d6d3d1;
+    --kg-chip-text: #a8a29e;
+
+    /* Text */
+    --kg-text-title: #e6edf3;
+    --kg-text-body: #adbac7;
+
+    /* Typography */
+    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --kg-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

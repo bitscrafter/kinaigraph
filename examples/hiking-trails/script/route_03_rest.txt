@@ -1,0 +1,1 @@
+And at the fire, the callout draws itself on and points — not at a coordinate, but at the marker itself. Move the destination, and the arrow follows.

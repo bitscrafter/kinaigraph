@@ -1,0 +1,362 @@
+# ------------------------------------------
+# wave-anatomy — Beat 4: phase and offset
+# ------------------------------------------
+# The two parameters that change nothing about the wave's shape. Both are pure
+# translation, which is why this beat looks different from the two before it: A and B
+# had to STEP through a family, and C and D simply glide. That difference is honest —
+# a phase shift IS a translation, so a `move` expresses it exactly, while a
+# height-only or width-only stretch has no spelling today.
+#
+# The payoff is the cosine. Slide the sine a quarter cycle to the left, then lay
+# `cos(radians(x))` over it: they coincide, point for point, for the whole window. The
+# cosine is drawn in a DIFFERENT hue on purpose — the claim is that two differently
+# named curves are the same curve, and drawing both in one colour would assume it
+# rather than show it.
+#
+# The overlay is a second generated annotation, not a copy of the first. Both come
+# from their own expression, so nothing about the coincidence was arranged by hand.
+
+defs:
+    assets:
+        plot:
+            type: "scene"
+            file: "./resources/diagram/plot.svg"
+        # The window frame: masks anything travelling out of the plotting area, and
+        # carries the y scale above the curves. Declared after the surface so it draws
+        # over them.
+        frame_layer:
+            type: "scene"
+            file: "./resources/diagram/frame_layer.svg"
+
+        tag_phase_text:
+            type: "text"
+            content: "C = 90°"
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 26
+            font_color: "#e6edf3"
+        tag_cos_text:
+            type: "text"
+            content: "cos(x)"
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 26
+            font_color: "#d2a8ff"
+        tag_offset_text:
+            type: "text"
+            content: "D = 0.5"
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 26
+            font_color: "#e6edf3"
+
+        # ── The capability legend ─────────────────────────────────────────────────
+        # Names, in Kinaigraph's own vocabulary, what the engine is doing in this beat.
+        # The NARRATION never mentions it — a viewer learning trigonometry follows the
+        # voice and can ignore this box entirely, while a reader evaluating the language
+        # gets the whole story from the four boxes alone. Two audiences, neither
+        # interrupted. The palette is deliberately off the plot's, because this is
+        # commentary about the video rather than part of the diagram.
+        chip_text:
+            type: "text"
+            content: |
+                Move
+                generated geometry translates
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 15
+            font_color: "#a8a29e"
+
+        narration:
+            type: "audio"
+            file: "./audio/beat_04_shift.mp3"
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resources/css/theme_dark.css"
+
+    const:
+        VIDEO_MARGIN: 350
+
+        # ── The plot's geometry contract (see resources/diagram/plot.svg) ─────────
+        PLOT_X0: 120
+        PLOT_Y0: 380
+        PLOT_XS: "1060 / 360"
+        PLOT_YS: 120
+        DOMAIN_TO: 360
+        SAMPLES: 300
+
+        # ── The two shifts, in the plot's own units ───────────────────────────────
+        # Both are derived from the geometry contract rather than measured, so a
+        # change to the plot's scale carries them along.
+        PHASE_DEG: 90
+
+        # ⚠️ The sine is sampled a quarter cycle PAST the window. A translation moves a
+        # finite curve, so a wave shifted left by 90° would otherwise run out of curve
+        # 90° short of the right edge — and the beat's claim is that the shifted sine
+        # and the cosine agree across the WHOLE window, which a short curve would quietly
+        # weaken exactly where nobody is looking. The overhang is invisible at rest
+        # because `frame_layer` masks it.
+        SINE_DOMAIN_TO: "DOMAIN_TO + PHASE_DEG"
+        PHASE_DX: "0 - (PHASE_DEG * PLOT_XS)" # left a quarter cycle ⇒ sine becomes cosine
+        OFFSET_UNITS: 0.5
+        OFFSET_DY: "0 - (OFFSET_UNITS * PLOT_YS)" # screen y grows downward; up is negative
+
+        # ── Derived timings ───────────────────────────────────────────────────────
+        # ⚠️ EVERY DERIVED SPAN IS TRUNCATED TO WHOLE MILLISECONDS. A probed narration
+        # duration is not a round number (9752.381 ms), so a third of it is not either.
+        # A held window's end rounds UP to the millisecond while the bookmark that ends
+        # the same entry keeps its fraction, and the next entry's write then begins a
+        # half-millisecond BEFORE the previous one finishes — which is a genuine
+        # same-property overlap and is refused. Truncating first makes every boundary an
+        # integer, so a window ends exactly where the next begins, which is allowed.
+        # ⚠️ THE THREE MOVES ARE SIZED TO THE THREE CLAUSES, NOT TO EQUAL THIRDS. The
+        # clauses of this line are not equal — "The last two only move it" is short and
+        # "ninety degrees turns a sine into a cosine" is long — so equal thirds started
+        # the vertical slide 1.4 s BEFORE "Upward is offset" was spoken, which is to say
+        # while the viewer was still being told the two curves coincide. Moving them
+        # apart during that sentence is the one thing this beat must not do.
+        #
+        # ⚠️ Tuned to the recorded line (clauses at 0.00 / 1.96 / 3.59 / 6.82 s).
+        # Re-measure with ffmpeg `silencedetect` if the words change.
+        PHASE_FRACTION: 0.39 # the slide, landing on "Sideways is phase"
+        COS_FRACTION: 0.46 # the cosine drawing and holding, over its own sentence
+
+        FIXED_MS: "VIDEO_MARGIN * 2"
+        BODY_MS: "narration.duration - FIXED_MS"
+        PHASE_MS: "trunc(BODY_MS * PHASE_FRACTION)"
+        COS_MS: "trunc(BODY_MS * COS_FRACTION)"
+
+        # Whatever the first two leave — the vertical slide, which starts exactly where
+        # "Upward is offset" begins.
+        OFFSET_MS: "trunc(BODY_MS - PHASE_MS - COS_MS)"
+
+        # The cosine draws in the first third of its span and holds for the rest, so it
+        # is settled and coincident for most of the sentence that claims it.
+        FADE_MS: "trunc(COS_MS / 3)"
+
+        # ── The tag box ───────────────────────────────────────────────────────────
+        TAG_X: 980
+        TAG_Y: 152
+        TAG_WIDTH: 190
+        TAG_HEIGHT: 56
+        TAG_PADDING: 12
+
+        # ── The capability legend ─────────────────────────────────────────────────
+        # Below the tick row, in the one band no curve can reach: the plot's own area
+        # ends at y = 620, and beat 2's ±2 amplitude fills it, so there is no in-plot
+        # corner that stays clear across all four beats.
+        CHIP_X: 120
+        CHIP_Y: 650
+        CHIP_WIDTH: 430
+        CHIP_HEIGHT: 58
+        CHIP_PADDING: 9
+
+animation:
+    defaults:
+        assets:
+            scene: plot
+
+    annotations:
+        # A note with NO pointer is just an author-sized box — the legend points at
+        # nothing because it is about the whole beat, not about one mark on it.
+        chip_capability:
+            note:
+                text: chip_text
+                shape:
+                    rect:
+                        width: CHIP_WIDTH
+                        height: CHIP_HEIGHT
+                padding: CHIP_PADDING
+                align: left
+            at:
+                x: CHIP_X
+                y: CHIP_Y
+            origin: top_left
+            fill: "#16130f"
+            stroke: "#57534e"
+            stroke_width: 1
+
+        wave:
+            curve:
+                function:
+                    expression: "sin(radians(x))"
+                    domain:
+                        from: 0
+                        to: SINE_DOMAIN_TO
+                samples: SAMPLES
+                scale:
+                    x: PLOT_XS
+                    y: PLOT_YS
+            origin: zero
+            at:
+                x: PLOT_X0
+                y: PLOT_Y0
+            stroke: 'css("kg-wave-live")'
+            stroke_width: 'css("kg-wave-width")'
+
+        # Its own equation, independently sampled. It is laid over the shifted sine
+        # and must land on it exactly — which is the point being made.
+        wave_cos:
+            curve:
+                function:
+                    expression: "cos(radians(x))"
+                    domain:
+                        from: 0
+                        to: DOMAIN_TO
+                samples: SAMPLES
+                scale:
+                    x: PLOT_XS
+                    y: PLOT_YS
+            origin: zero
+            at:
+                x: PLOT_X0
+                y: PLOT_Y0
+            stroke: 'css("kg-wave-alt")'
+            stroke_width: 'css("kg-wave-alt-width")'
+
+        tag_phase:
+            note:
+                text: tag_phase_text
+                shape:
+                    rect:
+                        width: TAG_WIDTH
+                        height: TAG_HEIGHT
+                padding: TAG_PADDING
+                align: center
+            at:
+                x: TAG_X
+                y: TAG_Y
+            origin: top_left
+            fill: "#161b22"
+            stroke: "#58a6ff"
+            stroke_width: 1.5
+        tag_cos:
+            note:
+                text: tag_cos_text
+                shape:
+                    rect:
+                        width: TAG_WIDTH
+                        height: TAG_HEIGHT
+                padding: TAG_PADDING
+                align: center
+            at:
+                x: TAG_X
+                y: TAG_Y
+            origin: top_left
+            fill: "#161b22"
+            stroke: "#d2a8ff"
+            stroke_width: 1.5
+        tag_offset:
+            note:
+                text: tag_offset_text
+                shape:
+                    rect:
+                        width: TAG_WIDTH
+                        height: TAG_HEIGHT
+                padding: TAG_PADDING
+                align: center
+            at:
+                x: TAG_X
+                y: TAG_Y
+            origin: top_left
+            fill: "#161b22"
+            stroke: "#58a6ff"
+            stroke_width: 1.5
+
+    timeline:
+        0 @ setup_ts:
+            - plot:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - frame_layer:
+                  - show:
+                        opacity: 1
+            - chip_capability:
+                  - show:
+                        opacity: 1
+            - wave:
+                  - show:
+                        opacity: 1
+            - wave_cos:
+                  - show:
+                        opacity: 0
+            - tag_phase:
+                  - show:
+                        opacity: 0
+            - tag_cos:
+                  - show:
+                        opacity: 0
+            - tag_offset:
+                  - show:
+                        opacity: 0
+
+        # ── C — the wave slides a quarter cycle left ──────────────────────────────
+        # A translation, so it glides. Nothing about the curve's shape is recomputed.
+        setup_ts.end @ phase_ts:
+            - wave:
+                  - move:
+                        to:
+                            dx: PHASE_DX
+                        duration: PHASE_MS
+                        easing: ease_in_out_cubic
+            - tag_phase:
+                  - show:
+                        opacity: 1
+                        duration: FADE_MS
+
+        # ── The cosine lands on it ────────────────────────────────────────────────
+        # Two expressions, two samplings, one curve on screen.
+        phase_ts.end @ cos_ts:
+            - wave_cos:
+                  - show:
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        duration: FADE_MS
+                        easing: ease_out_quad
+                        hold:
+                            after: "COS_MS - FADE_MS"
+            - tag_phase:
+                  - show:
+                        opacity: 0
+                        duration: FADE_MS
+            - tag_cos:
+                  - show:
+                        opacity: 1
+                        duration: FADE_MS
+
+        # ── D — both slide up together ────────────────────────────────────────────
+        # They move as one because they ARE one; a shift that separated them would
+        # have disproved the beat.
+        cos_ts.end @ offset_ts:
+            - wave:
+                  - move:
+                        to:
+                            dy: OFFSET_DY
+                        duration: OFFSET_MS
+                        easing: ease_in_out_cubic
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - wave_cos:
+                  - move:
+                        to:
+                            dy: OFFSET_DY
+                        duration: OFFSET_MS
+                        easing: ease_in_out_cubic
+            - tag_cos:
+                  - show:
+                        opacity: 0
+                        duration: FADE_MS
+            - tag_offset:
+                  - show:
+                        opacity: 1
+                        duration: FADE_MS
+
+    capture:
+        video_beat_04_shift:
+            output: "./video/beat_04_shift.mp4"
+            fps: 30

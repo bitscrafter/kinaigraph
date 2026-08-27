@@ -1,0 +1,70 @@
+# ------------------------------------------
+# wave-anatomy — Audio Generation
+# ------------------------------------------
+# Generates the narration for the four beats. Run ONCE, before rendering them, and
+# again whenever a script changes.
+#
+# This is the FIRST step of the build, not an afterthought, because the narration is
+# what each beat is timed to. Every scene declares its own line as an audio asset and
+# derives its beats from that clip's probed `.duration`, so the visuals stretch to the
+# voice rather than the voice being trimmed to fit. Re-record a line and the scene
+# re-fits itself on the next render; nothing is measured by hand and pasted across.
+#
+#     ./kinaigraph scene_00_tts_generation.yaml -outdir .
+#
+# Needs ELEVENLABS_API_KEY in the environment. Every run costs credits and calls out to
+# the provider, so it is deliberately a separate file from the scenes — re-rendering a
+# beat must not re-synthesise audio that did not change.
+#
+# ⚠️ The FOUR LINES TOGETHER are the budget: the stitched piece lands between 25 and 35
+# seconds, so the scripts total about 77 words. That is the reason every sentence here is
+# short and every list is bare — "A half. One. Two." is three parameter values in four
+# words, and the wave does the explaining. A line that runs long does not just cost its
+# own beat; it spends the whole piece, because the visuals stretch to the voice.
+
+metadata:
+    title: "Wave Anatomy - Audio Generation"
+    description: "Generate the narration for the four wave-anatomy beats"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        # Beat 1 — the wave, and the line that wrote it. Establishes the vocabulary
+        # (cycle, crossing, peak) the other three beats spend, and closes on the
+        # source: the authored expression IS the mathematics.
+        audio_beat_01_wave:
+            file: "./script/beat_01_wave.txt"
+            export: "./audio/beat_01_wave.mp3"
+
+        # Beat 2 — amplitude. The parameter that changes height and nothing else;
+        # the crossings holding still is the whole lesson.
+        audio_beat_02_amplitude:
+            file: "./script/beat_02_amplitude.txt"
+            export: "./audio/beat_02_amplitude.mp3"
+
+        # Beat 3 — frequency. The mirror of beat 2: cycles multiply, height holds.
+        # Named against amplitude so the pair reads as one idea in two places.
+        audio_beat_03_frequency:
+            file: "./script/beat_03_frequency.txt"
+            export: "./audio/beat_03_frequency.mp3"
+
+        # Beat 4 — phase and offset. Both are translation, and the payoff is that
+        # a quarter-turn of phase turns the sine into the cosine.
+        audio_beat_04_shift:
+            file: "./script/beat_04_shift.txt"
+            export: "./audio/beat_04_shift.mp3"

@@ -1,0 +1,165 @@
+# ------------------------------------------
+# hiking-trails — Stitch (the headline deliverable)
+# ------------------------------------------
+# One continuous video sequencing the three route animations in signpost order:
+# Summit Peak, Serenity Lake, Viewpoint Rest Stop. A plain sequential `roll` of the
+# video assets concatenates the visuals — and, once each scene carries narration, its
+# audio too, since a roll plays the clip whole.
+#
+# Timeline keys are expression-driven from each clip's probed `.duration` (populated by
+# the Pass-3 media inspector). Because a full `roll:` plays exactly `<clip>.duration`
+# and the next entry starts at the previous bookmark's `.end`, every boundary satisfies
+# the composition no-gaps rule (t_n + d_n == t_{n+1}, millisecond-exact) by
+# construction — and the offsets self-adjust whenever one scene is re-rendered to a new
+# length. Re-time a route and this file needs no edit.
+#
+# PREREQUISITE: render all three route scenes first. Their mp4s must exist for the
+# inspector to probe each clip's duration at compile time; a missing clip fails here,
+# not silently at playback.
+#
+# WHEN NARRATION LANDS: repoint each asset below at that scene's `*_composition.mp4`
+# (the animation with its narration already mixed in) rather than the bare
+# `*_animation.mp4`. Nothing else in this file changes — the durations re-probe
+# themselves.
+
+defs:
+    assets:
+        # Each route renders to its own outdir, so the three clips do not collide.
+        summit:
+            type: video
+            file: "./out/video/scene_summit_animation.mp4"
+        lake:
+            type: video
+            file: "./out/video/scene_lake_animation.mp4"
+        rest:
+            type: video
+            file: "./out/video/scene_rest_animation.mp4"
+
+        # The narration. Each route scene already sized ITSELF to one of these — the
+        # clip is as long as the line — so mixing each onto its own clip lands the
+        # voice against the pictures it describes without a single authored offset.
+        narration_summit:
+            type: audio
+            file: "./audio/route_01_summit.mp3"
+        narration_lake:
+            type: audio
+            file: "./audio/route_02_lake.mp3"
+        narration_rest:
+            type: audio
+            file: "./audio/route_03_rest.mp3"
+
+        # Forest ambience under the whole piece. NOT committed — see the README; fetch
+        # it from Pixabay and drop it here under this exact name.
+        ambience:
+            type: audio
+            file: "./resources/audio/soundreality-birds-forest-nature-445379.mp3"
+
+    const:
+        # The bed sits far enough down that the narration never fights it. It is
+        # ambience, not music — birdsong under a walk — so it wants to be barely
+        # noticed rather than mixed as a score.
+        BED_VOLUME: 0.16
+        # How long the bed takes to arrive and to leave. A ranged volume ramps across
+        # the mix's SPAN, so a mix riding a whole clip fades across that whole clip —
+        # which put the bed below full level for most of the piece and left it barely
+        # audible. Scoping the ramp to its own short span instead, and running a flat
+        # mix over the remainder, holds the bed at full level for all but three seconds.
+        BED_FADE_MS: 1500
+
+composition:
+    context:
+        status: active
+
+    # Signpost order — the same order the boards read on the map, so a viewer who
+    # noticed the signpost sees the routes arrive in the order it promised.
+    #
+    # Every clip carries TWO mixes: its own narration line, and a slice of the shared
+    # ambience bed. The bed is sliced rather than laid down once because a mix's `span`
+    # is SEGMENT time — a range within the clip it rides — not output time, so no
+    # single mix can reach across three separate roll entries. Giving each clip the
+    # slice that follows the previous one makes the bed continuous across the cut: the
+    # source offsets are expressions over the clips' own probed durations, so a
+    # re-rendered route shifts the later slices automatically and the ambience never
+    # jumps or repeats at a boundary.
+    timeline:
+        "0 @ summit_bk":
+            - summit:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_summit
+                  # The bed arrives over a short swell, then holds. Two mixes rather
+                  # than one because the ramp and the steady level need different
+                  # spans; their source ranges abut, so the ambience is continuous.
+                  - mix:
+                        span:
+                            from: 0
+                            to: BED_FADE_MS
+                        easing: ease_out_quad
+                        asset:
+                            name: ambience
+                            volume:
+                                from: 0
+                                to: BED_VOLUME
+                            span:
+                                from: 0
+                                to: BED_FADE_MS
+                  - mix:
+                        span:
+                            from: BED_FADE_MS
+                            to: "summit.duration"
+                        asset:
+                            name: ambience
+                            volume: BED_VOLUME
+                            span:
+                                from: BED_FADE_MS
+                                to: "summit.duration"
+        "summit_bk.end @ lake_bk":
+            - lake:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_lake
+                  - mix:
+                        asset:
+                            name: ambience
+                            volume: BED_VOLUME
+                            # Picks up exactly where the summit slice stopped.
+                            span:
+                                from: "summit.duration"
+                                to: "summit.duration + lake.duration"
+        "lake_bk.end @ rest_bk":
+            - rest:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_rest
+                  # Holds, then ebbs away under the last callout rather than cutting.
+                  - mix:
+                        span:
+                            from: 0
+                            to: "rest.duration - BED_FADE_MS"
+                        asset:
+                            name: ambience
+                            volume: BED_VOLUME
+                            span:
+                                from: "summit.duration + lake.duration"
+                                to: "summit.duration + lake.duration + rest.duration - BED_FADE_MS"
+                  - mix:
+                        span:
+                            from: "rest.duration - BED_FADE_MS"
+                            to: "rest.duration"
+                        easing: ease_in_quad
+                        asset:
+                            name: ambience
+                            volume:
+                                from: BED_VOLUME
+                                to: 0
+                            span:
+                                from: "summit.duration + lake.duration + rest.duration - BED_FADE_MS"
+                                to: "summit.duration + lake.duration + rest.duration"
+
+    capture:
+        video_hiking_trails_full:
+            output: "./video/hiking_trails_full.mp4"
+            fps: 30

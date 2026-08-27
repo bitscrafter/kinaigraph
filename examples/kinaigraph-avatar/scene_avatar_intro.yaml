@@ -1,0 +1,295 @@
+# ------------------------------------------
+# Presenter Avatar - Intro Scene (v2)
+# ------------------------------------------
+# Three stacked layers sharing the 0 0 1280 720 viewBox (bottom to top):
+#   backdrop.svg      background + static wordmark
+#   pitch_text.svg    the narration text, one actor per spoken sentence
+#   avatar_layer.svg  transparent presenter bubble, bottom-right
+#
+# Fixes from the first compile pass:
+#   - backdrop layer added (avatar layer alone rendered on default white)
+#   - every "reveal" pulse is paired with a counter-pulse hiding the resting
+#     shape: mouth-open 0->1 runs against mouth-closed 1->0 (same cycles, same
+#     window, so they stay phase-locked); each eyes-closed blink runs against
+#     an eyes-open 1->0 pulse with identical hold/duration
+#   - TALK_CYCLES lowered 55 -> 30 (~1.2 flaps/sec on a ~26s narration)
+#
+# Beats: setup (both layers up, quiet head margin) -> talk (narration; text
+# lines reveal at fractions of the narration; mouth/breathe/blink) ->
+# tear_down (fade, quiet tail margin).
+
+defs:
+    assets:
+        backdrop:
+            type: "scene"
+            file: "./resources/backdrop.svg"
+
+        pitch_text:
+            type: "scene"
+            file: "./resources/pitch_text.svg"
+
+        avatar_layer:
+            type: "scene"
+            file: "./resources/avatar_layer.svg"
+
+        # --- pitch text actors (one per spoken sentence) ---
+        line_1:
+            type: "actor"
+            part_of: pitch_text
+            id: line-1
+        line_2:
+            type: "actor"
+            part_of: pitch_text
+            id: line-2
+        line_3:
+            type: "actor"
+            part_of: pitch_text
+            id: line-3
+        line_4:
+            type: "actor"
+            part_of: pitch_text
+            id: line-4
+
+        # --- avatar actors ---
+        presenter:
+            type: "actor"
+            part_of: avatar_layer
+            id: presenter
+            origin: center
+        mouth_open:
+            type: "actor"
+            part_of: avatar_layer
+            id: mouth-open
+        mouth_mid:
+            type: "actor"
+            part_of: avatar_layer
+            id: mouth-mid
+        mouth_closed:
+            type: "actor"
+            part_of: avatar_layer
+            id: mouth-closed
+        eyes_open:
+            type: "actor"
+            part_of: avatar_layer
+            id: eyes-open
+        eyes_closed:
+            type: "actor"
+            part_of: avatar_layer
+            id: eyes-closed
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+
+        style:
+            type: "style"
+            file: "./resources/css/theme_dark.css"
+
+        audio_intro:
+            type: "audio"
+            file: "./audio/avatar_intro.mp3"
+
+    const:
+        FADE_WINDOW: 750
+        VIDEO_MARGIN: 500
+
+        # Mouth flap cycles across the whole narration. ~26s narration at 30
+        # cycles ≈ 1.2 flaps/sec. Retune here.
+        TALK_CYCLES: 27 #30
+
+        # Gentle whole-bubble breathing cycles across the narration.
+        BREATHE_CYCLES: 8
+
+        # One blink's duration (close + open), ms.
+        BLINK_MS: 280
+
+        # Gap before the first blink / between blinks, ms.
+        BLINK_LEAD: 4000
+        BLINK_GAP: 7000
+
+animation:
+    defaults:
+        assets:
+            scene: avatar_layer
+
+    timeline:
+        # --- Stage: reference order fixes the z-order (backdrop at the
+        #     bottom, text above it, avatar on top); head VIDEO_MARGIN pad ---
+        0 @ setup_ts:
+            - backdrop:
+                  - show:
+                        opacity: 1
+                        hold:
+                            before: "VIDEO_MARGIN"
+            - pitch_text:
+                  - show:
+                        opacity: 1
+            - avatar_layer:
+                  - show:
+                        opacity: 1
+
+        # --- Talk: everything below spans the narration ---
+        setup_ts.end @ talk_ts:
+            # Kinetic type: each line reveals at a fraction of the narration.
+            - line_1:
+                  - show:
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 20
+                                  to:
+                                      dx: 0
+                                      dy: -20
+            - line_2:
+                  - show:
+                        hold:
+                            before: "(audio_intro.duration * 1 / 6) - 750"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 20
+                                  to:
+                                      dx: 0
+                                      dy: -20
+            - line_3:
+                  - show:
+                        hold:
+                            before: "(audio_intro.duration * 3 / 6) - 750"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 20
+                                  to:
+                                      dx: 0
+                                      dy: -20
+            - line_4:
+                  - show:
+                        hold:
+                            before: "(audio_intro.duration * 5 / 6) - 750"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 20
+                                  to:
+                                      dx: 0
+                                      dy: -20
+
+            # Breathing: subtle scale pulse on the whole bubble.
+            - presenter:
+                  - pulse:
+                        duration: "audio_intro.duration"
+                        cycles: BREATHE_CYCLES
+                        scale:
+                            from: 1
+                            to: 1.015
+
+            # Talking: open mouth up while the smile goes down — same cycles,
+            # same window, phase-locked.
+            - mouth_closed:
+                  - pulse:
+                        duration: "audio_intro.duration"
+                        cycles: TALK_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0
+            - mouth_mid:
+                  - pulse:
+                        duration: "audio_intro.duration"
+                        cycles: TALK_CYCLES
+                        opacity:
+                            from: 0
+                            to: 0.5
+            - mouth_open:
+                  - pulse:
+                        duration: "audio_intro.duration"
+                        cycles: TALK_CYCLES
+                        opacity:
+                            from: 0
+                            to: 1
+
+            # Blinks: closed lids up while open eyes go down — identical
+            # hold/duration keeps each pair in lockstep. Same-type sub-entries
+            # run sequentially, so the second hold.before is measured from the
+            # end of the first blink.
+            - eyes_closed:
+                  - pulse:
+                        hold:
+                            before: BLINK_LEAD
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 0
+                            to: 1
+                  - pulse:
+                        hold:
+                            before: BLINK_GAP
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 0
+                            to: 1
+            - eyes_open:
+                  - pulse:
+                        hold:
+                            before: BLINK_LEAD
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 1
+                            to: 0
+                  - pulse:
+                        hold:
+                            before: BLINK_GAP
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 1
+                            to: 0
+
+        # --- Tear-down: both layers fade; tail VIDEO_MARGIN pad of quiet ---
+        talk_ts.end @ tear_down_ts:
+            - backdrop:
+                  - show:
+                        hold:
+                            after: "VIDEO_MARGIN"
+                        opacity: 1
+
+    capture:
+        video_animated_avatar_intro:
+            output: "./video/avatar_intro_animation.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        "0":
+            - video_animated_avatar_intro:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::talk_ts.start"
+                        asset: audio_intro
+
+    capture:
+        video_composition_avatar_intro:
+            output: "./video/avatar_intro_composition.mp4"
+            fps: 30

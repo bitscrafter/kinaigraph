@@ -1,0 +1,63 @@
+/* Kinaigraph Presenter Avatar - Dark Theme */
+
+:root {
+    /* Surfaces */
+    --kg-scene-bg: #1a1a1a;
+    --kg-bubble-bg: #2c2c2c;
+
+    /* Text */
+    --kg-text-title: #ffffff;
+    --kg-text-body: #a8a8a8;
+
+    /* Brand accent (wordmark square) */
+    --kg-accent: #d9a62c;
+
+    /* Typography */
+    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ============================================================
+   Element rules — apply the theme variables to the slide.
+   Without these, SVG <text>/<rect> fall back to fill: black and
+   vanish on the dark background.
+   ============================================================ */
+
+.scene-bg {
+    fill: var(--kg-scene-bg);
+}
+
+/* Avatar bubble (the circle behind the presenter) */
+.bubble {
+    fill: var(--kg-bubble-bg);
+}
+
+/* Wordmark (top-left) */
+.wordmark-dot {
+    fill: var(--kg-accent);
+}
+.wordmark text {
+    fill: var(--kg-text-title);
+    font-family: var(--kg-font-family);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+/* Heading */
+.line-1 {
+    fill: var(--kg-text-title);
+    font-family: var(--kg-font-family);
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+/* Body */
+.line-2,
+.line-3,
+.line-4 {
+    fill: var(--kg-text-body);
+    font-family: var(--kg-font-family);
+    font-size: 27px;
+    font-weight: 400;
+}

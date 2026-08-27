@@ -1,0 +1,91 @@
+# ------------------------------------------
+# wave-anatomy — Stitch (the headline deliverable)
+# ------------------------------------------
+# The four beats in equation order — the wave, then A, then B, then C and D — as one
+# continuous piece running between 25 and 35 seconds. That budget is the whole reason
+# the scripts are as short as they are: the four lines total about 78 words, and every
+# beat's visuals are sized from its own line, so the piece is as long as the narration
+# and not a second longer.
+#
+# A plain sequential `roll` concatenates the visuals; each clip carries its own
+# narration as a `mix`. No ambience bed — a lesson wants a quiet room, and the only
+# thing worth hearing under a wave is the sentence explaining it.
+#
+# Timeline keys are expression-driven from each clip's probed `.duration`. A full
+# `roll:` plays exactly `<clip>.duration` and the next entry starts at the previous
+# bookmark's `.end`, so every boundary satisfies the composition no-gaps rule by
+# construction. Re-record one line, re-render that beat, and the offsets re-derive
+# themselves — this file never needs an edit.
+#
+# PREREQUISITE: render all four beats first. Their mp4s must exist for the inspector
+# to probe each clip's duration at compile time; a missing clip fails here, loudly,
+# rather than silently at playback.
+
+defs:
+    assets:
+        beat_01:
+            type: video
+            file: "./out/video/beat_01_wave.mp4"
+        beat_02:
+            type: video
+            file: "./out/video/beat_02_amplitude.mp4"
+        beat_03:
+            type: video
+            file: "./out/video/beat_03_frequency.mp4"
+        beat_04:
+            type: video
+            file: "./out/video/beat_04_shift.mp4"
+
+        # Each beat already sized ITSELF to one of these lines, so mixing each onto its
+        # own clip lands the voice against the pictures it describes with no authored
+        # offset anywhere in this file.
+        narration_01:
+            type: audio
+            file: "./audio/beat_01_wave.mp3"
+        narration_02:
+            type: audio
+            file: "./audio/beat_02_amplitude.mp3"
+        narration_03:
+            type: audio
+            file: "./audio/beat_03_frequency.mp3"
+        narration_04:
+            type: audio
+            file: "./audio/beat_04_shift.mp3"
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        "0 @ beat_01_bk":
+            - beat_01:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_01
+
+        "beat_01_bk.end @ beat_02_bk":
+            - beat_02:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_02
+
+        "beat_02_bk.end @ beat_03_bk":
+            - beat_03:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_03
+
+        "beat_03_bk.end @ beat_04_bk":
+            - beat_04:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_04
+
+    capture:
+        video_wave_anatomy:
+            output: "./video/wave_anatomy.mp4"
+            fps: 30

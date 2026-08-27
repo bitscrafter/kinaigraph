@@ -1,0 +1,72 @@
+# ------------------------------------------
+# bio-journey — Stitch (the headline deliverable)
+# ------------------------------------------
+# One continuous video sequencing the three beats in reading order: who she is, what
+# she has done, where she might go. A plain sequential `roll` concatenates them.
+#
+# Each clip referenced here is a scene's COMPOSITION output, not its bare animation:
+# every beat already mixed its own narration, and a full `roll:` plays the clip whole,
+# audio included. So this file carries no mixes at all. That is the payoff of each
+# beat sizing itself to its own line — the voice is already against the pictures it
+# describes, and there is no offset here to keep in agreement with anything.
+#
+# Timeline keys are chained by bookmark rather than by timestamp. Because a full
+# `roll:` plays exactly `<clip>.duration` and each entry starts at the previous
+# bookmark's `.end`, every boundary satisfies the composition no-gaps rule
+# (t_n + d_n == t_{n+1}, millisecond-exact) by construction — and the offsets
+# self-adjust when any beat is re-rendered to a new length. Re-record one line and
+# this file needs no edit.
+#
+# PREREQUISITE: render all three beats first, each to the outdir named below. Their
+# mp4s must exist for the inspector to probe each clip's duration at compile time; a
+# missing clip fails here rather than silently at playback.
+#
+#     kinaigraph scene_01_intro.yaml    -outdir ./out
+#     kinaigraph scene_02_timeline.yaml -outdir ./out
+#     kinaigraph scene_03_map.yaml      -outdir ./out
+#     kinaigraph scene_stitch.yaml      -outdir ./out
+
+metadata:
+    title: "Bio Journey - Full Piece"
+    description: "The three beats stitched into one narrated video"
+    version: "1.0"
+
+defs:
+    assets:
+        # All four documents share ONE outdir. Nothing collides, because every capture
+        # names a distinct file under `video/`; only the intermediate `animation.html`
+        # is rewritten per run, and nothing reads it afterwards.
+        #
+        # These are the `video_*` COMPOSITION captures — each beat's animation with its
+        # narration already mixed in — which is why nothing is mixed here.
+        beat_intro:
+            type: video
+            file: "./out/video/scene_01_intro.mp4"
+        beat_timeline:
+            type: video
+            file: "./out/video/scene_02_timeline.mp4"
+        beat_map:
+            type: video
+            file: "./out/video/scene_03_map.mp4"
+
+composition:
+    context:
+        status: active
+
+    # Reading order, which is also narrative order: the card introduces her, the
+    # timeline earns the closing joke, and the map is the joke.
+    timeline:
+        "0 @ intro_bk":
+            - beat_intro:
+                  - roll:
+        "intro_bk.end @ timeline_bk":
+            - beat_timeline:
+                  - roll:
+        "timeline_bk.end @ map_bk":
+            - beat_map:
+                  - roll:
+
+    capture:
+        video_bio_journey_full:
+            output: "./video/bio_journey_full.mp4"
+            fps: 30

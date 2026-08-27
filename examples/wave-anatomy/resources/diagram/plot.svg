@@ -1,0 +1,90 @@
+<svg id="plot" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- The plot surface: grid, axes, ticks. Nothing here is a wave — every curve in
+       this example is GENERATED from its equation by an annotation, never drawn.
+       That separation is the point of the example, so it is also the rule for this
+       file: if it can be computed, it does not belong here.
+
+       ⚠️ Geometry contract, shared with every scene file. Change a number here and the
+       matching const in the scenes must change with it:
+
+         plot origin (0°, y=0) ....... (120, 380)   → PLOT_X0 / PLOT_Y0
+         x span ...................... 360° over 1060px  → PLOT_XS = 1060 / 360
+         y unit ...................... 1 amplitude unit = 120px  → PLOT_YS
+         headroom .................... ±2 units fits (140..620)
+
+       The window is exactly ONE cycle of the base wave, so "one cycle" in the narration
+       is the whole plot and a frequency of three shows three. Grid verticals fall every
+       45°.
+
+       The x tick labels sit BELOW the grid rather than under the axis, because a wave
+       crosses the axis repeatedly and would run through them every cycle.
+
+       ⚠️ The Y SCALE IS NOT HERE — it lives in `frame_layer.svg`, which is declared
+       after this surface and therefore draws above the curves. A beat that translates
+       a wave slides it out through the window edge, and the labels have to survive
+       being slid over.
+
+       Theming: each element carries a class; the style block maps it to kg-* theme
+       variables. The grid is deliberately dim and the axes deliberately are not — the
+       grid is scaffolding for the eye, the axes are what everything is measured
+       against, and they are the only warm element on screen so the two never blur. -->
+
+  <style>
+    .plot-bg    { fill: var(--kg-scene-bg, #0d1117); }
+
+    .grid line  { stroke: var(--kg-grid, #21262d); stroke-width: var(--kg-grid-width, 1); }
+
+    .axis line  { stroke: var(--kg-axis, #a1764a); stroke-width: var(--kg-axis-width, 2.5); stroke-linecap: square; }
+
+    .tick       { fill: var(--kg-tick-text, #6e7681);
+                  font-family: var(--kg-font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+                  font-size: 17px; }
+    .tick-x     { text-anchor: middle; }
+    .tick-y     { text-anchor: end; }
+
+    .plot-title { fill: var(--kg-text-title, #e6edf3);
+                  font-family: var(--kg-font-family, system-ui, sans-serif);
+                  font-size: 30px; font-weight: 600; text-anchor: middle; }
+  </style>
+
+  <rect id="plot-bg" class="plot-bg" x="0" y="0" width="1280" height="720"/>
+
+  <text id="plot-title" class="plot-title" x="640" y="62">y = A · sin( B · (x − C) ) + D</text>
+
+  <!-- Grid: every 45° across, every half amplitude unit down. -->
+  <g id="grid" class="grid">
+    <line x1="120"    y1="140" x2="120"    y2="620"/>
+    <line x1="252.5"  y1="140" x2="252.5"  y2="620"/>
+    <line x1="385"    y1="140" x2="385"    y2="620"/>
+    <line x1="517.5"  y1="140" x2="517.5"  y2="620"/>
+    <line x1="650"    y1="140" x2="650"    y2="620"/>
+    <line x1="782.5"  y1="140" x2="782.5"  y2="620"/>
+    <line x1="915"    y1="140" x2="915"    y2="620"/>
+    <line x1="1047.5" y1="140" x2="1047.5" y2="620"/>
+    <line x1="1180"   y1="140" x2="1180"   y2="620"/>
+
+    <line x1="120" y1="140" x2="1180" y2="140"/>
+    <line x1="120" y1="200" x2="1180" y2="200"/>
+    <line x1="120" y1="260" x2="1180" y2="260"/>
+    <line x1="120" y1="320" x2="1180" y2="320"/>
+    <line x1="120" y1="440" x2="1180" y2="440"/>
+    <line x1="120" y1="500" x2="1180" y2="500"/>
+    <line x1="120" y1="560" x2="1180" y2="560"/>
+    <line x1="120" y1="620" x2="1180" y2="620"/>
+  </g>
+
+  <!-- Axes. The horizontal one is the centre line the whole example refers to. -->
+  <g id="axes" class="axis">
+    <line id="axis-x" x1="104" y1="380" x2="1196" y2="380"/>
+    <line id="axis-y" x1="120" y1="124" x2="120"  y2="636"/>
+  </g>
+
+  <g id="ticks-x">
+    <text class="tick tick-x" x="120"  y="646">0°</text>
+    <text class="tick tick-x" x="385"  y="646">90°</text>
+    <text class="tick tick-x" x="650"  y="646">180°</text>
+    <text class="tick tick-x" x="915"  y="646">270°</text>
+    <text class="tick tick-x" x="1180" y="646">360°</text>
+  </g>
+
+</svg>

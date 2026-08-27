@@ -174,8 +174,10 @@ animation:
         chip_capability:
             note:
                 text: chip_capability_text
-                width: CHIP_WIDTH
-                height: CHIP_HEIGHT
+                shape:
+                    rect:
+                        width: CHIP_WIDTH
+                        height: CHIP_HEIGHT
                 padding: CHIP_PADDING
                 align: left
             at:

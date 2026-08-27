@@ -1,0 +1,234 @@
+/*
+  bio-journey — shared theme.
+  ---------------------------------------------------------------------------
+  One stylesheet for all three beats, attached to the template so the intro card,
+  the career timeline and the flight map inherit one palette. Beat-specific colour
+  lives in a custom property here rather than in the artwork, so a re-skin is this
+  file and nothing else.
+
+  Custom properties named `--kg-*` are readable from a scene with `css("kg-name")`,
+  which is how a pulse or a stroke animation gets its target value without the
+  figure being written twice.
+*/
+
+:root {
+    /* ── Page / stage ─────────────────────────────────────────────────────── */
+    --kg-page-bg: #0b1220;
+    --kg-scene-bg: #0b1220;
+
+    /* ── Type ─────────────────────────────────────────────────────────────── */
+    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --kg-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --kg-text-title: #f4f7fb;
+    --kg-text-body: #c7d3e2;
+    --kg-text-muted: #7d8ea6;
+
+    /* ── Map layers ───────────────────────────────────────────────────────── */
+    --kg-ocean: #0e1826;
+    --kg-land: #1d2b3d;
+    --kg-land-stroke: #2b3d55;
+    --kg-graticule: #8fa8c8;
+
+    /* ── Per-destination hues ─────────────────────────────────────────────────
+       Each route is one hue: the drawn line, and a lighter tone for the plane and
+       the arrival ring. Honolulu is the warmer of the two on purpose — it is the
+       first flight and the brighter joke. */
+    --kg-honolulu: #f2a04b;
+    --kg-honolulu-bright: #ffc784;
+    --kg-paris: #5bc0be;
+    --kg-paris-bright: #8fe3e1;
+
+    /* ── Callouts ─────────────────────────────────────────────────────────── */
+    --kg-note-bg: #142033;
+    --kg-note-stroke: #3c5a7d;
+    --kg-chip-bg: #101a2b;
+    --kg-chip-stroke: #35506e;
+
+    /* ── Animation targets read by `css()` ────────────────────────────────── */
+    --kg-arrive-stroke: #ffd9a0;
+    --kg-pulse-stroke-width: 3;
+}
+
+/* ── Map backdrop ─────────────────────────────────────────────────────────── */
+.map-ocean {
+    fill: var(--kg-ocean);
+}
+
+.map-graticule path {
+    fill: none;
+    stroke: var(--kg-graticule);
+    stroke-width: 1;
+    /* Faint enough to read as a grid rather than as content: the graticule is
+       there to say "this is a map", not to be measured. */
+    opacity: 0.08;
+}
+
+.map-land path {
+    fill: var(--kg-land);
+    stroke: var(--kg-land-stroke);
+    stroke-width: 1;
+}
+
+/* ── Flight routes ────────────────────────────────────────────────────────── */
+/* The casing sits under the line so a route stays legible where it crosses land. */
+.flight-casing {
+    fill: none;
+    stroke: var(--kg-ocean);
+    stroke-width: 7;
+    stroke-linecap: round;
+    opacity: 0.85;
+}
+
+.flight-line {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    /* Dashed, because a route on a map is a plan rather than a drawn object — and
+       it is the idiom every airline map already uses. */
+    stroke-dasharray: 9 7;
+}
+
+.flight-line-honolulu {
+    stroke: var(--kg-honolulu);
+}
+
+.flight-line-paris {
+    stroke: var(--kg-paris);
+}
+
+/* ── City markers ─────────────────────────────────────────────────────────── */
+.city-dot {
+    fill: var(--kg-text-title);
+}
+
+.city-halo {
+    fill: none;
+    stroke: var(--kg-text-title);
+    stroke-width: 1.5;
+    opacity: 0.35;
+}
+
+.city-label {
+    font-family: var(--kg-font-family);
+    font-size: 19px;
+    font-weight: 600;
+    fill: var(--kg-text-body);
+}
+
+.arrive-ring {
+    fill: none;
+    stroke-width: 2.5;
+}
+
+.arrive-ring-honolulu {
+    stroke: var(--kg-honolulu-bright);
+}
+
+.arrive-ring-paris {
+    stroke: var(--kg-paris-bright);
+}
+
+/* ── Plane glyphs ─────────────────────────────────────────────────────────── */
+/* Authored pointing +x at rest — the engine's zero rotation — so `orient: auto`
+   needs no per-asset correction anywhere.
+   These set `color`, not `fill`: the glyph is a symbol element painted with
+   `fill="currentColor"` so that one shared definition can serve both routes. A
+   `fill` here would not reach inside the use element and the plane renders black.
+   (Angle brackets are kept out of this file on purpose — the stylesheet gets
+   inlined into a style element, where a stray `<` is a parse hazard.) */
+.plane-honolulu {
+    color: var(--kg-honolulu-bright);
+}
+
+.plane-paris {
+    color: var(--kg-paris-bright);
+}
+
+/* ── Career timeline (beat 2) ─────────────────────────────────────────────── */
+.tl-bg {
+    fill: var(--kg-scene-bg);
+}
+
+.tl-axis {
+    stroke: var(--kg-note-stroke);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+/* The tail past the present. Dashed, and in the accent hue rather than the axis
+   grey, so it reads as "still going" rather than as more timeline. */
+.tl-future {
+    stroke: var(--kg-honolulu);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 9 9;
+    opacity: 0.55;
+}
+
+.tl-dot {
+    fill: var(--kg-text-body);
+    stroke: var(--kg-scene-bg);
+    stroke-width: 3;
+}
+
+.tl-dot-now {
+    fill: var(--kg-honolulu);
+}
+
+.tl-year {
+    font-family: var(--kg-font-family);
+    font-size: 34px;
+    font-weight: 700;
+    fill: var(--kg-text-muted);
+    letter-spacing: 1px;
+}
+
+.tl-year-now {
+    fill: var(--kg-honolulu);
+}
+
+.tl-role {
+    font-family: var(--kg-font-family);
+    font-size: 27px;
+    font-weight: 400;
+    fill: var(--kg-text-body);
+}
+
+.tl-role-now {
+    font-weight: 600;
+    fill: var(--kg-text-title);
+}
+
+/* ── Intro card ───────────────────────────────────────────────────────────── */
+.intro-bg {
+    fill: var(--kg-scene-bg);
+}
+
+.intro-name {
+    font-family: var(--kg-font-family);
+    font-size: 92px;
+    font-weight: 700;
+    fill: var(--kg-text-title);
+    letter-spacing: -1.5px;
+}
+
+.intro-role {
+    font-family: var(--kg-font-family);
+    font-size: 38px;
+    font-weight: 500;
+    fill: var(--kg-honolulu);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.intro-meta {
+    font-family: var(--kg-font-family);
+    font-size: 28px;
+    font-weight: 400;
+    fill: var(--kg-text-muted);
+}
+
+.intro-rule {
+    stroke: var(--kg-note-stroke);
+    stroke-width: 2;
+}

@@ -1,0 +1,66 @@
+# ------------------------------------------
+# hiking-trails — Audio Generation
+# ------------------------------------------
+# Generates the narration for the three route scenes. Run ONCE, before rendering them,
+# and again whenever a script changes.
+#
+# This file is the FIRST step of the build, not an afterthought, because the narration
+# is what the animations are timed to. Each route scene declares its own line as an
+# audio asset and derives its callout dwell from that clip's probed `.duration`, so the
+# visuals stretch to the voice rather than the voice being trimmed to the visuals.
+# Re-record a line and the scene re-fits itself on the next render; nothing is measured
+# by hand and pasted across.
+#
+# One line per route, written to that route's SHARE of the total walking distance —
+# Summit is the longest trail and carries the longest line, the lake the shortest. That
+# is what lets all three ride at ONE walking pace and still add up to the target run
+# time: the pace is fixed by geometry, and the words are what flex.
+#
+#     ./kinaigraph scene_00_tts_generation.yaml
+#
+# Needs ELEVENLABS_API_KEY in the environment. Every run costs credits and calls out to
+# the provider, so it is deliberately a separate file from the scenes — re-rendering a
+# route must not re-synthesise audio that did not change.
+
+metadata:
+    title: "Hiking Trails - Audio Generation"
+    description: "Generate the narration for the three route showcase scenes"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        # Route 1 — Summit Peak. The longest trail, so the longest line. Carries the
+        # orientation beat: the marker turning onto the tangent as it takes the bend,
+        # and the solid/ghost handoff as the pines hide it.
+        audio_route_01_summit:
+            file: "./script/route_01_summit.txt"
+            export: "./audio/route_01_summit.mp3"
+
+        # Route 2 — Serenity Lake. The shortest trail and the shortest line. Its point
+        # is what ISN'T here: no hidden stretch, no ghost, nothing new authored — the
+        # trace alone is what differs from the summit.
+        audio_route_02_lake:
+            file: "./script/route_02_lake.txt"
+            export: "./audio/route_02_lake.mp3"
+
+        # Route 3 — Viewpoint Rest Stop. Carries the callout beat: the note drawing
+        # itself on, and its pointer resolving against the marker rather than a
+        # coordinate.
+        audio_route_03_rest:
+            file: "./script/route_03_rest.txt"
+            export: "./audio/route_03_rest.mp3"

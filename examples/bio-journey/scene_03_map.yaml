@@ -1,0 +1,326 @@
+# ------------------------------------------
+# bio-journey — Beat 3: the flight map
+# ------------------------------------------
+# The closing joke. Two planes leave Austin at once, one west to Honolulu and one
+# east to Paris, and each lands on a ring that pulses as it arrives.
+#
+# What this beat is a good place to NOTICE is two riders sharing one origin. The
+# three route scenes in `hiking-trails` each walk one marker down one trail and cut
+# between them; here both flights are in the air at the same time, which is what
+# concurrency looks like structurally: the two departures are SEPARATE timeline
+# entries chained off one bookmark, because actions inside a single entry sequence.
+# Nothing about the two flights is coordinated by hand — they share a pace constant
+# and diverge because their arcs differ in length.
+#
+# The other thing worth noticing is that no arc is authored. Both routes are true
+# great circles computed between city coordinates by
+# `resources/diagram/make_map_svg.py`, which also prints the city pixel positions the
+# marker layer uses and the arc lengths this file divides by a pace. Move a city and
+# re-run: the drawn line, the flown line and the marker all move together, because
+# they come from the same projection.
+#
+# Layer order is DECLARATION order below (painter's algorithm): map, then routes,
+# then markers. Declare the markers last or the routes paint over their own planes.
+#
+#     kinaigraph scene_03_map.yaml -outdir ./out
+
+metadata:
+    title: "Bio Journey - Beat 3: The Flight Map"
+    description: "Two concurrent flights out of Austin - Honolulu and Paris"
+    version: "1.0"
+
+defs:
+    assets:
+        # ── Layers ────────────────────────────────────────────────────────────────
+        # world_map.svg and flights_layer.svg are GENERATED; markers_flights.svg is
+        # hand-authored. Keeping the glyphs out of the generated files is what lets the
+        # map be re-framed and the routes re-computed without clobbering them.
+        world_map:
+            type: "scene"
+            file: "./resources/diagram/world_map.svg"
+        flights_layer:
+            type: "scene"
+            file: "./resources/diagram/flights_layer.svg"
+        markers_flights:
+            type: "scene"
+            file: "./resources/diagram/markers_flights.svg"
+
+        # ── The routes ────────────────────────────────────────────────────────────
+        # Each route is a group (faded in as its plane departs) wrapping the path the
+        # plane rides. Only the inner path carries an id, because only it is ridden.
+        route_honolulu:
+            type: "actor"
+            part_of: flights_layer
+            id: flight-honolulu-group
+        route_honolulu_line:
+            type: "actor"
+            part_of: flights_layer
+            id: flight-honolulu
+        route_paris:
+            type: "actor"
+            part_of: flights_layer
+            id: flight-paris-group
+        route_paris_line:
+            type: "actor"
+            part_of: flights_layer
+            id: flight-paris
+
+        # ── The travellers ────────────────────────────────────────────────────────
+        # Both planes live in the marker layer but ride curves that live in the route
+        # overlay: move-along resolves an asset segment across scenes within a frame,
+        # so a rider and its rail need not share a file.
+        #
+        # `origin: center` because `orient: auto` turns the glyph about its own centre;
+        # without it the plane would swing about its top-left corner.
+        plane_honolulu:
+            type: "actor"
+            part_of: markers_flights
+            id: plane-honolulu
+            origin: center
+        plane_paris:
+            type: "actor"
+            part_of: markers_flights
+            id: plane-paris
+            origin: center
+
+        # Arrival rings, one per destination, separate actors from the city groups so a
+        # ring can pulse while its city dot stays put.
+        arrive_honolulu:
+            type: "actor"
+            part_of: markers_flights
+            id: arrive-honolulu
+            origin: center
+        arrive_paris:
+            type: "actor"
+            part_of: markers_flights
+            id: arrive-paris
+            origin: center
+
+        narration:
+            type: "audio"
+            file: "./audio/beat_03_map.mp3"
+
+        # ── Jet bed ───────────────────────────────────────────────────────────────
+        # COMMENTED OUT deliberately: the sound effect is an unpublished input, so a
+        # fresh clone does not have it and declaring it would fail the compile rather
+        # than degrade. Fetch the file named in the README into
+        # `resources/audio/`, then uncomment this asset AND its `mix` entry below.
+        #
+        # A bed under the whole beat rather than two doppler passes: the beat is about
+        # nine seconds and the narration owns it — two flybys fight the voice.
+        #
+        # jet_bed:
+        #     type: "audio"
+        #     file: "./resources/audio/jet-cabin-ambience-cc0.mp3"
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resources/css/theme_bio.css"
+
+    const:
+        # ── Pace ──────────────────────────────────────────────────────────────────
+        # ONE speed for both flights. It is the reason the two planes read as the same
+        # kind of aircraft: pace is fixed here and each leg's duration is DERIVED from
+        # it, rather than each flight carrying a duration that happens to agree.
+        #
+        # Paris is farther than Honolulu and therefore takes longer — that difference
+        # is geometry, not two authored numbers, and it is the point.
+        PACE_PX_PER_S: 250
+
+        # Arc lengths in pixels, printed by `resources/diagram/make_map_svg.py`. The
+        # one figure a re-frame still requires pasting across: there is no `.length` on
+        # a path in the language, so the geometry cannot supply it. Re-run the
+        # generator after ANY change to its projection bounds or CITIES table.
+        FLIGHT_HONOLULU_PX: 535.2
+        FLIGHT_PARIS_PX: 932.0
+
+        # ── Derived timings ───────────────────────────────────────────────────────
+        FLIGHT_HONOLULU_MS: "FLIGHT_HONOLULU_PX / PACE_PX_PER_S * 1000"
+        FLIGHT_PARIS_MS: "FLIGHT_PARIS_PX / PACE_PX_PER_S * 1000"
+
+        VIDEO_MARGIN: 350
+        FADE_WINDOW: 140
+        # The Paris departure lags the Honolulu one, because the narration names the
+        # destinations in that order ("Honolulu, maybe. Paris, someday."). They still
+        # overlap in the air — Honolulu is a third of the way across the Pacific when
+        # Paris leaves — so this is a stagger, not a sequence.
+        STAGGER_MS: 900
+        PULSE_MS: 1100
+        PULSE_CYCLES: 2
+
+        # ── The elastic term ──────────────────────────────────────────────────────
+        # Everything in the beat that is NOT the closing hold. The critical path runs
+        # through the PARIS flight, because it is the longer arc and the later
+        # departure: Honolulu has landed and finished pulsing well before Paris
+        # arrives.
+        FIXED_MS: "VIDEO_MARGIN * 2 + STAGGER_MS + FADE_WINDOW + PULSE_MS"
+        # Whatever the line has left over lands here, on the beat where both rings are
+        # lit and someone is reading the map. If a re-recorded line comes back shorter
+        # than the flights need, this goes NEGATIVE — which is the compiler telling you
+        # to raise PACE_PX_PER_S, not to pad the audio.
+        MAP_HOLD_MS: "narration.duration - FLIGHT_PARIS_MS - FIXED_MS"
+
+        # ── The tail ──────────────────────────────────────────────────────────────
+        # The narration is mixed starting at VIDEO_MARGIN, so the clip has to run to
+        # VIDEO_MARGIN + narration.duration + VIDEO_MARGIN for the line to finish with
+        # quiet after it. The elastic hold above already subtracted two margins, which
+        # leaves the ANIMATED body ending before the voice does — so the tail covers
+        # that overhang plus the closing quiet, rather than one margin.
+        #
+        # Getting this wrong truncates the last ~320 ms of every line. It is easy to
+        # miss because TTS tends to end with a little silence, so the first take that
+        # exposes it is the one that does not.
+        BODY_END_MS: "VIDEO_MARGIN + STAGGER_MS + FADE_WINDOW + FLIGHT_PARIS_MS + PULSE_MS + MAP_HOLD_MS"
+        TAIL_MS: "VIDEO_MARGIN * 2 + narration.duration - BODY_END_MS"
+
+animation:
+    timeline:
+        # Head: map up, everything else hidden, for VIDEO_MARGIN.
+        0 @ setup:
+            - world_map:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - route_honolulu:
+                  - show:
+                        opacity: 0
+            - route_paris:
+                  - show:
+                        opacity: 0
+            - plane_honolulu:
+                  - show:
+                        opacity: 0
+            - plane_paris:
+                  - show:
+                        opacity: 0
+            - arrive_honolulu:
+                  - show:
+                        opacity: 0
+            - arrive_paris:
+                  - show:
+                        opacity: 0
+
+        # ── Honolulu: west across the Pacific ─────────────────────────────────────
+        # Chained off `setup.end`, as is the Paris entry below. TWO entries at one
+        # bookmark is how concurrency is spelled — actions within a single entry
+        # sequence, so both flights could not share one.
+        setup.end @ fly_honolulu:
+            - route_honolulu:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - plane_honolulu:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+                  - move:
+                        duration: FLIGHT_HONOLULU_MS
+                        easing: linear
+                        orient: auto
+                        along: flights_layer::route_honolulu_line
+
+        # ── Paris: east across the Atlantic ───────────────────────────────────────
+        # The `hold.before` is what staggers the departure. It sits on the fade rather
+        # than on the move because actions in an entry sequence: the plane finishes
+        # arriving on stage before it starts travelling.
+        setup.end @ fly_paris:
+            - route_paris:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+                        hold:
+                            before: "STAGGER_MS"
+            - plane_paris:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+                        hold:
+                            before: "STAGGER_MS"
+                  - move:
+                        duration: FLIGHT_PARIS_MS
+                        easing: linear
+                        orient: auto
+                        along: flights_layer::route_paris_line
+
+        # ── Honolulu reached ──────────────────────────────────────────────────────
+        # Keyed off its OWN flight's bookmark, not off a shared one, so the ring lights
+        # when this plane lands rather than when the last plane lands. Paris is still
+        # in the air through all of this.
+        fly_honolulu.end @ land_honolulu:
+            - plane_honolulu:
+                  - show:
+                        opacity: 0
+            - arrive_honolulu:
+                  - show:
+                        opacity: 1
+                  - pulse:
+                        duration: PULSE_MS
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+
+        # ── Paris reached ─────────────────────────────────────────────────────────
+        # The critical path. The closing hold hangs off this pulse, so the beat ends
+        # with both rings lit and the whole map readable.
+        fly_paris.end @ land_paris:
+            - plane_paris:
+                  - show:
+                        opacity: 0
+            - arrive_paris:
+                  - show:
+                        opacity: 1
+                  - pulse:
+                        duration: PULSE_MS
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        hold:
+                            after: "MAP_HOLD_MS"
+
+        land_paris.end @ teardown:
+            - world_map:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "TAIL_MS"
+
+    capture:
+        video_map_animation:
+            output: "./video/scene_03_map_animation.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        # Roll the animation and lay the line over it, starting at the first departure
+        # rather than at frame zero — the head margin is deliberate quiet.
+        #
+        # ⚠️ The mix carries an EXPLICIT `span.from`. A spanless mix at a non-zero
+        # timestamp is subject to a known defect that places the audio at output 0
+        # regardless of where the entry sits, so the span is not optional here even
+        # where it looks redundant.
+        "0":
+            - video_map_animation:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::fly_honolulu.start"
+                        asset: narration
+                  # Uncomment together with the `jet_bed` asset above, once the
+                  # sound effect named in the README is in resources/audio/.
+                  # - mix:
+                  #       span:
+                  #           from: "animation::fly_honolulu.start"
+                  #       asset: jet_bed
+
+    capture:
+        video_map:
+            output: "./video/scene_03_map.mp4"
+            fps: 30

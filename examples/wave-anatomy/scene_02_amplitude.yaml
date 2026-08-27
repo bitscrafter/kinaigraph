@@ -1,0 +1,393 @@
+# ------------------------------------------
+# wave-anatomy — Beat 2: amplitude
+# ------------------------------------------
+# Three amplitudes, shown in turn and then TOGETHER. The ending is the lesson: with
+# all three on screen at once, every one of them crosses the centre line at exactly
+# the same two places. Amplitude is height and nothing else, and the picture proves
+# it rather than the narration asserting it.
+#
+# WHY THREE CURVES RATHER THAN ONE THAT GROWS: the animatable `scale` property is a
+# single uniform factor, so stretching a curve vertically would compress it
+# horizontally at the same time — a different lesson, and the wrong one here. Three
+# declarations at three amplitudes are exact. They also let the earlier values STAY on
+# screen as ghosts, which a morph could not do: a morph shows the end state, a family
+# shows the comparison. See `kinaigraph_idea_scale_per_axis.md` in the engine repo.
+#
+# Each earlier curve drops to a ghost rather than disappearing, and the ghost is the
+# SAME hue as the live curve because it is the same curve — an earlier value of one
+# parameter, not a second quantity.
+
+defs:
+    assets:
+        plot:
+            type: "scene"
+            file: "./resources/diagram/plot.svg"
+        # The window frame: masks anything travelling out of the plotting area, and
+        # carries the y scale above the curves. Declared after the surface so it draws
+        # over them.
+        frame_layer:
+            type: "scene"
+            file: "./resources/diagram/frame_layer.svg"
+
+        # ── The parameter tags ────────────────────────────────────────────────────
+        # One text asset per value. A text asset's content is fixed at author time, so
+        # a changing readout is three assets rather than one that is written into.
+        tag_low_text:
+            type: "text"
+            content: "A = 0.5"
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 26
+            font_color: "#e6edf3"
+        tag_mid_text:
+            type: "text"
+            content: "A = 1"
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 26
+            font_color: "#e6edf3"
+        tag_high_text:
+            type: "text"
+            content: "A = 2"
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 26
+            font_color: "#e6edf3"
+
+        # ── The capability legend ─────────────────────────────────────────────────
+        # Names, in Kinaigraph's own vocabulary, what the engine is doing in this beat.
+        # The NARRATION never mentions it — a viewer learning trigonometry follows the
+        # voice and can ignore this box entirely, while a reader evaluating the language
+        # gets the whole story from the four boxes alone. Two audiences, neither
+        # interrupted. The palette is deliberately off the plot's, because this is
+        # commentary about the video rather than part of the diagram.
+        chip_text:
+            type: "text"
+            content: |
+                Constants in the function
+                a number becomes geometry
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 15
+            font_color: "#a8a29e"
+
+        narration:
+            type: "audio"
+            file: "./audio/beat_02_amplitude.mp3"
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resources/css/theme_dark.css"
+
+    const:
+        VIDEO_MARGIN: 350
+
+        # ── The plot's geometry contract (see resources/diagram/plot.svg) ─────────
+        PLOT_X0: 120
+        PLOT_Y0: 380
+        PLOT_XS: "1060 / 360"
+        PLOT_YS: 120
+        DOMAIN_TO: 360
+        SAMPLES: 300
+
+        # ── The three amplitudes ──────────────────────────────────────────────────
+        # Named once and spent twice each: in the curve's expression, and nowhere
+        # else — the tag text is authored, because text is not computed from a number.
+        A_LOW: 0.5
+        A_MID: 1
+        A_HIGH: 2
+
+        # ── Derived timings ───────────────────────────────────────────────────────
+        # ⚠️ THE CURVES ARRIVE ON THE SPOKEN VALUES, NOT ON EQUAL THIRDS. Three equal
+        # steps across the whole body read correctly on paper and were wrong on screen:
+        # the voice says "A half, one, two" inside a couple of seconds and then spends the rest
+        # of the line on the closing clause, so an evenly-spread visual had the first
+        # curve arriving before its value was named and the last arriving well after —
+        # measured at 1.75 s late on the frequency beat.
+        #
+        # The beat is therefore three spans, matching the shape every script in this
+        # example has: an opening clause with the plot still empty, a quick count where
+        # each value lands as it is spoken, and a long tail holding all three while the
+        # closing clause plays. The payoff — every value on screen at once — gets the
+        # dwell, which is what it was always for.
+        #
+        # ⚠️ These two fractions are TUNED TO THE RECORDED LINE (values at 1.39 / 2.24 / 2.92 s).
+        # They survive re-recording the same words, because the proportions of a spoken
+        # sentence are stable; they do NOT survive a rewrite that changes the script's
+        # shape. Re-measure with ffmpeg `silencedetect` if the words change.
+        # ⚠️ EVERY DERIVED SPAN IS TRUNCATED TO WHOLE MILLISECONDS. A probed narration
+        # duration is not a round number (9752.381 ms), so a third of it is not either.
+        # A held window's end rounds UP to the millisecond while the bookmark that ends
+        # the same entry keeps its fraction, and the next entry's write then begins a
+        # half-millisecond BEFORE the previous one finishes — which is a genuine
+        # same-property overlap and is refused. Truncating first makes every boundary an
+        # integer, so a window ends exactly where the next begins, which is allowed.
+        LEAD_FRACTION: 0.138 # the opening clause, before the first value is named
+        STEP_FRACTION: 0.100 # value to value, once the count starts
+
+        FIXED_MS: "VIDEO_MARGIN * 2"
+        BODY_MS: "narration.duration - FIXED_MS"
+        LEAD_MS: "trunc(BODY_MS * LEAD_FRACTION)"
+        STEP_MS: "trunc(BODY_MS * STEP_FRACTION)"
+
+        # A curve draws in the first 70% of its step and holds for the rest, so it has
+        # settled before the next value is spoken.
+        FADE_MS: "trunc(STEP_MS * 0.7)"
+
+        # Everything the count does not spend: the three curves held together while the
+        # closing clause plays over them.
+        TAIL_MS: "trunc(BODY_MS - LEAD_MS - (2 * STEP_MS) - FADE_MS)"
+
+        GHOST_OPACITY: 0.3
+
+        # ── The tag box ───────────────────────────────────────────────────────────
+        TAG_X: 980
+        TAG_Y: 152
+        TAG_WIDTH: 190
+        TAG_HEIGHT: 56
+        TAG_PADDING: 12
+
+        # ── The capability legend ─────────────────────────────────────────────────
+        # Below the tick row, in the one band no curve can reach: the plot's own area
+        # ends at y = 620, and beat 2's ±2 amplitude fills it, so there is no in-plot
+        # corner that stays clear across all four beats.
+        CHIP_X: 120
+        CHIP_Y: 650
+        CHIP_WIDTH: 430
+        CHIP_HEIGHT: 58
+        CHIP_PADDING: 9
+
+animation:
+    defaults:
+        assets:
+            scene: plot
+
+    annotations:
+        # A note with NO pointer is just an author-sized box — the legend points at
+        # nothing because it is about the whole beat, not about one mark on it.
+        chip_capability:
+            note:
+                text: chip_text
+                shape:
+                    rect:
+                        width: CHIP_WIDTH
+                        height: CHIP_HEIGHT
+                padding: CHIP_PADDING
+                align: left
+            at:
+                x: CHIP_X
+                y: CHIP_Y
+            origin: top_left
+            fill: "#16130f"
+            stroke: "#57534e"
+            stroke_width: 1
+
+        # Declaration order is render order, so the largest amplitude is declared LAST
+        # and draws on top of the two it dwarfs.
+        wave_low:
+            curve:
+                function:
+                    expression: "A_LOW * sin(radians(x))"
+                    domain:
+                        from: 0
+                        to: DOMAIN_TO
+                samples: SAMPLES
+                scale:
+                    x: PLOT_XS
+                    y: PLOT_YS
+            origin: zero
+            at:
+                x: PLOT_X0
+                y: PLOT_Y0
+            stroke: 'css("kg-wave-live")'
+            stroke_width: 'css("kg-wave-width")'
+
+        wave_mid:
+            curve:
+                function:
+                    expression: "A_MID * sin(radians(x))"
+                    domain:
+                        from: 0
+                        to: DOMAIN_TO
+                samples: SAMPLES
+                scale:
+                    x: PLOT_XS
+                    y: PLOT_YS
+            origin: zero
+            at:
+                x: PLOT_X0
+                y: PLOT_Y0
+            stroke: 'css("kg-wave-live")'
+            stroke_width: 'css("kg-wave-width")'
+
+        wave_high:
+            curve:
+                function:
+                    expression: "A_HIGH * sin(radians(x))"
+                    domain:
+                        from: 0
+                        to: DOMAIN_TO
+                samples: SAMPLES
+                scale:
+                    x: PLOT_XS
+                    y: PLOT_YS
+            origin: zero
+            at:
+                x: PLOT_X0
+                y: PLOT_Y0
+            stroke: 'css("kg-wave-live")'
+            stroke_width: 'css("kg-wave-width")'
+
+        tag_low:
+            note:
+                text: tag_low_text
+                shape:
+                    rect:
+                        width: TAG_WIDTH
+                        height: TAG_HEIGHT
+                padding: TAG_PADDING
+                align: center
+            at:
+                x: TAG_X
+                y: TAG_Y
+            origin: top_left
+            fill: "#161b22"
+            stroke: "#58a6ff"
+            stroke_width: 1.5
+        tag_mid:
+            note:
+                text: tag_mid_text
+                shape:
+                    rect:
+                        width: TAG_WIDTH
+                        height: TAG_HEIGHT
+                padding: TAG_PADDING
+                align: center
+            at:
+                x: TAG_X
+                y: TAG_Y
+            origin: top_left
+            fill: "#161b22"
+            stroke: "#58a6ff"
+            stroke_width: 1.5
+        tag_high:
+            note:
+                text: tag_high_text
+                shape:
+                    rect:
+                        width: TAG_WIDTH
+                        height: TAG_HEIGHT
+                padding: TAG_PADDING
+                align: center
+            at:
+                x: TAG_X
+                y: TAG_Y
+            origin: top_left
+            fill: "#161b22"
+            stroke: "#58a6ff"
+            stroke_width: 1.5
+
+    timeline:
+        0 @ setup_ts:
+            - plot:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN + LEAD_MS"
+            - frame_layer:
+                  - show:
+                        opacity: 1
+            - chip_capability:
+                  - show:
+                        opacity: 1
+            - wave_low:
+                  - show:
+                        opacity: 0
+            - wave_mid:
+                  - show:
+                        opacity: 0
+            - wave_high:
+                  - show:
+                        opacity: 0
+            - tag_low:
+                  - show:
+                        opacity: 0
+            - tag_mid:
+                  - show:
+                        opacity: 0
+            - tag_high:
+                  - show:
+                        opacity: 0
+
+        # ── A = 0.5 ───────────────────────────────────────────────────────────────
+        setup_ts.end @ low_ts:
+            - wave_low:
+                  - show:
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        duration: FADE_MS
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_MS - FADE_MS"
+            - tag_low:
+                  - show:
+                        opacity: 1
+                        duration: FADE_MS
+
+        # ── A = 1 — and 0.5 steps back rather than leaving ────────────────────────
+        low_ts.end @ mid_ts:
+            - wave_mid:
+                  - show:
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        duration: FADE_MS
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_MS - FADE_MS"
+            - wave_low:
+                  - show:
+                        opacity: GHOST_OPACITY
+                        duration: FADE_MS
+            - tag_low:
+                  - show:
+                        opacity: 0
+                        duration: FADE_MS
+            - tag_mid:
+                  - show:
+                        opacity: 1
+                        duration: FADE_MS
+
+        # ── A = 2 — all three end up on screen at once ────────────────────────────
+        # This is the beat's payoff: three heights, one set of crossings.
+        mid_ts.end @ high_ts:
+            - wave_high:
+                  - show:
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        duration: FADE_MS
+                        easing: ease_out_quad
+                        hold:
+                            after: "TAIL_MS + VIDEO_MARGIN"
+            - wave_mid:
+                  - show:
+                        opacity: GHOST_OPACITY
+                        duration: FADE_MS
+            - tag_mid:
+                  - show:
+                        opacity: 0
+                        duration: FADE_MS
+            - tag_high:
+                  - show:
+                        opacity: 1
+                        duration: FADE_MS
+
+    capture:
+        video_beat_02_amplitude:
+            output: "./video/beat_02_amplitude.mp4"
+            fps: 30

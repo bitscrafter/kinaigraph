@@ -1,0 +1,648 @@
+# ------------------------------------------
+# hiking-trails — Summit route
+# ------------------------------------------
+# The route to Summit Peak, taken from an owner-authored two-colour trace painted over
+# the baked map and turned into overlay geometry by
+# `resources/diagram/make_route_svg.py`. The trace distinguishes the stretches where
+# the walker can be SEEN from the stretches that ride BEHIND something on the map — a
+# pine, a hut, a signboard — so the route alternates visible / hidden nine times on the
+# way up: four short duckings behind the trailhead pines, then the long climb, the long
+# passage behind the signpost boards, and the final open pitch to the summit.
+#
+# Two forms of the travelling marker sell "behind": a SOLID filled arrowhead on the
+# visible stretches, an OUTLINE-only, semi-transparent GHOST on the hidden ones, handed
+# off at each boundary. The route highlight matches — solid in the darker trail tone
+# when visible, dashed and translucent when hidden.
+#
+# Each leg's `move … along` rides the stretch's own `<path>` by name, so the route the
+# eye follows and the route the marker travels are the SAME curve. Geometry lives in
+# `route_layer.svg` alone; re-running the generator after a new trace is the whole
+# update. The per-leg durations below are that generator's table — one constant walking
+# pace over the measured arc length of each stretch, so the marker never speeds up or
+# slows down at a handoff.
+
+defs:
+    assets:
+        map:
+            type: "scene"
+            file: "./resources/diagram/map.svg"
+        route_layer:
+            type: "scene"
+            file: "./resources/diagram/route_layer.svg"
+        # Declared LAST of the three scenes on purpose: scene declaration order is
+        # the render z-order (painter's algorithm), so the markers paint over the
+        # route rather than under it. Hand-authored, unlike route_layer.svg, which
+        # the trace generator rewrites.
+        markers:
+            type: "scene"
+            file: "./resources/diagram/markers.svg"
+
+        # Each stretch is a group (faded in as the marker enters it) wrapping the line
+        # the marker rides. Odd stretches are visible, even ones hidden.
+        seg_1:
+            type: "actor"
+            part_of: route_layer
+            id: route-seg-01
+        seg_1_line:
+            type: "actor"
+            part_of: route_layer
+            id: route-line-01
+        seg_2:
+            type: "actor"
+            part_of: route_layer
+            id: route-seg-02
+        seg_2_line:
+            type: "actor"
+            part_of: route_layer
+            id: route-line-02
+        seg_3:
+            type: "actor"
+            part_of: route_layer
+            id: route-seg-03
+        seg_3_line:
+            type: "actor"
+            part_of: route_layer
+            id: route-line-03
+        seg_4:
+            type: "actor"
+            part_of: route_layer
+            id: route-seg-04
+        seg_4_line:
+            type: "actor"
+            part_of: route_layer
+            id: route-line-04
+        seg_5:
+            type: "actor"
+            part_of: route_layer
+            id: route-seg-05
+        seg_5_line:
+            type: "actor"
+            part_of: route_layer
+            id: route-line-05
+        seg_6:
+            type: "actor"
+            part_of: route_layer
+            id: route-seg-06
+        seg_6_line:
+            type: "actor"
+            part_of: route_layer
+            id: route-line-06
+        seg_7:
+            type: "actor"
+            part_of: route_layer
+            id: route-seg-07
+        seg_7_line:
+            type: "actor"
+            part_of: route_layer
+            id: route-line-07
+        seg_8:
+            type: "actor"
+            part_of: route_layer
+            id: route-seg-08
+        seg_8_line:
+            type: "actor"
+            part_of: route_layer
+            id: route-line-08
+        seg_9:
+            type: "actor"
+            part_of: route_layer
+            id: route-seg-09
+        seg_9_line:
+            type: "actor"
+            part_of: route_layer
+            id: route-line-09
+
+        # Destination is two actors, not one: the ring pulses its stroke while the
+        # star simply appears inside it, so they need independent timelines.
+        dest_ring:
+            type: "actor"
+            part_of: markers
+            id: dest-ring
+            origin: center
+        dest_star:
+            type: "actor"
+            part_of: markers
+            id: dest-star
+            origin: center
+        # The travellers live in the marker layer but ride curves that live in
+        # route_layer — move-along resolves an asset segment across scenes within
+        # a frame, so the rider and its rail need not share a scene.
+        traveller_solid:
+            type: "actor"
+            part_of: markers
+            id: traveller-solid
+            origin: center
+        traveller_ghost:
+            type: "actor"
+            part_of: markers
+            id: traveller-ghost
+            origin: center
+
+        # The callout's content and typography. A note carries no text of its own —
+        # it names a reused `type: text` asset, so the same wording could caption a
+        # different diagram. There is no auto-wrap and no text measurement anywhere in
+        # the pipeline, so the line breaks below are the real ones and the box that
+        # holds them is sized by hand (see `summit_note`).
+        #
+        # Distance and walking time are DERIVED from the trace by
+        # `resources/diagram/make_route_svg.py`, which prints this block; ascent and
+        # grade are authored (a top-down map carries no elevation). Re-trace the route
+        # and paste the figures it prints, or the callout drifts from the line drawn.
+        summit_caption:
+            type: "text"
+            content: |
+                Summit Peak
+                4.2 km · 340 m ascent
+                ≈ 1 h 10 · moderate
+            font_family: "Inter, system-ui, -apple-system, sans-serif"
+            font_size: 16
+            font_color: "#4a2415"
+
+        # ── Feature legend ────────────────────────────────────────────────────────
+        # The chips name the LANGUAGE FIELD being exercised, not a prose label for it.
+        # `orient: auto` is greppable against the documentation and lands a reader on
+        # the thing they just watched; "automatic orientation" teaches nothing they can
+        # act on. Monospace for the same reason — it reads as source, not caption.
+        chip_capability_text:
+            type: "text"
+            content: |
+                Capabilities
+                  move along path
+                  with orientation
+            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font_size: 15
+            font_color: "#582f0e"
+
+        # Declared for its DURATION, not to be played here. The clip takes its length
+        # from this file so the visuals stretch to the voice; the narration itself is
+        # mixed once, in `scene_stitch.yaml`, where all three lines and the music bed
+        # meet. Generate it with `scene_00_tts_generation.yaml` before rendering.
+        narration:
+            type: "audio"
+            file: "./audio/route_01_summit.mp3"
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resources/css/theme_dark.css"
+
+    const:
+        # ── Pace ──────────────────────────────────────────────────────────────────
+        # ONE walking speed, shared verbatim by all three route scenes, so the marker
+        # reads as the same walker throughout the stitched piece. The rest stop sets
+        # the value (its narration has the least slack); this route has room at it.
+        PACE_PX_PER_S: 168
+
+        # ── Geometry ──────────────────────────────────────────────────────────────
+        # Per-stretch arc length, printed by `resources/diagram/make_route_svg.py`.
+        # These are the ONLY geometry figures a re-trace requires pasting across:
+        # there is no `.length` on a path to divide by, so the numbers cannot come
+        # from the drawing itself. Everything below is derived from them.
+        LEG_1_PX: 36.0 # visible
+        LEG_2_PX: 36.0 # hidden
+        LEG_3_PX: 36.0 # visible
+        LEG_4_PX: 30.0 # hidden
+        LEG_5_PX: 77.9 # visible
+        LEG_6_PX: 78.0 # hidden
+        LEG_7_PX: 466.7 # visible
+        LEG_8_PX: 466.6 # hidden
+        LEG_9_PX: 259.4 # visible
+        ROUTE_PX: "LEG_1_PX + LEG_2_PX + LEG_3_PX + LEG_4_PX + LEG_5_PX + LEG_6_PX + LEG_7_PX + LEG_8_PX + LEG_9_PX"
+
+        # ── Derived timings ───────────────────────────────────────────────────────
+        # Distance over speed. Nine legs divide one constant, so the marker cannot
+        # change pace at a handoff — structural, rather than nine authored numbers
+        # that have to keep agreeing with each other and with the drawing.
+        LEG_1_MS: "LEG_1_PX / PACE_PX_PER_S * 1000"
+        LEG_2_MS: "LEG_2_PX / PACE_PX_PER_S * 1000"
+        LEG_3_MS: "LEG_3_PX / PACE_PX_PER_S * 1000"
+        LEG_4_MS: "LEG_4_PX / PACE_PX_PER_S * 1000"
+        LEG_5_MS: "LEG_5_PX / PACE_PX_PER_S * 1000"
+        LEG_6_MS: "LEG_6_PX / PACE_PX_PER_S * 1000"
+        LEG_7_MS: "LEG_7_PX / PACE_PX_PER_S * 1000"
+        LEG_8_MS: "LEG_8_PX / PACE_PX_PER_S * 1000"
+        LEG_9_MS: "LEG_9_PX / PACE_PX_PER_S * 1000"
+        WALK_MS: "ROUTE_PX / PACE_PX_PER_S * 1000"
+
+        # Must stay under the SHORTEST leg's walking time — leg 4 is 30 px, about
+        # 179 ms at this pace, and legs 1 to 3 are barely longer. A stretch's fade and
+        # its rider's walk are different actors in ONE entry, so the entry lasts as
+        # long as the LONGER of the two: a fade wider than the leg would set those
+        # legs' length and quietly stretch precisely the shortest stretches.
+        FADE_WINDOW: 140
+        VIDEO_MARGIN: 350
+        GHOST_OPACITY: 0.55
+        PULSE_CYCLES: 2
+        # Star settle — shorter than one pulse cycle so it is planted before the
+        # ring's first beat, rather than growing through it.
+        STAR_ARRIVE_MS: 600
+        STAR_SPIN_MS: 400
+        # The ring's beat, and the ARRIVAL entry's true length: an entry runs as long
+        # as its longest actor, and this outlasts the star's settle-then-spin.
+        PULSE_MS: 1100
+        NOTE_REVEAL_MS: 900
+
+        # Everything in the clip that is NOT the callout's dwell. `FADE_WINDOW` is in
+        # here because the traveller's fade-in and its first walk are two actions in
+        # ONE entry, and actions within an entry SEQUENCE. Only the first leg pays it;
+        # every later handoff is instantaneous by design.
+        FIXED_MS: "VIDEO_MARGIN * 2 + FADE_WINDOW + PULSE_MS + NOTE_REVEAL_MS"
+        # The elastic term — the walk is rigid, and whatever the narration has left
+        # over lands on the beat where someone is actually reading.
+        NOTE_HOLD_MS: "narration.duration - WALK_MS - FIXED_MS"
+        # The OVERALL box, padding included: `width`/`height` are the drawn box and
+        # `padding` is inset within them. The text area is what is left over —
+        # 252 - 2*16 = 220 wide, 102 - 2*16 = 70 tall.
+        NOTE_BOX_WIDTH: 200
+        NOTE_BOX_HEIGHT: 85
+        NOTE_BOX_PADDING: 15
+
+        # ── Feature legend ────────────────────────────────────────────────────────
+        # Bottom-left, the one corner no callout occupies in any of the three routes
+        # (the summit's hangs top-centre-left, the other two sit right of centre), so
+        # a chip can never collide with the note it is standing beside.
+        CHIP_X: 44
+        CHIP_Y: 948
+        # Sized for the longest body line across ALL THREE routes, so the panel keeps
+        # one silhouette as the piece cuts between them. Three lines: the heading plus
+        # a hand-broken label — nothing wraps text for us.
+        CHIP_WIDTH: 215
+        CHIP_HEIGHT: 80
+        CHIP_PADDING: 13
+        # A chip is drawn on during a LEG, concurrently with the marker walking it, so
+        # this must stay under the length of whichever leg carries it — an entry lasts
+        # as long as its longest actor, and a chip outlasting its leg would stretch the
+        # walk and break the shared pace. The two chips ride legs 7 and 8, the long
+        # climb and the long passage behind the boards, both over 2.7 s at this pace.
+        CHIP_REVEAL_MS: 420
+
+animation:
+    defaults:
+        assets:
+            scene: map
+
+    # A note with a pointer is a CALLOUT: an author-sized box plus a forked leader
+    # aimed at a target. Both are one closed outline, which is why `reveal` can draw
+    # the whole thing on as a single stroke.
+    #
+    # The pointer aims at `dest_ring`, not at `dest_star`: the apex lands ON the
+    # target point, so aiming at the star would bury the leader tip under the star and
+    # the ring. `pos: left` puts the apex on the ring's left edge — the side facing
+    # the box — so the leader reads as touching the marker.
+    #
+    # The target resolves against the ring's INITIAL position at compile time, which
+    # is exactly right here: the ring never moves, it only pulses in place.
+    annotations:
+        summit_note:
+            note:
+                text: summit_caption
+                # Sized by measuring the render, because nothing measures it for us.
+                # These are the OVERALL box; the padding is taken from INSIDE them, so
+                # growing the padding shrinks the text area rather than the note.
+                # Re-check after any change to the wording, the font or `font_size` —
+                # overflow is silent.
+                shape:
+                    rect:
+                        width: NOTE_BOX_WIDTH
+                        height: NOTE_BOX_HEIGHT
+                padding: NOTE_BOX_PADDING
+                align: left
+                pointer:
+                    target:
+                        anchor:
+                            asset: dest_ring
+                            pos: left
+                            dx: -10
+            # Parked in the open sky right of the peak. The summit sits at y=51, hard
+            # against the top of the frame, so the box has to hang BELOW it — there is
+            # no room above.
+            at:
+                #x: 1108
+                #y: 128
+                anchor:
+                    asset: dest_ring
+                    pos: left
+                    # `NOTE_BOX_WIDTH` is the box's true width, so backing off by it
+                    # plus 25 lands the box's right edge exactly 25 px clear of the
+                    # ring's left edge. Under the superseded reading — where the
+                    # padding was added AROUND the width — the drawn box was 32 px
+                    # wider than this term accounted for and overlapped the ring.
+                    dx: "-NOTE_BOX_WIDTH - 30"
+                    dy: -30
+            origin: top_left
+            fill: "#fbf3ea"
+            stroke: "#8a4126"
+            stroke_width: 2
+
+        # The legend chips. A note with NO pointer is just an author-sized box, which
+        # is exactly what a chip is — so the legend is itself an instance of the
+        # feature the third route's chip names. They share one position and swap, so
+        # only one is ever on screen.
+        # A note with NO pointer is just an author-sized box, so the legend is itself
+        # an instance of the feature the rest stop names.
+        chip_capability:
+            note:
+                text: chip_capability_text
+                shape:
+                    rect:
+                        width: CHIP_WIDTH
+                        height: CHIP_HEIGHT
+                padding: CHIP_PADDING
+                align: left
+            at:
+                x: CHIP_X
+                y: CHIP_Y
+            origin: top_left
+            # Its own palette, deliberately NOT this route's tone. The trail callouts
+            # are drawn in the hue of the walk they describe; the legend is commentary
+            # ABOUT the video, so it stays identical in all three and reads as a
+            # separate voice.
+            fill: "#f5ebe0"
+            stroke: "#8a5a44"
+            stroke_width: 1.5
+
+    timeline:
+        0 @ setup_ts:
+            - map:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - seg_1:
+                  - show:
+                        opacity: 0
+            - seg_2:
+                  - show:
+                        opacity: 0
+            - seg_3:
+                  - show:
+                        opacity: 0
+            - seg_4:
+                  - show:
+                        opacity: 0
+            - seg_5:
+                  - show:
+                        opacity: 0
+            - seg_6:
+                  - show:
+                        opacity: 0
+            - seg_7:
+                  - show:
+                        opacity: 0
+            - seg_8:
+                  - show:
+                        opacity: 0
+            - seg_9:
+                  - show:
+                        opacity: 0
+            - dest_ring:
+                  - show:
+                        opacity: 0
+            - dest_star:
+                  - show:
+                        opacity: 0
+            - traveller_solid:
+                  - show:
+                        opacity: 0
+            - traveller_ghost:
+                  - show:
+                        opacity: 0
+            - summit_note:
+                  - show:
+                        opacity: 0
+            - chip_capability:
+                  - show:
+                        opacity: 0
+
+        # --- Leg 1 (VISIBLE): leaving the trailhead board ---
+        # The only leg that opens with a fade — the marker has to arrive on stage once.
+        # Every later handoff is instantaneous, so the walk reads as one continuous line.
+        setup_ts.end @ leg1_ts:
+            - seg_1:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - traveller_solid:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+                  - move:
+                        duration: LEG_1_MS
+                        easing: linear
+                        orient: auto
+                        along: route_layer::seg_1_line
+
+        # --- Leg 2 (HIDDEN): behind the first trailhead pine ---
+        leg1_ts.end @ leg2_ts:
+            - traveller_solid:
+                  - show:
+                        opacity: 0
+            - seg_2:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - traveller_ghost:
+                  - show:
+                        opacity: GHOST_OPACITY
+                  - move:
+                        duration: LEG_2_MS
+                        easing: linear
+                        orient: auto
+                        along: route_layer::seg_2_line
+
+        # --- Leg 3 (VISIBLE): back into the open between the pines ---
+        leg2_ts.end @ leg3_ts:
+            - traveller_ghost:
+                  - show:
+                        opacity: 0
+            - seg_3:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - traveller_solid:
+                  - show:
+                        opacity: 1
+                  - move:
+                        duration: LEG_3_MS
+                        easing: linear
+                        orient: auto
+                        along: route_layer::seg_3_line
+
+        # --- Leg 4 (HIDDEN): behind the second trailhead pine ---
+        leg3_ts.end @ leg4_ts:
+            - traveller_solid:
+                  - show:
+                        opacity: 0
+            - seg_4:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - traveller_ghost:
+                  - show:
+                        opacity: GHOST_OPACITY
+                  - move:
+                        duration: LEG_4_MS
+                        easing: linear
+                        orient: auto
+                        along: route_layer::seg_4_line
+
+        # --- Leg 5 (VISIBLE): the open bend above the pines ---
+        leg4_ts.end @ leg5_ts:
+            - traveller_ghost:
+                  - show:
+                        opacity: 0
+            - seg_5:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - traveller_solid:
+                  - show:
+                        opacity: 1
+                  - move:
+                        duration: LEG_5_MS
+                        easing: linear
+                        orient: auto
+                        along: route_layer::seg_5_line
+
+        # --- Leg 6 (HIDDEN): behind the roadside hut ---
+        leg5_ts.end @ leg6_ts:
+            - traveller_solid:
+                  - show:
+                        opacity: 0
+            - seg_6:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - traveller_ghost:
+                  - show:
+                        opacity: GHOST_OPACITY
+                  - move:
+                        duration: LEG_6_MS
+                        easing: linear
+                        orient: auto
+                        along: route_layer::seg_6_line
+
+        # --- Leg 7 (VISIBLE): the long climb through the meadow S ---
+        leg6_ts.end @ leg7_ts:
+            - traveller_ghost:
+                  - show:
+                        opacity: 0
+            - seg_7:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - traveller_solid:
+                  - show:
+                        opacity: 1
+                  - move:
+                        duration: LEG_7_MS
+                        easing: linear
+                        orient: auto
+                        along: route_layer::seg_7_line
+            - chip_capability:
+                  - show:
+                        duration: CHIP_REVEAL_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+
+        # --- Leg 8 (HIDDEN): the long passage behind the signpost boards ---
+        leg7_ts.end @ leg8_ts:
+            - traveller_solid:
+                  - show:
+                        opacity: 0
+            - seg_8:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - traveller_ghost:
+                  - show:
+                        opacity: GHOST_OPACITY
+                  - move:
+                        duration: LEG_8_MS
+                        easing: linear
+                        orient: auto
+                        along: route_layer::seg_8_line
+
+        # --- Leg 9 (VISIBLE): the open shoulder to the summit ---
+        leg8_ts.end @ leg9_ts:
+            - traveller_ghost:
+                  - show:
+                        opacity: 0
+            - seg_9:
+                  - show:
+                        duration: FADE_WINDOW
+                        opacity: 1
+            - traveller_solid:
+                  - show:
+                        opacity: 1
+                  - move:
+                        duration: LEG_9_MS
+                        easing: linear
+                        orient: auto
+                        along: route_layer::seg_9_line
+
+        # --- Summit reached: the star lands, the ring pulses around it ---
+        # The traveller hands off to the destination: the arrow that walked the
+        # route disappears exactly as the star that marks the end of it arrives.
+        leg9_ts.end @ arrive_ts:
+            - traveller_solid:
+                  - show:
+                        opacity: 0
+            - dest_ring:
+                  - show:
+                        opacity: 1
+                  - pulse:
+                        duration: PULSE_MS
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("kg-arrive-stroke")'
+                        stroke_width: 'css("kg-pulse-stroke-width")'
+            - dest_star:
+                  - show:
+                        duration: STAR_ARRIVE_MS
+                        opacity: 1
+                        scale:
+                            from: 0.4
+                            to: 1
+                        easing: ease_out_back
+                  - show:
+                        duration: STAR_SPIN_MS
+                        rotation:
+                            turns: 2
+                        easing: linear
+
+        # --- The callout draws itself on, naming what was reached ---
+        # After the star, not with it: the arrival is one beat (marker → star → ring),
+        # and the explanation is the next. `reveal` strokes the box and its leader on
+        # as one continuous outline, which is the note's signature choreography.
+        arrive_ts.end @ note_ts:
+            - chip_capability:
+                  - show:
+                        opacity: 0
+            - summit_note:
+                  - show:
+                        duration: NOTE_REVEAL_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "NOTE_HOLD_MS"
+
+        note_ts.end @ tear_down_ts:
+            - map:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+
+    capture:
+        video_summit:
+            output: "./video/scene_summit_animation.mp4"
+            fps: 30

@@ -1,0 +1,1 @@
+The last two only move it. Sideways is phase — ninety degrees turns a sine into a cosine. Upward is offset.

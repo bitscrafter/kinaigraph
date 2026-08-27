@@ -1,10 +1,6 @@
 # Kinaigraph
 
-**A declarative language for animation and motion graphics.** You author scenes in
-YAML that bring together your SVG artwork and narration scripts, declaring how they
-work together and what happens when. Kinaigraph does the tedious, exacting work:
-timing the motion to the narration, interpolating every frame, and keeping audio and
-video in sync — then renders the result to video, or plays it live in the browser.
+**A declarative language for animation and motion graphics.** You author scenes in YAML that bring together your SVG artwork and narration scripts, declaring how they work together and what happens when. Kinaigraph does the tedious, exacting work: timing motion to narration, interpolating every frame, and keeping audio and video in sync — then renders the scene as a video file or live playback in the browser.
 
 This repository is the public home for Kinaigraph. It will hold the **examples**, the
 **binaries**, and the **documentation**.
@@ -26,10 +22,10 @@ Each example is a set of YAML **scene** files plus its resources — SVG artwork
 themes, and narration scripts. Kinaigraph compiles a scene and renders it to an MP4
 (and can also play it live in the browser).
 
-| Example | What it shows |
-| ------- | ------------- |
-| [`microservices-flow`](examples/microservices-flow/) | A narrated walkthrough of a request moving through a microservices architecture — animation paced to narration, animated diagrams, and compile-time theming (the same scene re-rendered in light and dark). |
-| [`life-lessons-en`](examples/life-lessons-en/) &middot; [`life-lessons-es`](examples/life-lessons-es/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. English and Spanish. |
+| Example                                                                                                | What it shows                                                                                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`microservices-flow`](examples/microservices-flow/)                                                   | A narrated walkthrough of a request moving through a microservices architecture — animation paced to narration, animated diagrams, and compile-time theming (the same scene re-rendered in light and dark). |
+| [`life-lessons-en`](examples/life-lessons-en/) &middot; [`life-lessons-es`](examples/life-lessons-es/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. English and Spanish.                                                                                                |
 
 Narration audio is generated from the scripts via text-to-speech, so a scene reads
 its timing from the spoken lines. See each example's folder for its specific layout.

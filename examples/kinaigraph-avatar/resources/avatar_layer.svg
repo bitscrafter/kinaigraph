@@ -1,0 +1,94 @@
+<svg id="avatar_layer" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- Presenter avatar layer — picture-in-picture "webcam" bubble, bottom-right.
+       Stacked over backdrop.svg / pitch_text.svg (shared 0 0 1280 720 viewBox).
+
+       Actors (id'd groups, class mirrors id):
+         presenter    — the whole bubble (fade, breathe via scale pulse)
+         eyes-open    — resting eyes (opacity 1 at rest)
+         eyes-closed  — blink frame   (opacity 0 at rest)
+         mouth-closed — resting smile (opacity 1 at rest, underneath)
+         mouth-mid    — soft vowels   (opacity 0 at rest; opaque backing plate)
+         mouth-open   — open vowels   (opacity 0 at rest; opaque backing plate)
+
+       Mouth shapes nest (closed ⊂ mid ⊂ open) so phase-locked pulses never
+       leave lip edges exposed. Bubble themes via kg-node-*; character colors
+       stay literal. -->
+
+  <style>
+    .bubble { fill: var(--kg-node-bg, #2e2e2e); stroke: var(--kg-node-stroke, #555555); stroke-width: var(--kg-node-stroke-width, 2); }
+  </style>
+
+  <defs>
+    <clipPath id="avatar-bubble-clip"><circle cx="100" cy="100" r="94"/></clipPath>
+  </defs>
+
+  <g id="presenter" class="presenter" transform="translate(1036,480)">
+    <circle class="bubble" cx="100" cy="100" r="95"/>
+    <g clip-path="url(#avatar-bubble-clip)">
+      <!-- shoulders / tee + collar rim -->
+      <path d="M30,216 C30,166 52,144 82,138 L118,138 C148,144 170,166 170,216 Z" fill="#8ea6ba"/>
+      <path d="M82,138 Q100,151 118,138 L118,143 Q100,157 82,143 Z" fill="#6f8aa1"/>
+      <!-- neck + under-chin shadow -->
+      <path d="M87,116 L87,140 Q100,149 113,140 L113,116 Z" fill="#cf9e79"/>
+      <path d="M87,116 Q100,130 113,116 L113,125 Q100,134 87,125 Z" fill="#a97a58" opacity="0.5"/>
+      <!-- ears with inner-ear line -->
+      <ellipse cx="69.5" cy="93" rx="6.5" ry="9.5" fill="#d5a37f"/>
+      <ellipse cx="130.5" cy="93" rx="6.5" ry="9.5" fill="#d5a37f"/>
+      <path d="M68,89.5 Q71,93 68.5,97" stroke="#b98a67" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M132,89.5 Q129,93 131.5,97" stroke="#b98a67" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <!-- head: cranium → cheeks → chin -->
+      <path d="M71,88 C71,63 83,50 100,50 C117,50 129,63 129,88 C129,103 124,115 116,124 C111,130 105,133.5 100,133.5 C95,133.5 89,130 84,124 C76,115 71,103 71,88 Z" fill="#e0ae8b"/>
+      <!-- side shadow + forehead highlight -->
+      <path d="M117,59 C126,67 129,77 129,88 C129,103 124,115 116,124 C122,110 124,82 117,59 Z" fill="#b9825e" opacity="0.28"/>
+      <ellipse cx="95" cy="65" rx="13" ry="7" fill="#f0c4a2" opacity="0.35"/>
+      <!-- beard shadow -->
+      <path d="M77,102 C79,119 88,129 100,130 C112,129 121,119 123,102 C121,123 112,131.5 100,131.5 C88,131.5 79,123 77,102 Z" fill="#6b5a4a" opacity="0.34"/>
+      <!-- hair: full cap, side part (his left), straight sideburns -->
+      <path d="M72,97 L70,80 C68,54 81.5,41.5 100,41.5 C118.5,41.5 132,54 130,80 L128.5,97 L124.8,96.2 L125.5,80 Q125,67.5 118,63.5 L114.5,62 L114.8,64.2 Q110,60.5 105.5,62.3 Q101,64 96.5,61.8 Q91.5,59.8 87.5,62.8 Q84.5,65 82.5,64 Q75,68 74.5,80 L75.2,96.2 Z" fill="#5d4633"/>
+      <path d="M114.5,62.5 Q117,55.5 116.4,47.5" stroke="#423222" stroke-width="1.7" fill="none" stroke-linecap="round" opacity="0.7"/>
+      <path d="M118,64 Q124.5,67.5 125.2,77 Q121,68.5 115.5,65.5 Z" fill="#443325" opacity="0.28"/>
+      <path d="M84,63.8 Q92,60.8 101,61.8 Q91,63.8 86.5,66.5 Z" fill="#443325" opacity="0.22"/>
+      <path d="M88,57.5 Q99,54 110,56.5 Q99,57.8 90.5,60.5 Z" fill="#75593d" opacity="0.55"/>
+      <!-- nose + nostril hints -->
+      <path d="M100,86 C99,94 97,100 94.5,103.5 Q100,108 105.5,103.5 C103,100 101,94 100,86 Z" fill="#d69d76"/>
+      <path d="M95.5,103.2 Q97,104.8 98.6,105" stroke="#b9835f" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path d="M104.5,103.2 Q103,104.8 101.4,105" stroke="#b9835f" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <!-- brows -->
+      <path d="M79.5,76.6 Q86,73 94,75" stroke="#3a3128" stroke-width="4.4" fill="none" stroke-linecap="round"/>
+      <path d="M120.5,76.6 Q114,73 106,75" stroke="#3a3128" stroke-width="4.4" fill="none" stroke-linecap="round"/>
+
+      <!-- ==================== actors ==================== -->
+      <g id="eyes-open" class="eyes-open" opacity="1">
+        <ellipse cx="86" cy="84.5" rx="5.6" ry="4.2" fill="#f7efe6"/>
+        <circle cx="86.5" cy="84.8" r="2.9" fill="#6b4f37"/>
+        <circle cx="86.5" cy="84.8" r="1.5" fill="#241d16"/>
+        <circle cx="87.6" cy="83.7" r="0.8" fill="#ffffff"/>
+        <path d="M80.6,82.6 Q86,79.2 91.4,82.4" stroke="#c08f6d" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <ellipse cx="114" cy="84.5" rx="5.6" ry="4.2" fill="#f7efe6"/>
+        <circle cx="114.5" cy="84.8" r="2.9" fill="#6b4f37"/>
+        <circle cx="114.5" cy="84.8" r="1.5" fill="#241d16"/>
+        <circle cx="115.6" cy="83.7" r="0.8" fill="#ffffff"/>
+        <path d="M108.6,82.6 Q114,79.2 119.4,82.4" stroke="#c08f6d" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      </g>
+      <g id="eyes-closed" class="eyes-closed" opacity="0">
+        <path d="M80.5,85.5 Q86,88.8 91.5,85.5" stroke="#4a3f33" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M108.5,85.5 Q114,88.8 119.5,85.5" stroke="#4a3f33" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </g>
+      <g id="mouth-closed" class="mouth-closed" opacity="1">
+        <path d="M92,117.5 Q100,121 108,117.5" stroke="#8d5b4c" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M94.5,121.8 Q100,124 105.5,121.8" stroke="#c98f6d" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
+      </g>
+      <g id="mouth-mid" class="mouth-mid" opacity="0">
+        <ellipse cx="100" cy="118" rx="11.5" ry="7.5" fill="#bc9377"/>
+        <ellipse cx="100" cy="118" rx="9" ry="5" fill="#5b3a33"/>
+        <ellipse cx="100" cy="115.6" rx="6.2" ry="1.7" fill="#e8ddd0"/>
+      </g>
+		<g id="mouth-open" class="mouth-open" opacity="0">
+		<ellipse cx="100" cy="118.5" rx="12" ry="8" fill="#bc9377"/>
+		<ellipse cx="100" cy="118.5" rx="10" ry="6.8" fill="#4a2c28"/>
+		<ellipse cx="100" cy="114.2" rx="6.5" ry="1.9" fill="#e8ddd0"/>
+		<ellipse cx="100" cy="122.8" rx="5.2" ry="2.6" fill="#a05a50"/>
+	  </g>	  
+    </g>
+  </g>
+</svg>

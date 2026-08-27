@@ -1,0 +1,200 @@
+# ------------------------------------------
+# bio-journey — Beat 1: the intro card
+# ------------------------------------------
+# The title card: a name, a rule, a role, two meta lines. Four actors arriving in
+# reading order, then holding while the line is spoken.
+#
+# It is the cheapest beat in the piece on purpose. Its whole job is to establish the
+# subject and the palette that the other beats inherit, and it does that with `show`
+# and opacity alone — no geometry, no riders, nothing generated. The beat that
+# follows can then spend its seconds on the timeline rather than on introductions.
+#
+# The one thing worth noticing here is that the stagger is not a table of authored
+# delays. Each element's entry is chained off the previous element's bookmark, so the
+# cascade keeps its rhythm if any single fade duration changes, and the whole card is
+# on screen before the narration's last word regardless of how long the line runs.
+#
+# Path resolution: `file:` inputs resolve against THIS yaml's own folder, which IS the
+# example root. Capture `output:` resolves against the -outdir you pass.
+#
+#     kinaigraph scene_01_intro.yaml -outdir ./out
+
+metadata:
+    title: "Bio Journey - Beat 1: Intro Card"
+    description: "The title card - name, role and place, arriving in reading order"
+    version: "1.0"
+
+defs:
+    assets:
+        # The only scene in this beat. It carries its own backdrop rect, because the
+        # engine emits layout invariants but no page colour.
+        #
+        # ⚠️ This file holds every personal detail in the example. See its header.
+        intro_card:
+            type: "scene"
+            file: "./resources/foreground/intro_card.svg"
+
+        # The four elements that animate, in reading order.
+        intro_name:
+            type: "actor"
+            part_of: intro_card
+            id: intro-name
+        intro_rule:
+            type: "actor"
+            part_of: intro_card
+            id: intro-rule
+        intro_role:
+            type: "actor"
+            part_of: intro_card
+            id: intro-role
+        intro_meta:
+            type: "actor"
+            part_of: intro_card
+            id: intro-meta
+
+        # Declared for its DURATION as well as to be mixed: this beat plays its own
+        # line, unlike the route scenes in `hiking-trails` where all the audio meets in
+        # the stitch. Generate it with `scene_00_tts_generation.yaml` first — the
+        # inspector probes this at compile time and cannot guess.
+        narration:
+            type: "audio"
+            file: "./audio/beat_01_intro.mp3"
+
+        template:
+            type: "template"
+            file: "./resources/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resources/css/theme_bio.css"
+
+    const:
+        # Head and tail of quiet, so the cut into and out of this beat is not abrupt.
+        VIDEO_MARGIN: 350
+
+        # The cascade. Each element fades over FADE_MS and the next begins when it
+        # finishes, so four chained bookmarks put the whole card up in 4 * FADE_MS.
+        # Kept brisk: a title card that takes its time is a title card that eats the
+        # budget of the beat that has something to say.
+        FADE_MS: 260
+        # The rule is a line rather than a block of type, so it draws rather than
+        # fades — `reveal` strokes it on from its left end.
+        RULE_DRAW_MS: 340
+
+        # Everything in the beat that is NOT the hold at the end.
+        CASCADE_MS: "FADE_MS * 3 + RULE_DRAW_MS"
+        FIXED_MS: "VIDEO_MARGIN * 2 + CASCADE_MS"
+        # The ELASTIC term: whatever the line has left after the card is up. If a
+        # re-recorded line comes back SHORTER than FIXED_MS this goes negative, which
+        # is the compiler telling you the cascade is now too slow for the words — cut
+        # FADE_MS, do not pad the audio.
+        CARD_HOLD_MS: "narration.duration - FIXED_MS"
+
+        # ── The tail ──────────────────────────────────────────────────────────────
+        # The narration is mixed starting at VIDEO_MARGIN, so the clip has to run to
+        # VIDEO_MARGIN + narration.duration + VIDEO_MARGIN for the line to finish with
+        # quiet after it. The elastic hold above already subtracted two margins, which
+        # leaves the ANIMATED body ending before the voice does — so the tail covers
+        # that overhang plus the closing quiet, rather than one margin.
+        #
+        # Getting this wrong truncates the last ~320 ms of every line. It is easy to
+        # miss because TTS tends to end with a little silence, so the first take that
+        # exposes it is the one that does not.
+        BODY_END_MS: "VIDEO_MARGIN + CASCADE_MS + CARD_HOLD_MS"
+        TAIL_MS: "VIDEO_MARGIN * 2 + narration.duration - BODY_END_MS"
+
+animation:
+    defaults:
+        assets:
+            scene: intro_card
+
+    timeline:
+        # Head: backdrop up, every element hidden, for VIDEO_MARGIN.
+        0 @ setup:
+            - intro_card:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - intro_name:
+                  - show:
+                        opacity: 0
+            - intro_rule:
+                  - show:
+                        opacity: 0
+            - intro_role:
+                  - show:
+                        opacity: 0
+            - intro_meta:
+                  - show:
+                        opacity: 0
+
+        # The cascade, in reading order. Each entry is chained off the previous one's
+        # bookmark rather than given an absolute time, so the rhythm survives a change
+        # to any single duration.
+        setup.end @ name_in:
+            - intro_name:
+                  - show:
+                        duration: FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+
+        name_in.end @ rule_in:
+            - intro_rule:
+                  - show:
+                        duration: RULE_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+
+        rule_in.end @ role_in:
+            - intro_role:
+                  - show:
+                        duration: FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+
+        role_in.end @ meta_in:
+            - intro_meta:
+                  - show:
+                        duration: FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        # The card is complete here and simply waits out the line.
+                        hold:
+                            after: "CARD_HOLD_MS"
+
+        meta_in.end @ teardown:
+            - intro_card:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "TAIL_MS"
+
+    capture:
+        # Silent animation. The composition below rolls it and mixes the narration in.
+        video_intro_animation:
+            output: "./video/scene_01_intro_animation.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        # Roll the animation and lay the line over it, starting where the name begins
+        # to appear rather than at frame zero — the head margin is deliberate quiet.
+        "0":
+            - video_intro_animation:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::name_in.start"
+                        asset: narration
+
+    capture:
+        video_intro:
+            output: "./video/scene_01_intro.mp4"
+            fps: 30

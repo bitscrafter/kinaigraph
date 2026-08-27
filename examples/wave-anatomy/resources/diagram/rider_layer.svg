@@ -1,0 +1,20 @@
+<svg id="rider_layer" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- The travelling dot, in its own scene asset so it stacks ABOVE the generated
+       curves (declaration order is render order) and rides over them rather than
+       under. Shares the plot's 0 0 1280 720 viewBox, so a coordinate means the same
+       thing in both files.
+
+       It rests at the plot origin. Every scene that uses it moves it onto a curve
+       with `move … along`, naming the generated annotation — so the dot travels the
+       curve the equation produced, not a path copied alongside it. -->
+
+  <style>
+    .rider      { fill: var(--kg-rider, #f0883e); }
+    .rider-halo { fill: var(--kg-rider, #f0883e); opacity: 0.22; }
+  </style>
+
+  <g id="rider">
+    <circle class="rider-halo" cx="120" cy="380" r="17"/>
+    <circle class="rider" cx="120" cy="380" r="8"/>
+  </g>
+</svg>

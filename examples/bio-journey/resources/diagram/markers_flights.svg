@@ -1,0 +1,106 @@
+<!--
+  Marker layer — bio-journey flight map.
+  ──────────────────────────────────────────────────────────────────────────
+  HAND-AUTHORED, unlike world_map.svg and flights_layer.svg, which
+  ./make_map_svg.py regenerates. Keeping the glyphs here is what lets the map and
+  the routes be regenerated freely without clobbering them. A plane here still
+  rides a path that lives in flights_layer.svg: move-along resolves an asset
+  segment cross-scene within a frame, so a rider and its rail need not share a
+  file.
+
+  Stacks ABOVE world_map.svg and flights_layer.svg on the shared 0 0 1920 1080
+  viewBox, so all three address one coordinate space. Layer order is DECLARATION
+  order in the scene file's `defs.assets` — declare this one last or the routes
+  will paint over their own planes.
+
+  City label baselines sit 38px below their dot, not the 34 that looked right on a
+  bare map: the arrival ring is r=20 with a 2.5 stroke, so anything closer is
+  overlapped the moment a flight lands. All three share the offset even though
+  Austin has no ring, so the three labels stay on one optical line.
+
+  Every coordinate below is PRINTED by ./make_map_svg.py from the city's latitude
+  and longitude. Do not adjust them by eye: re-frame the map and re-run the
+  generator, then paste. A city dot that disagrees with the generator is a dot the
+  arc no longer touches.
+
+  The `transform` on each plane is a RESTING POSE only: where the glyph sits during
+  its fade-in, before its first `move` takes over and places it. Both rest at
+  Austin, because both flights leave from there.
+-->
+<svg id="markers_flights" width="1920" height="1080" viewBox="0 0 1920 1080"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Airliner silhouette, pointing +x at rest — the engine's zero rotation — so
+         `orient: auto` turns it onto the flight tangent with no correction here.
+         Swept wings and a tailplane are what make it read as a plane at 34px
+         rather than as a generic arrowhead; the nose is the extreme +x point so the
+         turn looks like it pivots about the airframe. -->
+    <symbol id="airliner" viewBox="0 0 24 24">
+      <path d="M 23.2 12
+               L 13.5 9.6
+               L 8.2 9.6
+               L 3.4 3.2
+               L 1.4 3.2
+               L 4.6 9.7
+               L 2.0 9.9
+               L 1.0 8.2
+               L 0.2 8.2
+               L 0.9 12
+               L 0.2 15.8
+               L 1.0 15.8
+               L 2.0 14.1
+               L 4.6 14.3
+               L 1.4 20.8
+               L 3.4 20.8
+               L 8.2 14.4
+               L 13.5 14.4
+               Z"
+            fill="currentColor" stroke="#0b1220" stroke-width="0.6"
+            stroke-linejoin="round" />
+    </symbol>
+  </defs>
+
+  <!-- ── Cities ───────────────────────────────────────────────────────────────
+       Austin is the origin of both flights and carries no arrival ring. The two
+       destinations each get a ring that pulses on arrival, in that route's hue. -->
+
+  <g id="city-austin">
+    <circle class="city-halo" cx="674.2" cy="363.1" r="13" />
+    <circle class="city-dot" cx="674.2" cy="363.1" r="5.5" />
+    <text class="city-label" x="674.2" y="401" text-anchor="middle">Austin</text>
+  </g>
+
+  <g id="city-honolulu">
+    <circle class="city-halo" cx="149.6" cy="441.3" r="13" />
+    <circle class="city-dot" cx="149.6" cy="441.3" r="5.5" />
+    <text class="city-label" x="149.6" y="479" text-anchor="middle">Honolulu</text>
+  </g>
+
+  <g id="city-paris">
+    <circle class="city-halo" cx="1547.8" cy="200.9" r="13" />
+    <circle class="city-dot" cx="1547.8" cy="200.9" r="5.5" />
+    <text class="city-label" x="1547.8" y="239" text-anchor="middle">Paris</text>
+  </g>
+
+  <!-- ── Arrival rings ────────────────────────────────────────────────────────
+       Separate actors from the city groups so a ring can pulse while its city dot
+       stays put. `origin: center` in the scene file makes the pulse concentric. -->
+  <circle id="arrive-honolulu" class="arrive-ring arrive-ring-honolulu"
+          cx="149.6" cy="441.3" r="20" opacity="0" />
+  <circle id="arrive-paris" class="arrive-ring arrive-ring-paris"
+          cx="1547.8" cy="200.9" r="20" opacity="0" />
+
+  <!-- ── The travellers ───────────────────────────────────────────────────────
+       One plane per route, each in its destination's hue, so the two concurrent
+       flights stay distinguishable while they are both in the air. -->
+  <g id="plane-honolulu" class="plane-honolulu"
+     transform="translate(674.2 363.1)" opacity="0">
+    <use href="#airliner" x="-17" y="-17" width="34" height="34" />
+  </g>
+
+  <g id="plane-paris" class="plane-paris"
+     transform="translate(674.2 363.1)" opacity="0">
+    <use href="#airliner" x="-17" y="-17" width="34" height="34" />
+  </g>
+</svg>

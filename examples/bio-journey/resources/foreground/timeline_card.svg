@@ -1,0 +1,81 @@
+<!--
+  Career timeline — bio-journey, beat 2.
+  ──────────────────────────────────────────────────────────────────────────
+  The headline beat. Four stations on one axis, each arriving as its sentence is
+  spoken, so the viewer reads a life left to right at the pace of the voice.
+
+  The axis is FOUR SEGMENTS rather than one line, because each segment is revealed
+  as its own step arrives: the line grows toward the next station instead of being
+  there from the start. Each segment ends on the station it leads to, and reveal
+  runs from a path's first point, so every segment is authored left to right.
+
+  The dashed tail past the last station is deliberate foreshadowing: it is the only
+  thing on this card that points off the right edge, and the beat that follows is
+  about where she goes next.
+
+  Roles and years are the substance of the bio and are therefore SUBJECT detail, not
+  personal identification — they carry no name. The name lives only in
+  intro_card.svg, which is what makes that one file the whole genericising swap.
+
+  The axis sits on the canvas midline (540) rather than lower: with no title above
+  it, anything further down leaves the top half of the card visibly empty.
+
+  Typography and colour are in resources/css/theme_bio.css. Only POSITION lives
+  here.
+
+  Actor ids, in arrival order: tl-seg-1 / tl-station-1, then 2, 3, 4, then
+  tl-future. Each starts hidden here as well as in the scene's setup entry.
+-->
+<svg
+	id="timeline_card"
+	width="1920"
+	height="1080"
+	viewBox="0 0 1920 1080"
+	xmlns="http://www.w3.org/2000/svg"
+>
+
+  <rect id="tl-bg" class="tl-bg" x="0" y="0" width="1920" height="1080" />
+
+  <!-- Axis segments. Each runs from the previous station to its own, so segment n
+       and station n arrive together and the line is never ahead of the dots. -->
+  <line id="tl-seg-1" class="tl-axis" x1="180" y1="540" x2="300" y2="540" opacity="0" />
+  <line id="tl-seg-2" class="tl-axis" x1="300" y1="540" x2="720" y2="540" opacity="0" />
+  <line id="tl-seg-3" class="tl-axis" x1="720" y1="540" x2="1140" y2="540" opacity="0" />
+  <line id="tl-seg-4" class="tl-axis" x1="1140" y1="540" x2="1600" y2="540" opacity="0" />
+
+  <!-- Stations. Year above the axis, role below, so neither collides with the line
+       and the eye reads year then role at each stop. -->
+  <g id="tl-station-1" opacity="0">
+    <text class="tl-year" x="300" y="492" text-anchor="middle">2010</text>
+    <circle class="tl-dot" cx="300" cy="540" r="9" />
+    <text class="tl-role" x="300" y="602" text-anchor="middle">Software Engineer</text>
+  </g>
+
+  <g id="tl-station-2" opacity="0">
+    <text class="tl-year" x="720" y="492" text-anchor="middle">2012</text>
+    <circle class="tl-dot" cx="720" cy="540" r="9" />
+    <text class="tl-role" x="720" y="602" text-anchor="middle">Senior Software Engineer</text>
+  </g>
+
+  <g id="tl-station-3" opacity="0">
+    <text class="tl-year" x="1140" y="492" text-anchor="middle">2018</text>
+    <circle class="tl-dot" cx="1140" cy="540" r="9" />
+    <text class="tl-role" x="1140" y="602" text-anchor="middle">Staff Software Engineer</text>
+  </g>
+
+  <!-- The last station is the present, so it carries the accent colour the intro
+       card used for her current role. -->
+  <g id="tl-station-4" opacity="0">
+    <text class="tl-year tl-year-now" x="1600" y="492" text-anchor="middle">2025</text>
+    <circle class="tl-dot tl-dot-now" cx="1600" cy="540" r="11" />
+    <text
+			class="tl-role tl-role-now"
+			x="1600"
+			y="602"
+			text-anchor="middle"
+		>Engineering Manager</text>
+  </g>
+
+  <!-- Where the story is still going. Points off the edge on purpose. -->
+  <line id="tl-future" class="tl-future" x1="1600" y1="540" x2="1840" y2="540" opacity="0" />
+</svg>
