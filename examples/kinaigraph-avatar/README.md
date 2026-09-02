@@ -18,8 +18,8 @@ of a 1280×720 scene.
 ## Rendering
 
 ```bash
-kinaigraph scene_00_tts_generation.yaml -outdir .
-kinaigraph scene_avatar_intro.yaml      -outdir .
+kinaigraph scene_00_tts_generation.yaml --outdir .
+kinaigraph scene_avatar_intro.yaml      --outdir .
 ```
 
 ## How the talking works

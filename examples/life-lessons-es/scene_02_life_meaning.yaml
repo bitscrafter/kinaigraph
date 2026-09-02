@@ -10,9 +10,9 @@
 #
 # Path resolution (as in the tts yaml): `file:` inputs resolve against THIS
 # yaml.s own folder, which IS the example root (the yaml sits at the top), so file: paths need no ../.
-# Capture `output:` resolves against the -outdir you pass.
+# Capture `output:` resolves against the --outdir you pass.
 # Run from the example root:
-#   kinaigraph ./scene_02_life_meaning.yaml -outdir ./out
+#   kinaigraph ./scene_02_life_meaning.yaml --outdir ./out
 
 metadata:
     title: "Life Lessons - Scene 02: The Meaning of Life (Spanish)"

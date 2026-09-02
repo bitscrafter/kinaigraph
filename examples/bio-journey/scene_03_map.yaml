@@ -22,7 +22,7 @@
 # Layer order is DECLARATION order below (painter's algorithm): map, then routes,
 # then markers. Declare the markers last or the routes paint over their own planes.
 #
-#     kinaigraph scene_03_map.yaml -outdir ./out
+#     kinaigraph scene_03_map.yaml --outdir ./out
 
 metadata:
     title: "Bio Journey - Beat 3: The Flight Map"

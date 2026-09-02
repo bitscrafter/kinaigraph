@@ -15,9 +15,9 @@
 # on screen before the narration's last word regardless of how long the line runs.
 #
 # Path resolution: `file:` inputs resolve against THIS yaml's own folder, which IS the
-# example root. Capture `output:` resolves against the -outdir you pass.
+# example root. Capture `output:` resolves against the --outdir you pass.
 #
-#     kinaigraph scene_01_intro.yaml -outdir ./out
+#     kinaigraph scene_01_intro.yaml --outdir ./out
 
 metadata:
     title: "Bio Journey - Beat 1: Intro Card"

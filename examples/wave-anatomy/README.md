@@ -145,7 +145,7 @@ looking.
 
 ```sh
 # 1. Narration. Needs ELEVENLABS_API_KEY; costs credits, so it is its own step.
-./kinaigraph scene_00_tts_generation.yaml -outdir .
+./kinaigraph scene_00_tts_generation.yaml --outdir .
 
 # 2. The four beats. Each probes its own line's duration and sizes itself to it.
 ./kinaigraph scene_01_wave.yaml

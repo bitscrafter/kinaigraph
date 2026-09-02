@@ -21,10 +21,10 @@
 # mp4s must exist for the inspector to probe each clip's duration at compile time; a
 # missing clip fails here rather than silently at playback.
 #
-#     kinaigraph scene_01_intro.yaml    -outdir ./out
-#     kinaigraph scene_02_timeline.yaml -outdir ./out
-#     kinaigraph scene_03_map.yaml      -outdir ./out
-#     kinaigraph scene_stitch.yaml      -outdir ./out
+#     kinaigraph scene_01_intro.yaml    --outdir ./out
+#     kinaigraph scene_02_timeline.yaml --outdir ./out
+#     kinaigraph scene_03_map.yaml      --outdir ./out
+#     kinaigraph scene_stitch.yaml      --outdir ./out
 
 metadata:
     title: "Bio Journey - Full Piece"

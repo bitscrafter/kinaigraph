@@ -33,7 +33,7 @@
 # Two of the six detected gaps are intra-sentence commas ("testing," at 1.17 s and
 # "twelve," at 11.98 s) — do not mistake them for boundaries.
 #
-#     kinaigraph scene_02_timeline.yaml -outdir ./out
+#     kinaigraph scene_02_timeline.yaml --outdir ./out
 
 metadata:
     title: "Bio Journey - Beat 2: Career Timeline"

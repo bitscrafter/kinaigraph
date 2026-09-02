@@ -10,7 +10,7 @@
 # the voice rather than the voice being trimmed to the visuals. Re-record a line and
 # the beat re-fits itself on the next render; nothing is measured by hand and pasted.
 #
-#     kinaigraph scene_00_tts_generation.yaml -outdir .
+#     kinaigraph scene_00_tts_generation.yaml --outdir .
 #
 # Needs ELEVENLABS_API_KEY in the environment. Every run costs credits and calls out to
 # the provider, so it is deliberately a separate file from the scenes — re-rendering a

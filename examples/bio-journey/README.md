@@ -117,14 +117,14 @@ no `.length` on a path for a scene to divide by.
 
 # 2) Generate the narration (only when a script changes). Needs ELEVENLABS_API_KEY.
 #    Every run costs credits.
-kinaigraph scene_00_tts_generation.yaml -outdir .
+kinaigraph scene_00_tts_generation.yaml --outdir .
 
 # 3) Render the three beats, then stitch. All four share ONE outdir: every capture
 #    names a distinct file under out/video/, so nothing collides.
-kinaigraph scene_01_intro.yaml    -outdir ./out
-kinaigraph scene_02_timeline.yaml -outdir ./out
-kinaigraph scene_03_map.yaml      -outdir ./out
-kinaigraph scene_stitch.yaml      -outdir ./out    # -> out/video/bio_journey_full.mp4
+kinaigraph scene_01_intro.yaml    --outdir ./out
+kinaigraph scene_02_timeline.yaml --outdir ./out
+kinaigraph scene_03_map.yaml      --outdir ./out
+kinaigraph scene_stitch.yaml      --outdir ./out    # -> out/video/bio_journey_full.mp4
 ```
 
 The stitch must run last: it probes each clip's duration at compile time, so a missing

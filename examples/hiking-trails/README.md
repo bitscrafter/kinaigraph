@@ -78,15 +78,15 @@ is not played there — all three lines and the ambience bed mix once, in the st
 ```bash
 # 1) Generate the narration once (only when a script changes). Needs ELEVENLABS_API_KEY.
 #    Nothing consumes these MP3s yet — see the note above.
-kinaigraph scene_00_tts_generation.yaml -outdir .
+kinaigraph scene_00_tts_generation.yaml --outdir .
 
 # 2) Render each route.
-kinaigraph scene_summit.yaml -outdir ./out
-kinaigraph scene_lake.yaml   -outdir ./out_lake
-kinaigraph scene_rest.yaml   -outdir ./out_rest
+kinaigraph scene_summit.yaml --outdir ./out
+kinaigraph scene_lake.yaml   --outdir ./out_lake
+kinaigraph scene_rest.yaml   --outdir ./out_rest
 
 # 3) Stitch the three into the final video.
-kinaigraph scene_stitch.yaml -outdir ./out_full
+kinaigraph scene_stitch.yaml --outdir ./out_full
 ```
 
 To re-route a trail: repaint its trace, run

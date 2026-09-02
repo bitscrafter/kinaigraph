@@ -5,8 +5,8 @@
 # Run once (or when the scripts change) before rendering the scenes.
 # Path resolution: `file:` inputs resolve against THIS yaml's own directory
 # (the compiler uses the input file's folder as the source dir) -- which IS the example root (the yaml sits at the top). `export:` outputs resolve against the
-# -outdir you pass (e.g. `-outdir ./out` -> ./out/audio/...).
-# Run from the example root:  kinaigraph ./scene_00_tts_generation.yaml -outdir ./out
+# --outdir you pass (e.g. `--outdir ./out` -> ./out/audio/...).
+# Run from the example root:  kinaigraph ./scene_00_tts_generation.yaml --outdir ./out
 
 metadata:
     title: "Life Lessons - Audio Generation (Spanish)"
