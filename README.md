@@ -16,6 +16,13 @@ Kinaigraph is early software, rolling out in stages:
 Until the binary ships, the examples are here to read: they show what authoring in
 Kinaigraph looks like, even though you can't render them yourself just yet.
 
+**What ends the alpha.** The `-alpha` is dropped when the authoring language goes one full
+release without a change that stops an existing example in this repository from rendering.
+The condition is about the **language**, not the tool: what an alpha warns you about is
+that a scene you write may need editing to keep working across a release. The examples
+below are the measure — every release renders all of them end to end — so this is
+something you can check rather than something we judge.
+
 ## Examples
 
 Each example is a set of YAML **scene** files plus its resources — SVG artwork, CSS
