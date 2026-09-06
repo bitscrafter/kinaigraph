@@ -145,16 +145,16 @@ looking.
 
 ```sh
 # 1. Narration. Needs ELEVENLABS_API_KEY; costs credits, so it is its own step.
-./kinaigraph scene_00_tts_generation.yaml --outdir .
+kinaigraph scene_00_tts_generation.yaml --outdir .
 
 # 2. The four beats. Each probes its own line's duration and sizes itself to it.
-./kinaigraph scene_01_wave.yaml
-./kinaigraph scene_02_amplitude.yaml
-./kinaigraph scene_03_frequency.yaml
-./kinaigraph scene_04_shift.yaml
+kinaigraph scene_01_wave.yaml
+kinaigraph scene_02_amplitude.yaml
+kinaigraph scene_03_frequency.yaml
+kinaigraph scene_04_shift.yaml
 
 # 3. The stitch. Requires all four mp4s to exist so their durations can be probed.
-./kinaigraph scene_stitch.yaml
+kinaigraph scene_stitch.yaml
 ```
 
 ## The geometry contract
