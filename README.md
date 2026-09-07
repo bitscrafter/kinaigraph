@@ -50,11 +50,11 @@ uname -m
 Kinaigraph renders in a real browser and encodes with a real encoder, so two things must
 already be on your machine before it can do anything.
 
-**[Google Chrome](https://www.google.com/chrome/)** — Kinaigraph drives it to rasterize each
+[Google Chrome](https://www.google.com/chrome/) — Kinaigraph drives it to rasterize each
 frame. Chromium and Edge also work. Download and install it the ordinary way; there is no
 command-line route worth preferring.
 
-**[`ffmpeg`](https://ffmpeg.org/)** — used to encode the frames into an MP4 and to mux the
+[`ffmpeg`](https://ffmpeg.org/) — used to encode the frames into an MP4 and to mux the
 narration audio. The usual route is [Homebrew](https://brew.sh/). If you do not have Homebrew:
 
 ```sh
