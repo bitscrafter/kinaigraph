@@ -27,6 +27,10 @@ something we judge.
 
 ## Install
 
+⚠️ **You need an administrator account on the Mac.** Installing `ffmpeg` uses Homebrew, which
+requires one, and putting the binary on your `PATH` uses `sudo`. If the account you are using
+cannot run `sudo`, stop here — the rest of this section will not work.
+
 macOS only, for now. Two builds are published with every release:
 
 | your Mac | download |
@@ -41,8 +45,36 @@ Silicon and `x86_64` on Intel:
 uname -m
 ```
 
-Download the matching archive from [Releases](https://github.com/bitscrafter/kinaigraph/releases),
-then:
+### 1. What Kinaigraph needs
+
+Kinaigraph renders in a real browser and encodes with a real encoder, so two things must
+already be on your machine before it can do anything.
+
+**[Google Chrome](https://www.google.com/chrome/)** — Kinaigraph drives it to rasterize each
+frame. Chromium and Edge also work. Download and install it the ordinary way; there is no
+command-line route worth preferring.
+
+**[`ffmpeg`](https://ffmpeg.org/)** — used to encode the frames into an MP4 and to mux the
+narration audio. The usual route is [Homebrew](https://brew.sh/). If you do not have Homebrew:
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Then:
+
+```sh
+brew install ffmpeg
+```
+
+Homebrew will tell you to add its directory to your `PATH` and print the exact lines for your
+shell. Do what it says — on Apple Silicon it installs to `/opt/homebrew/bin`, which is **not**
+on a fresh account's `PATH`, and `ffmpeg` will be invisible until you add it.
+
+### 2. Install Kinaigraph
+
+Download the matching archive from
+[Releases](https://github.com/bitscrafter/kinaigraph/releases), then:
 
 ```sh
 tar -xzf kinaigraph-<version>-<your-arch>-apple-darwin.tar.gz
@@ -53,21 +85,24 @@ sudo mv kinaigraph /usr/local/bin/
 Three things are happening there, and the middle one is the surprising one:
 
 1. **Extract.** The archive holds the `kinaigraph` binary and this project's `LICENSE`.
-2. **Clear the quarantine flag.** macOS marks anything a browser downloaded, and refuses
-   to run it unsigned — *"cannot be opened because the developer cannot be verified."*
-   The command above clears that flag, and it is applied to the **extracted binary**, not
-   to the `.tar.gz`. (Kinaigraph is signed but not notarized during the alpha.)
+2. **Clear the quarantine flag.** macOS marks anything a browser downloaded, and refuses to
+   run it unsigned — *"cannot be opened because the developer cannot be verified."* The
+   command above clears that flag, and it is applied to the **extracted binary**, not to the
+   `.tar.gz`. (Kinaigraph is signed but not notarized during the alpha.)
 3. **Move it onto your `PATH`.** `/usr/local/bin` is on the default macOS `PATH`, so after
-   this you can type `kinaigraph` from any directory. That is the form every example in
-   this repository uses.
+   this you can type `kinaigraph` from any directory. That is the form every example in this
+   repository uses. Before this step you would have to type `./kinaigraph`.
 
-Verify the install:
+Verify the install, and check that Kinaigraph can find Chrome and `ffmpeg`:
 
 ```sh
 kinaigraph --version
+kinaigraph doctor
 ```
 
-It should print `kinaigraph` followed by the version you downloaded.
+`--version` should print `kinaigraph` followed by the version you downloaded. `doctor` reports
+what Kinaigraph found and what it could not — if it cannot see Chrome or `ffmpeg`, fix that
+before going further.
 
 ### Verifying a download
 
@@ -77,32 +112,53 @@ Each archive ships a `.sha256` beside it:
 shasum -a 256 -c kinaigraph-<version>-<your-arch>-apple-darwin.tar.gz.sha256
 ```
 
-### What else you need
+## Get the examples
 
-Kinaigraph renders in a real browser and encodes with a real encoder, so two things must
-already be on your machine:
-
-- **[Google Chrome](https://www.google.com/chrome/)** — Kinaigraph drives it to rasterize
-  each frame. Chromium and Edge also work.
-- **[`ffmpeg`](https://ffmpeg.org/)** — used to encode the frames into an MP4 and to mux
-  the narration audio. `brew install ffmpeg` is the usual route.
-
-Run `kinaigraph doctor` to see what Kinaigraph found and what it could not:
+The binary does not come with any scenes. The examples live in this repository — clone it:
 
 ```sh
-kinaigraph doctor
+git clone https://github.com/bitscrafter/kinaigraph.git
+cd kinaigraph/examples
 ```
+
+Or download the ZIP from the [repository page](https://github.com/bitscrafter/kinaigraph)
+(**Code → Download ZIP**) and unpack it, if you would rather not use `git`.
+
+### ⚠️ Most examples need a text-to-speech key
+
+Kinaigraph times animation to narration, so most scenes here read an audio clip that is
+**generated from a script**, not committed. Rendering those needs an
+[ElevenLabs](https://elevenlabs.io/) API key in `ELEVENLABS_API_KEY`, and each synthesis run
+costs credits. Every example has a `scene_00_tts_generation.yaml` that does that step.
+
+**One example renders with no key and no synthesis** — every input it uses is in this
+repository. Start there.
 
 ## Using it
 
-Compile and render a scene by naming its YAML file:
+Render the self-contained scene:
 
 ```sh
-kinaigraph scene_01_flow.yaml --outdir ./out
+cd kinaigraph/examples/hiking-trails
+kinaigraph scene_summit_faceted.yaml --outdir ./out
+open ./out/video/scene_summit_faceted.mp4
 ```
 
-`--outdir` is where the outputs are written; it defaults to `./out`. Paths *inside* a
-scene resolve against that scene's own folder, so run Kinaigraph from the example's root.
+That is the whole loop: a scene file in, an MP4 out.
+
+`--outdir` is where outputs are written; it defaults to `./out`. Paths *inside* a scene
+resolve against that scene's own folder, which is why you `cd` into the example first.
+
+To render anything else, set `ELEVENLABS_API_KEY`, generate that example's narration once, and
+then render its scenes:
+
+```sh
+export ELEVENLABS_API_KEY=...
+kinaigraph scene_00_tts_generation.yaml --outdir .
+kinaigraph scene_01_<name>.yaml --outdir ./out
+```
+
+Each example's own README says what it shows and which scenes it has.
 
 ### Command-line reference
 
