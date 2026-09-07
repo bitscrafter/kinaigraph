@@ -78,31 +78,77 @@ Download the matching archive from
 
 ```sh
 tar -xzf kinaigraph-<version>-<your-arch>-apple-darwin.tar.gz
-xattr -dr com.apple.quarantine kinaigraph
 sudo mv kinaigraph /usr/local/bin/
 ```
 
-Three things are happening there, and the middle one is the surprising one:
+If you would rather not use the command line to unpack it, double-click the `.tar.gz` in
+Finder — macOS extracts it with Archive Utility — and then run the `sudo mv` line against
+wherever it landed.
+
+Two things are happening:
 
 1. **Extract.** The archive holds the `kinaigraph` binary and this project's `LICENSE`.
-2. **Clear the quarantine flag.** macOS marks anything a browser downloaded, and refuses to
-   run it unsigned — *"cannot be opened because the developer cannot be verified."* The
-   command above clears that flag, and it is applied to the **extracted binary**, not to the
-   `.tar.gz`. (Kinaigraph is signed but not notarized during the alpha.)
-3. **Move it onto your `PATH`.** `/usr/local/bin` is on the default macOS `PATH`, so after
+2. **Move it onto your `PATH`.** `/usr/local/bin` is on the default macOS `PATH`, so after
    this you can type `kinaigraph` from any directory. That is the form every example in this
-   repository uses. Before this step you would have to type `./kinaigraph`.
+   repository uses; before this step you would have to type `./kinaigraph`.
 
-Verify the install, and check that Kinaigraph can find Chrome and `ffmpeg`:
+`sudo` is needed even on an administrator account: `/usr/local/bin` is owned by `root`, and
+being an administrator means you *may* use `sudo`, not that you own root's directories.
+
+Now check the install:
 
 ```sh
 kinaigraph --version
 kinaigraph doctor
 ```
 
-`--version` should print `kinaigraph` followed by the version you downloaded. `doctor` reports
-what Kinaigraph found and what it could not — if it cannot see Chrome or `ffmpeg`, fix that
-before going further.
+`--version` prints `kinaigraph` and the version — that tells you the binary is installed and
+on your `PATH`.
+
+`doctor` is the one that matters: it tells you whether Kinaigraph can actually do its job.
+Under **Tools** you want all three found, each with a version and a path:
+
+```text
+    Tools
+        Browser: Google Chrome 152.0.7977.83
+            Authoritative: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+        Media Encoder: ffmpeg 9.0.1
+            Authoritative: /opt/homebrew/bin/ffmpeg
+        Media Inspector: ffprobe 9.0.1
+            Authoritative: /opt/homebrew/bin/ffprobe
+```
+
+Your versions and paths will differ. What matters is that none of the three says `Not Found`.
+If one does, `doctor` prints what it searched and a `Hint:` telling you what to do:
+
+```text
+        Media Encoder: Not Found
+            Authoritative: None Identified
+                Searched:
+                    Platform
+                        $PATH                    not found
+                        Standard Locations       not found
+                (nothing found)
+```
+
+That is almost always `ffmpeg` missing, or installed but not on your `PATH` — see step 1.
+Fix it before going further; rendering will fail without it.
+
+### If macOS refuses to run it
+
+You will probably not need this. A binary you downloaded through a browser carries a
+**quarantine** flag, and the flag survives extraction — but macOS only enforces it when
+something is launched through Finder (double-clicking it, or `open`). Typing `kinaigraph` in
+Terminal is not blocked.
+
+If you do launch it that way and macOS says *"cannot be opened because the developer cannot be
+verified"*, clear the flag on the **extracted binary** — not on the `.tar.gz`:
+
+```sh
+xattr -dr com.apple.quarantine /usr/local/bin/kinaigraph
+```
+
+Kinaigraph is signed but not notarized during the alpha, which is why the flag matters at all.
 
 ### Verifying a download
 
