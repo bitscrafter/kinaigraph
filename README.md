@@ -128,7 +128,8 @@ If one does, `doctor` prints what it searched and a `Hint:` telling you what to 
                     Platform
                         $PATH                    not found
                         Standard Locations       not found
-                (nothing found)
+                Hint: this machine has no media encoder; install one
+            Alternatives: None Identified
 ```
 
 That is almost always `ffmpeg` missing, or installed but not on your `PATH` — see step 1.
@@ -186,22 +187,26 @@ Render the self-contained scene:
 
 ```sh
 cd kinaigraph/examples/hiking-trails
-kinaigraph scene_summit_faceted.yaml --outdir ./out
-open ./out/video/scene_summit_faceted.mp4
+kinaigraph scene_summit_faceted.yaml
+open ./video/scene_summit_faceted.mp4
 ```
 
 That is the whole loop: a scene file in, an MP4 out.
 
-`--outdir` is where outputs are written; it defaults to `./out`. Paths *inside* a scene
-resolve against that scene's own folder, which is why you `cd` into the example first.
+Outputs land in the folder containing the scene file, beside it. Paths *inside* a scene
+resolve against that same folder, so what a scene writes is where the next scene looks for
+it — which is why you `cd` into the example first.
+
+`--outdir` moves that base somewhere else for one run, without editing the scene. You do
+not need it for the loop above.
 
 To render anything else, set `ELEVENLABS_API_KEY`, generate that example's narration once, and
 then render its scenes:
 
 ```sh
 export ELEVENLABS_API_KEY=...
-kinaigraph scene_00_tts_generation.yaml --outdir .
-kinaigraph scene_01_<name>.yaml --outdir ./out
+kinaigraph scene_00_tts_generation.yaml
+kinaigraph scene_01_<name>.yaml
 ```
 
 Each example's own README says what it shows and which scenes it has.
@@ -219,7 +224,8 @@ Commands
     run                 Compile and render a document. The default — a bare
                         path is a run.
         <input.yaml>    The document to compile.
-        --outdir <path> Where outputs are written. Default: ./out
+        --outdir <path> Where outputs are written.
+                        Default: the folder containing <input.yaml>
     doctor              Report dependency resolution.
         <input.yaml>    Optional. Also report what this document declares
                         and whether it will resolve.
