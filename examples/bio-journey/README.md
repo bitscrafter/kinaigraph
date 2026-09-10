@@ -8,11 +8,17 @@ The subject is fictional: Dr. Jane Doe, a pediatrician.
 
 ## Running it
 
+Two cuts of the same six steps. The **brief** tells the story; the **teaser**
+compresses it to a single line per node.
+
 ```sh
-kinaigraph bio_journey_tts.yaml       # once — needs ELEVENLABS_API_KEY, costs credits
+kinaigraph bio_journey_teaser_tts.yaml   # once — needs ELEVENLABS_API_KEY, costs credits
 kinaigraph bio_journey_teaser.yaml
 open ./bio_journey_teaser.mp4
 ```
+
+Swap `teaser` for `brief` to build the longer cut. Each length has its own
+synthesis document so generating one does not bill for the other.
 
 The narration has to exist before the teaser will render: every step derives its
 dwell from its own clip's probed `.duration`, so without the audio there is
@@ -20,12 +26,12 @@ nothing for the timeline to measure.
 
 | File | What it is |
 | ---- | ---------- |
-| `bio_journey_tts.yaml` | Synthesis only. Turns the six scripts into the six clips. |
-| `bio_journey_teaser.yaml` | The piece. Animation plus the composition that mixes the narration onto it. |
+| `bio_journey_<cut>_tts.yaml` | Synthesis only. Turns that cut's six scripts into six clips. |
+| `bio_journey_<cut>.yaml` | The piece. Animation plus the composition that mixes the narration onto it. |
 | `resource/scene/ladder.svg` | The artwork. Generated — see below. |
 | `resource/style/theme_bio.css` | The palette and type. |
-| `resource/script/part_NN_*.txt` | One sentence per step. |
-| `resource/audio/part_NN_*.mp3` | The recordings, once generated. |
+| `resource/script/<cut>/part_NN_*.txt` | The narration, one file per step. |
+| `resource/audio/<cut>/part_NN_*.mp3` | The recordings, once generated. |
 
 ## What this example is a good place to notice
 
@@ -46,6 +52,11 @@ step keeps the icon legible while the glow still carries the progression.
 **Six clips, not one.** A single narration file would leave the timeline nothing to
 measure per step. One clip per node is what lets each step hold for exactly its own
 sentence and no longer.
+
+**Names are the contract, not positions.** Every node carries a slug — `first-night` —
+and it is the SVG id suffix (`node-first-night`, `seg-first-night`, `label-first-night`)
+*and* the script filename suffix (`part_03_first_night.txt`). Re-order the ladder and
+nothing can silently pair a line with the wrong node.
 
 ## Editing it
 

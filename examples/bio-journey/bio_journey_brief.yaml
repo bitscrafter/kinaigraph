@@ -1,10 +1,10 @@
 # ------------------------------------------
-# bio-journey — the teaser
+# bio-journey — the brief
 # ------------------------------------------
-# Six steps of one life, told in under thirty seconds
+# Six steps of one life, told at length
 #
-#     kinaigraph bio_journey_teaser_tts.yaml   # once, needs an API key
-#     kinaigraph bio_journey_teaser.yaml
+#     kinaigraph bio_journey_brief_tts.yaml   # once, needs an API key
+#     kinaigraph bio_journey_brief.yaml
 #
 # ── How a step is built ──────────────────────────────────────────────────────
 # Step 1 draws no span — it is the first node, and nothing precedes it. Steps
@@ -22,8 +22,8 @@
 # already-dashed line renders NOTHING, silently.
 
 metadata:
-    title: "Bio Journey - Teaser"
-    description: "Six steps of one life, told in under thirty seconds"
+    title: "Bio Journey - Brief"
+    description: "Six steps of one life, told at length"
     version: "1.0"
 
 defs:
@@ -111,22 +111,22 @@ defs:
 
         audio_01_waiting_room:
             type: "audio"
-            file: "./resource/audio/teaser/part_01_waiting_room.mp3"
+            file: "./resource/audio/brief/part_01_waiting_room.mp3"
         audio_02_medical_school:
             type: "audio"
-            file: "./resource/audio/teaser/part_02_medical_school.mp3"
+            file: "./resource/audio/brief/part_02_medical_school.mp3"
         audio_03_first_night:
             type: "audio"
-            file: "./resource/audio/teaser/part_03_first_night.mp3"
+            file: "./resource/audio/brief/part_03_first_night.mp3"
         audio_04_nicu:
             type: "audio"
-            file: "./resource/audio/teaser/part_04_nicu.mp3"
+            file: "./resource/audio/brief/part_04_nicu.mp3"
         audio_05_clinic:
             type: "audio"
-            file: "./resource/audio/teaser/part_05_clinic.mp3"
+            file: "./resource/audio/brief/part_05_clinic.mp3"
         audio_06_teaching:
             type: "audio"
-            file: "./resource/audio/teaser/part_06_teaching.mp3"
+            file: "./resource/audio/brief/part_06_teaching.mp3"
 
         template:
             type: "template"
@@ -393,8 +393,8 @@ animation:
                             after: "VIDEO_MARGIN"
 
     capture:
-        bio_journey_teaser_silent:
-            output: "./resource/video/bio_journey_teaser_silent.mp4"
+        bio_journey_brief_silent:
+            output: "./resource/video/bio_journey_brief_silent.mp4"
             fps: 30
 
 composition:
@@ -406,7 +406,7 @@ composition:
         # non-zero timestamp hits a known defect that places the audio at output
         # 0 — which here would stack all six lines on the first frame.
         "0":
-            - bio_journey_teaser_silent:
+            - bio_journey_brief_silent:
                   - roll:
                   - mix:
                         span:
@@ -434,6 +434,6 @@ composition:
                         asset: audio_06_teaching
 
     capture:
-        bio_journey_teaser:
-            output: "./bio_journey_teaser.mp4"
+        bio_journey_brief:
+            output: "./bio_journey_brief.mp4"
             fps: 30
