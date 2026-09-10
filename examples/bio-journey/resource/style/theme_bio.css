@@ -1,46 +1,86 @@
 /*
- * bio-journey — the ladder theme
+ * bio-journey — the ladder themes
  *
- * Six steps of one life on a rising sawtooth. The palette is SEQUENTIAL, not
- * categorical: one hue brightening from 2007 to 2025, because the nodes are an
- * ordered progression rather than six kinds of thing. Six distinct hues would
- * say these steps are unrelated; one brightening hue says they are one thing
- * getting further along, and the brightness itself encodes how far.
+ * Six steps of one life on a rising sawtooth. Both palettes are SEQUENTIAL, not
+ * categorical: one hue walked across the six nodes, because they are an ordered
+ * progression rather than six kinds of thing. Six distinct hues would say these
+ * steps are unrelated; one hue moving says they are one thing getting further
+ * along, and the movement itself encodes how far.
  *
- * ⚠️ The ramp is on the RING, never the disc fill. Icons are drawn in near-white,
- * and white on the bright end of the ramp measures about 2.2:1 — below any usable
- * threshold. Keeping the disc dark at every step means the icon is legible at all
- * six, and the glow still carries the progression.
+ * ⚠️ The two themes move the ramp in OPPOSITE directions, and the reason is
+ * contrast, not taste. `dark` BRIGHTENS toward 2025; `care` DARKENS. In both,
+ * "further along" means "further from the background".
+ *
+ * ⚠️ And each keeps the icon legible by holding the disc away from the ramp.
+ * On `dark` the disc stays dark and the icon is near-white — white on the bright
+ * end of that ramp measures about 2.2:1, so brightening the FILL would have made
+ * the last two icons unreadable. On `care` the disc is white and the icon takes
+ * the ramp colour directly, which is legible because the ramp is dark there.
+ *
+ * Fonts: Arial and its metric-compatible twins ONLY. Nothing here may name a
+ * font that is not installed by default on Windows, macOS and Linux — an example
+ * that renders differently depending on who clones it is a broken example.
+ * Liberation Sans (the Linux default) has identical advance widths to Arial, so
+ * a fallback shifts no layout. There is no cross-platform cursive: `cursive`
+ * resolves to Comic Sans on Windows and Apple Chancery on macOS, with no metric
+ * relationship. If a script face is ever wanted, it has to be EMBEDDED.
  */
 
 :root {
-    /* ── Stage ────────────────────────────────────────────────────────────── */
+    --kg-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+}
+
+/* ── dark ───────────────────────────────────────────────────────────────────
+ * The original. Deep navy, one cyan hue brightening toward the present.
+ */
+.dark {
     --kg-page-bg: #0b1220;
     --kg-scene-bg: #0b1220;
-
-    /* ── Type ─────────────────────────────────────────────────────────────── */
-    --kg-font-family: Inter, "Helvetica Neue", Arial, sans-serif;
     --kg-text-title: #f4f7fb;
-    --kg-text-body: #c7d3e2;
     --kg-text-muted: #8ea3bd;
 
-    /* ── The ladder ───────────────────────────────────────────────────────── */
-    /* The unwalked road: present from the first frame, so the shape of the life
-       is legible before any of it has happened. */
     --kg-track: #1e2c44;
-    --kg-disc: #0f1a2b;
+    --kg-disc-fill: #0f1a2b;
     --kg-icon: #eaf6ff;
 
-    /* The sequential ramp, dim to bright. */
     --kg-step-1: #2f6d7a;
     --kg-step-2: #37879a;
     --kg-step-3: #3fa3b8;
     --kg-step-4: #4cc0d2;
     --kg-step-5: #6bdcea;
     --kg-step-6: #93f0f7;
+    --kg-seg: #4cc0d2;
 }
 
-#bio-ladder {
+/* ── care ───────────────────────────────────────────────────────────────────
+ * The light theme. Teal on near-white — the register clinical material has used
+ * for decades, and readable in a printed still or a bright room, which the dark
+ * theme is not.
+ *
+ * The ramp DARKENS toward 2025, and the icon takes the ramp colour rather than a
+ * fixed ink, so a node's glyph gets more definite as she does.
+ */
+.care {
+    --kg-page-bg: #f4f8f9;
+    --kg-scene-bg: #f4f8f9;
+    --kg-text-title: #10202a;
+    --kg-text-muted: #5d7382;
+
+    --kg-track: #d3e2e6;
+    --kg-disc-fill: #ffffff;
+    --kg-icon: currentColor;
+
+    --kg-step-1: #86c9c0;
+    --kg-step-2: #5cb3a9;
+    --kg-step-3: #349a90;
+    --kg-step-4: #1c8177;
+    --kg-step-5: #0f6860;
+    --kg-step-6: #084f49;
+    --kg-seg: #1c8177;
+}
+
+#bio-ladder,
+#bio-icon-layer {
     font-family: var(--kg-font-family);
 }
 
@@ -49,43 +89,20 @@
 }
 
 /* ── Path ──────────────────────────────────────────────────────────────────
- * ⚠️ `.seg` must never carry a `stroke-dasharray`. The `reveal` property drives
- * that same attribute to draw a stroke on progressively, so a dashed segment
- * renders NOTHING when revealed — silently. Dashes or draw-on, never both.
+ * ⚠️ `.seg` must never carry a `stroke-dasharray`. `reveal` drives that same
+ * attribute to draw a stroke on progressively, so a dashed segment renders
+ * NOTHING when revealed — silently. Dashes or draw-on, never both.
  */
-.track {
-    fill: none;
-    stroke: var(--kg-track);
-    stroke-width: 7;
-    stroke-linecap: round;
-}
-
-.seg {
-    fill: none;
-    stroke: var(--kg-step-4);
-    stroke-width: 7;
-    stroke-linecap: round;
-}
+.track { fill: none; stroke: var(--kg-track); stroke-width: 7; stroke-linecap: round; }
+.seg   { fill: none; stroke: var(--kg-seg);   stroke-width: 7; stroke-linecap: round; }
 
 /* ── Nodes ────────────────────────────────────────────────────────────────── */
-.halo {
-    fill: none;
-    stroke-width: 2;
-    opacity: 0.26;
-}
+.halo { fill: none; stroke-width: 2; opacity: 0.26; }
+.disc { fill: var(--kg-disc-fill); stroke-width: 5; }
 
-.disc {
-    fill: var(--kg-disc);
-    stroke-width: 5;
-}
-
-.icon {
-    fill: none;
-    stroke: var(--kg-icon);
-    stroke-width: 2.4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
+/* The icon layer is a separate scene stacked above the ladder, so its glyphs can
+   travel over the rail they ride. `currentColor` in the symbols resolves here. */
+.icon { color: var(--kg-icon); }
 
 .ring-1 { stroke: var(--kg-step-1); }
 .ring-2 { stroke: var(--kg-step-2); }
@@ -94,14 +111,23 @@
 .ring-5 { stroke: var(--kg-step-5); }
 .ring-6 { stroke: var(--kg-step-6); }
 
-/* ── Labels ───────────────────────────────────────────────────────────────── */
-.yr {
-    font-size: 25px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-anchor: middle;
-}
+/* On `care` the glyph takes its node's ramp step; on `dark` the fixed ink above
+   wins because --kg-icon is a colour rather than `currentColor`. */
+#icon-career-decision { color: var(--kg-step-1); }
+#icon-medical-school  { color: var(--kg-step-2); }
+#icon-internship      { color: var(--kg-step-3); }
+#icon-family          { color: var(--kg-step-4); }
+#icon-community       { color: var(--kg-step-5); }
+#icon-teaching        { color: var(--kg-step-6); }
+.dark #icon-career-decision,
+.dark #icon-medical-school,
+.dark #icon-internship,
+.dark #icon-family,
+.dark #icon-community,
+.dark #icon-teaching { color: var(--kg-icon); }
 
+/* ── Labels ───────────────────────────────────────────────────────────────── */
+.yr { font-size: 25px; font-weight: 700; letter-spacing: 0.14em; text-anchor: middle; }
 .ink-1 { fill: var(--kg-step-1); }
 .ink-2 { fill: var(--kg-step-2); }
 .ink-3 { fill: var(--kg-step-3); }
@@ -109,27 +135,8 @@
 .ink-5 { fill: var(--kg-step-5); }
 .ink-6 { fill: var(--kg-step-6); }
 
-.ti {
-    font-size: 30px;
-    font-weight: 700;
-    fill: var(--kg-text-title);
-    text-anchor: middle;
-}
+.ti { font-size: 30px; font-weight: 700; fill: var(--kg-text-title); text-anchor: middle; }
+.de { font-size: 21px; fill: var(--kg-text-muted); text-anchor: middle; }
 
-.de {
-    font-size: 21px;
-    fill: var(--kg-text-muted);
-    text-anchor: middle;
-}
-
-.title-name {
-    font-size: 60px;
-    font-weight: 800;
-    fill: var(--kg-text-title);
-}
-
-.title-role {
-    font-size: 24px;
-    fill: var(--kg-text-muted);
-    letter-spacing: 0.18em;
-}
+.title-name { font-size: 56px; font-weight: 700; fill: var(--kg-text-title); }
+.title-role { font-size: 22px; fill: var(--kg-text-muted); letter-spacing: 0.16em; }

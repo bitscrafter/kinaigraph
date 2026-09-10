@@ -32,6 +32,14 @@ defs:
             type: "scene"
             file: "./resource/scene/ladder.svg"
 
+        # Declared AFTER the ladder on purpose: scene declaration order is the
+        # render z-order, so the glyphs paint over the discs rather than under.
+        # It is a separate scene because its glyphs MOVE — a rider has to be able
+        # to travel over the rail it rides.
+        icons:
+            type: "scene"
+            file: "./resource/scene/icon_layer.svg"
+
         # Present from the first frame — the viewer should know whose life this
         # is before the first step lands.
         title:
@@ -128,13 +136,54 @@ defs:
             type: "audio"
             file: "./resource/audio/teaser/part_06_teaching.mp3"
 
+        icon_career_decision:
+            type: "actor"
+            part_of: icons
+            id: icon-career-decision
+            origin: center
+        icon_medical_school:
+            type: "actor"
+            part_of: icons
+            id: icon-medical-school
+            origin: center
+        icon_internship:
+            type: "actor"
+            part_of: icons
+            id: icon-internship
+            origin: center
+        icon_family:
+            type: "actor"
+            part_of: icons
+            id: icon-family
+            origin: center
+        icon_community:
+            type: "actor"
+            part_of: icons
+            id: icon-community
+            origin: center
+        icon_teaching:
+            type: "actor"
+            part_of: icons
+            id: icon-teaching
+            origin: center
+
         template:
             type: "template"
             file: "./resource/template/main.html"
-            style: style
         style:
             type: "style"
             file: "./resource/style/theme_bio.css"
+            themes:
+                - dark
+                - care
+
+    defaults:
+        assets:
+            template:
+                asset: template
+                style:
+                    asset: style
+                    theme: care
 
     const:
         # Quiet before the first word and after the last, so the piece does not
@@ -218,6 +267,24 @@ animation:
             - seg_teaching:
                   - show:
                         opacity: 0
+            - icon_career_decision:
+                  - show:
+                        opacity: 0
+            - icon_medical_school:
+                  - show:
+                        opacity: 0
+            - icon_internship:
+                  - show:
+                        opacity: 0
+            - icon_family:
+                  - show:
+                        opacity: 0
+            - icon_community:
+                  - show:
+                        opacity: 0
+            - icon_teaching:
+                  - show:
+                        opacity: 0
 
         # ── Step 1 — no span precedes the first node ────────────────────────
         setup.end @ step_1:
@@ -225,7 +292,10 @@ animation:
                   - show:
                         duration: NODE_FADE_MS
                         opacity: 1
-                        easing: ease_out_quad
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
             - label_career_decision:
                   - show:
                         duration: NODE_FADE_MS
@@ -233,6 +303,14 @@ animation:
                         easing: ease_out_quad
                         hold:
                             after: "STEP_1_HOLD_MS"
+            - icon_career_decision:
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
 
         step_1.end @ step_2:
             - seg_medical_school:
@@ -245,24 +323,27 @@ animation:
                         easing: ease_out_quad
             - node_medical_school:
                   - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
-                  - show:
                         duration: NODE_FADE_MS
                         opacity: 1
-                        easing: ease_out_quad
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
             - label_medical_school:
-                  - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
                   - show:
                         duration: NODE_FADE_MS
                         opacity: 1
                         easing: ease_out_quad
                         hold:
                             after: "STEP_2_HOLD_MS"
+            - icon_medical_school:
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
 
         step_2.end @ step_3:
             - seg_internship:
@@ -275,24 +356,27 @@ animation:
                         easing: ease_out_quad
             - node_internship:
                   - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
-                  - show:
                         duration: NODE_FADE_MS
                         opacity: 1
-                        easing: ease_out_quad
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
             - label_internship:
-                  - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
                   - show:
                         duration: NODE_FADE_MS
                         opacity: 1
                         easing: ease_out_quad
                         hold:
                             after: "STEP_3_HOLD_MS"
+            - icon_internship:
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
 
         step_3.end @ step_4:
             - seg_family:
@@ -305,24 +389,27 @@ animation:
                         easing: ease_out_quad
             - node_family:
                   - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
-                  - show:
                         duration: NODE_FADE_MS
                         opacity: 1
-                        easing: ease_out_quad
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
             - label_family:
-                  - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
                   - show:
                         duration: NODE_FADE_MS
                         opacity: 1
                         easing: ease_out_quad
                         hold:
                             after: "STEP_4_HOLD_MS"
+            - icon_family:
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
 
         step_4.end @ step_5:
             - seg_community:
@@ -335,24 +422,27 @@ animation:
                         easing: ease_out_quad
             - node_community:
                   - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
-                  - show:
                         duration: NODE_FADE_MS
                         opacity: 1
-                        easing: ease_out_quad
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
             - label_community:
-                  - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
                   - show:
                         duration: NODE_FADE_MS
                         opacity: 1
                         easing: ease_out_quad
                         hold:
                             after: "STEP_5_HOLD_MS"
+            - icon_community:
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
 
         step_5.end @ step_6:
             - seg_teaching:
@@ -365,24 +455,27 @@ animation:
                         easing: ease_out_quad
             - node_teaching:
                   - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
-                  - show:
                         duration: NODE_FADE_MS
                         opacity: 1
-                        easing: ease_out_quad
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
             - label_teaching:
-                  - show:
-                        opacity: 0
-                        hold:
-                            before: "SEG_DRAW_MS"
                   - show:
                         duration: NODE_FADE_MS
                         opacity: 1
                         easing: ease_out_quad
                         hold:
                             after: "STEP_6_HOLD_MS"
+            - icon_teaching:
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        scale:
+                            from: 0.7
+                            to: 1
+                        easing: ease_out_back
 
         # The closing quiet, so the last line lands before the picture cuts.
         step_6.end @ teardown:

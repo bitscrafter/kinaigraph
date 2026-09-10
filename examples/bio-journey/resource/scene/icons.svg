@@ -1,0 +1,50 @@
+<!--
+  Canonical icon library for bio-journey.
+
+  ⚠️ kinaigraph does not consume cross-file `<use href="other.svg#id">`, so these
+  symbols are MIRRORED into icon_layer.svg rather than referenced from it. Unlike
+  the microservices-flow library, the mirroring is not a promise a human keeps:
+  `resource/temp/make_ladder_svg.py` reads this file and inlines what it finds, so
+  editing a symbol here and re-running the generator is the whole update.
+
+  Each symbol is a 24x24 viewBox. The drawing inside is centred on the origin and
+  wrapped in a translate(12,12) so the artwork can be authored around 0,0 — which
+  is what `origin: center` wants when the icon is moved or scaled.
+
+  Colour is NOT set here. Every stroke is `currentColor`, so the theme decides.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" id="bio-icons" width="0" height="0">
+	<defs>
+		<symbol id="sym-career-decision" viewBox="0 0 24 24">
+			<g transform="translate(12,12) scale(0.78)" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+				<circle cx="0" cy="0" r="11"/><path d="M0,-6 L0,1 L5,4"/>
+			</g>
+		</symbol>
+		<symbol id="sym-medical-school" viewBox="0 0 24 24">
+			<g transform="translate(12,12) scale(0.72)" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M0,-10 L15,-4 L0,2 L-15,-4 Z"/><path d="M-8,-1 L-8,7 C-8,11 8,11 8,7 L8,-1"/>
+			</g>
+		</symbol>
+		<symbol id="sym-internship" viewBox="0 0 24 24">
+			<g transform="translate(12,12) scale(0.80)" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M4,-10 A11,11 0 1 0 4,10 A8.5,8.5 0 1 1 4,-10 Z"/>
+			</g>
+		</symbol>
+		<symbol id="sym-family" viewBox="0 0 24 24">
+			<g transform="translate(12,12) scale(0.80)" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M0,10 C-12,2 -12,-6 -6,-8.5 C-2.5,-10 0,-7.5 0,-5 C0,-7.5 2.5,-10 6,-8.5 C12,-6 12,2 0,10 Z"/>
+			</g>
+		</symbol>
+		<symbol id="sym-community" viewBox="0 0 24 24">
+			<g transform="translate(12,12) scale(0.78)" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M-11,-1 L0,-10 L11,-1 L11,10 L-11,10 Z"/><path d="M0,1 L0,7 M-3,4 L3,4"/>
+			</g>
+		</symbol>
+		<symbol id="sym-teaching" viewBox="0 0 24 24">
+			<g transform="translate(12,12) scale(0.82)" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+				<circle cx="0" cy="-7" r="3.8"/><circle cx="-9" cy="3" r="3.4"/><circle cx="9" cy="3" r="3.4"/>
+				<path d="M0,-3.2 L0,1 M0,1 L-9,-0.4 M0,1 L9,-0.4"/>
+			</g>
+		</symbol>
+	</defs>
+</svg>
