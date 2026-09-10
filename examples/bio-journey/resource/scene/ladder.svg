@@ -48,7 +48,7 @@
 	<g id="label-family">
 		<text class="yr ink-4" x="1102" y="292">2020</text>
 		<text class="ti" x="1102" y="326">The NICU</text>
-		<text class="de" x="1102" y="354">A parent, not a doctor</text>
+		<text class="de" x="1102" y="354">You don't treat your own child</text>
 	</g>
 	<g id="node-community">
 		<circle class="halo ring-5" cx="1386" cy="462" r="52"/>
@@ -58,7 +58,7 @@
 	<g id="label-community">
 		<text class="yr ink-5" x="1386" y="540">2022</text>
 		<text class="ti" x="1386" y="574">The Clinic</text>
-		<text class="de" x="1386" y="604">Saturdays, for families with nowhere else</text>
+		<text class="de" x="1386" y="604">Nobody to follow up with</text>
 	</g>
 	<g id="node-teaching">
 		<circle class="halo ring-6" cx="1670" cy="262" r="52"/>
