@@ -67,10 +67,10 @@
 		    <circle cx="18.6" cy="18.2" r="2.8" class="icon-fill icon-stroke" stroke-width="1"/>
 		</symbol>
 	</defs>
-	<g id="icon-career-decision"><use href="#clock" x="230" y="778" width="40" height="40"/></g>
-	<g id="icon-medical-school"><use href="#graduate" x="514" y="578" width="40" height="40"/></g>
-	<g id="icon-internship"><use href="#stethoscope" x="798" y="610" width="40" height="40"/></g>
-	<g id="icon-family"><use href="#heart" x="1082" y="410" width="40" height="40"/></g>
-	<g id="icon-community"><use href="#hospital" x="1366" y="442" width="40" height="40"/></g>
-	<g id="icon-teaching"><use href="#group" x="1650" y="242" width="40" height="40"/></g>
+	<g id="icon-career-decision"><use href="#clock" x="222" y="770" width="56" height="56"/></g>
+	<g id="icon-medical-school"><use href="#graduate" x="506" y="570" width="56" height="56"/></g>
+	<g id="icon-internship"><use href="#stethoscope" x="790" y="602" width="56" height="56"/></g>
+	<g id="icon-family"><use href="#heart" x="1074" y="402" width="56" height="56"/></g>
+	<g id="icon-community"><use href="#hospital" x="1358" y="434" width="56" height="56"/></g>
+	<g id="icon-teaching"><use href="#group" x="1642" y="234" width="56" height="56"/></g>
 </svg>

@@ -134,6 +134,14 @@
 .halo { fill: none; stroke-width: 2; opacity: 0.26; }
 .disc { fill: var(--kg-disc-fill); stroke-width: 5; }
 
+/* The ramp, on the RING. Never on the disc fill — see the header. */
+.ring-1 { stroke: var(--kg-step-1); }
+.ring-2 { stroke: var(--kg-step-2); }
+.ring-3 { stroke: var(--kg-step-3); }
+.ring-4 { stroke: var(--kg-step-4); }
+.ring-5 { stroke: var(--kg-step-5); }
+.ring-6 { stroke: var(--kg-step-6); }
+
 /* On `care` a glyph takes its node's step from the ramp, so it darkens as she
    advances. On `dark` the ink is fixed near-white: the ramp's dim end would be
    unreadable at 40 px inside a dark disc. */
