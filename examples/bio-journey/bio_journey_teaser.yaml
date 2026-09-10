@@ -1,0 +1,436 @@
+# ------------------------------------------
+# bio-journey — the teaser
+# ------------------------------------------
+# One life as six steps on a rising sawtooth. Time runs left to right, so the
+# order is never in doubt; the vertical zigzag is what keeps six labels from
+# colliding and what stops the shape reading as a résumé.
+#
+#     kinaigraph bio_journey_tts.yaml     # once, needs an API key
+#     kinaigraph bio_journey_teaser.yaml
+#
+# ── How a step is built ──────────────────────────────────────────────────────
+# Step 1 has no segment to draw — it is the first node, and nothing precedes it.
+# Steps 2-6 each draw the span that REACHES them, then land the node on the end
+# of it, then wait out the rest of their sentence. The waiting is what puts the
+# picture on the words: the node finishes arriving before the line that explains
+# it is over.
+#
+# ⚠️ `.seg` carries no `stroke-dasharray`, and must not. `reveal` drives that
+# same attribute to draw a stroke on progressively, so revealing an
+# already-dashed line renders NOTHING, silently.
+
+metadata:
+    title: "Bio Journey - Teaser"
+    description: "Six steps of one life, told in under thirty seconds"
+    version: "1.0"
+
+defs:
+    assets:
+        ladder:
+            type: "scene"
+            file: "./resource/scene/ladder.svg"
+
+        # The title card. Present from the first frame — the viewer should know
+        # whose life this is before the first step lands.
+        title:
+            type: "actor"
+            part_of: ladder
+            id: title
+
+        seg_1:
+            type: "actor"
+            part_of: ladder
+            id: seg-1
+        seg_2:
+            type: "actor"
+            part_of: ladder
+            id: seg-2
+        seg_3:
+            type: "actor"
+            part_of: ladder
+            id: seg-3
+        seg_4:
+            type: "actor"
+            part_of: ladder
+            id: seg-4
+        seg_5:
+            type: "actor"
+            part_of: ladder
+            id: seg-5
+        node_1:
+            type: "actor"
+            part_of: ladder
+            id: node-1
+        label_1:
+            type: "actor"
+            part_of: ladder
+            id: label-1
+        node_2:
+            type: "actor"
+            part_of: ladder
+            id: node-2
+        label_2:
+            type: "actor"
+            part_of: ladder
+            id: label-2
+        node_3:
+            type: "actor"
+            part_of: ladder
+            id: node-3
+        label_3:
+            type: "actor"
+            part_of: ladder
+            id: label-3
+        node_4:
+            type: "actor"
+            part_of: ladder
+            id: node-4
+        label_4:
+            type: "actor"
+            part_of: ladder
+            id: label-4
+        node_5:
+            type: "actor"
+            part_of: ladder
+            id: node-5
+        label_5:
+            type: "actor"
+            part_of: ladder
+            id: label-5
+        node_6:
+            type: "actor"
+            part_of: ladder
+            id: node-6
+        label_6:
+            type: "actor"
+            part_of: ladder
+            id: label-6
+        audio_01_waiting_room:
+            type: "audio"
+            file: "./resource/audio/part_01_waiting_room.mp3"
+        audio_02_medical_school:
+            type: "audio"
+            file: "./resource/audio/part_02_medical_school.mp3"
+        audio_03_first_night:
+            type: "audio"
+            file: "./resource/audio/part_03_first_night.mp3"
+        audio_04_nicu:
+            type: "audio"
+            file: "./resource/audio/part_04_nicu.mp3"
+        audio_05_community:
+            type: "audio"
+            file: "./resource/audio/part_05_community.mp3"
+        audio_06_teaching:
+            type: "audio"
+            file: "./resource/audio/part_06_teaching.mp3"
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resource/style/theme_bio.css"
+
+    const:
+        # Quiet before the first word and after the last, so the piece does not
+        # start or stop on a syllable.
+        VIDEO_MARGIN: 350
+
+        # How long a span takes to draw and a node to land. Both are kept well
+        # under the shortest clip so even the quickest step is fully on screen
+        # before its sentence ends.
+        SEG_DRAW_MS: 320
+        NODE_FADE_MS: 260
+
+        # Each step waits out the remainder of its own line. Step 1 draws no
+        # span, so only the node fade comes off its clip.
+        STEP_1_HOLD_MS: "audio_01_waiting_room.duration - NODE_FADE_MS"
+        STEP_2_HOLD_MS: "audio_02_medical_school.duration - SEG_DRAW_MS - NODE_FADE_MS"
+        STEP_3_HOLD_MS: "audio_03_first_night.duration - SEG_DRAW_MS - NODE_FADE_MS"
+        STEP_4_HOLD_MS: "audio_04_nicu.duration - SEG_DRAW_MS - NODE_FADE_MS"
+        STEP_5_HOLD_MS: "audio_05_community.duration - SEG_DRAW_MS - NODE_FADE_MS"
+        STEP_6_HOLD_MS: "audio_06_teaching.duration - SEG_DRAW_MS - NODE_FADE_MS"
+
+animation:
+    timeline:
+        # The stage, the track and the title are there from the first frame. The
+        # unwalked road being visible is the point: you can see the shape of the
+        # life before any of it has happened.
+        0 @ setup:
+            - title:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - node_1:
+                  - show:
+                        opacity: 0
+            - label_1:
+                  - show:
+                        opacity: 0
+            - node_2:
+                  - show:
+                        opacity: 0
+            - label_2:
+                  - show:
+                        opacity: 0
+            - node_3:
+                  - show:
+                        opacity: 0
+            - label_3:
+                  - show:
+                        opacity: 0
+            - node_4:
+                  - show:
+                        opacity: 0
+            - label_4:
+                  - show:
+                        opacity: 0
+            - node_5:
+                  - show:
+                        opacity: 0
+            - label_5:
+                  - show:
+                        opacity: 0
+            - node_6:
+                  - show:
+                        opacity: 0
+            - label_6:
+                  - show:
+                        opacity: 0
+            - seg_1:
+                  - show:
+                        opacity: 0
+            - seg_2:
+                  - show:
+                        opacity: 0
+            - seg_3:
+                  - show:
+                        opacity: 0
+            - seg_4:
+                  - show:
+                        opacity: 0
+            - seg_5:
+                  - show:
+                        opacity: 0
+
+        # ── Step 1 — no span precedes the first node ────────────────────────
+        setup.end @ step_1:
+            - node_1:
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+            - label_1:
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_1_HOLD_MS"
+
+        step_1.end @ step_2:
+            - seg_1:
+                  - show:
+                        duration: SEG_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - node_2:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+            - label_2:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_2_HOLD_MS"
+
+        step_2.end @ step_3:
+            - seg_2:
+                  - show:
+                        duration: SEG_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - node_3:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+            - label_3:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_3_HOLD_MS"
+
+        step_3.end @ step_4:
+            - seg_3:
+                  - show:
+                        duration: SEG_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - node_4:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+            - label_4:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_4_HOLD_MS"
+
+        step_4.end @ step_5:
+            - seg_4:
+                  - show:
+                        duration: SEG_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - node_5:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+            - label_5:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_5_HOLD_MS"
+
+        step_5.end @ step_6:
+            - seg_5:
+                  - show:
+                        duration: SEG_DRAW_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - node_6:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+            - label_6:
+                  - show:
+                        opacity: 0
+                        hold:
+                            before: "SEG_DRAW_MS"
+                  - show:
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "STEP_6_HOLD_MS"
+
+        # The closing quiet. The last line finishes inside step 6; this is the
+        # beat that lets it land before the picture cuts.
+        step_6.end @ teardown:
+            - title:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+
+    capture:
+        bio_journey_silent:
+            output: "./resource/video/bio_journey_teaser_silent.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        # ⚠️ Every mix carries an explicit `span.from`. A spanless mix at a
+        # non-zero timestamp is subject to a known defect that places the audio
+        # at output 0 — which would stack all six lines on the first frame.
+        "0":
+            - bio_journey_silent:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::step_1.start"
+                        asset: audio_01_waiting_room
+                  - mix:
+                        span:
+                            from: "animation::step_2.start"
+                        asset: audio_02_medical_school
+                  - mix:
+                        span:
+                            from: "animation::step_3.start"
+                        asset: audio_03_first_night
+                  - mix:
+                        span:
+                            from: "animation::step_4.start"
+                        asset: audio_04_nicu
+                  - mix:
+                        span:
+                            from: "animation::step_5.start"
+                        asset: audio_05_community
+                  - mix:
+                        span:
+                            from: "animation::step_6.start"
+                        asset: audio_06_teaching
+
+    capture:
+        bio_journey_teaser:
+            output: "./bio_journey_teaser.mp4"
+            fps: 30

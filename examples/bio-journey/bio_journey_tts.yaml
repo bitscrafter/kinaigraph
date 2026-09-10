@@ -1,0 +1,70 @@
+# ------------------------------------------
+# bio-journey — narration
+# ------------------------------------------
+# Generates the six narration clips. Run ONCE before rendering the teaser, and
+# again whenever a script changes.
+#
+#     kinaigraph bio_journey_tts.yaml
+#
+# This is the FIRST step of the build rather than an afterthought, because the
+# animation is timed to the voice: every step holds for its own clip's probed
+# `.duration`, so the picture stretches to the narration instead of the narration
+# being trimmed to fit the picture. Re-record a line and the step re-fits itself
+# on the next render — nothing is measured by hand and pasted in.
+#
+# Needs ELEVENLABS_API_KEY in the environment. Every run costs credits, which is
+# why this is a separate file: re-rendering the teaser must not re-synthesise
+# audio that did not change.
+#
+# ⚠️ `synthesis.context.status` is SECTION-WIDE. There is no per-entry switch, so
+# running this regenerates all six clips and bills for all six — even if you only
+# edited one line.
+
+metadata:
+    title: "Bio Journey - Narration"
+    description: "Generate the six narration clips for the bio-journey teaser"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        # Each clip is one sentence and one node. Keeping them separate is what
+        # lets a step derive its own dwell — a single clip for the whole piece
+        # would leave nothing for the timeline to measure per step.
+        audio_01_waiting_room:
+            file: "./resource/script/part_01_waiting_room.txt"
+            export: "./resource/audio/part_01_waiting_room.mp3"
+
+        audio_02_medical_school:
+            file: "./resource/script/part_02_medical_school.txt"
+            export: "./resource/audio/part_02_medical_school.mp3"
+
+        audio_03_first_night:
+            file: "./resource/script/part_03_first_night.txt"
+            export: "./resource/audio/part_03_first_night.mp3"
+
+        audio_04_nicu:
+            file: "./resource/script/part_04_nicu.txt"
+            export: "./resource/audio/part_04_nicu.mp3"
+
+        audio_05_community:
+            file: "./resource/script/part_05_community.txt"
+            export: "./resource/audio/part_05_community.mp3"
+
+        audio_06_teaching:
+            file: "./resource/script/part_06_teaching.txt"
+            export: "./resource/audio/part_06_teaching.mp3"

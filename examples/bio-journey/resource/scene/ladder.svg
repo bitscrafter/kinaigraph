@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" id="bio-ladder">
+	<rect id="stage" class="stage" x="0" y="0" width="1920" height="1080"/>
+	<g id="title">
+		<text id="title-name" class="title-name" x="140" y="128">Dr. Jane Doe</text>
+		<text id="title-role" class="title-role" x="145" y="172">PEDIATRICS</text>
+	</g>
+	<path id="track" class="track" d="M 250 798 C 297.3 764.7 439.3 626.0 534 598 C 628.7 570.0 723.3 658.0 818 630 C 912.7 602.0 1007.3 458.0 1102 430 C 1196.7 402.0 1291.3 490.0 1386 462 C 1480.7 434.0 1622.7 295.3 1670 262"/>
+	<path id="seg-1" class="seg" d="M 250 798 C 297.3 764.7 439.3 626.0 534 598"/>
+	<path id="seg-2" class="seg" d="M 534 598 C 628.7 570.0 723.3 658.0 818 630"/>
+	<path id="seg-3" class="seg" d="M 818 630 C 912.7 602.0 1007.3 458.0 1102 430"/>
+	<path id="seg-4" class="seg" d="M 1102 430 C 1196.7 402.0 1291.3 490.0 1386 462"/>
+	<path id="seg-5" class="seg" d="M 1386 462 C 1480.7 434.0 1622.7 295.3 1670 262"/>
+	<g id="node-1">
+		<circle class="halo ring-1" cx="250" cy="798" r="52"/>
+		<circle class="disc ring-1" cx="250" cy="798" r="40"/>
+		<g class="icon" transform="translate(250,798)"><circle cx="0" cy="0" r="13"/><path d="M0,-7 L0,1 L6,4"/></g>
+	</g>
+	<g id="label-1">
+		<text class="yr ink-1" x="250" y="876">2007</text>
+		<text class="ti" x="250" y="910">The Waiting Room</text>
+		<text class="de" x="250" y="940">Nobody would say what was wrong</text>
+	</g>
+	<g id="node-2">
+		<circle class="halo ring-2" cx="534" cy="598" r="52"/>
+		<circle class="disc ring-2" cx="534" cy="598" r="40"/>
+		<g class="icon" transform="translate(534,598)"><path d="M0,-11 L17,-4 L0,3 L-17,-4 Z"/><path d="M-9,-1 L-9,8 C-9,12 9,12 9,8 L9,-1"/></g>
+	</g>
+	<g id="label-2">
+		<text class="yr ink-2" x="534" y="460">2013</text>
+		<text class="ti" x="534" y="494">Medical School</text>
+		<text class="de" x="534" y="522">Six years to get in</text>
+	</g>
+	<g id="node-3">
+		<circle class="halo ring-3" cx="818" cy="630" r="52"/>
+		<circle class="disc ring-3" cx="818" cy="630" r="40"/>
+		<g class="icon" transform="translate(818,630)"><path d="M5,-12 A13,13 0 1 0 5,12 A10,10 0 1 1 5,-12 Z"/></g>
+	</g>
+	<g id="label-3">
+		<text class="yr ink-3" x="818" y="708">2017</text>
+		<text class="ti" x="818" y="742">First Night</text>
+		<text class="de" x="818" y="772">My first night on call</text>
+	</g>
+	<g id="node-4">
+		<circle class="halo ring-4" cx="1102" cy="430" r="52"/>
+		<circle class="disc ring-4" cx="1102" cy="430" r="40"/>
+		<g class="icon" transform="translate(1102,430)"><path d="M0,12 C-14,2 -14,-7 -7,-10 C-3,-12 0,-9 0,-6 C0,-9 3,-12 7,-10 C14,-7 14,2 0,12 Z"/></g>
+	</g>
+	<g id="label-4">
+		<text class="yr ink-4" x="1102" y="292">2020</text>
+		<text class="ti" x="1102" y="326">The NICU</text>
+		<text class="de" x="1102" y="354">Seven weeks early</text>
+	</g>
+	<g id="node-5">
+		<circle class="halo ring-5" cx="1386" cy="462" r="52"/>
+		<circle class="disc ring-5" cx="1386" cy="462" r="40"/>
+		<g class="icon" transform="translate(1386,462)"><path d="M-13,-1 L0,-12 L13,-1 L13,12 L-13,12 Z"/><path d="M0,1 L0,9 M-4,5 L4,5"/></g>
+	</g>
+	<g id="label-5">
+		<text class="yr ink-5" x="1386" y="540">2022</text>
+		<text class="ti" x="1386" y="574">Community</text>
+		<text class="de" x="1386" y="604">Saturdays, in a borrowed room</text>
+	</g>
+	<g id="node-6">
+		<circle class="halo ring-6" cx="1670" cy="262" r="52"/>
+		<circle class="disc ring-6" cx="1670" cy="262" r="40"/>
+		<g class="icon" transform="translate(1670,262)"><circle cx="0" cy="-8" r="4.4"/><circle cx="-11" cy="3" r="4"/><circle cx="11" cy="3" r="4"/><path d="M0,-3 L0,2 M0,2 L-11,-1 M0,2 L11,-1"/></g>
+	</g>
+	<g id="label-6">
+		<text class="yr ink-6" x="1670" y="124">2025</text>
+		<text class="ti" x="1670" y="158">Teaching</text>
+		<text class="de" x="1670" y="186">They call. I pick up.</text>
+	</g>
+</svg>

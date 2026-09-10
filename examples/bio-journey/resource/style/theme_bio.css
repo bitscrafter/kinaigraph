@@ -1,234 +1,135 @@
 /*
-  bio-journey — shared theme.
-  ---------------------------------------------------------------------------
-  One stylesheet for all three beats, attached to the template so the intro card,
-  the career timeline and the flight map inherit one palette. Beat-specific colour
-  lives in a custom property here rather than in the artwork, so a re-skin is this
-  file and nothing else.
-
-  Custom properties named `--kg-*` are readable from a scene with `css("kg-name")`,
-  which is how a pulse or a stroke animation gets its target value without the
-  figure being written twice.
-*/
+ * bio-journey — the ladder theme
+ *
+ * Six steps of one life on a rising sawtooth. The palette is SEQUENTIAL, not
+ * categorical: one hue brightening from 2007 to 2025, because the nodes are an
+ * ordered progression rather than six kinds of thing. Six distinct hues would
+ * say these steps are unrelated; one brightening hue says they are one thing
+ * getting further along, and the brightness itself encodes how far.
+ *
+ * ⚠️ The ramp is on the RING, never the disc fill. Icons are drawn in near-white,
+ * and white on the bright end of the ramp measures about 2.2:1 — below any usable
+ * threshold. Keeping the disc dark at every step means the icon is legible at all
+ * six, and the glow still carries the progression.
+ */
 
 :root {
-    /* ── Page / stage ─────────────────────────────────────────────────────── */
+    /* ── Stage ────────────────────────────────────────────────────────────── */
     --kg-page-bg: #0b1220;
     --kg-scene-bg: #0b1220;
 
     /* ── Type ─────────────────────────────────────────────────────────────── */
-    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --kg-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --kg-font-family: Inter, "Helvetica Neue", Arial, sans-serif;
     --kg-text-title: #f4f7fb;
     --kg-text-body: #c7d3e2;
-    --kg-text-muted: #7d8ea6;
+    --kg-text-muted: #8ea3bd;
 
-    /* ── Map layers ───────────────────────────────────────────────────────── */
-    --kg-ocean: #0e1826;
-    --kg-land: #1d2b3d;
-    --kg-land-stroke: #2b3d55;
-    --kg-graticule: #8fa8c8;
+    /* ── The ladder ───────────────────────────────────────────────────────── */
+    /* The unwalked road: present from the first frame, so the shape of the life
+       is legible before any of it has happened. */
+    --kg-track: #1e2c44;
+    --kg-disc: #0f1a2b;
+    --kg-icon: #eaf6ff;
 
-    /* ── Per-destination hues ─────────────────────────────────────────────────
-       Each route is one hue: the drawn line, and a lighter tone for the plane and
-       the arrival ring. Honolulu is the warmer of the two on purpose — it is the
-       first flight and the brighter joke. */
-    --kg-honolulu: #f2a04b;
-    --kg-honolulu-bright: #ffc784;
-    --kg-paris: #5bc0be;
-    --kg-paris-bright: #8fe3e1;
-
-    /* ── Callouts ─────────────────────────────────────────────────────────── */
-    --kg-note-bg: #142033;
-    --kg-note-stroke: #3c5a7d;
-    --kg-chip-bg: #101a2b;
-    --kg-chip-stroke: #35506e;
-
-    /* ── Animation targets read by `css()` ────────────────────────────────── */
-    --kg-arrive-stroke: #ffd9a0;
-    --kg-pulse-stroke-width: 3;
+    /* The sequential ramp, dim to bright. */
+    --kg-step-1: #2f6d7a;
+    --kg-step-2: #37879a;
+    --kg-step-3: #3fa3b8;
+    --kg-step-4: #4cc0d2;
+    --kg-step-5: #6bdcea;
+    --kg-step-6: #93f0f7;
 }
 
-/* ── Map backdrop ─────────────────────────────────────────────────────────── */
-.map-ocean {
-    fill: var(--kg-ocean);
+#bio-ladder {
+    font-family: var(--kg-font-family);
 }
 
-.map-graticule path {
+.stage {
+    fill: var(--kg-scene-bg);
+}
+
+/* ── Path ──────────────────────────────────────────────────────────────────
+ * ⚠️ `.seg` must never carry a `stroke-dasharray`. The `reveal` property drives
+ * that same attribute to draw a stroke on progressively, so a dashed segment
+ * renders NOTHING when revealed — silently. Dashes or draw-on, never both.
+ */
+.track {
     fill: none;
-    stroke: var(--kg-graticule);
-    stroke-width: 1;
-    /* Faint enough to read as a grid rather than as content: the graticule is
-       there to say "this is a map", not to be measured. */
-    opacity: 0.08;
-}
-
-.map-land path {
-    fill: var(--kg-land);
-    stroke: var(--kg-land-stroke);
-    stroke-width: 1;
-}
-
-/* ── Flight routes ────────────────────────────────────────────────────────── */
-/* The casing sits under the line so a route stays legible where it crosses land. */
-.flight-casing {
-    fill: none;
-    stroke: var(--kg-ocean);
+    stroke: var(--kg-track);
     stroke-width: 7;
     stroke-linecap: round;
-    opacity: 0.85;
 }
 
-.flight-line {
+.seg {
     fill: none;
-    stroke-width: 3;
-    stroke-linecap: round;
-    /* Dashed, because a route on a map is a plan rather than a drawn object — and
-       it is the idiom every airline map already uses. */
-    stroke-dasharray: 9 7;
-}
-
-.flight-line-honolulu {
-    stroke: var(--kg-honolulu);
-}
-
-.flight-line-paris {
-    stroke: var(--kg-paris);
-}
-
-/* ── City markers ─────────────────────────────────────────────────────────── */
-.city-dot {
-    fill: var(--kg-text-title);
-}
-
-.city-halo {
-    fill: none;
-    stroke: var(--kg-text-title);
-    stroke-width: 1.5;
-    opacity: 0.35;
-}
-
-.city-label {
-    font-family: var(--kg-font-family);
-    font-size: 19px;
-    font-weight: 600;
-    fill: var(--kg-text-body);
-}
-
-.arrive-ring {
-    fill: none;
-    stroke-width: 2.5;
-}
-
-.arrive-ring-honolulu {
-    stroke: var(--kg-honolulu-bright);
-}
-
-.arrive-ring-paris {
-    stroke: var(--kg-paris-bright);
-}
-
-/* ── Plane glyphs ─────────────────────────────────────────────────────────── */
-/* Authored pointing +x at rest — the engine's zero rotation — so `orient: auto`
-   needs no per-asset correction anywhere.
-   These set `color`, not `fill`: the glyph is a symbol element painted with
-   `fill="currentColor"` so that one shared definition can serve both routes. A
-   `fill` here would not reach inside the use element and the plane renders black.
-   (Angle brackets are kept out of this file on purpose — the stylesheet gets
-   inlined into a style element, where a stray `<` is a parse hazard.) */
-.plane-honolulu {
-    color: var(--kg-honolulu-bright);
-}
-
-.plane-paris {
-    color: var(--kg-paris-bright);
-}
-
-/* ── Career timeline (beat 2) ─────────────────────────────────────────────── */
-.tl-bg {
-    fill: var(--kg-scene-bg);
-}
-
-.tl-axis {
-    stroke: var(--kg-note-stroke);
-    stroke-width: 3;
+    stroke: var(--kg-step-4);
+    stroke-width: 7;
     stroke-linecap: round;
 }
 
-/* The tail past the present. Dashed, and in the accent hue rather than the axis
-   grey, so it reads as "still going" rather than as more timeline. */
-.tl-future {
-    stroke: var(--kg-honolulu);
-    stroke-width: 3;
-    stroke-linecap: round;
-    stroke-dasharray: 9 9;
-    opacity: 0.55;
-}
-
-.tl-dot {
-    fill: var(--kg-text-body);
-    stroke: var(--kg-scene-bg);
-    stroke-width: 3;
-}
-
-.tl-dot-now {
-    fill: var(--kg-honolulu);
-}
-
-.tl-year {
-    font-family: var(--kg-font-family);
-    font-size: 34px;
-    font-weight: 700;
-    fill: var(--kg-text-muted);
-    letter-spacing: 1px;
-}
-
-.tl-year-now {
-    fill: var(--kg-honolulu);
-}
-
-.tl-role {
-    font-family: var(--kg-font-family);
-    font-size: 27px;
-    font-weight: 400;
-    fill: var(--kg-text-body);
-}
-
-.tl-role-now {
-    font-weight: 600;
-    fill: var(--kg-text-title);
-}
-
-/* ── Intro card ───────────────────────────────────────────────────────────── */
-.intro-bg {
-    fill: var(--kg-scene-bg);
-}
-
-.intro-name {
-    font-family: var(--kg-font-family);
-    font-size: 92px;
-    font-weight: 700;
-    fill: var(--kg-text-title);
-    letter-spacing: -1.5px;
-}
-
-.intro-role {
-    font-family: var(--kg-font-family);
-    font-size: 38px;
-    font-weight: 500;
-    fill: var(--kg-honolulu);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-}
-
-.intro-meta {
-    font-family: var(--kg-font-family);
-    font-size: 28px;
-    font-weight: 400;
-    fill: var(--kg-text-muted);
-}
-
-.intro-rule {
-    stroke: var(--kg-note-stroke);
+/* ── Nodes ────────────────────────────────────────────────────────────────── */
+.halo {
+    fill: none;
     stroke-width: 2;
+    opacity: 0.26;
+}
+
+.disc {
+    fill: var(--kg-disc);
+    stroke-width: 5;
+}
+
+.icon {
+    fill: none;
+    stroke: var(--kg-icon);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ring-1 { stroke: var(--kg-step-1); }
+.ring-2 { stroke: var(--kg-step-2); }
+.ring-3 { stroke: var(--kg-step-3); }
+.ring-4 { stroke: var(--kg-step-4); }
+.ring-5 { stroke: var(--kg-step-5); }
+.ring-6 { stroke: var(--kg-step-6); }
+
+/* ── Labels ───────────────────────────────────────────────────────────────── */
+.yr {
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-anchor: middle;
+}
+
+.ink-1 { fill: var(--kg-step-1); }
+.ink-2 { fill: var(--kg-step-2); }
+.ink-3 { fill: var(--kg-step-3); }
+.ink-4 { fill: var(--kg-step-4); }
+.ink-5 { fill: var(--kg-step-5); }
+.ink-6 { fill: var(--kg-step-6); }
+
+.ti {
+    font-size: 30px;
+    font-weight: 700;
+    fill: var(--kg-text-title);
+    text-anchor: middle;
+}
+
+.de {
+    font-size: 21px;
+    fill: var(--kg-text-muted);
+    text-anchor: middle;
+}
+
+.title-name {
+    font-size: 60px;
+    font-weight: 800;
+    fill: var(--kg-text-title);
+}
+
+.title-role {
+    font-size: 24px;
+    fill: var(--kg-text-muted);
+    letter-spacing: 0.18em;
 }
