@@ -26,7 +26,7 @@
 	<g id="label-medical-school">
 		<text class="yr ink-2" x="534" y="460">2013</text>
 		<text class="ti" x="534" y="494">Medical School</text>
-		<text class="de" x="534" y="522">Four more, just to be ready</text>
+		<text class="de" x="534" y="522">Before I was any use to anyone</text>
 	</g>
 	<g id="node-internship">
 		<circle class="halo ring-3" cx="818" cy="630" r="52"/>
@@ -35,7 +35,7 @@
 	<g id="label-internship">
 		<text class="yr ink-3" x="818" y="708">2017</text>
 		<text class="ti" x="818" y="742">First Night</text>
-		<text class="de" x="818" y="772">Providing the answers</text>
+		<text class="de" x="818" y="772">This time I knew</text>
 	</g>
 	<g id="node-family">
 		<circle class="halo ring-4" cx="1102" cy="430" r="52"/>
