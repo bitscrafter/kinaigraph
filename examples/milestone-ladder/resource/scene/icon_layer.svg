@@ -49,8 +49,10 @@
 		    <!-- Building body -->
 		    <rect x="4" y="8.4" width="16" height="12.6" rx="0.5" ry="0.5"
 		          class="icon-fill icon-stroke" stroke-width="1"/>
-		    <!-- Roof -->
-		    <path d="M 2.6,8.9 L 12,3.2 L 21.4,8.9" fill="none" class="icon-stroke" stroke-width="1"/>
+		    <!-- Roof. The eave overhangs the body by 2 units a side, which is
+		         deliberate and has to LOOK deliberate: a smaller overhang reads as
+		         the roof being misaligned rather than as a roof. -->
+		    <path d="M 2,9 L 12,2.8 L 22,9" fill="none" class="icon-stroke" stroke-width="1"/>
 		    <!-- Cross, centred on the facade -->
 		    <path d="M 10.7,11.4 L 13.3,11.4 L 13.3,13.8 L 15.7,13.8 L 15.7,16.4 L 13.3,16.4
 		             L 13.3,18.8 L 10.7,18.8 L 10.7,16.4 L 8.3,16.4 L 8.3,13.8 L 10.7,13.8 Z"
