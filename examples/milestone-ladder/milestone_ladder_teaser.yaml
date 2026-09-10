@@ -198,7 +198,7 @@ defs:
         # SHORTEST clip in this cut, not the average. Raising it past that leaves
         # a negative hold.
         SEG_DRAW_MS: 320
-        NODE_FADE_MS: 1900
+        NODE_FADE_MS: 2250
 
         # Each step waits out the remainder of its own line. Step 1 draws no
         # span, so only the node fade comes off its clip.
