@@ -33,7 +33,7 @@ defs:
         tts:
             provider: "elevenlabs"
             credentials: "elevenlabs_credentials"
-            voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+            voice: "ogwqBH5bbF03DSbNiRNN" # Savvy
 
 synthesis:
     context:
