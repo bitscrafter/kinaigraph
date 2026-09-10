@@ -212,13 +212,21 @@ defs:
         SEG_DRAW_MS: 320
         NODE_FADE_MS: 2250
 
-        # Each step waits out the remainder of its own line. Step 1 draws no
-        # span, so only the node fade comes off its clip.
-        STEP_1_HOLD_MS: "audio_01_career_decision.duration - NODE_FADE_MS"
-        STEP_2_HOLD_MS: "audio_02_medical_school.duration - SEG_DRAW_MS - NODE_FADE_MS"
-        STEP_3_HOLD_MS: "audio_03_internship.duration - SEG_DRAW_MS - NODE_FADE_MS"
-        STEP_4_HOLD_MS: "audio_04_family.duration - SEG_DRAW_MS - NODE_FADE_MS"
-        STEP_5_HOLD_MS: "audio_05_community.duration - SEG_DRAW_MS - NODE_FADE_MS"
+        # A beat of quiet between one line and the next. A step lasts exactly its
+        # own clip, so without this the next line begins on the frame the last one
+        # ends — six sentences with no breath between them.
+        #
+        # ⚠️ Added to steps 1-5 only. Step 6 is followed by the teardown's
+        # VIDEO_MARGIN, and a gap there would just lengthen the closing silence.
+        STEP_GAP_MS: 500
+
+        # Each step waits out the remainder of its own line, plus the gap. Step 1
+        # draws no span, so only the node fade comes off its clip.
+        STEP_1_HOLD_MS: "audio_01_career_decision.duration - NODE_FADE_MS + STEP_GAP_MS"
+        STEP_2_HOLD_MS: "audio_02_medical_school.duration - SEG_DRAW_MS - NODE_FADE_MS + STEP_GAP_MS"
+        STEP_3_HOLD_MS: "audio_03_internship.duration - SEG_DRAW_MS - NODE_FADE_MS + STEP_GAP_MS"
+        STEP_4_HOLD_MS: "audio_04_family.duration - SEG_DRAW_MS - NODE_FADE_MS + STEP_GAP_MS"
+        STEP_5_HOLD_MS: "audio_05_community.duration - SEG_DRAW_MS - NODE_FADE_MS + STEP_GAP_MS"
         STEP_6_HOLD_MS: "audio_06_teaching.duration - SEG_DRAW_MS - NODE_FADE_MS"
 
 animation:
