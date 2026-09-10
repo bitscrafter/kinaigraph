@@ -50,6 +50,17 @@
     --kg-step-5: #6bdcea;
     --kg-step-6: #93f0f7;
     --kg-seg: #4cc0d2;
+
+    /* The catalog's icon vocabulary. Solid areas take the DISC colour, so a
+       filled glyph reads as outline-on-disc rather than as a blot — the discs
+       are small and a heavy fill closes up the drawing. */
+    --icon-fill: #0f1a2b;
+    --icon-fill-light: #16243a;
+    --icon-fill-medium: #9fc9dd;
+    --icon-fill-dark: #eaf6ff;
+    --icon-stroke: #eaf6ff;
+    --icon-stroke-light: #9fc9dd;
+    --icon-stroke-medium: #c6e4f2;
 }
 
 /* ── care ───────────────────────────────────────────────────────────────────
@@ -77,7 +88,30 @@
     --kg-step-5: #0f6860;
     --kg-step-6: #084f49;
     --kg-seg: #1c8177;
+
+    /* Same idea inverted: fills take the white disc, ink takes the ramp. The
+       per-node overrides below re-point the ink so a glyph darkens with its
+       node. */
+    --icon-fill: #ffffff;
+    --icon-fill-light: #eef5f5;
+    --icon-fill-medium: #1c8177;
+    --icon-fill-dark: #1c8177;
+    --icon-stroke: #1c8177;
+    --icon-stroke-light: #5cb3a9;
+    --icon-stroke-medium: #349a90;
 }
+
+/* ── The catalog's classes ─────────────────────────────────────────────────
+ * Copied verbatim from icon-catalog.svg so a symbol drops in unmodified. Each
+ * sets exactly one property; a line part carries fill="none" of its own.
+ */
+.icon-fill        { fill: var(--icon-fill); }
+.icon-fill-light  { fill: var(--icon-fill-light); }
+.icon-fill-medium { fill: var(--icon-fill-medium); }
+.icon-fill-dark   { fill: var(--icon-fill-dark); }
+.icon-stroke        { stroke: var(--icon-stroke); }
+.icon-stroke-light  { stroke: var(--icon-stroke-light); }
+.icon-stroke-medium { stroke: var(--icon-stroke-medium); }
 
 #milestone-ladder,
 #milestone-icon-layer {
@@ -100,50 +134,15 @@
 .halo { fill: none; stroke-width: 2; opacity: 0.26; }
 .disc { fill: var(--kg-disc-fill); stroke-width: 5; }
 
-/* The icon layer is a separate scene stacked above the ladder, so its glyphs can
-   travel over the rail they ride. `currentColor` in the symbols resolves here. */
-.icon { color: var(--kg-icon); }
-
-.ring-1 { stroke: var(--kg-step-1); }
-.ring-2 { stroke: var(--kg-step-2); }
-.ring-3 { stroke: var(--kg-step-3); }
-.ring-4 { stroke: var(--kg-step-4); }
-.ring-5 { stroke: var(--kg-step-5); }
-.ring-6 { stroke: var(--kg-step-6); }
-
-/* On `care` the glyph takes its node's ramp step; on `dark` the fixed ink above
-   wins because --kg-icon is a colour rather than `currentColor`. */
-#icon-career-decision { color: var(--kg-step-1); }
-#icon-medical-school  { color: var(--kg-step-2); }
-#icon-internship      { color: var(--kg-step-3); }
-#icon-family          { color: var(--kg-step-4); }
-#icon-community       { color: var(--kg-step-5); }
-#icon-teaching        { color: var(--kg-step-6); }
-.dark #icon-career-decision,
-.dark #icon-medical-school,
-.dark #icon-internship,
-.dark #icon-family,
-.dark #icon-community,
-.dark #icon-teaching { color: var(--kg-icon); }
-
-/* ── Brand mark ─────────────────────────────────────────────────────────────
- * Bottom-right, because bottom-LEFT is where node 1's label sits.
- *
- * The artwork is dark ink on transparency, so it reads directly on `care` and is
- * inverted on `dark`. One asset, two themes — carrying a second, pre-inverted
- * PNG would double the payload to keep them in sync by hand.
- *
- * Low opacity by intent: it is a signature, not a element of the diagram, and it
- * must never compete with a label for attention.
- */
-.brand-mark {
-    opacity: 0.30;
-}
-
-.dark .brand-mark {
-    filter: invert(1);
-    opacity: 0.34;
-}
+/* On `care` a glyph takes its node's step from the ramp, so it darkens as she
+   advances. On `dark` the ink is fixed near-white: the ramp's dim end would be
+   unreadable at 40 px inside a dark disc. */
+.care #icon-career-decision { --icon-stroke: var(--kg-step-1); --icon-fill-dark: var(--kg-step-1); --icon-fill-medium: var(--kg-step-1); }
+.care #icon-medical-school  { --icon-stroke: var(--kg-step-2); --icon-fill-dark: var(--kg-step-2); --icon-fill-medium: var(--kg-step-2); }
+.care #icon-internship      { --icon-stroke: var(--kg-step-3); --icon-fill-dark: var(--kg-step-3); --icon-fill-medium: var(--kg-step-3); }
+.care #icon-family          { --icon-stroke: var(--kg-step-4); --icon-fill-dark: var(--kg-step-4); --icon-fill-medium: var(--kg-step-4); }
+.care #icon-community       { --icon-stroke: var(--kg-step-5); --icon-fill-dark: var(--kg-step-5); --icon-fill-medium: var(--kg-step-5); }
+.care #icon-teaching        { --icon-stroke: var(--kg-step-6); --icon-fill-dark: var(--kg-step-6); --icon-fill-medium: var(--kg-step-6); }
 
 /* ── Labels ───────────────────────────────────────────────────────────────── */
 .yr { font-size: 25px; font-weight: 700; letter-spacing: 0.14em; text-anchor: middle; }

@@ -29,7 +29,7 @@ nothing for the timeline to measure.
 | `milestone_ladder_<cut>_tts.yaml` | Synthesis only. Turns that cut's six scripts into six clips. |
 | `milestone_ladder_<cut>.yaml` | The piece. Animation plus the composition that mixes the narration onto it. |
 | `resource/scene/ladder.svg` | The rails, discs and labels. Generated — see below. |
-| `resource/scene/icons.svg` | The icon library. Source of truth for the six glyphs. |
+| `resource/scene/icons.svg` | The six glyphs, copied from the shared catalog. |
 | `resource/scene/icon_layer.svg` | The glyphs, placed. Generated, stacked over the ladder. |
 | `resource/scene/brand_layer.svg` | The brand mark, embedded as data. Generated from the PNG. |
 | `resource/image/bitscrafter_logo.png` | Source of truth for the mark. |
@@ -98,10 +98,22 @@ python3 resource/temp/make_ladder_svg.py   # rewrites ladder.svg AND icon_layer.
 ./resource/temp/make_preview.sh care       # a still, in either theme
 ```
 
-Icons are edited in `resource/scene/icons.svg` and inlined into the layer by the
-generator. kinaigraph does not consume cross-file `<use href="other.svg#id">`, so
-the copy is unavoidable — but it is made by the script, not by hand, so the
-library and the layer cannot drift.
+**Icons come from a shared catalog**, not from here. The source of truth is
+`tech-docs/internal/design/diagram/icon-catalog.svg` in the engine repo; this
+example carries a six-symbol subset, and an edit belongs upstream first.
+
+They are named for the SHAPE — `clock`, `graduate`, `stethoscope`, `heart`,
+`hospital`, `group` — not for what this example means by them. A heart is a heart
+wherever it is used; an "affinity" would only make sense here.
+
+Colour comes from the catalog's class vocabulary (`icon-fill`, `icon-stroke`,
+`icon-fill-dark`, …), which resolves against `--icon-*` custom properties that
+`theme_ladder.css` binds per theme. So one drawing serves dark and light, and a
+symbol drops in from the catalog unmodified.
+
+kinaigraph does not consume cross-file `<use href="other.svg#id">`, so the
+symbols are mirrored again into `icon_layer.svg` — but by the generator reading
+this file, not by hand.
 
 `resource/temp/` is not published. It holds authoring tools and scratch.
 
