@@ -193,8 +193,12 @@ defs:
         # How long a span takes to draw and a node to land. Both stay well under
         # the shortest clip, so even the quickest step is fully on screen before
         # its sentence ends.
+        #
+        # ⚠️ NODE_FADE_MS comes off every step's hold, so it is bounded by the
+        # SHORTEST clip in this cut, not the average. Raising it past that leaves
+        # a negative hold.
         SEG_DRAW_MS: 320
-        NODE_FADE_MS: 260
+        NODE_FADE_MS: 1000
 
         # Each step waits out the remainder of its own line. Step 1 draws no
         # span, so only the node fade comes off its clip.
