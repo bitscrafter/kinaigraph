@@ -40,6 +40,13 @@ defs:
             type: "scene"
             file: "./resource/scene/icon_layer.svg"
 
+        # Last, so it sits above everything. Its own scene because it carries
+        # ~60 KB of embedded PNG — inside the ladder that payload would be four
+        # fifths of the file and bury the geometry.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
         # Present from the first frame — the viewer should know whose life this
         # is before the first step lands.
         title:
@@ -167,6 +174,11 @@ defs:
             id: icon-teaching
             origin: center
 
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand-mark
+
         template:
             type: "template"
             file: "./resource/template/main.html"
@@ -225,6 +237,9 @@ animation:
                         opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+            - brand_mark:
+                  - show:
+                        opacity: 1
             - node_career_decision:
                   - show:
                         opacity: 0

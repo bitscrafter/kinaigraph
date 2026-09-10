@@ -31,6 +31,8 @@ nothing for the timeline to measure.
 | `resource/scene/ladder.svg` | The rails, discs and labels. Generated — see below. |
 | `resource/scene/icons.svg` | The icon library. Source of truth for the six glyphs. |
 | `resource/scene/icon_layer.svg` | The glyphs, placed. Generated, stacked over the ladder. |
+| `resource/scene/brand_layer.svg` | The brand mark, embedded as data. Generated from the PNG. |
+| `resource/image/bitscrafter_logo.png` | Source of truth for the mark. |
 | `resource/style/theme_ladder.css` | The palette and type. |
 | `resource/script/<cut>/part_NN_*.txt` | The narration, one file per step. |
 | `resource/audio/<cut>/part_NN_*.mp3` | The recordings, once generated. |
@@ -55,12 +57,20 @@ step keeps the icon legible while the glow still carries the progression.
 measure per step. One clip per node is what lets each step hold for exactly its own
 sentence and no longer.
 
-**Two scenes, stacked.** The glyphs live in their own scene declared *after* the
+**Three scenes, stacked.** The glyphs live in their own scene declared *after* the
 ladder — declaration order is the render z-order — because in the brief they MOVE.
 Each rides `move … along` over the very span that is drawing beneath it, so the
 route the eye follows and the route the glyph travels are the same curve. A rider
 has to be able to travel over the rail it rides, and that means being a separate
-layer.
+layer. The brand mark is a third, on top.
+
+**The mark is embedded, not referenced — and not in the ladder.** A scene SVG is
+inlined into the compiled page, so a relative `href` would resolve against
+wherever that *page* lands, and `--outdir` can move it; data survives the move.
+It gets its own file because the payload is ~60 KB of base64 — carried inside
+`ladder.svg` it would be four fifths of the file and bury the geometry, which is
+what happens in the architecture video it came from. The PNG stays the source of
+truth and the generator does the encoding.
 
 **Two themes, opposite ramps.** `dark` brightens toward 2025; `care` — the light
 one — darkens. In both, further from the background means further along. Each
