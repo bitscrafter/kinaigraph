@@ -13,7 +13,7 @@
 # the words: a node finishes arriving before the line explaining it is over.
 #
 # ⚠️ Every actor id is the node's SLUG, and the script that narrates it carries
-# the same slug — `part_03_first_night.txt` speaks over `node-first-night`.
+# the same slug — `part_03_internship.txt` speaks over `node-internship`.
 # Nothing is matched by position, so re-ordering the ladder cannot silently
 # pair a line with the wrong node.
 #
@@ -43,31 +43,31 @@ defs:
             type: "actor"
             part_of: ladder
             id: seg-medical-school
-        seg_first_night:
+        seg_internship:
             type: "actor"
             part_of: ladder
-            id: seg-first-night
-        seg_nicu:
+            id: seg-internship
+        seg_family:
             type: "actor"
             part_of: ladder
-            id: seg-nicu
-        seg_clinic:
+            id: seg-family
+        seg_community:
             type: "actor"
             part_of: ladder
-            id: seg-clinic
+            id: seg-community
         seg_teaching:
             type: "actor"
             part_of: ladder
             id: seg-teaching
 
-        node_waiting_room:
+        node_career_decision:
             type: "actor"
             part_of: ladder
-            id: node-waiting-room
-        label_waiting_room:
+            id: node-career-decision
+        label_career_decision:
             type: "actor"
             part_of: ladder
-            id: label-waiting-room
+            id: label-career-decision
         node_medical_school:
             type: "actor"
             part_of: ladder
@@ -76,30 +76,30 @@ defs:
             type: "actor"
             part_of: ladder
             id: label-medical-school
-        node_first_night:
+        node_internship:
             type: "actor"
             part_of: ladder
-            id: node-first-night
-        label_first_night:
+            id: node-internship
+        label_internship:
             type: "actor"
             part_of: ladder
-            id: label-first-night
-        node_nicu:
+            id: label-internship
+        node_family:
             type: "actor"
             part_of: ladder
-            id: node-nicu
-        label_nicu:
+            id: node-family
+        label_family:
             type: "actor"
             part_of: ladder
-            id: label-nicu
-        node_clinic:
+            id: label-family
+        node_community:
             type: "actor"
             part_of: ladder
-            id: node-clinic
-        label_clinic:
+            id: node-community
+        label_community:
             type: "actor"
             part_of: ladder
-            id: label-clinic
+            id: label-community
         node_teaching:
             type: "actor"
             part_of: ladder
@@ -109,21 +109,21 @@ defs:
             part_of: ladder
             id: label-teaching
 
-        audio_01_waiting_room:
+        audio_01_career_decision:
             type: "audio"
-            file: "./resource/audio/brief/part_01_waiting_room.mp3"
+            file: "./resource/audio/brief/part_01_career_decision.mp3"
         audio_02_medical_school:
             type: "audio"
             file: "./resource/audio/brief/part_02_medical_school.mp3"
-        audio_03_first_night:
+        audio_03_internship:
             type: "audio"
-            file: "./resource/audio/brief/part_03_first_night.mp3"
-        audio_04_nicu:
+            file: "./resource/audio/brief/part_03_internship.mp3"
+        audio_04_family:
             type: "audio"
-            file: "./resource/audio/brief/part_04_nicu.mp3"
-        audio_05_clinic:
+            file: "./resource/audio/brief/part_04_family.mp3"
+        audio_05_community:
             type: "audio"
-            file: "./resource/audio/brief/part_05_clinic.mp3"
+            file: "./resource/audio/brief/part_05_community.mp3"
         audio_06_teaching:
             type: "audio"
             file: "./resource/audio/brief/part_06_teaching.mp3"
@@ -149,11 +149,11 @@ defs:
 
         # Each step waits out the remainder of its own line. Step 1 draws no
         # span, so only the node fade comes off its clip.
-        STEP_1_HOLD_MS: "audio_01_waiting_room.duration - NODE_FADE_MS"
+        STEP_1_HOLD_MS: "audio_01_career_decision.duration - NODE_FADE_MS"
         STEP_2_HOLD_MS: "audio_02_medical_school.duration - SEG_DRAW_MS - NODE_FADE_MS"
-        STEP_3_HOLD_MS: "audio_03_first_night.duration - SEG_DRAW_MS - NODE_FADE_MS"
-        STEP_4_HOLD_MS: "audio_04_nicu.duration - SEG_DRAW_MS - NODE_FADE_MS"
-        STEP_5_HOLD_MS: "audio_05_clinic.duration - SEG_DRAW_MS - NODE_FADE_MS"
+        STEP_3_HOLD_MS: "audio_03_internship.duration - SEG_DRAW_MS - NODE_FADE_MS"
+        STEP_4_HOLD_MS: "audio_04_family.duration - SEG_DRAW_MS - NODE_FADE_MS"
+        STEP_5_HOLD_MS: "audio_05_community.duration - SEG_DRAW_MS - NODE_FADE_MS"
         STEP_6_HOLD_MS: "audio_06_teaching.duration - SEG_DRAW_MS - NODE_FADE_MS"
 
 animation:
@@ -167,10 +167,10 @@ animation:
                         opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
-            - node_waiting_room:
+            - node_career_decision:
                   - show:
                         opacity: 0
-            - label_waiting_room:
+            - label_career_decision:
                   - show:
                         opacity: 0
             - node_medical_school:
@@ -179,22 +179,22 @@ animation:
             - label_medical_school:
                   - show:
                         opacity: 0
-            - node_first_night:
+            - node_internship:
                   - show:
                         opacity: 0
-            - label_first_night:
+            - label_internship:
                   - show:
                         opacity: 0
-            - node_nicu:
+            - node_family:
                   - show:
                         opacity: 0
-            - label_nicu:
+            - label_family:
                   - show:
                         opacity: 0
-            - node_clinic:
+            - node_community:
                   - show:
                         opacity: 0
-            - label_clinic:
+            - label_community:
                   - show:
                         opacity: 0
             - node_teaching:
@@ -206,13 +206,13 @@ animation:
             - seg_medical_school:
                   - show:
                         opacity: 0
-            - seg_first_night:
+            - seg_internship:
                   - show:
                         opacity: 0
-            - seg_nicu:
+            - seg_family:
                   - show:
                         opacity: 0
-            - seg_clinic:
+            - seg_community:
                   - show:
                         opacity: 0
             - seg_teaching:
@@ -221,12 +221,12 @@ animation:
 
         # ── Step 1 — no span precedes the first node ────────────────────────
         setup.end @ step_1:
-            - node_waiting_room:
+            - node_career_decision:
                   - show:
                         duration: NODE_FADE_MS
                         opacity: 1
                         easing: ease_out_quad
-            - label_waiting_room:
+            - label_career_decision:
                   - show:
                         duration: NODE_FADE_MS
                         opacity: 1
@@ -265,7 +265,7 @@ animation:
                             after: "STEP_2_HOLD_MS"
 
         step_2.end @ step_3:
-            - seg_first_night:
+            - seg_internship:
                   - show:
                         duration: SEG_DRAW_MS
                         opacity: 1
@@ -273,7 +273,7 @@ animation:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-            - node_first_night:
+            - node_internship:
                   - show:
                         opacity: 0
                         hold:
@@ -282,7 +282,7 @@ animation:
                         duration: NODE_FADE_MS
                         opacity: 1
                         easing: ease_out_quad
-            - label_first_night:
+            - label_internship:
                   - show:
                         opacity: 0
                         hold:
@@ -295,7 +295,7 @@ animation:
                             after: "STEP_3_HOLD_MS"
 
         step_3.end @ step_4:
-            - seg_nicu:
+            - seg_family:
                   - show:
                         duration: SEG_DRAW_MS
                         opacity: 1
@@ -303,7 +303,7 @@ animation:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-            - node_nicu:
+            - node_family:
                   - show:
                         opacity: 0
                         hold:
@@ -312,7 +312,7 @@ animation:
                         duration: NODE_FADE_MS
                         opacity: 1
                         easing: ease_out_quad
-            - label_nicu:
+            - label_family:
                   - show:
                         opacity: 0
                         hold:
@@ -325,7 +325,7 @@ animation:
                             after: "STEP_4_HOLD_MS"
 
         step_4.end @ step_5:
-            - seg_clinic:
+            - seg_community:
                   - show:
                         duration: SEG_DRAW_MS
                         opacity: 1
@@ -333,7 +333,7 @@ animation:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-            - node_clinic:
+            - node_community:
                   - show:
                         opacity: 0
                         hold:
@@ -342,7 +342,7 @@ animation:
                         duration: NODE_FADE_MS
                         opacity: 1
                         easing: ease_out_quad
-            - label_clinic:
+            - label_community:
                   - show:
                         opacity: 0
                         hold:
@@ -411,7 +411,7 @@ composition:
                   - mix:
                         span:
                             from: "animation::step_1.start"
-                        asset: audio_01_waiting_room
+                        asset: audio_01_career_decision
                   - mix:
                         span:
                             from: "animation::step_2.start"
@@ -419,15 +419,15 @@ composition:
                   - mix:
                         span:
                             from: "animation::step_3.start"
-                        asset: audio_03_first_night
+                        asset: audio_03_internship
                   - mix:
                         span:
                             from: "animation::step_4.start"
-                        asset: audio_04_nicu
+                        asset: audio_04_family
                   - mix:
                         span:
                             from: "animation::step_5.start"
-                        asset: audio_05_clinic
+                        asset: audio_05_community
                   - mix:
                         span:
                             from: "animation::step_6.start"

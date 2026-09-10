@@ -40,25 +40,25 @@ synthesis:
         status: active
 
     tts:
-        audio_01_waiting_room:
-            file: "./resource/script/teaser/part_01_waiting_room.txt"
-            export: "./resource/audio/teaser/part_01_waiting_room.mp3"
+        audio_01_career_decision:
+            file: "./resource/script/teaser/part_01_career_decision.txt"
+            export: "./resource/audio/teaser/part_01_career_decision.mp3"
 
         audio_02_medical_school:
             file: "./resource/script/teaser/part_02_medical_school.txt"
             export: "./resource/audio/teaser/part_02_medical_school.mp3"
 
-        audio_03_first_night:
-            file: "./resource/script/teaser/part_03_first_night.txt"
-            export: "./resource/audio/teaser/part_03_first_night.mp3"
+        audio_03_internship:
+            file: "./resource/script/teaser/part_03_internship.txt"
+            export: "./resource/audio/teaser/part_03_internship.mp3"
 
-        audio_04_nicu:
-            file: "./resource/script/teaser/part_04_nicu.txt"
-            export: "./resource/audio/teaser/part_04_nicu.mp3"
+        audio_04_family:
+            file: "./resource/script/teaser/part_04_family.txt"
+            export: "./resource/audio/teaser/part_04_family.mp3"
 
-        audio_05_clinic:
-            file: "./resource/script/teaser/part_05_clinic.txt"
-            export: "./resource/audio/teaser/part_05_clinic.mp3"
+        audio_05_community:
+            file: "./resource/script/teaser/part_05_community.txt"
+            export: "./resource/audio/teaser/part_05_community.mp3"
 
         audio_06_teaching:
             file: "./resource/script/teaser/part_06_teaching.txt"

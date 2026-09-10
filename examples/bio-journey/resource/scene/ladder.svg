@@ -6,16 +6,16 @@
 	</g>
 	<path id="track" class="track" d="M 250 798 C 297.3 764.7 439.3 626.0 534 598 C 628.7 570.0 723.3 658.0 818 630 C 912.7 602.0 1007.3 458.0 1102 430 C 1196.7 402.0 1291.3 490.0 1386 462 C 1480.7 434.0 1622.7 295.3 1670 262"/>
 	<path id="seg-medical-school" class="seg" d="M 250 798 C 297.3 764.7 439.3 626.0 534 598"/>
-	<path id="seg-first-night" class="seg" d="M 534 598 C 628.7 570.0 723.3 658.0 818 630"/>
-	<path id="seg-nicu" class="seg" d="M 818 630 C 912.7 602.0 1007.3 458.0 1102 430"/>
-	<path id="seg-clinic" class="seg" d="M 1102 430 C 1196.7 402.0 1291.3 490.0 1386 462"/>
+	<path id="seg-internship" class="seg" d="M 534 598 C 628.7 570.0 723.3 658.0 818 630"/>
+	<path id="seg-family" class="seg" d="M 818 630 C 912.7 602.0 1007.3 458.0 1102 430"/>
+	<path id="seg-community" class="seg" d="M 1102 430 C 1196.7 402.0 1291.3 490.0 1386 462"/>
 	<path id="seg-teaching" class="seg" d="M 1386 462 C 1480.7 434.0 1622.7 295.3 1670 262"/>
-	<g id="node-waiting-room">
+	<g id="node-career-decision">
 		<circle class="halo ring-1" cx="250" cy="798" r="52"/>
 		<circle class="disc ring-1" cx="250" cy="798" r="40"/>
 		<g class="icon" transform="translate(250,798)"><circle cx="0" cy="0" r="13"/><path d="M0,-7 L0,1 L6,4"/></g>
 	</g>
-	<g id="label-waiting-room">
+	<g id="label-career-decision">
 		<text class="yr ink-1" x="250" y="876">2007</text>
 		<text class="ti" x="250" y="910">The Waiting Room</text>
 		<text class="de" x="250" y="940">That's when I decided</text>
@@ -28,34 +28,34 @@
 	<g id="label-medical-school">
 		<text class="yr ink-2" x="534" y="460">2013</text>
 		<text class="ti" x="534" y="494">Medical School</text>
-		<text class="de" x="534" y="522">Six years to get in</text>
+		<text class="de" x="534" y="522">Four more, just to be ready</text>
 	</g>
-	<g id="node-first-night">
+	<g id="node-internship">
 		<circle class="halo ring-3" cx="818" cy="630" r="52"/>
 		<circle class="disc ring-3" cx="818" cy="630" r="40"/>
 		<g class="icon" transform="translate(818,630)"><path d="M5,-12 A13,13 0 1 0 5,12 A10,10 0 1 1 5,-12 Z"/></g>
 	</g>
-	<g id="label-first-night">
+	<g id="label-internship">
 		<text class="yr ink-3" x="818" y="708">2017</text>
 		<text class="ti" x="818" y="742">First Night</text>
-		<text class="de" x="818" y="772">Nobody above me to hand it to</text>
+		<text class="de" x="818" y="772">Providing the answers</text>
 	</g>
-	<g id="node-nicu">
+	<g id="node-family">
 		<circle class="halo ring-4" cx="1102" cy="430" r="52"/>
 		<circle class="disc ring-4" cx="1102" cy="430" r="40"/>
 		<g class="icon" transform="translate(1102,430)"><path d="M0,12 C-14,2 -14,-7 -7,-10 C-3,-12 0,-9 0,-6 C0,-9 3,-12 7,-10 C14,-7 14,2 0,12 Z"/></g>
 	</g>
-	<g id="label-nicu">
+	<g id="label-family">
 		<text class="yr ink-4" x="1102" y="292">2020</text>
 		<text class="ti" x="1102" y="326">The NICU</text>
-		<text class="de" x="1102" y="354">The wrong side of the door</text>
+		<text class="de" x="1102" y="354">I knew what the numbers meant</text>
 	</g>
-	<g id="node-clinic">
+	<g id="node-community">
 		<circle class="halo ring-5" cx="1386" cy="462" r="52"/>
 		<circle class="disc ring-5" cx="1386" cy="462" r="40"/>
 		<g class="icon" transform="translate(1386,462)"><path d="M-13,-1 L0,-12 L13,-1 L13,12 L-13,12 Z"/><path d="M0,1 L0,9 M-4,5 L4,5"/></g>
 	</g>
-	<g id="label-clinic">
+	<g id="label-community">
 		<text class="yr ink-5" x="1386" y="540">2022</text>
 		<text class="ti" x="1386" y="574">The Clinic</text>
 		<text class="de" x="1386" y="604">Saturdays, for families with nowhere else</text>
@@ -68,6 +68,6 @@
 	<g id="label-teaching">
 		<text class="yr ink-6" x="1670" y="124">2025</text>
 		<text class="ti" x="1670" y="158">Teaching</text>
-		<text class="de" x="1670" y="186">Nobody leaves without an answer</text>
+		<text class="de" x="1670" y="186">Their patient too</text>
 	</g>
 </svg>

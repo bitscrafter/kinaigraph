@@ -53,9 +53,9 @@ step keeps the icon legible while the glow still carries the progression.
 measure per step. One clip per node is what lets each step hold for exactly its own
 sentence and no longer.
 
-**Names are the contract, not positions.** Every node carries a slug — `first-night` —
-and it is the SVG id suffix (`node-first-night`, `seg-first-night`, `label-first-night`)
-*and* the script filename suffix (`part_03_first_night.txt`). Re-order the ladder and
+**Names are the contract, not positions.** Every node carries a slug — `internship` —
+and it is the SVG id suffix (`node-internship`, `seg-internship`, `label-internship`)
+*and* the script filename suffix (`part_03_internship.txt`). Re-order the ladder and
 nothing can silently pair a line with the wrong node.
 
 ## Editing it
