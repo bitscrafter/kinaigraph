@@ -27,6 +27,19 @@ examples/**/animation.html
 # An example that ships audio it genuinely owns can override this with a negation
 # (`!examples/*/resources/audio/<file>`), per file, once that right is established.
 
+# ── Generated documentation-video artifacts ──────────────────────────────────
+# `docs/video/src/` holds the SOURCES for the videos on the documentation site:
+# the YAML, the SVG scenes, the narration scripts, and the narration audio.
+#
+# ⚠️ The narration mp3s here are TRACKED, unlike the ones under `examples/`.
+# A reader cloning this repo can then render a documentation video without
+# paying a TTS provider for audio that is already written and already recorded.
+# That is the whole point of committing them, so do NOT add an `*.mp3` rule.
+docs/video/**/out/
+docs/video/**/.capture/
+docs/video/**/animation.html
+docs/video/**/*.mp4
+
 # ── Working scratch — source-art variants, editor projects, intermediate exports ──
 # Anything an example actually needs is archived INTO that example, never referenced
 # out of here (the hiking-trails trace lives at resources/diagram/hiking_trace.png

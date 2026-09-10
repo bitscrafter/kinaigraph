@@ -1,0 +1,766 @@
+# ------------------------------------------
+# Kinaigraph Architecture - Structural Layers
+# ------------------------------------------
+
+metadata:
+  title: "Kinaigraph Architecture"
+  description: "The structural layers of the Kinaigraph architecture: applications, ports and adapters, subsystems, and the model, use-case and infrastructure layers"
+  version: "1.0"
+
+defs:
+  assets:
+    diagram:
+      type: "scene"
+      file: "./resource/scene/structural_layers.svg"
+
+    template:
+      type: "template"
+      file: "./resource/template/animation-template.html"
+      # The active style+theme is selected once, in defs.defaults below, so
+      # that exactly one style is in scope (keeps css() lookups unambiguous).
+
+    style:
+      type: "style"
+      file: "./resource/style/animation-theme.css"
+      themes:
+        - dark
+        - light
+        - zoned
+
+    # Credentials for TTS (assuming environment variable is set)
+    elevenlabs_credentials:
+      type: "credentials"
+      env: "ELEVENLABS_API_KEY"
+
+    # Groups — migrated from defs.groups to defs.assets entries of type "group"
+    all_ports:
+      type: "group"
+      members:
+        - port-media-encoding
+        - port-browser-automation
+        - port-asset-reading
+        - port-expression-evaluation
+        - port-media-inspection
+        - port-speech-synthesis
+    all_adapters:
+      type: "group"
+      members:
+        - adapter-ffmpeg-box
+        - adapter-cdp-box
+        - adapter-filesystem-box
+        - adapter-evaluator-box
+        - adapter-ffprobe-box
+        - adapter-tts-box
+    all_subsystems:
+      type: "group"
+      members:
+        - subsystem-syntax
+        - subsystem-semantic
+        - subsystem-resolution
+        - subsystem-bytecode
+        - subsystem-dependency
+        - subsystem-instruction
+    all_layers:
+      type: "group"
+      members:
+        - layer-infra
+        - layer-usecase
+        - layer-model
+    layer_infra_ring:
+      type: "group"
+      members:
+        - layer-infra
+    layer_usecase_ring:
+      type: "group"
+      members:
+        - layer-usecase
+    layer_model_ring:
+      type: "group"
+      members:
+        - layer-model
+    title_text:
+      type: "group"
+      members:
+        - title-line1
+        - title-line2
+        - title-line3
+
+  const:
+    delayMargin: 200
+    delayBetweenSteps: 250
+
+  defaults:
+    # Default active template + theme (cascade tier: defs.defaults). The
+    # template selection carries the style+theme that activates the `dark`
+    # theme for the whole document. Switch this single word to `light` to
+    # re-brand both the static SVG styling and the baked css() pulse colors —
+    # no other DSL edits, zero color literals in the YAML. The theme is set on
+    # exactly ONE in-scope style reference (the template) to keep css() lookups
+    # unambiguous.
+    assets:
+      template:
+        asset: template
+        style:
+          asset: style
+          theme: zoned
+    tts:
+      provider: "elevenlabs"
+      credentials: "elevenlabs_credentials"
+      voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+      #voice: "vr5WKaGvRWsoaX5LCVax" # Cherie
+      #voice: "c8GqgOMlDjKmhWVDfhvI" # Kennedy
+    # NOTE: `defs.defaults` carries assets | capture | tts | text | image |
+    # overlay. There is no per-ACTION category, so the pulse shape below is
+    # declared at each `pulse:` use site rather than defaulted here.
+    #
+    # The pulse *stroke color* could not have been defaulted here in any case:
+    # `css("…")` reads themed values from a style selected on a scene or
+    # template, and `defs.defaults` is not a style-in-scope position, so a
+    # `css()` stroke here fails resolution (CssFunctionFailureKind::
+    # StyleNotInScope). No color literals live in the DSL.
+
+synthesis:
+  context:
+    status: complete
+
+  tts:
+    part_01_intro:
+      file: "./resource/script/full/part_01_intro.txt"
+      export: "./resource/audio/full/part_01_intro.mp3"
+
+    part_02_hex_architecture:
+      file: "./resource/script/full/part_02_hex_architecture.txt"
+      export: "./resource/audio/full/part_02_hex_architecture.mp3"
+
+    part_03_adapter_1:
+      file: "./resource/script/full/part_03_port_adapter_1.txt"
+      export: "./resource/audio/full/part_03_port_adapter_1.mp3"
+
+    part_04_adapter_2:
+      file: "./resource/script/full/part_04_port_adapter_2.txt"
+      export: "./resource/audio/full/part_04_port_adapter_2.mp3"
+
+    part_05_adapter_3:
+      file: "./resource/script/full/part_05_port_adapter_3.txt"
+      export: "./resource/audio/full/part_05_port_adapter_3.mp3"
+
+    part_06_adapter_4:
+      file: "./resource/script/full/part_06_port_adapter_4.txt"
+      export: "./resource/audio/full/part_06_port_adapter_4.mp3"
+
+    part_07_adapter_5:
+      file: "./resource/script/full/part_07_port_adapter_5.txt"
+      export: "./resource/audio/full/part_07_port_adapter_5.mp3"
+
+    part_08_adapter_6:
+      file: "./resource/script/full/part_08_port_adapter_6.txt"
+      export: "./resource/audio/full/part_08_port_adapter_6.mp3"
+
+    part_09_subsystems_intro:
+      file: "./resource/script/full/part_09_subsystems_intro.txt"
+      export: "./resource/audio/full/part_09_subsystems_intro.mp3"
+
+    part_10_subsystem_syntax:
+      file: "./resource/script/full/part_10_subsystem_syntax.txt"
+      export: "./resource/audio/full/part_10_subsystem_syntax.mp3"
+
+    part_11_subsystem_semantic:
+      file: "./resource/script/full/part_11_subsystem_semantic.txt"
+      export: "./resource/audio/full/part_11_subsystem_semantic.mp3"
+
+    part_12_subsystem_resolution:
+      file: "./resource/script/full/part_12_subsystem_resolution.txt"
+      export: "./resource/audio/full/part_12_subsystem_resolution.mp3"
+
+    part_13_subsystem_bytecode:
+      file: "./resource/script/full/part_13_subsystem_bytecode.txt"
+      export: "./resource/audio/full/part_13_subsystem_bytecode.mp3"
+
+    part_14_subsystem_instruction:
+      file: "./resource/script/full/part_14_subsystem_instruction.txt"
+      export: "./resource/audio/full/part_14_subsystem_instruction.mp3"
+
+    part_15_subsystem_dependency:
+      file: "./resource/script/full/part_15_subsystem_dependency.txt"
+      export: "./resource/audio/full/part_15_subsystem_dependency.mp3"
+
+    part_16_clean_architecture:
+      file: "./resource/script/full/part_16_clean_architecture.txt"
+      export: "./resource/audio/full/part_16_clean_architecture.mp3"
+
+    part_17_layer_infra:
+      file: "./resource/script/full/part_17_layer_infra.txt"
+      export: "./resource/audio/full/part_17_layer_infra.mp3"
+
+    part_18_layer_usecase:
+      file: "./resource/script/full/part_18_layer_usecase.txt"
+      export: "./resource/audio/full/part_18_layer_usecase.mp3"
+
+    part_19_layer_model:
+      file: "./resource/script/full/part_19_layer_model.txt"
+      export: "./resource/audio/full/part_19_layer_model.mp3"
+
+    part_20_conclusion:
+      file: "./resource/script/full/part_20_conclusion.txt"
+      export: "./resource/audio/full/part_20_conclusion.mp3"
+
+animation:
+  context:
+    status: active
+
+  timeline:
+    # 0. Initial state.
+    #
+    # Every actor the timeline later fades in from 0.0 is hidden here, at t=0,
+    # explicitly. The alternative — letting the SVG (or its stylesheet) ship the
+    # actor already invisible — states the intent in a different file from the
+    # `show` that undoes it, and leaves the DSL reading as though the fade began
+    # from whatever was there. A `show` with no `duration` is immediate
+    # (lang spec §6.2, `duration` default `0`), so this costs no timeline time.
+    #
+    # Add a target here whenever you add a `show` whose opacity starts at 0.0.
+    0 @ step_init:
+      - title_text:
+          - show:
+              opacity: 0.0
+
+    # 1. Intro
+    delayMargin @ step_intro:
+      #      - pointer:
+      #          - move: { x: "title-line2:bottom", y: "title-line2:bottom", offset-y: 20 }
+      #          - show: { duration: intro.duration / 2, opacity: { to: 1.0 } }
+      #          - show: { duration: intro.duration / 2, opacity: { to: 0.0 } }
+      - title_text:
+          # - snapshot: original-title-state
+          - show:
+              duration: part_01_intro.duration / 4
+              opacity:
+                from: 0.0
+                to: 1.0
+          # - show:
+          #     {
+          #       duration: part_01_intro.duration / 2,
+          #       opacity: { from: 1.0, to: 1.0 },
+          #     }
+          # - show:
+          #     {
+          #       duration: part_01_intro.duration / 4,
+          #       opacity: { to: 0.0 },
+          #     }
+          # TODO: This has a bug, doesn't work
+      #          - show: { duration: part_01_intro.duration / 2, restore: original-title-state }
+      - hexagon:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_intro.duration
+      - all_ports:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_intro.duration
+      - all_adapters:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_intro.duration
+      - all_layers:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_intro.duration
+      - all_subsystems:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_intro.duration
+
+    # 2. Hexagonal Architecture
+    step_intro.end + delayBetweenSteps @ step_hex_architecture:
+      - hexagon:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_02_hex_architecture.duration
+      - all_ports:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_02_hex_architecture.duration
+      - all_adapters:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_02_hex_architecture.duration
+    #              cycles: 2
+    #              stroke_width:
+    #                from: 1
+    #                to: 5
+
+    # Port+Adapter Pairs
+    # 2.1. Media Encoding
+    step_hex_architecture.end + delayBetweenSteps @ step_hex_1:
+      #      - pointer:
+      #          - move: { x: "port-media-encoding:right", y: "port-media-encoding:center", offset-x: 30 }
+      #          - show: { duration: part_03_adapter_1.duration / 2, opacity: { to: 1.0 } }
+      #          - show: { duration: part_03_adapter_1.duration / 2, opacity: { to: 0.0 } }
+      - port-media-encoding:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_03_adapter_1.duration
+              cycles: 2
+      - adapter-ffmpeg-box:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_03_adapter_1.duration
+              cycles: 2
+      - adapter-ffmpeg-line:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              stroke_width: 5
+              duration: part_03_adapter_1.duration
+              cycles: 2
+
+    # 2.2. Browser Automation
+    step_hex_1.end + delayBetweenSteps @ step_hex_2:
+      #      - pointer:
+      #          - move: { x: "port-browser-automation:right", y: "port-browser-automation:center", offset-x: 30 }
+      #          - show: { duration: part_04_adapter_2.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_04_adapter_2.duration / 2, opacity: 0.0 }
+      - port-browser-automation:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_04_adapter_2.duration
+              cycles: 2
+      - adapter-cdp-box:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_04_adapter_2.duration
+              cycles: 2
+      - adapter-cdp-line:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              stroke_width: 5
+              duration: part_04_adapter_2.duration
+              cycles: 2
+
+    # 2.3. Asset Reading
+    step_hex_2.end + delayBetweenSteps @ step_hex_3:
+      #      - pointer:
+      #          - move: { x: "port-asset-reading:right", y: "port-asset-reading:center", offset-x: 30 }
+      #          - show: { duration: part_05_adapter_3.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_05_adapter_3.duration / 2, opacity: 0.0 }
+      - port-asset-reading:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_05_adapter_3.duration
+              cycles: 2
+      - adapter-filesystem-box:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_05_adapter_3.duration
+              cycles: 2
+      - adapter-filesystem-line:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              stroke_width: 5
+              duration: part_05_adapter_3.duration
+              cycles: 2
+
+    # 2.4. Expression Evaluation
+    step_hex_3.end + delayBetweenSteps @ step_hex_4:
+      #      - pointer:
+      #          - move: { x: "port-expression-evaluation:right", y: "port-expression-evaluation:center", offset-x: 30 }
+      #          - show: { duration: part_06_adapter_4.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_06_adapter_4.duration / 2, opacity: 0.0 }
+      - port-expression-evaluation:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_06_adapter_4.duration
+              cycles: 2
+      - adapter-evaluator-box:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_06_adapter_4.duration
+              cycles: 2
+      - adapter-evaluator-line:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              stroke_width: 5
+              duration: part_06_adapter_4.duration
+              cycles: 2
+
+    # 2.5. Speech Synthesis
+    step_hex_4.end + delayBetweenSteps @ step_hex_5:
+      #      - pointer:
+      #          - move: { x: "port-speech-synthesis:right", y: "port-speech-synthesis:center", offset-x: 30 }
+      #          - show: { duration: part_08_adapter_6.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_08_adapter_6.duration / 2, opacity: 0.0 }
+      - port-speech-synthesis:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_07_adapter_5.duration
+              cycles: 2
+      - adapter-tts-box:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_07_adapter_5.duration
+              cycles: 2
+      - adapter-tts-line:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              stroke_width: 5
+              duration: part_07_adapter_5.duration
+              cycles: 2
+
+    # 2.6. Media Inspection
+    step_hex_5.end + delayBetweenSteps @ step_hex_6:
+      #      - pointer:
+      #          - move: { x: "port-media-inspection:right", y: "port-media-inspection:center", offset-x: 30 }
+      #          - show: { duration: part_07_adapter_5.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_07_adapter_5.duration / 2, opacity: 0.0 }
+      - port-media-inspection:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_08_adapter_6.duration
+              cycles: 2
+      - adapter-ffprobe-box:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_08_adapter_6.duration
+              cycles: 2
+      - adapter-ffprobe-line:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              stroke_width: 5
+              duration: part_08_adapter_6.duration
+              cycles: 2
+
+    # 3. Subsystems
+    step_hex_6.end + delayBetweenSteps @ step_sub_intro:
+      #      - pointer:
+      #          - move: { x: "subsystems-title:right", y: "subsystems-title:center", offset-x: 30 }
+      #          - show: { duration: part_09_subsystems_intro.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_09_subsystems_intro.duration / 2, opacity: 0.0 }
+      - all_subsystems:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_09_subsystems_intro.duration
+              cycles: 3
+
+    step_sub_intro.end + delayBetweenSteps @ step_sub_1:
+      #      - pointer:
+      #          - move: { x: "subsystem-syntax:center", y: "subsystems-title:center", offset-y: 20 }
+      #          - show: { duration: part_10_subsystem_syntax.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_10_subsystem_syntax.duration / 2, opacity: 0.0 }
+      - subsystem-syntax:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_10_subsystem_syntax.duration
+              cycles: 2
+
+    step_sub_1.end + delayBetweenSteps @ step_sub_2:
+      #      - pointer:
+      #          - move: { x: "subsystem-semantic:right", y: "subsystems-title:center", offset-x: 30 }
+      #          - show: { duration: part_11_subsystem_semantic.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_11_subsystem_semantic.duration / 2, opacity: 0.0 }
+      - subsystem-semantic:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_11_subsystem_semantic.duration
+              cycles: 2
+
+    step_sub_2.end + delayBetweenSteps @ step_sub_3:
+      #      - pointer:
+      #          - move: { x: "subsystem-resolution:right", y: "subsystems-title:center", offset-x: 30 }
+      #          - show: { duration: part_12_subsystem_resolution.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_12_subsystem_resolution.duration / 2, opacity: 0.0 }
+      - subsystem-resolution:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_12_subsystem_resolution.duration
+              cycles: 2
+
+    step_sub_3.end + delayBetweenSteps @ step_sub_4:
+      #      - pointer:
+      #          - move: { x: "subsystem-bytecode:center", y: "subsystems-title:center", offset-y: 30 }
+      #          - show: { duration: part_13_subsystem_bytecode.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_13_subsystem_bytecode.duration / 2, opacity: 0.0 }
+      - subsystem-bytecode:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_13_subsystem_bytecode.duration
+              cycles: 2
+
+    step_sub_4.end + delayBetweenSteps @ step_sub_5:
+      #      - pointer:
+      #          - move: { x: "subsystem-instruction:left", y: "subsystems-title:center", offset-x: -30 }
+      #          - show: { duration: part_14_subsystem_instruction.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_14_subsystem_instruction.duration / 2, opacity: 0.0 }
+      - subsystem-instruction:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_14_subsystem_instruction.duration
+              cycles: 2
+
+    step_sub_5.end + delayBetweenSteps @ step_sub_6:
+      #      - pointer:
+      #          - move: { x: "subsystem-dependency:left", y: "subsystems-title:center", offset-x: -30 }
+      #          - show: { duration: part_15_subsystem_dependency.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_15_subsystem_dependency.duration / 2, opacity: 0.0 }
+      - subsystem-dependency:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_15_subsystem_dependency.duration
+              cycles: 2
+
+    # 4. Layers
+    step_sub_6.end + delayBetweenSteps @ step_clean_architecture:
+      - all_layers:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_16_clean_architecture.duration
+
+    step_clean_architecture.end + delayBetweenSteps @ step_layer_1:
+      #      - pointer:
+      #          - move: { x: "layer-infra:center", y: "subsystems-title:center", offset-y: 30 }
+      #          - show: { duration: part_17_layer_infra.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_17_layer_infra.duration / 2, opacity: 0.0 }
+      - layer_infra_ring:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_17_layer_infra.duration
+              cycles: 2
+    #      - layer-infra-title:
+    #          - pulse:
+    #              duration: part_17_layer_infra.duration
+    #              cycles: 2
+    #              stroke_width:
+    #                from: 1
+    #                to: 2
+
+    step_layer_1.end + delayBetweenSteps @ step_layer_2:
+      #      - pointer:
+      #          - move: { x: "layer-usecase:center", y: "subsystems-title:center", offset-y: 30 }
+      #          - show: { duration: part_18_layer_usecase.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_18_layer_usecase.duration / 2, opacity: 0.0 }
+      - layer_usecase_ring:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_18_layer_usecase.duration
+              cycles: 2
+    #      - layer-usecase-title:
+    #          - pulse:
+    #              duration: part_18_layer_usecase.duration
+    #              cycles: 2
+    #              stroke_width:
+    #                from: 1
+    #                to: 2
+
+    step_layer_2.end + delayBetweenSteps @ step_layer_3:
+      #      - pointer:
+      #          - move: { x: "layer-model:center", y: "subsystems-title:center", offset-y: 30 }
+      #          - show: { duration: part_19_layer_model.duration / 2, opacity: 1.0 }
+      #          - show: { duration: part_19_layer_model.duration / 2, opacity: 0.0 }
+      - layer_model_ring:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              stroke_width: 5
+              duration: part_19_layer_model.duration
+              cycles: 2
+    #      - layer-model-title:
+    #          - pulse:
+    #              duration: part_19_layer_model.duration
+    #              cycles: 2
+    #              stroke_width:
+    #                from: 1
+    #                to: 2
+
+    # 5. Conclusion
+    step_layer_3.end + delayBetweenSteps @ step_conclusion:
+      - hexagon:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_20_conclusion.duration
+      - all_ports:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_20_conclusion.duration
+      - all_adapters:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_20_conclusion.duration
+      - all_layers:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_20_conclusion.duration
+      - all_subsystems:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_20_conclusion.duration
+
+  #    step_conclusion.end + delayMargin @ animation_end:
+
+  capture:
+    structural_layers_full_silent:
+      output: "./resource/video/structural_layers_full_silent.mp4"
+      fps: 30
+
+composition:
+  context:
+    status: active
+
+  timeline:
+    # Roll the rendered animation as the base video, then mix each narration
+    # clip onto it at the moment its animation step begins. The start times are
+    # pulled cross-section from the animation bookmarks (qualified `animation::`).
+    0:
+      - structural_layers_full_silent:
+          - roll:
+              actions:
+                - mix:
+                    asset: part_01_intro
+                    span:
+                      from: "animation::step_intro.start"
+                      to: "animation::step_intro.end"
+                - mix:
+                    asset: part_02_hex_architecture
+                    span:
+                      from: "animation::step_hex_architecture.start"
+                      to: "animation::step_hex_architecture.end"
+                - mix:
+                    asset: part_03_adapter_1
+                    span:
+                      from: "animation::step_hex_1.start"
+                      to: "animation::step_hex_1.end"
+                - mix:
+                    asset: part_04_adapter_2
+                    span:
+                      from: "animation::step_hex_2.start"
+                      to: "animation::step_hex_2.end"
+                - mix:
+                    asset: part_05_adapter_3
+                    span:
+                      from: "animation::step_hex_3.start"
+                      to: "animation::step_hex_3.end"
+                - mix:
+                    asset: part_06_adapter_4
+                    span:
+                      from: "animation::step_hex_4.start"
+                      to: "animation::step_hex_4.end"
+                - mix:
+                    asset: part_07_adapter_5
+                    span:
+                      from: "animation::step_hex_5.start"
+                      to: "animation::step_hex_5.end"
+                - mix:
+                    asset: part_08_adapter_6
+                    span:
+                      from: "animation::step_hex_6.start"
+                      to: "animation::step_hex_6.end"
+                - mix:
+                    asset: part_09_subsystems_intro
+                    span:
+                      from: "animation::step_sub_intro.start"
+                      to: "animation::step_sub_intro.end"
+                - mix:
+                    asset: part_10_subsystem_syntax
+                    span:
+                      from: "animation::step_sub_1.start"
+                      to: "animation::step_sub_1.end"
+                - mix:
+                    asset: part_11_subsystem_semantic
+                    span:
+                      from: "animation::step_sub_2.start"
+                      to: "animation::step_sub_2.end"
+                - mix:
+                    asset: part_12_subsystem_resolution
+                    span:
+                      from: "animation::step_sub_3.start"
+                      to: "animation::step_sub_3.end"
+                - mix:
+                    asset: part_13_subsystem_bytecode
+                    span:
+                      from: "animation::step_sub_4.start"
+                      to: "animation::step_sub_4.end"
+                - mix:
+                    asset: part_14_subsystem_instruction
+                    span:
+                      from: "animation::step_sub_5.start"
+                      to: "animation::step_sub_5.end"
+                - mix:
+                    asset: part_15_subsystem_dependency
+                    span:
+                      from: "animation::step_sub_6.start"
+                      to: "animation::step_sub_6.end"
+                - mix:
+                    asset: part_16_clean_architecture
+                    span:
+                      from: "animation::step_clean_architecture.start"
+                      to: "animation::step_clean_architecture.end"
+                - mix:
+                    asset: part_17_layer_infra
+                    span:
+                      from: "animation::step_layer_1.start"
+                      to: "animation::step_layer_1.end"
+                - mix:
+                    asset: part_18_layer_usecase
+                    span:
+                      from: "animation::step_layer_2.start"
+                      to: "animation::step_layer_2.end"
+                - mix:
+                    asset: part_19_layer_model
+                    span:
+                      from: "animation::step_layer_3.start"
+                      to: "animation::step_layer_3.end"
+                - mix:
+                    asset: part_20_conclusion
+                    span:
+                      from: "animation::step_conclusion.start"
+                      to: "animation::step_conclusion.end"
+
+  capture:
+    structural_layers_full:
+      output: "./structural_layers_full.mp4"
+      fps: 30

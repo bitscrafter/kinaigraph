@@ -1,0 +1,1 @@
+The Kinaigraph language turns static web content and narration into video, rendered to a file or played live in the browser.

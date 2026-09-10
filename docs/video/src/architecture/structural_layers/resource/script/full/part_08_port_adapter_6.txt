@@ -1,0 +1,1 @@
+Media Inspection reads metadata back from generated media, so the timeline paces itself to the spoken word.

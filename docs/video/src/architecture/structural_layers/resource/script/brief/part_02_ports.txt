@@ -1,0 +1,1 @@
+The outer layer follows hexagonal architecture. Six ports name what the system needs from the world: media encoding and inspection, browser automation, asset reading, expression evaluation, and speech synthesis. Six adapters supply them.

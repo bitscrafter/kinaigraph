@@ -1,0 +1,332 @@
+# ------------------------------------------
+# Kinaigraph Architecture - Structural Layers - Brief
+# ------------------------------------------
+# The same diagram as the full version, told one ring at a time instead of one item
+# at a time: six ports and six subsystems are named in a breath rather than given
+# a beat each. Roughly 1:20 against the full version's 2:46.
+#
+# Self-contained by design. Each length carries its own synthesis rather than
+# sharing one audio document, so a reader can follow a single file end to end.
+
+metadata:
+  title: "Kinaigraph Architecture - Structural Layers - Brief"
+  description: "The structural layers of the Kinaigraph architecture: applications, ports and adapters, subsystems, and the model, use-case and infrastructure layers"
+  version: "1.0"
+
+defs:
+  assets:
+    diagram:
+      type: "scene"
+      file: "./resource/scene/structural_layers.svg"
+
+    template:
+      type: "template"
+      file: "./resource/template/animation-template.html"
+
+    style:
+      type: "style"
+      file: "./resource/style/animation-theme.css"
+      themes:
+        - dark
+        - light
+        - bone
+
+    elevenlabs_credentials:
+      type: "credentials"
+      env: "ELEVENLABS_API_KEY"
+
+    title_text:
+      type: "group"
+      members:
+        - title-line1
+        - title-line2
+        - title-line3
+
+
+    all_ports:
+      type: "group"
+      members:
+        - port-media-encoding
+        - port-browser-automation
+        - port-asset-reading
+        - port-expression-evaluation
+        - port-media-inspection
+        - port-speech-synthesis
+
+    all_adapters:
+      type: "group"
+      members:
+        - adapter-ffmpeg-box
+        - adapter-cdp-box
+        - adapter-filesystem-box
+        - adapter-evaluator-box
+        - adapter-ffprobe-box
+        - adapter-tts-box
+
+    all_subsystems:
+      type: "group"
+      members:
+        - subsystem-syntax
+        - subsystem-semantic
+        - subsystem-resolution
+        - subsystem-bytecode
+        - subsystem-dependency
+        - subsystem-instruction
+
+    all_layers:
+      type: "group"
+      members:
+        - layer-infra
+        - layer-usecase
+        - layer-model
+
+    layer_infra_ring:
+      type: "group"
+      members:
+        - layer-infra
+
+    layer_usecase_ring:
+      type: "group"
+      members:
+        - layer-usecase
+
+    layer_model_ring:
+      type: "group"
+      members:
+        - layer-model
+
+  const:
+    delayMargin: 200
+    delayBetweenSteps: 250
+
+  defaults:
+    assets:
+      template:
+        asset: template
+        style:
+          asset: style
+          theme: bone
+    tts:
+      provider: "elevenlabs"
+      credentials: "elevenlabs_credentials"
+      voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+  context:
+    status: complete
+
+  tts:
+    part_01_intro:
+      file: "./resource/script/brief/part_01_intro.txt"
+      export: "./resource/audio/brief/part_01_intro.mp3"
+
+    part_02_ports:
+      file: "./resource/script/brief/part_02_ports.txt"
+      export: "./resource/audio/brief/part_02_ports.mp3"
+
+    part_03_subsystems:
+      file: "./resource/script/brief/part_03_subsystems.txt"
+      export: "./resource/audio/brief/part_03_subsystems.mp3"
+
+    part_04_clean_architecture:
+      file: "./resource/script/brief/part_04_clean_architecture.txt"
+      export: "./resource/audio/brief/part_04_clean_architecture.mp3"
+
+    part_05_layers:
+      file: "./resource/script/brief/part_05_layers.txt"
+      export: "./resource/audio/brief/part_05_layers.mp3"
+
+    part_06_conclusion:
+      file: "./resource/script/brief/part_06_conclusion.txt"
+      export: "./resource/audio/brief/part_06_conclusion.mp3"
+
+animation:
+  context:
+    status: active
+
+  timeline:
+    # 0. Initial state — the title block is hidden here, explicitly, so the
+    #    fade below states its own start rather than inheriting it from the SVG.
+    0 @ step_init:
+      - title_text:
+          - show:
+              opacity: 0.0
+
+    # 1. Intro — the whole diagram breathes
+    delayMargin @ step_intro:
+      - title_text:
+          - show:
+              duration: part_01_intro.duration / 4
+              opacity:
+                from: 0.0
+                to: 1.0
+      - hexagon:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_01_intro.duration
+      - all_ports:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_01_intro.duration
+      - all_adapters:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_01_intro.duration
+      - all_subsystems:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_01_intro.duration
+      - all_layers:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_01_intro.duration
+
+    # 2. Ports and adapters, as one ring
+    step_intro.end + delayBetweenSteps @ step_ports:
+      - all_ports:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_02_ports.duration
+      - all_adapters:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_02_ports.duration
+
+    # 3. Subsystems, as one ring
+    step_ports.end + delayBetweenSteps @ step_subsystems:
+      - all_subsystems:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_03_subsystems.duration
+
+    # 4. Clean architecture — the direction of dependencies
+    step_subsystems.end + delayBetweenSteps @ step_clean_architecture:
+      - all_layers:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_04_clean_architecture.duration
+
+    # 5. The three layers, outside in
+    step_clean_architecture.end + delayBetweenSteps @ step_layers:
+      - layer_infra_ring:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_05_layers.duration
+      - layer_usecase_ring:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_05_layers.duration
+      - layer_model_ring:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_05_layers.duration
+
+    # 6. Conclusion — everything together
+    step_layers.end + delayBetweenSteps @ step_conclusion:
+      - hexagon:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_06_conclusion.duration
+      - all_ports:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_06_conclusion.duration
+      - all_adapters:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_06_conclusion.duration
+      - all_subsystems:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_06_conclusion.duration
+      - all_layers:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 3
+              duration: part_06_conclusion.duration
+
+  capture:
+    structural_layers_brief_silent:
+      output: "./resource/video/structural_layers_brief_silent.mp4"
+      fps: 30
+
+composition:
+  context:
+    status: active
+
+  timeline:
+    # Roll the silent render, then mix each narration clip onto it at the moment
+    # its animation step begins — start times pulled cross-section from the
+    # animation bookmarks (qualified `animation::`).
+    0:
+      - structural_layers_brief_silent:
+          - roll:
+              actions:
+                - mix:
+                    asset: part_01_intro
+                    span:
+                      from: "animation::step_intro.start"
+                      to: "animation::step_intro.end"
+                - mix:
+                    asset: part_02_ports
+                    span:
+                      from: "animation::step_ports.start"
+                      to: "animation::step_ports.end"
+                - mix:
+                    asset: part_03_subsystems
+                    span:
+                      from: "animation::step_subsystems.start"
+                      to: "animation::step_subsystems.end"
+                - mix:
+                    asset: part_04_clean_architecture
+                    span:
+                      from: "animation::step_clean_architecture.start"
+                      to: "animation::step_clean_architecture.end"
+                - mix:
+                    asset: part_05_layers
+                    span:
+                      from: "animation::step_layers.start"
+                      to: "animation::step_layers.end"
+                - mix:
+                    asset: part_06_conclusion
+                    span:
+                      from: "animation::step_conclusion.start"
+                      to: "animation::step_conclusion.end"
+
+  capture:
+    structural_layers_brief:
+      output: "./structural_layers_brief.mp4"
+      fps: 30

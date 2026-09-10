@@ -1,0 +1,1 @@
+At the center, Model holds pure entities: Document, Timeline, Scene, Actor, Action, and Annotation.

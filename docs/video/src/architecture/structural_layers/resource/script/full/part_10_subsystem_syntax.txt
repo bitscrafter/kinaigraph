@@ -1,0 +1,1 @@
+Syntax parses source text into a faithful structural representation, evaluating nothing.

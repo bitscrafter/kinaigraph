@@ -1,0 +1,1 @@
+Resolution evaluates every expression and produces the in-memory model the system runs on.

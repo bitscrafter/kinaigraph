@@ -1,0 +1,1 @@
+Six subsystems carry a document from source text to live media, composed by applications with the ports they need.

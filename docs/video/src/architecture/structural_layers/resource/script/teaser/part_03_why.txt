@@ -1,0 +1,1 @@
+Three concentric layers hold the model at the center, so the whole system stays modular, testable, and extensible.

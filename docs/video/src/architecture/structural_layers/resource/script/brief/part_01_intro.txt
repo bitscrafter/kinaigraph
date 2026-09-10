@@ -1,0 +1,1 @@
+The Kinaigraph language transforms static web content into narrated, dynamic media, rendered to a video file or played live in the browser. Its structure of ports, subsystems, and layers keeps it modular, testable, and extensible.

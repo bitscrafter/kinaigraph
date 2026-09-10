@@ -1,0 +1,1 @@
+Instruction turns the resolved model into a binary buffer, then decodes it for the executor to dispatch.

@@ -1,0 +1,1 @@
+Dependency decides which external tool the engine uses, following a precedence rule over the candidates available.

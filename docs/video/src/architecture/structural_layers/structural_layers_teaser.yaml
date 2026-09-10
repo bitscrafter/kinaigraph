@@ -1,0 +1,235 @@
+# ------------------------------------------
+# Kinaigraph Architecture - Structural Layers - Teaser
+# ------------------------------------------
+# One sweep inward: what it is, the shape of it, why the shape matters. Three
+# beats, roughly 30 seconds, each landing on one ring of the same diagram.
+
+metadata:
+  title: "Kinaigraph Architecture - Structural Layers - Teaser"
+  description: "The structural layers of the Kinaigraph architecture: applications, ports and adapters, subsystems, and the model, use-case and infrastructure layers"
+  version: "1.0"
+
+defs:
+  assets:
+    diagram:
+      type: "scene"
+      file: "./resource/scene/structural_layers.svg"
+
+    template:
+      type: "template"
+      file: "./resource/template/animation-template.html"
+
+    style:
+      type: "style"
+      file: "./resource/style/animation-theme.css"
+      themes:
+        - dark
+        - light
+        - depth
+
+    elevenlabs_credentials:
+      type: "credentials"
+      env: "ELEVENLABS_API_KEY"
+
+    title_text:
+      type: "group"
+      members:
+        - title-line1
+        - title-line2
+        - title-line3
+
+
+    all_ports:
+      type: "group"
+      members:
+        - port-media-encoding
+        - port-browser-automation
+        - port-asset-reading
+        - port-expression-evaluation
+        - port-media-inspection
+        - port-speech-synthesis
+
+    all_adapters:
+      type: "group"
+      members:
+        - adapter-ffmpeg-box
+        - adapter-cdp-box
+        - adapter-filesystem-box
+        - adapter-evaluator-box
+        - adapter-ffprobe-box
+        - adapter-tts-box
+
+    all_subsystems:
+      type: "group"
+      members:
+        - subsystem-syntax
+        - subsystem-semantic
+        - subsystem-resolution
+        - subsystem-bytecode
+        - subsystem-dependency
+        - subsystem-instruction
+
+    all_layers:
+      type: "group"
+      members:
+        - layer-infra
+        - layer-usecase
+        - layer-model
+
+  const:
+    delayMargin: 200
+    delayBetweenSteps: 250
+
+  defaults:
+    assets:
+      template:
+        asset: template
+        style:
+          asset: style
+          theme: depth
+    tts:
+      provider: "elevenlabs"
+      credentials: "elevenlabs_credentials"
+      voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+  context:
+    status: complete
+
+  tts:
+    part_01_what:
+      file: "./resource/script/teaser/part_01_what.txt"
+      export: "./resource/audio/teaser/part_01_what.mp3"
+
+    part_02_structure:
+      file: "./resource/script/teaser/part_02_structure.txt"
+      export: "./resource/audio/teaser/part_02_structure.mp3"
+
+    part_03_why:
+      file: "./resource/script/teaser/part_03_why.txt"
+      export: "./resource/audio/teaser/part_03_why.mp3"
+
+animation:
+  context:
+    status: active
+
+  timeline:
+    # 0. Initial state — the title block is hidden here, explicitly, so the
+    #    fade below states its own start rather than inheriting it from the SVG.
+    0 @ step_init:
+      - title_text:
+          - show:
+              opacity: 0.0
+
+    # 1. What it is — the hexagon
+    delayMargin @ step_intro:
+      - title_text:
+          - show:
+              duration: part_01_what.duration / 4
+              opacity:
+                from: 0.0
+                to: 1.0
+      - hexagon:
+          - pulse:
+              stroke: 'css("pulse-to")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_what.duration
+      - all_ports:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_what.duration
+      - all_adapters:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_what.duration
+      - all_subsystems:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_what.duration
+      - all_layers:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_01_what.duration
+
+    # 2a. The outer world — paced to the first clause:
+    #     "Six ports and adapters face the outside world,"  (9 of the sentence's 21 words)
+    step_intro.end + delayBetweenSteps @ step_structure_outer:
+      - all_ports:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_02_structure.duration / 2.33
+      - all_adapters:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_02_structure.duration / 2.33
+
+    # 2b. Inside — the second clause, handed over at the comma. No gap: it is
+    #     one sentence, so the beats butt up rather than being padded apart.
+    #     "while six subsystems carry a document from source text to live media."
+    step_structure_outer.end @ step_structure_inner:
+      - all_subsystems:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_02_structure.duration / 1.75
+
+    # 3. Why it matters — the layers
+    step_structure_inner.end + delayBetweenSteps @ step_layers:
+      - all_layers:
+          - pulse:
+              stroke: 'css("pulse-to-solid")'
+              cycles: 4
+              stroke_width: 5
+              duration: part_03_why.duration
+
+  capture:
+    structural_layers_teaser_silent:
+      output: "./resource/video/structural_layers_teaser_silent.mp4"
+      fps: 30
+
+composition:
+  context:
+    status: active
+
+  timeline:
+    # Roll the silent render, then mix each narration clip onto it at the moment
+    # its animation step begins — start times pulled cross-section from the
+    # animation bookmarks (qualified `animation::`).
+    0:
+      - structural_layers_teaser_silent:
+          - roll:
+              actions:
+                - mix:
+                    asset: part_01_what
+                    span:
+                      from: "animation::step_intro.start"
+                      to: "animation::step_intro.end"
+                - mix:
+                    asset: part_02_structure
+                    span:
+                      from: "animation::step_structure_outer.start"
+                      to: "animation::step_structure_inner.end"
+                - mix:
+                    asset: part_03_why
+                    span:
+                      from: "animation::step_layers.start"
+                      to: "animation::step_layers.end"
+
+  capture:
+    structural_layers_teaser:
+      output: "./structural_layers_teaser.mp4"
+      fps: 30

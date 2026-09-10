@@ -1,0 +1,1 @@
+Bytecode encodes that model as compact binary and decodes it back. It is the wire format to the browser.

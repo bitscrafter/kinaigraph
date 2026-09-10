@@ -1,0 +1,1 @@
+Expression Evaluation lets a scene name concepts instead of fixed numbers. The Bitscrafter evaluator resolves them.

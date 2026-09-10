@@ -1,0 +1,1 @@
+Infra holds the concrete mechanisms: the bytecode and instruction codecs, and the SVG to asset mapper.

@@ -1,0 +1,1 @@
+Infra holds the codecs and mappers, Use Case orchestrates the compilation and execution phases, and at the center Model holds pure entities isolated from every external dependency.

@@ -1,0 +1,554 @@
+/* ============================================================ */
+/* Architecture explainer — theme stylesheet (engine source)    */
+/* ============================================================ */
+/*                                                              */
+/* This is the *engine source* of truth for theming. It defines */
+/* the architecture SVG's full var(--x) surface under a :root    */
+/* fallback plus two bare theme classes — `.dark` and `.light` — */
+/* exactly the classes the compiler injects at the              */
+/* KINAI_THEMES::PLACEHOLDER (on <html>) and per-section         */
+/* container. The browser cascade resolves the SVG's            */
+/* `var(--x)` references against `:root ⊕ .<activeTheme>`.       */
+/*                                                              */
+/* The animated pulse reads `--pulse-to`, and where a theme      */
+/* splits it, `--pulse-to-solid`, via the DSL's `css("…")` —     */
+/* those names are extracted at compile time and baked per      */
+/* theme.                                                       */
+/*                                                              */
+/* ⚠ There is deliberately NO `--pulse-from`. A pulse omits its  */
+/* `from`, so each element pulses from and back to ITS OWN rest  */
+/* stroke. Naming a shared start colour left every element       */
+/* sitting on that colour once the pulse ended, which deleted    */
+/* the borders it had just finished animating.                   */
+/*                                                              */
+/* The retired `@media (prefers-color-scheme)` /                 */
+/* `html.dark-mode` / `html.light-mode` blocks were removed:     */
+/* media queries are a render-environment condition the          */
+/* compiler cannot select, so they are NOT a bakeable source     */
+/* (see lang spec, Colors / themes section). Bare `.dark` /      */
+/* `.light` classes are the single source for both static        */
+/* styling and compile-time baking.                             */
+
+/* ------------------------------------------------------------ */
+/* :root — fallback values (used when no theme class is active) */
+/* ------------------------------------------------------------ */
+:root {
+    /* Page chrome */
+    --page-bg: #202020;
+    --page-text: #E0E0E0;
+
+    /* Canvas + containers */
+    --canvas-bg: #101010;
+    --hexagon-fill: #1A1A1A;
+    --hexagon-stroke: #888888;
+    --port-circle-fill: #242424;
+    --port-circle-stroke: #888888;
+    --adapter-box-fill: #1E1E1E;
+    --adapter-box-stroke: #888888;
+    --connection-line-stroke: #666666;
+    --layer-circle-stroke: #888888;
+    --subsystem-ring-stroke: #888888;
+    --subsystem-segment-fill-1: #1C1C1C;
+    --subsystem-segment-fill-2: #202020;
+
+    /* Text scale */
+    --text-primary: #E0E0E0;
+    --text-secondary: #CCCCCC;
+    --text-tertiary: #BBBBBB;
+    --text-quaternary: #AAAAAA;
+    --text-subtitle: #999999;
+    --text-app-subtitle: #888888;
+    --text-diagram-title: #989898;
+    --text-legend: #999999;
+
+    /* Layer gradients */
+    --gradient-model-start: #252525;
+    --gradient-model-end: #1E1E1E;
+    --gradient-usecase-start: #222222;
+    --gradient-usecase-end: #1A1A1A;
+    --gradient-infra-start: #252525;
+    --gradient-infra-end: #1E1E1E;
+
+    /* Misc */
+    --pointer-stroke: #7070D0;
+
+    /* Animated pulse endpoint (read by css("pulse-to")) */
+    --pulse-to: #E0E0E0;
+}
+
+/* ------------------------------------------------------------ */
+/* .dark — dark canvas, light strokes + text                    */
+/* ------------------------------------------------------------ */
+.dark {
+    /* Page chrome */
+    --page-bg: #181818;
+    --page-text: #E0E0E0;
+
+    /* Canvas + containers */
+    --canvas-bg: #101010;
+    --hexagon-fill: #1A1A1A;
+    --hexagon-stroke: #E0E0E0;
+    --port-circle-fill: #242424;
+    --port-circle-stroke: #C8C8C8;
+    --adapter-box-fill: #1E1E1E;
+    --adapter-box-stroke: #C8C8C8;
+    --connection-line-stroke: #888888;
+    --layer-circle-stroke: #C8C8C8;
+    --subsystem-ring-stroke: #C8C8C8;
+    --subsystem-segment-fill-1: #1C1C1C;
+    --subsystem-segment-fill-2: #202020;
+
+    /* Text scale (light on dark) */
+    --text-primary: #F5F5F5;
+    --text-secondary: #E0E0E0;
+    --text-tertiary: #CCCCCC;
+    --text-quaternary: #BBBBBB;
+    --text-subtitle: #AAAAAA;
+    --text-app-subtitle: #999999;
+    --text-diagram-title: #C0C0C0;
+    --text-legend: #AAAAAA;
+
+    /* Layer gradients (dark fills) */
+    --gradient-model-start: #2A2A2A;
+    --gradient-model-end: #1E1E1E;
+    --gradient-usecase-start: #242424;
+    --gradient-usecase-end: #1A1A1A;
+    --gradient-infra-start: #2A2A2A;
+    --gradient-infra-end: #1E1E1E;
+
+    /* Misc */
+    --pointer-stroke: #9090E0;
+
+    /* Animated pulse endpoint */
+    --pulse-to: #E0E0E0;
+    --pulse-to-solid: #E0E0E0;
+}
+
+/* ------------------------------------------------------------ */
+/* .light — light canvas, dark strokes + text                   */
+/* ------------------------------------------------------------ */
+.light {
+    /* Page chrome */
+    --page-bg: #E8E8E8;
+    --page-text: #101010;
+
+    /* Canvas + containers */
+    --canvas-bg: #F5F5F5;
+    --hexagon-fill: #FFFFFF;
+    --hexagon-stroke: #202020;
+    --port-circle-fill: #FCFCFC;
+    --port-circle-stroke: #303030;
+    --adapter-box-fill: #EEEEEE;
+    --adapter-box-stroke: #303030;
+    --connection-line-stroke: #707070;
+    --layer-circle-stroke: #303030;
+    --subsystem-ring-stroke: #303030;
+    --subsystem-segment-fill-1: #E8E8E8;
+    --subsystem-segment-fill-2: #F0F0F0;
+
+    /* Text scale (dark on light) */
+    --text-primary: #101010;
+    --text-secondary: #202020;
+    --text-tertiary: #333333;
+    --text-quaternary: #444444;
+    --text-subtitle: #555555;
+    --text-app-subtitle: #666666;
+    --text-diagram-title: #404040;
+    --text-legend: #555555;
+
+    /* Layer gradients (light fills) */
+    --gradient-model-start: #F7F7F7;
+    --gradient-model-end: #F0F0F0;
+    --gradient-usecase-start: #EEEEEE;
+    --gradient-usecase-end: #CCCCCC;
+    --gradient-infra-start: #F7F7F7;
+    --gradient-infra-end: #F0F0F0;
+
+    /* Misc */
+    --pointer-stroke: #6030C0;
+
+    /* Animated pulse endpoint */
+    --pulse-to: #202020;
+    --pulse-to-solid: #202020;
+}
+
+/* ------------------------------------------------------------ */
+/* .bitscrafter-light — the inverse of .dark, not a bleached copy  */
+/* ------------------------------------------------------------ */
+/*                                                                  */
+/* Bitscrafter Dark's SURFACE becomes this theme's INK: #1c2128 type */
+/* where the dark theme puts #22272e background. The ground is toned */
+/* rather than white — #dcdfe4, blue-grey — because a bright page is */
+/* a flash in a dark video player, and the accent is the entity blue */
+/* darkened to #35618f so it survives on light.                      */
+/*                                                                  */
+/* ⚠ On a light ground, dimming the page REDUCES contrast: the ink   */
+/* is dark, so a darker ground closes the gap rather than opening    */
+/* it. `--text-subtitle` is stepped to #57606c for exactly that      */
+/* reason — at the .dark value it measures 4.36:1 here, under the    */
+/* 4.5 floor for 11px text. Re-measure it before moving this ground. */
+.bitscrafter-light {
+    /* Page chrome */
+    --page-bg: #d2d6dc;
+    --page-text: #2d333b;
+
+    /* Canvas + containers */
+    --canvas-bg: #dcdfe4;
+    --hexagon-fill: #d6dae0;
+    --hexagon-stroke: #2d333b;
+    --port-circle-fill: #d9dde2;
+    --port-circle-stroke: #4d555f;
+    --adapter-box-fill: #e3e5e8;
+    --adapter-box-stroke: #4d555f;
+    --connection-line-stroke: #8b96a3;
+    --layer-circle-stroke: #4d555f;
+    --subsystem-ring-stroke: #6b7683;
+    --subsystem-segment-fill-1: #d6dae0;
+    --subsystem-segment-fill-2: #dcdfe4;
+
+    /* Text scale (dark ink on a toned ground) */
+    --text-primary: #1c2128;
+    --text-secondary: #2d333b;
+    --text-tertiary: #3d444d;
+    --text-quaternary: #4d555f;
+    --text-subtitle: #57606c;
+    --text-app-subtitle: #5a636e;
+    --text-diagram-title: #35618f;
+    --text-legend: #5a636e;
+
+    /* Layer gradients */
+    --gradient-model-start: #d9dde2;
+    --gradient-model-end: #dcdfe4;
+    --gradient-usecase-start: #dcdfe4;
+    --gradient-usecase-end: #d6dae0;
+    --gradient-infra-start: #d9dde2;
+    --gradient-infra-end: #dcdfe4;
+
+    /* Misc */
+    --pointer-stroke: #35618f;
+
+    /* Animated pulse endpoint */
+    --pulse-to: #35618f;
+    --pulse-to-solid: #35618f;
+}
+
+/* The brand mark's artwork is light-on-transparent, drawn for a dark
+   canvas. Inverting it is what serves a light ground from one asset. */
+.bitscrafter-light #kinai-architecture .brand-mark {
+    filter: invert(1);
+    opacity: 0.45;
+}
+
+/* ------------------------------------------------------------ */
+/* .bone — Bone & Terracotta: an editorial print treatment       */
+/* ------------------------------------------------------------ */
+/*                                                                  */
+/* The only theme here that changes the DRAWING WEIGHT rather than   */
+/* the palette alone. Every stroke halves to a 1px hairline and the  */
+/* subsystem ring re-dashes at 3/3, which is what makes it read as   */
+/* typeset rather than rendered. Bone stock, ink-black type, one     */
+/* terracotta accent.                                                */
+/*                                                                  */
+/* Same scoping rule as `.depth`: `.bone #kinai-architecture …` so   */
+/* the id out-specifies the SVG's own <style>, which sits later in   */
+/* the document and would otherwise win on order. Halving a stroke   */
+/* REQUIRES that — the SVG sets `stroke-width: 2` on these classes   */
+/* directly, so this is an override, not a default.                  */
+.bone {
+    /* Page chrome */
+    --page-bg: #ddd6c8;
+    --page-text: #1c1917;
+
+    /* Canvas + containers */
+    --canvas-bg: #EFE9DC;
+    --hexagon-fill: #EFE9DC;
+    --hexagon-stroke: #1c1917;
+    --port-circle-fill: #F7F3E9;
+    --port-circle-stroke: #1c1917;
+    --adapter-box-fill: #E7E0D0;
+    --adapter-box-stroke: #1c1917;
+    --connection-line-stroke: #6b6459;
+    --layer-circle-stroke: #1c1917;
+    --subsystem-ring-stroke: #b4553a;
+    --subsystem-segment-fill-1: #E9E2D3;
+    --subsystem-segment-fill-2: #F2ECE0;
+
+    /* Text scale (ink on bone) */
+    --text-primary: #1c1917;
+    --text-secondary: #2a2622;
+    --text-tertiary: #3b3630;
+    --text-quaternary: #4d473f;
+    --text-subtitle: #5f584e;
+    --text-app-subtitle: #6b6459;
+    --text-diagram-title: #b4553a;
+    --text-legend: #6b6459;
+
+    /* Layer gradients */
+    --gradient-model-start: #F7F3E9;
+    --gradient-model-end: #EFE9DC;
+    --gradient-usecase-start: #EFE9DC;
+    --gradient-usecase-end: #E7E0D0;
+    --gradient-infra-start: #F4EFE4;
+    --gradient-infra-end: #EFE9DC;
+
+    /* Misc */
+    --pointer-stroke: #b4553a;
+
+    /* Animated pulse — grey -> darker grey.
+       A neutral highlight: the terracotta was identical to the Model
+       fill (1.00:1), so that ring vanished at the moment it pulsed. */
+    --pulse-to: #b4553a;
+    --pulse-to-solid: #b4553a;
+}
+
+/* Hairlines. This is the theme's whole character; without it the
+   palette alone reads as a plain light theme. */
+.bone #kinai-architecture .hexagon,
+.bone #kinai-architecture .layer-circle,
+.bone #kinai-architecture .port-circle,
+.bone #kinai-architecture .adapter-box,
+.bone #kinai-architecture .subsystem-segment-1,
+.bone #kinai-architecture .subsystem-segment-2,
+.bone #kinai-architecture .connection-line {
+    stroke-width: 1;
+}
+
+.bone #kinai-architecture .subsystem-ring {
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+}
+
+/* Bone is a light ground: invert the mark, as `.bitscrafter-light` does. */
+.bone #kinai-architecture .brand-mark {
+    filter: invert(1);
+    opacity: 0.45;
+}
+
+/* ------------------------------------------------------------ */
+/* .zoned — colour by structural zone, not by palette             */
+/* ------------------------------------------------------------ */
+/*                                                                  */
+/* Every zone of the diagram carries its own fill: the hexagon a     */
+/* warm neutral, ports and adapters a deep violet, the subsystem     */
+/* wedges slate, and the three layer rings olive -> yellow ->        */
+/* terracotta. Rings stack with drop shadows, cut-paper style.       */
+/*                                                                  */
+/* ⚠ THE INK IS PER ZONE, and it has to be. No single text colour    */
+/* survives these fills: white reads on the olive (5.13:1) and the   */
+/* terracotta (4.88:1), slate reads on the yellow (7.31:1), and each */
+/* is illegible on the other. The rules below are not styling — they */
+/* are what makes the labels readable. Re-measure before changing    */
+/* any fill: #e07a5f was tried for the Model ring and gave 2.95:1    */
+/* under white, which is why it is #b85237.                          */
+/*                                                                  */
+/* ⚠ The Usecase yellow must stay LIGHT. Infra and Model are within  */
+/* 1.05:1 of each other in lightness, so the yellow carries all the  */
+/* separation between the three rings; darkening it collapses the    */
+/* stack (measured: #ffd166 gives 3.55/3.39 to its neighbours, an    */
+/* amber #e9a23b only 2.37/2.25).                                    */
+.zoned {
+    /* Page chrome */
+    --page-bg: #ebebeb;
+    --page-text: #373f51;
+
+    /* Canvas + containers */
+    --canvas-bg: #ebebeb;
+    --hexagon-fill: #dad7cd;
+    --hexagon-stroke: #373f51;
+    --port-circle-fill: #4d4a65;
+    --port-circle-stroke: #373f51;
+    --adapter-box-fill: #4d4a65;
+    --adapter-box-stroke: #373f51;
+    --connection-line-stroke: #8f97a5;
+    --layer-circle-stroke: #ebebeb;
+    --subsystem-ring-stroke: #8f97a5;
+    --subsystem-segment-fill-1: #4a5468;
+    --subsystem-segment-fill-2: #525c72;
+
+    /* Text scale — the default ink, for everything on the ground */
+    --text-primary: #373f51;
+    --text-secondary: #373f51;
+    --text-tertiary: #373f51;
+    --text-quaternary: #373f51;
+    --text-subtitle: #373f51;
+    --text-app-subtitle: #373f51;
+    --text-diagram-title: #373f51;
+    --text-legend: #373f51;
+
+    /* Layer rings — flat, not gradients: a gradient blurs the boundary
+       between rings that are meant to read as distinct zones. */
+    --gradient-infra-start: #6b705c;
+    --gradient-infra-end: #6b705c;
+    --gradient-usecase-start: #ffd166;
+    --gradient-usecase-end: #ffd166;
+    --gradient-model-start: #b85237;
+    --gradient-model-end: #b85237;
+
+    /* Misc */
+    --pointer-stroke: #b85237;
+
+    /* Animated pulse — grey -> darker grey.
+       A neutral highlight: the terracotta was identical to the Model
+       fill (1.00:1), so that ring vanished at the moment it pulsed. */
+    --pulse-to: #6c757d;
+
+    /* The frame (hexagon, connection lines) sits on the LIGHT ground, so it
+       pulses grey. Everything with a DARK fill — chips, wedges, rings —
+       pulses white: grey on those measures 1.0–1.8:1 and simply does not
+       read. One pulse colour cannot serve both. */
+    --pulse-to-solid: #E3F2FF;
+}
+
+/* White ink: olive Infra, terracotta Model, slate wedges, violet chips. */
+.zoned #kinai-architecture #layer-infra-title,
+.zoned #kinai-architecture #layer-infra-subtitle1,
+.zoned #kinai-architecture #layer-infra-subtitle2,
+.zoned #kinai-architecture #layer-model-title,
+.zoned #kinai-architecture #layer-model-subtitle1,
+.zoned #kinai-architecture #layer-model-subtitle2,
+.zoned #kinai-architecture #layer-model-subtitle3,
+.zoned #kinai-architecture .subsystem-label,
+.zoned #kinai-architecture .adapter-text {
+    fill: #ffffff;
+}
+
+/* Slate ink: the yellow Usecase ring is the one light fill. */
+.zoned #kinai-architecture #layer-usecase-title,
+.zoned #kinai-architecture #layer-usecase-subtitle1,
+.zoned #kinai-architecture #layer-usecase-subtitle2 {
+    fill: #373f51;
+}
+
+/* Elevation, decreasing inward. */
+.zoned #kinai-architecture #layer-infra {
+    filter: drop-shadow(0 8px 14px rgba(30, 35, 45, 0.28));
+}
+
+.zoned #kinai-architecture #layer-usecase {
+    filter: drop-shadow(0 6px 11px rgba(30, 35, 45, 0.28));
+}
+
+.zoned #kinai-architecture #layer-model {
+    filter: drop-shadow(0 4px 9px rgba(30, 35, 45, 0.28));
+}
+
+.zoned #kinai-architecture .adapter-box,
+.zoned #kinai-architecture .port-circle {
+    filter: drop-shadow(0 2px 4px rgba(30, 35, 45, 0.28));
+}
+
+.zoned #kinai-architecture .subsystem-segment-1,
+.zoned #kinai-architecture .subsystem-segment-2 {
+    filter: drop-shadow(0 3px 6px rgba(30, 35, 45, 0.28));
+}
+
+/* Light ground: invert the mark. */
+.zoned #kinai-architecture .brand-mark {
+    filter: invert(1);
+    opacity: 0.4;
+}
+
+/* ------------------------------------------------------------ */
+/* .depth — cool slate, and a focus gradient instead of a palette   */
+/* ------------------------------------------------------------ */
+/*                                                                  */
+/* This theme carries STRUCTURE as well as colour. The three layer   */
+/* rings recede as they go outward and the model core is lit, so the */
+/* diagram states "outer details depend on inner logic" before the   */
+/* narration says it. The accent is Bitscrafter's entity blue.       */
+/*                                                                  */
+/* The rules below are scoped `.depth #kinai-architecture …` for two */
+/* reasons. `.depth` keeps them off the other themes. The id keeps   */
+/* them winning: the SVG's own <style> sits LATER in the document    */
+/* than this stylesheet, so an equal-specificity selector would lose */
+/* on order — the id out-specifies its bare class selectors instead. */
+.depth {
+    /* Page chrome */
+    --page-bg: #0b0d10;
+    --page-text: #c9d3dd;
+
+    /* Canvas + containers */
+    --canvas-bg: #0e1116;
+    --hexagon-fill: #12161c;
+    --hexagon-stroke: #5d6b7a;
+    --port-circle-fill: #161b22;
+    --port-circle-stroke: #7b8b9c;
+    --adapter-box-fill: #12161c;
+    --adapter-box-stroke: #7b8b9c;
+    --connection-line-stroke: #3f4a56;
+    --layer-circle-stroke: #8fa3b8;
+    --subsystem-ring-stroke: #4a5765;
+    --subsystem-segment-fill-1: #11151a;
+    --subsystem-segment-fill-2: #151a21;
+
+    /* Text scale */
+    --text-primary: #f0f6fc;
+    --text-secondary: #c9d3dd;
+    --text-tertiary: #aab6c3;
+    --text-quaternary: #93a1b0;
+    --text-subtitle: #8494a3;
+    --text-app-subtitle: #7b8b9c;
+    --text-diagram-title: #a2d2ff;
+    --text-legend: #7b8b9c;
+
+    /* Layer gradients — the core sits lightest */
+    --gradient-model-start: #1d2630;
+    --gradient-model-end: #141a21;
+    --gradient-usecase-start: #161c23;
+    --gradient-usecase-end: #0e1116;
+    --gradient-infra-start: #12161c;
+    --gradient-infra-end: #0e1116;
+
+    /* Misc */
+    --pointer-stroke: #a2d2ff;
+
+    /* Animated pulse endpoint */
+    --pulse-to: #a2d2ff;
+    --pulse-to-solid: #a2d2ff;
+}
+
+/* The focus gradient: outer rings recede, the model core is lit. */
+.depth #kinai-architecture #layer-infra {
+    opacity: 0.45;
+}
+
+.depth #kinai-architecture #layer-usecase {
+    opacity: 0.7;
+}
+
+.depth #kinai-architecture #layer-model {
+    filter: drop-shadow(0 0 22px rgba(162, 210, 255, 0.35));
+}
+
+.depth #kinai-architecture .subsystem-segment-1,
+.depth #kinai-architecture .subsystem-segment-2 {
+    opacity: 0.55;
+}
+
+.depth #kinai-architecture .adapter-box,
+.depth #kinai-architecture .port-circle {
+    opacity: 0.85;
+}
+
+/* ------------------------------------------------------------ */
+/* Page layout (theme-neutral)                                  */
+/* ------------------------------------------------------------ */
+body {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--page-bg, #202020);
+    color: var(--page-text, #E0E0E0);
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background: transparent;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: none;
+}

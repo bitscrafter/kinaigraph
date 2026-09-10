@@ -1,0 +1,1 @@
+Inside, six subsystems carry a document from source text to live media. Syntax parses it, Semantic validates it, Resolution evaluates it, Bytecode carries it to the browser, Instruction drives each frame, and Dependency picks the tools.

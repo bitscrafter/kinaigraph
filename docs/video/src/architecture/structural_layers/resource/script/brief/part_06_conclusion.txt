@@ -1,0 +1,1 @@
+The result is modularity for swapping technologies, testability across clear boundaries, and extensibility without disruption.

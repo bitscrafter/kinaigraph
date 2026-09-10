@@ -1,0 +1,1 @@
+Use Case orchestrates the compilation and execution phases: parse, validate, resolve, emit or load bytecode, emit or execute instructions.

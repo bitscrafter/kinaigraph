@@ -1,0 +1,1 @@
+Media Encoding renders frames and audio into a finished file, through an FFM-peg adapter.

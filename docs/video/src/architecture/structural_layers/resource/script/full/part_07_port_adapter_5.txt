@@ -1,0 +1,1 @@
+Speech Synthesis turns narration into audio, open to any text-to-speech provider behind one contract.

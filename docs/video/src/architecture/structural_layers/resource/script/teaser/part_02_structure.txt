@@ -1,0 +1,1 @@
+Six ports and adapters face the outside world, while six subsystems carry a document from source text to live media.
