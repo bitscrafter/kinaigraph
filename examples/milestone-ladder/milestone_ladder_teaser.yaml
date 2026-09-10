@@ -202,13 +202,14 @@ defs:
         # start or stop on a syllable.
         VIDEO_MARGIN: 350
 
-        # How long a span takes to draw and a node to land. Both stay well under
-        # the shortest clip, so even the quickest step is fully on screen before
-        # its sentence ends.
+        # How long a span takes to draw, and how long a node takes to land.
         #
-        # ⚠️ NODE_FADE_MS comes off every step's hold, so it is bounded by the
-        # SHORTEST clip in this cut, not the average. Raising it past that leaves
-        # a negative hold.
+        # ⚠️ SEG_DRAW_MS is the reveal's OWN duration and nothing else. It does not
+        # enter the step arithmetic: every actor in a step starts at the step's
+        # start, so the span finishes drawing well inside the step regardless.
+        # It was subtracted from the hold until 2026-09-10, left over from when
+        # the label waited for the span before fading in — which made the real gap
+        # between lines 180 ms rather than the 500 asked for.
         SEG_DRAW_MS: 320
         NODE_FADE_MS: 2250
 
@@ -220,14 +221,21 @@ defs:
         # VIDEO_MARGIN, and a gap there would just lengthen the closing silence.
         STEP_GAP_MS: 500
 
-        # Each step waits out the remainder of its own line, plus the gap. Step 1
-        # draws no span, so only the node fade comes off its clip.
+        # A step lasts exactly its own clip plus the gap. The step ends when its
+        # LONGEST actor chain does, and that is the label: NODE_FADE_MS + hold. So
+        # the hold is whatever is left of the clip after the fade —
+        #
+        #     step = NODE_FADE_MS + (clip - NODE_FADE_MS + GAP) = clip + GAP
+        #
+        # ⚠️ NODE_FADE_MS cancels out of the step length, so it does not affect
+        # pacing at all; it is bounded only by needing a non-negative hold, i.e.
+        # NODE_FADE_MS <= shortest clip + GAP.
         STEP_1_HOLD_MS: "audio_01_career_decision.duration - NODE_FADE_MS + STEP_GAP_MS"
-        STEP_2_HOLD_MS: "audio_02_medical_school.duration - SEG_DRAW_MS - NODE_FADE_MS + STEP_GAP_MS"
-        STEP_3_HOLD_MS: "audio_03_internship.duration - SEG_DRAW_MS - NODE_FADE_MS + STEP_GAP_MS"
-        STEP_4_HOLD_MS: "audio_04_family.duration - SEG_DRAW_MS - NODE_FADE_MS + STEP_GAP_MS"
-        STEP_5_HOLD_MS: "audio_05_community.duration - SEG_DRAW_MS - NODE_FADE_MS + STEP_GAP_MS"
-        STEP_6_HOLD_MS: "audio_06_teaching.duration - SEG_DRAW_MS - NODE_FADE_MS"
+        STEP_2_HOLD_MS: "audio_02_medical_school.duration - NODE_FADE_MS + STEP_GAP_MS"
+        STEP_3_HOLD_MS: "audio_03_internship.duration - NODE_FADE_MS + STEP_GAP_MS"
+        STEP_4_HOLD_MS: "audio_04_family.duration - NODE_FADE_MS + STEP_GAP_MS"
+        STEP_5_HOLD_MS: "audio_05_community.duration - NODE_FADE_MS + STEP_GAP_MS"
+        STEP_6_HOLD_MS: "audio_06_teaching.duration - NODE_FADE_MS"
 
 animation:
     timeline:
