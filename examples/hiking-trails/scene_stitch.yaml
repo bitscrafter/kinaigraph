@@ -40,19 +40,19 @@ defs:
         # voice against the pictures it describes without a single authored offset.
         narration_summit:
             type: audio
-            file: "./audio/route_01_summit.mp3"
+            file: "./resource/audio/part_01_summit.mp3"
         narration_lake:
             type: audio
-            file: "./audio/route_02_lake.mp3"
+            file: "./resource/audio/part_02_lake.mp3"
         narration_rest:
             type: audio
-            file: "./audio/route_03_rest.mp3"
+            file: "./resource/audio/part_03_rest.mp3"
 
         # Forest ambience under the whole piece. NOT committed — see the README; fetch
         # it from Pixabay and drop it here under this exact name.
         ambience:
             type: audio
-            file: "./resources/audio/soundreality-birds-forest-nature-445379.mp3"
+            file: "./resource/audio/source/soundreality-birds-forest-nature-445379.mp3"
 
     const:
         # The bed sits far enough down that the narration never fights it. It is

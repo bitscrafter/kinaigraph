@@ -44,7 +44,7 @@ defs:
     assets:
         timeline_card:
             type: "scene"
-            file: "./resources/foreground/timeline_card.svg"
+            file: "./resource/scene/timeline_card.svg"
 
         # Axis segments. Each is revealed as its own station arrives, so the line
         # grows toward the next stop rather than being there from the start.
@@ -91,15 +91,15 @@ defs:
 
         narration:
             type: "audio"
-            file: "./audio/beat_02_timeline.mp3"
+            file: "./resource/audio/part_02_timeline.mp3"
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resources/css/theme_bio.css"
+            file: "./resource/style/theme_bio.css"
 
     const:
         VIDEO_MARGIN: 350
@@ -113,7 +113,7 @@ defs:
 
         # ── Where the sentences land ───────────────────────────────────────────────
         # Fractions of the SPOKEN BODY (the clip minus its two margins), one per
-        # sentence, from the word counts in script/beat_02_timeline.txt:
+        # sentence, from the word counts in resource/script/part_02_timeline.txt:
         #
         #   "She started in testing..."          9 words   ->  0.225
         #   "Then she started fixing them."      5 words   ->  0.125

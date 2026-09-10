@@ -20,13 +20,13 @@ defs:
     assets:
         plot:
             type: "scene"
-            file: "./resources/diagram/plot.svg"
+            file: "./resource/scene/plot.svg"
         # The window frame: masks anything travelling out of the plotting area, and
         # carries the y scale above the curves. Declared after the surface so it draws
         # over them.
         frame_layer:
             type: "scene"
-            file: "./resources/diagram/frame_layer.svg"
+            file: "./resource/scene/frame_layer.svg"
 
         # ── The parameter tags ────────────────────────────────────────────────────
         # One text asset per value. A text asset's content is fixed at author time, so
@@ -68,20 +68,20 @@ defs:
 
         narration:
             type: "audio"
-            file: "./audio/beat_03_frequency.mp3"
+            file: "./resource/audio/part_03_frequency.mp3"
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resources/css/theme_dark.css"
+            file: "./resource/style/theme_dark.css"
 
     const:
         VIDEO_MARGIN: 350
 
-        # ── The plot's geometry contract (see resources/diagram/plot.svg) ─────────
+        # ── The plot's geometry contract (see resource/scene/plot.svg) ─────────
         PLOT_X0: 120
         PLOT_Y0: 380
         PLOT_XS: "1060 / 360"

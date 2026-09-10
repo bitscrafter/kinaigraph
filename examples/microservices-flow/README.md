@@ -16,7 +16,7 @@ story (set up the flow → narrate it → evolve it → re-skin it → recap).
 | 5 | `scene_05_conclusion.yaml` | A recap card whose bullets fade in across the narration | Sequenced **text animation** (`show.opacity-range` + `hold.at-start`) |
 
 `scene_00_tts_generation.yaml` is synthesis-only — it generates the ten narration
-MP3s under `audio/` from the matching scripts under `script/`. Run it once (or
+MP3s under `resource/audio/` from the matching scripts under `resource/script/`. Run it once (or
 whenever a script changes) before rendering.
 
 ## How the capabilities show up
@@ -42,17 +42,17 @@ whenever a script changes) before rendering.
 
 | Path | What |
 | ---- | ---- |
-| `resources/diagram/overview_v1.svg` | Base architecture (Client + Gateway + Auth + User). Scenes 1–2. |
-| `resources/diagram/overview_v2.svg` | `overview_v1` + `data-store` + `link-auth-store` + `link-store-user` + `subtitle`/`store-callout` annotations. Scenes 3–4. |
-| `resources/diagram/chevron_layer.svg` | Top-stacked layer carrying the animating `chevron-packet`. |
-| `resources/diagram/conclusion.svg` | Recap card (four `bullet-*` rows + `wordmark`). Scene 5. |
-| `resources/template/main.html` | Common HTML container (carries the `KINAI_*` placeholders). |
-| `resources/css/theme_dark.css` / `theme_light.css` | The two CSS-custom-property sets. |
-| `script/` | Source narration text per shot. |
+| `resource/scene/overview_v1.svg` | Base architecture (Client + Gateway + Auth + User). Scenes 1–2. |
+| `resource/scene/overview_v2.svg` | `overview_v1` + `data-store` + `link-auth-store` + `link-store-user` + `subtitle`/`store-callout` annotations. Scenes 3–4. |
+| `resource/scene/chevron_layer.svg` | Top-stacked layer carrying the animating `chevron-packet`. |
+| `resource/scene/conclusion.svg` | Recap card (four `bullet-*` rows + `wordmark`). Scene 5. |
+| `resource/template/main.html` | Common HTML container (carries the `KINAI_*` placeholders). |
+| `resource/style/theme_dark.css` / `theme_light.css` | The two CSS-custom-property sets. |
+| `resource/script/` | Source narration text per shot. |
 | `audio/` | TTS-generated narration MP3s (output of `scene_00`). |
 | `video/` | Rendered MP4s. |
 
-(`resources/diagram/diff_panel.svg` is a standalone One-Dark code-panel asset kept
+(`resource/scene/diff_panel.svg` is a standalone One-Dark code-panel asset kept
 for reuse; it is not part of the current five-scene arc.)
 
 ## Rendering

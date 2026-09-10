@@ -48,19 +48,19 @@ synthesis:
         # orientation beat: the marker turning onto the tangent as it takes the bend,
         # and the solid/ghost handoff as the pines hide it.
         audio_route_01_summit:
-            file: "./script/route_01_summit.txt"
-            export: "./audio/route_01_summit.mp3"
+            file: "./resource/script/part_01_summit.txt"
+            export: "./resource/audio/part_01_summit.mp3"
 
         # Route 2 — Serenity Lake. The shortest trail and the shortest line. Its point
         # is what ISN'T here: no hidden stretch, no ghost, nothing new authored — the
         # trace alone is what differs from the summit.
         audio_route_02_lake:
-            file: "./script/route_02_lake.txt"
-            export: "./audio/route_02_lake.mp3"
+            file: "./resource/script/part_02_lake.txt"
+            export: "./resource/audio/part_02_lake.mp3"
 
         # Route 3 — Viewpoint Rest Stop. Carries the callout beat: the note drawing
         # itself on, and its pointer resolving against the marker rather than a
         # coordinate.
         audio_route_03_rest:
-            file: "./script/route_03_rest.txt"
-            export: "./audio/route_03_rest.mp3"
+            file: "./resource/script/part_03_rest.txt"
+            export: "./resource/audio/part_03_rest.mp3"

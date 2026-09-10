@@ -41,12 +41,12 @@ defs:
         # Bottom layer: the static architecture diagram (no data store yet — added in Scene 03).
         diagram:
             type: "scene"
-            file: "./resources/diagram/overview_v1.svg"
+            file: "./resource/scene/overview_v1.svg"
 
         # Top layer: the chevron-packet, stacked over the diagram (shared 0 0 1280 720 viewBox).
         chevron_layer:
             type: "scene"
-            file: "./resources/diagram/chevron_layer.svg"
+            file: "./resource/scene/chevron_layer.svg"
 
         # Right-pointing chevron — used for the outbound legs (1, 2, 4).
         chevron_marker:
@@ -64,16 +64,16 @@ defs:
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
 
         style:
             type: "style"
-            file: "./resources/css/theme_dark.css"
+            file: "./resource/style/theme_dark.css"
 
         audio_01_intro:
             type: "audio"
-            file: "./audio/scene_01_intro.mp3"
+            file: "./resource/audio/part_01_intro.mp3"
 
     const:
         FADE_WINDOW: 300

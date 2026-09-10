@@ -6,26 +6,40 @@
 node_modules/
 dist/
 
-# ── Generated example artifacts (regenerate from *.yaml + script/ via the engine + TTS) ──
+# ── Generated example artifacts (regenerate from *.yaml + resource/script/ via the engine) ──
 examples/**/out/
 examples/**/out_*/
-# The GENERATED narration lands in each example's own `audio/`; scoped to one level so
-# it does not also swallow hand-placed source audio under `resources/`.
-examples/*/audio/
 examples/**/video/
 examples/**/.capture/
 examples/**/*.mp4
-examples/**/*.mp3
 examples/**/animation.html
 
-# Source audio under `resources/audio/` stays UNPUBLISHED, deliberately. It is an input
-# rather than a build output — a clone cannot regenerate it the way it regenerates TTS
-# narration — but stock-audio licences commonly forbid redistributing the file itself
+# Narration mp3s are ignored EXCEPT under `resource/audio/`, which is committed so a
+# clone can render an example without paying a TTS provider for recordings that already
+# exist. The directory must be re-included before the files — git cannot re-include a
+# file whose parent directory is excluded.
+examples/**/*.mp3
+!examples/*/resource/audio/
+!examples/*/resource/audio/**
+
+# ── Local authoring tools and scratch, not published ──
+# Generators that produced a committed SVG (make_*.py / make_*.sh) and their input data
+# are local work: useful to whoever ran them, noise to everyone cloning the examples.
+examples/**/*.py
+examples/**/*.sh
+examples/**/*.geojson
+examples/**/resource/temp/
+
+# Licensed stock audio lives at `resource/audio/source/` and stays UNPUBLISHED. It is an
+# input rather than a build output — a clone cannot regenerate it the way it regenerates
+# TTS narration — but stock-audio licences commonly forbid redistributing the file itself
 # in substantially its original form, which is exactly what committing it would be.
 # Each example's README names the track and where to fetch it instead.
 #
-# An example that ships audio it genuinely owns can override this with a negation
-# (`!examples/*/resources/audio/<file>`), per file, once that right is established.
+# ⚠️ This re-exclusion must come AFTER the `resource/audio/` negation above, or the
+# negation would publish it. An example that ships audio it genuinely owns can override
+# this with a per-file negation once that right is established.
+examples/*/resource/audio/source/
 
 # ── Generated documentation-video artifacts ──────────────────────────────────
 # `docs/video/src/` holds the SOURCES for the videos on the documentation site:

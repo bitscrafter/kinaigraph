@@ -41,17 +41,17 @@ synthesis:
         # Beat 1 — the flow. Establishes the system so the next two beats have
         # something to change. Carries the thesis: the picture IS the source.
         audio_beat_01_flow:
-            file: "./script/beat_01_flow.txt"
-            export: "./audio/beat_01_flow.mp3"
+            file: "./resource/script/part_01_flow.txt"
+            export: "./resource/audio/part_01_flow.mp3"
 
         # Beat 2 — structural evolution. The diagram gains a node it was missing, by
         # editing the source rather than redrawing anything.
         audio_beat_02_store:
-            file: "./script/beat_02_store.txt"
-            export: "./audio/beat_02_store.mp3"
+            file: "./resource/script/part_02_store.txt"
+            export: "./resource/audio/part_02_store.mp3"
 
         # Beat 3 — compile-time theming. The same document re-rendered against a
         # different stylesheet; the only authored difference is one asset's `file:`.
         audio_beat_03_theme:
-            file: "./script/beat_03_theme.txt"
-            export: "./audio/beat_03_theme.mp3"
+            file: "./resource/script/part_03_theme.txt"
+            export: "./resource/audio/part_03_theme.mp3"

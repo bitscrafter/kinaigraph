@@ -24,7 +24,7 @@ plan is that P.15 no longer demonstrates `note`; that capability needs another h
 | — | `scene_stitch.yaml` | ✅ | All three rolled into one 30-second piece. |
 
 `scene_00_tts_generation.yaml` is synthesis-only — it generates the narration MP3s
-under `audio/` from the scripts under `script/`. `scene_stitch.yaml` chains the three
+under `resource/audio/` from the scripts under `resource/script/`. `scene_stitch.yaml` chains the three
 clips; it carries no mixes, because each beat already mixed its own narration and a
 full `roll:` plays a clip whole.
 
@@ -48,8 +48,8 @@ one margin in.
 It is a portrait of a real person, written as an example. **Two files hold every
 personal detail, and nothing else refers to them:**
 
-- `resources/foreground/intro_card.svg` — the name, the role, the two meta lines
-- `script/beat_01_intro.txt` — the narration that says the name
+- `resource/scene/intro_card.svg` — the name, the role, the two meta lines
+- `resource/script/part_01_intro.txt` — the narration that says the name
 
 To genericise it for publication, change those two and re-run `scene_00`. Everything
 else in the piece is about cities and timing.
@@ -65,7 +65,7 @@ That is why the directory is **deliberately uncommitted** for now. Nothing under
   over the Pacific and the Atlantic in the same frame.
 - **Move along a computed path.** Neither arc is drawn by hand. Both are true great
   circles between city coordinates, sampled and projected by
-  `resources/diagram/make_map_svg.py`. The arc you see and the arc a plane rides are
+  `resource/temp/make_map_svg.py`. The arc you see and the arc a plane rides are
   one path, so a city cannot drift from its route.
 - **Orientation from the tangent.** `orient: auto` turns each plane onto its heading.
   The glyph is authored pointing +x at rest — the engine's zero rotation — so there is
@@ -90,17 +90,17 @@ That is why the directory is **deliberately uncommitted** for now. Nothing under
 
 | Path | What |
 | ---- | ---- |
-| `resources/diagram/ne_110m_land.geojson` | Source land geometry. Natural Earth 1:110m, public domain. |
-| `resources/diagram/make_map_svg.py` | Projects the land, computes both great circles, prints the city positions and arc lengths. |
-| `resources/diagram/world_map.svg` | **Generated** backdrop — do not hand-edit. |
-| `resources/diagram/flights_layer.svg` | **Generated** route overlay — do not hand-edit. |
-| `resources/diagram/markers_flights.svg` | Hand-authored glyphs: city dots, labels, arrival rings, the two planes. |
-| `resources/diagram/preview_map.py` | Dev aid. Renders a still composite of the three map layers without running the engine. |
-| `resources/foreground/intro_card.svg` | The title card. **Holds personal details.** |
-| `resources/foreground/timeline_card.svg` | The career timeline: axis segments, four stations, the dashed tail. |
-| `resources/css/theme_bio.css` | Shared palette and typography for all beats. |
-| `resources/template/main.html` | Shared HTML container. |
-| `script/` | Source narration, one file per beat. |
+| `resource/temp/ne_110m_land.geojson` | Source land geometry. Natural Earth 1:110m, public domain. |
+| `resource/temp/make_map_svg.py` | Projects the land, computes both great circles, prints the city positions and arc lengths. |
+| `resource/scene/world_map.svg` | **Generated** backdrop — do not hand-edit. |
+| `resource/scene/flights_layer.svg` | **Generated** route overlay — do not hand-edit. |
+| `resource/scene/markers_flights.svg` | Hand-authored glyphs: city dots, labels, arrival rings, the two planes. |
+| `resource/temp/preview_map.py` | Dev aid. Renders a still composite of the three map layers without running the engine. |
+| `resource/scene/intro_card.svg` | The title card. **Holds personal details.** |
+| `resource/scene/timeline_card.svg` | The career timeline: axis segments, four stations, the dashed tail. |
+| `resource/style/theme_bio.css` | Shared palette and typography for all beats. |
+| `resource/template/main.html` | Shared HTML container. |
+| `resource/script/` | Source narration, one file per beat. |
 | `audio/` | TTS narration (output of `scene_00`, not published). |
 
 To re-frame the map or move a city: edit `LON_MIN`/`LAT_MAX` or the `CITIES` table in
@@ -113,7 +113,7 @@ no `.length` on a path for a scene to divide by.
 
 ```bash
 # 1) Generate the map layers (only when the projection or a city changes).
-./resources/diagram/make_map_svg.py
+./resource/temp/make_map_svg.py
 
 # 2) Generate the narration (only when a script changes). Needs ELEVENLABS_API_KEY.
 #    Every run costs credits.
@@ -142,7 +142,7 @@ header before rewriting its script.
 
 Beat 3 has a sound-effect slot that is **wired but commented out**, in both the
 `jet_bed` asset and its `mix` entry in `scene_03_map.yaml`. Uncomment both once the
-file is in place at `resources/audio/`.
+file is in place at `resource/audio/source/`.
 
 Source it from [Freesound](https://freesound.org/) filtered to **CC0** — a steady jet
 or cabin ambience, not a doppler flyby. Two reasons for CC0 specifically: it is
@@ -160,4 +160,4 @@ public domain. No attribution is required; it is given because it costs nothing.
 land silhouette, graticule, routes and markers are all Kinaigraph-authored SVG derived
 from it — there is no generated art in this example.
 
-**Narration** — ElevenLabs TTS, generated from the scripts under `script/`.
+**Narration** — ElevenLabs TTS, generated from the scripts under `resource/script/`.

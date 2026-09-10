@@ -20,7 +20,7 @@ figures in the callout all move together, because they all come from the same tr
 | Viewpoint Rest Stop | `scene_rest.yaml` | 7 (alternating) | The pull past the stone cabin, whose roof hides the longest stretch of the three. Ends on a callout anchored to the marker rather than to a coordinate. |
 
 `scene_00_tts_generation.yaml` is synthesis-only — it generates the narration MP3s under
-`audio/` from the scripts under `script/`. `scene_stitch.yaml` concatenates the three
+`audio/` from the scripts under `resource/script/`. `scene_stitch.yaml` concatenates the three
 clips into the headline deliverable.
 
 Each route scene sizes **itself** to its narration: it declares the line as an audio
@@ -63,14 +63,14 @@ is not played there — all three lines and the ambience bed mix once, in the st
 
 | Path | What |
 | ---- | ---- |
-| `resources/diagram/hiking.png` | The source map artwork. |
-| `resources/diagram/map.svg` | The backdrop layer — the map base64-embedded as a JPEG data URI. Rebuild with `make_map_svg.sh`. |
-| `resources/diagram/hiking_trace*.png` / `*.jpeg` | The owner-authored paintings each route is extracted from. Every trace an example depends on lives here, beside the generator. |
-| `resources/diagram/make_route_svg.py` | Turns a trace into a route overlay. One entry per route in its `ROUTES` table. |
-| `resources/diagram/route_layer*.svg` | **Generated** route overlays — do not hand-edit; the next run overwrites them. Colour lives in the generator's `line_colour`. |
-| `resources/diagram/markers*.svg` | Hand-authored glyph layers (one per route): the travelling arrowheads, the destination ring and star. |
-| `resources/template/main.html`, `resources/css/theme_dark.css` | Shared container and theme. |
-| `script/` | Source narration text, one file per route. |
+| `resource/image/hiking.png` | The source map artwork. |
+| `resource/scene/map.svg` | The backdrop layer — the map base64-embedded as a JPEG data URI. Rebuild with `make_map_svg.sh`. |
+| `resource/temp/hiking_trace*.png` / `*.jpeg` | The owner-authored paintings each route is extracted from. Every trace an example depends on lives here, beside the generator. |
+| `resource/temp/make_route_svg.py` | Turns a trace into a route overlay. One entry per route in its `ROUTES` table. |
+| `resource/scene/route_layer*.svg` | **Generated** route overlays — do not hand-edit; the next run overwrites them. Colour lives in the generator's `line_colour`. |
+| `resource/scene/markers*.svg` | Hand-authored glyph layers (one per route): the travelling arrowheads, the destination ring and star. |
+| `resource/template/main.html`, `resource/style/theme_dark.css` | Shared container and theme. |
+| `resource/script/` | Source narration text, one file per route. |
 | `audio/` | TTS-generated narration (output of `scene_00`, not published). |
 
 ## Rendering
@@ -90,7 +90,7 @@ kinaigraph scene_stitch.yaml --outdir ./out_full
 ```
 
 To re-route a trail: repaint its trace, run
-`./make_route_svg.py --route <name>` from `resources/diagram/`, and paste the per-leg
+`./make_route_svg.py --route <name>` from `resource/scene/`, and paste the per-leg
 durations it prints into that scene's `LEG_n_MS` consts.
 
 ## Credits
@@ -108,6 +108,6 @@ commercial use without attribution, but forbids distributing the content "on a
 Standalone basis … where no creative effort has been applied to the Content and it
 remains in substantially the same form" — which is what shipping the raw MP3 in a
 public repository would be. Download it from Pixabay and place it at
-`resources/audio/soundreality-birds-forest-nature-445379.mp3`, keeping the filename so
+`resource/audio/source/soundreality-birds-forest-nature-445379.mp3`, keeping the filename so
 the source stays traceable. Credit is not required by the licence; it is given here
 because it costs nothing and the community asks for it.

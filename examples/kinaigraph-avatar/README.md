@@ -8,10 +8,10 @@ of a 1280×720 scene.
 
 | Path | What |
 | ---- | ---- |
-| `resources/avatar_layer.svg` | The rigged avatar layer — shared `0 0 1280 720` viewBox, actor groups: `presenter`, `eyes-open`, `eyes-closed`, `mouth-closed`, `mouth-mid`, `mouth-open`. Bubble themes via `kg-node-*`; character colors stay literal. |
-| `resources/template/main.html` | Common HTML container (copied from microservices-flow). |
-| `resources/css/theme_dark.css` | Dark theme (copied from microservices-flow). |
-| `script/avatar_intro.txt` | Narration script — the Kinaigraph pitch. |
+| `resource/scene/avatar_layer.svg` | The rigged avatar layer — shared `0 0 1280 720` viewBox, actor groups: `presenter`, `eyes-open`, `eyes-closed`, `mouth-closed`, `mouth-mid`, `mouth-open`. Bubble themes via `kg-node-*`; character colors stay literal. |
+| `resource/template/main.html` | Common HTML container (copied from microservices-flow). |
+| `resource/style/theme_dark.css` | Dark theme (copied from microservices-flow). |
+| `resource/script/part_01_intro.txt` | Narration script — the Kinaigraph pitch. |
 | `scene_00_tts_generation.yaml` | Generates `audio/avatar_intro.mp3` from the script. |
 | `scene_avatar_intro.yaml` | The scene: fade in → talk (mouth pulses, breathing, two blinks) → fade out. All timing derived from `audio_intro.duration`. |
 

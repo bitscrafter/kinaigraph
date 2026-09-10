@@ -17,7 +17,7 @@
 # beat must not re-synthesise audio that did not change.
 #
 # ⚠️ Beat 1's line NAMES THE SUBJECT. Re-record it as part of the genericising swap,
-# together with resources/foreground/intro_card.svg — those two files are the only
+# together with resource/scene/intro_card.svg — those two files are the only
 # places a personal detail appears.
 #
 # ⚠️ Beat 2's SENTENCE LENGTHS are load-bearing. Its scene spaces the four stations by
@@ -50,17 +50,17 @@ synthesis:
         # Beat 1 — the intro card. Seven words: a name, a role, a place. The place is
         # load-bearing rather than decorative, because beat 3 flies out of it.
         audio_beat_01_intro:
-            file: "./script/beat_01_intro.txt"
-            export: "./audio/beat_01_intro.mp3"
+            file: "./resource/script/part_01_intro.txt"
+            export: "./resource/audio/part_01_intro.mp3"
 
         # Beat 2 — the career timeline. Four sentences, one per station, and their
         # RELATIVE LENGTHS are what space the stations. See the warning above.
         audio_beat_02_timeline:
-            file: "./script/beat_02_timeline.txt"
-            export: "./audio/beat_02_timeline.mp3"
+            file: "./resource/script/part_02_timeline.txt"
+            export: "./resource/audio/part_02_timeline.mp3"
 
         # Beat 3 — the flight map. Names the two destinations in the order the planes
         # depart, which is what the scene's stagger is built around.
         audio_beat_03_map:
-            file: "./script/beat_03_map.txt"
-            export: "./audio/beat_03_map.mp3"
+            file: "./resource/script/part_03_map.txt"
+            export: "./resource/audio/part_03_map.mp3"

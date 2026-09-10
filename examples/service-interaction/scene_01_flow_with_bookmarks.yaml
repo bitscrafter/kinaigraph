@@ -57,12 +57,12 @@ defs:
         # rather than hidden; the change is the point of that beat.
         get_user_info_v1:
             type: "scene"
-            file: "./resources/diagram/get_user_info_v1.svg"
+            file: "./resource/scene/get_user_info_v1.svg"
         # Stacked ABOVE the diagram (declaration order is render order), so the packet
         # travels over the connectors rather than under them.
         chevrons:
             type: "scene"
-            file: "./resources/diagram/chevron_layer.svg"
+            file: "./resource/scene/chevron_layer.svg"
 
         # The connectors the packet rides. Each is a `<path>`; `along` rides it by its
         # declared name — bare, since a defs key names one actor wherever it is written.
@@ -120,15 +120,15 @@ defs:
         # the voice. All three lines mix once, in the stitch.
         narration:
             type: "audio"
-            file: "./audio/beat_01_flow.mp3"
+            file: "./resource/audio/part_01_flow.mp3"
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resources/css/theme_blueprint.css"
+            file: "./resource/style/theme_blueprint.css"
 
     const:
         VIDEO_MARGIN: 350

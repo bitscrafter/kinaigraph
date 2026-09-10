@@ -22,15 +22,15 @@ defs:
     assets:
         backdrop:
             type: "scene"
-            file: "./resources/backdrop.svg"
+            file: "./resource/scene/backdrop.svg"
 
         pitch_text:
             type: "scene"
-            file: "./resources/pitch_text.svg"
+            file: "./resource/scene/pitch_text.svg"
 
         avatar_layer:
             type: "scene"
-            file: "./resources/avatar_layer.svg"
+            file: "./resource/scene/avatar_layer.svg"
 
         # --- pitch text actors (one per spoken sentence) ---
         line_1:
@@ -79,16 +79,16 @@ defs:
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
 
         style:
             type: "style"
-            file: "./resources/css/theme_dark.css"
+            file: "./resource/style/theme_dark.css"
 
         audio_intro:
             type: "audio"
-            file: "./audio/avatar_intro.mp3"
+            file: "./resource/audio/part_01_intro.mp3"
 
     const:
         FADE_WINDOW: 750

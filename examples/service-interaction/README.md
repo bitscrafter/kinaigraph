@@ -16,12 +16,12 @@ to a before-and-after.
 | `scene_01_flow_with_bookmarks.yaml` | The same beat, authored with **action bookmarks** and `pace_by: distance`. Shorter — and more correct. |
 
 `scene_00_tts_generation.yaml` is synthesis-only. It generates the narration for all
-three beats from the scripts under `script/`. Run it once, before rendering, and again
+three beats from the scripts under `resource/script/`. Run it once, before rendering, and again
 whenever a script changes.
 
 Beats 2 (*"the data store this diagram forgot"*) and 3 (*"re-themes from a single
 line"*) exist here as **narration and resources** — `get_user_info_v2.svg` adds the store
-node, and `resources/css/` carries four stylesheets — but are not yet authored as scenes.
+node, and `resource/style/` carries four stylesheets — but are not yet authored as scenes.
 The [`microservices-flow`](../microservices-flow/) example shows both of those ideas
 built out.
 
@@ -69,8 +69,8 @@ written against is the spelling that shipped.
 scene_00_tts_generation.yaml      narration synthesis (run first)
 scene_01_flow.yaml                beat 1, hand-timed
 scene_01_flow_with_bookmarks.yaml beat 1, paced by distance
-script/                           the three narration lines
-resources/
+resource/script/                           the three narration lines
+resource/
   diagram/get_user_info_v1.svg    the system, as drawn
   diagram/get_user_info_v2.svg    the same, plus the shared data store
   diagram/chevron_layer.svg       the packet marker

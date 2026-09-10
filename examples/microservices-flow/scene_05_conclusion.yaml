@@ -9,20 +9,20 @@ defs:
   assets:
     diagram:
       type: "scene"
-      file: "./resources/diagram/conclusion.svg"
+      file: "./resource/scene/conclusion.svg"
 
     template:
       type: "template"
-      file: "./resources/template/main.html"
+      file: "./resource/template/main.html"
       style: style
 
     style:
       type: "style"
-      file: "./resources/css/theme_dark.css"
+      file: "./resource/style/theme_dark.css"
 
     audio_shot_conclusion:
       type: "audio"
-      file: "./audio/scene_05_conclusion.mp3"
+      file: "./resource/audio/part_05_conclusion.mp3"
 
   const:
     fadeNormal: 800

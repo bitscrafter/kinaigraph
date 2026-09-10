@@ -3,7 +3,7 @@
 # ------------------------------------------
 # The pull up past the stone cabin to the campfire clearing, taken from an owner-authored
 # two-colour trace painted over the baked map and turned into overlay geometry by
-# `resources/diagram/make_route_svg.py`. The trace distinguishes the stretches where the
+# `resource/temp/make_route_svg.py`. The trace distinguishes the stretches where the
 # walker can be SEEN from the stretches that ride BEHIND something on the map, so the
 # route alternates visible / hidden seven times: the open climb off the lower trail, the
 # long passage behind the cabin and its roof, three quick duckings between the pines,
@@ -25,17 +25,17 @@ defs:
     assets:
         map:
             type: "scene"
-            file: "./resources/diagram/map.svg"
+            file: "./resource/scene/map.svg"
         route_layer_rest:
             type: "scene"
-            file: "./resources/diagram/route_layer_rest.svg"
+            file: "./resource/scene/route_layer_rest.svg"
         # Declared LAST of the three scenes on purpose: scene declaration order is
         # the render z-order (painter's algorithm), so the markers paint over the
         # route rather than under it. Hand-authored, unlike route_layer_rest.svg,
         # which the trace generator rewrites.
         markers_rest:
             type: "scene"
-            file: "./resources/diagram/markers_rest.svg"
+            file: "./resource/scene/markers_rest.svg"
 
         # Each stretch is a group (faded in as the marker enters it) wrapping the line
         # the marker rides. Odd stretches are visible, even ones hidden.
@@ -128,7 +128,7 @@ defs:
         # ones and the box that holds them is sized by hand (see `rest_note`).
         #
         # Distance and walking time are DERIVED from the trace by
-        # `resources/diagram/make_route_svg.py`, which prints this block; ascent and
+        # `resource/temp/make_route_svg.py`, which prints this block; ascent and
         # grade are authored (a top-down map carries no elevation). Re-trace the route
         # and paste the figures it prints, or the callout drifts from the line drawn.
         rest_caption:
@@ -162,15 +162,15 @@ defs:
         # meet. Generate it with `scene_00_tts_generation.yaml` before rendering.
         narration:
             type: "audio"
-            file: "./audio/route_03_rest.mp3"
+            file: "./resource/audio/part_03_rest.mp3"
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resources/css/theme_dark.css"
+            file: "./resource/style/theme_dark.css"
 
     const:
         # ── Pace ──────────────────────────────────────────────────────────────────
@@ -182,7 +182,7 @@ defs:
         PACE_PX_PER_S: 168
 
         # ── Geometry ──────────────────────────────────────────────────────────────
-        # Per-stretch arc length, printed by `resources/diagram/make_route_svg.py`.
+        # Per-stretch arc length, printed by `resource/temp/make_route_svg.py`.
         # These are the ONLY geometry figures a re-trace requires pasting across:
         # there is no `.length` on a path to divide by, so the numbers cannot come
         # from the drawing itself. Everything below is derived from them.

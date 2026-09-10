@@ -16,7 +16,7 @@ is derived, and not the layout.
 | 1 | `scene_01_gratitude_perspective.yaml` | *"La gratitud no cambia tu situación, pero sí tu perspectiva."* |
 | 2 | `scene_02_life_meaning.yaml` | *"El sentido de la vida no se encuentra en un destino, sino en el camino que lleva a él."* |
 
-`scene_00_tts_generation.yaml` is synthesis-only: it turns the scripts under `script/`
+`scene_00_tts_generation.yaml` is synthesis-only: it turns the scripts under `resource/script/`
 into the narration MP3s the scenes read. Run it once, and again whenever a script
 changes.
 
@@ -26,7 +26,7 @@ changes.
   cell `[0, 0]` and z-stack in **declaration order** — background first, so it sits
   behind; foreground second, so the quote sits in front.
 - **Styling in CSS, position in SVG.** Font, size and fill live in
-  `resources/css/theme_life_lessons.css`, attached to the foreground scene as a
+  `resource/style/theme_life_lessons.css`, attached to the foreground scene as a
   `type: style` asset. Where the text sits stays in the SVG.
 - **A baked paper texture.** The background is an embedded JPEG rather than the raw SVG
   texture, which pre-smooths noise the H.264 encoder would otherwise spend bitrate on.
@@ -40,8 +40,8 @@ changes.
 scene_00_tts_generation.yaml      narration synthesis (run first)
 scene_01_gratitude_perspective.yaml
 scene_02_life_meaning.yaml
-script/                           the spoken lines, one .txt per scene
-resources/
+resource/script/                           the spoken lines, one .txt per scene
+resource/
   css/theme_life_lessons.css      how the quote is styled
   foreground/*.svg                the quote artwork, one per scene
   backgrounds/*                   paper textures
@@ -65,4 +65,4 @@ resolve against whatever you pass as `--outdir`.
 Synthesis calls a text-to-speech provider and needs `ELEVENLABS_API_KEY` in the
 environment. It is a separate file from the scenes on purpose: re-rendering a scene must
 never re-synthesize audio that did not change. The voice identifiers used are listed in
-`script/elevenlabs_voices.txt`.
+`resource/temp/elevenlabs_voices.txt`.

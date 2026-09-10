@@ -2,7 +2,7 @@
 # hiking-trails — Serenity Lake route
 # ------------------------------------------
 # The walk out to the lake jetty, taken from an owner-authored trace painted over the
-# baked map and turned into overlay geometry by `resources/diagram/make_route_svg.py`.
+# baked map and turned into overlay geometry by `resource/temp/make_route_svg.py`.
 # A companion to `scene_summit.yaml`, built to the same pattern: the route fades in
 # under a travelling marker that rides the drawn line, the destination is a star seated
 # in a pulsing ring, and a callout names what was reached.
@@ -22,17 +22,17 @@ defs:
     assets:
         map:
             type: "scene"
-            file: "./resources/diagram/map.svg"
+            file: "./resource/scene/map.svg"
         route_layer_lake:
             type: "scene"
-            file: "./resources/diagram/route_layer_lake.svg"
+            file: "./resource/scene/route_layer_lake.svg"
         # Declared LAST of the three scenes on purpose: scene declaration order is
         # the render z-order (painter's algorithm), so the markers paint over the
         # route rather than under it. Hand-authored, unlike route_layer_lake.svg,
         # which the trace generator rewrites.
         markers_lake:
             type: "scene"
-            file: "./resources/diagram/markers_lake.svg"
+            file: "./resource/scene/markers_lake.svg"
 
         # The one stretch: a group (faded in as the marker enters it) wrapping the
         # line the marker rides.
@@ -76,7 +76,7 @@ defs:
         # ones and the box that holds them is sized by hand (see `lake_note`).
         #
         # Distance and walking time are DERIVED from the trace by
-        # `resources/diagram/make_route_svg.py`, which prints this block; ascent and
+        # `resource/temp/make_route_svg.py`, which prints this block; ascent and
         # grade are authored (a top-down map carries no elevation). Re-trace the route
         # and paste the figures it prints, or the callout drifts from the line drawn.
         lake_caption:
@@ -113,15 +113,15 @@ defs:
         # inspector probes this at compile time and cannot guess.
         narration:
             type: "audio"
-            file: "./audio/route_02_lake.mp3"
+            file: "./resource/audio/part_02_lake.mp3"
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resources/css/theme_dark.css"
+            file: "./resource/style/theme_dark.css"
 
     const:
         # ── Pace ──────────────────────────────────────────────────────────────────
@@ -134,7 +134,7 @@ defs:
         # narration is nearly all walking, so any slower and its callout has no time
         # left on screen. See that scene for the binding case.
         PACE_PX_PER_S: 168
-        # Arc length of the route, printed by `resources/diagram/make_route_svg.py`.
+        # Arc length of the route, printed by `resource/temp/make_route_svg.py`.
         # The one figure a re-trace still requires pasting across: there is no
         # `.length` on a path to divide by, so the geometry cannot supply it.
         ROUTE_PX: 654.9

@@ -27,16 +27,16 @@ defs:
         # the dot marks a position and must never be the thing that gets masked.
         plot:
             type: "scene"
-            file: "./resources/diagram/plot.svg"
+            file: "./resource/scene/plot.svg"
         # The window frame: masks anything travelling out of the plotting area, and
         # carries the y scale above the curves. Declared after the surface so it draws
         # over them.
         frame_layer:
             type: "scene"
-            file: "./resources/diagram/frame_layer.svg"
+            file: "./resource/scene/frame_layer.svg"
         rider_layer:
             type: "scene"
-            file: "./resources/diagram/rider_layer.svg"
+            file: "./resource/scene/rider_layer.svg"
 
         dot:
             type: "actor"
@@ -76,15 +76,15 @@ defs:
 
         narration:
             type: "audio"
-            file: "./audio/beat_01_wave.mp3"
+            file: "./resource/audio/part_01_wave.mp3"
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resources/css/theme_dark.css"
+            file: "./resource/style/theme_dark.css"
 
     const:
         VIDEO_MARGIN: 350

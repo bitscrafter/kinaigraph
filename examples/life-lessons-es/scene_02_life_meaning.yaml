@@ -5,7 +5,7 @@
 # a 1x1 grid LAYOUT: both scenes sit in the single cell [0, 0] and z-stack in
 # DECLARATION ORDER - background first (behind), foreground second (front). The
 # quote then fades in over the paper. Visual styling of the text (font, size,
-# fill) lives in resources/css/theme_life_lessons.css, attached to the foreground scene
+# fill) lives in resource/style/theme_life_lessons.css, attached to the foreground scene
 # as a `type: style` asset; positioning (centering) stays in the SVG.
 #
 # Path resolution (as in the tts yaml): `file:` inputs resolve against THIS
@@ -27,18 +27,18 @@ defs:
         # recipe is in the svg's header comment.
         background:
             type: "scene"
-            file: "resources/backgrounds/paper_background_medium.svg"
+            file: "resource/scene/paper_background_medium.svg"
 
         # Top layer: the transparent quote text (shares the 1280x720 viewBox).
         foreground:
             type: "scene"
-            file: "resources/foreground/scene_02_life_meaning.svg"
+            file: "resource/scene/scene_02_life_meaning.svg"
             style: quote_style
 
         # Visual styling for the quote text (font, size, fill).
         quote_style:
             type: "style"
-            file: "resources/css/theme_life_lessons.css"
+            file: "resource/style/theme_life_lessons.css"
 
         # 1x1 grid: both scenes occupy the single cell and z-stack by declaration
         # order. This is the layout that gives the background/foreground precedence.
@@ -58,7 +58,7 @@ defs:
         # committable input dir (audio). Its .duration paces the hold below.
         narration:
             type: "audio"
-            file: "audio/scene_02_life_meaning.mp3"
+            file: "./resource/audio/part_02_life_meaning.mp3"
 
     const:
         MARGIN: 350 # head pad of quiet before the quote appears

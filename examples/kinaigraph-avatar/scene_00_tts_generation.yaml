@@ -27,5 +27,5 @@ synthesis:
 
   tts:
     audio_avatar_intro:
-      file: "./script/avatar_intro.txt"
-      export: "./audio/avatar_intro.mp3"
+      file: "./resource/script/part_01_intro.txt"
+      export: "./resource/audio/part_01_intro.mp3"

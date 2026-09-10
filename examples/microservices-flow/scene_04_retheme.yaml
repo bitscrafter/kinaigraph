@@ -10,11 +10,11 @@ defs:
   assets:
     diagram:
       type: "scene"
-      file: "./resources/diagram/overview_v2.svg"
+      file: "./resource/scene/overview_v2.svg"
 
     chevron_layer:
       type: "scene"
-      file: "./resources/diagram/chevron_layer.svg"
+      file: "./resource/scene/chevron_layer.svg"
 
     chevron_marker:
       type: "actor"
@@ -24,17 +24,17 @@ defs:
 
     template:
       type: "template"
-      file: "./resources/template/main.html"
+      file: "./resource/template/main.html"
       style: style
 
     # The one-line diff vs every other scene: light theme instead of dark.
     style:
       type: "style"
-      file: "./resources/css/theme_light.css"
+      file: "./resource/style/theme_light.css"
 
     audio_shot_retheme:
       type: "audio"
-      file: "./audio/scene_04_retheme.mp3"
+      file: "./resource/audio/part_04_retheme.mp3"
 
   const:
     fadeFast: 300

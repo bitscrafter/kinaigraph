@@ -14,7 +14,7 @@
 #
 # The other thing worth noticing is that no arc is authored. Both routes are true
 # great circles computed between city coordinates by
-# `resources/diagram/make_map_svg.py`, which also prints the city pixel positions the
+# `resource/temp/make_map_svg.py`, which also prints the city pixel positions the
 # marker layer uses and the arc lengths this file divides by a pace. Move a city and
 # re-run: the drawn line, the flown line and the marker all move together, because
 # they come from the same projection.
@@ -37,13 +37,13 @@ defs:
         # map be re-framed and the routes re-computed without clobbering them.
         world_map:
             type: "scene"
-            file: "./resources/diagram/world_map.svg"
+            file: "./resource/scene/world_map.svg"
         flights_layer:
             type: "scene"
-            file: "./resources/diagram/flights_layer.svg"
+            file: "./resource/scene/flights_layer.svg"
         markers_flights:
             type: "scene"
-            file: "./resources/diagram/markers_flights.svg"
+            file: "./resource/scene/markers_flights.svg"
 
         # ── The routes ────────────────────────────────────────────────────────────
         # Each route is a group (faded in as its plane departs) wrapping the path the
@@ -98,7 +98,7 @@ defs:
 
         narration:
             type: "audio"
-            file: "./audio/beat_03_map.mp3"
+            file: "./resource/audio/part_03_map.mp3"
 
         # ── Jet bed ───────────────────────────────────────────────────────────────
         # COMMENTED OUT deliberately: the sound effect is an unpublished input, so a
@@ -111,15 +111,15 @@ defs:
         #
         # jet_bed:
         #     type: "audio"
-        #     file: "./resources/audio/jet-cabin-ambience-cc0.mp3"
+        #     file: "./resource/audio/source/jet-cabin-ambience-cc0.mp3"
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resources/css/theme_bio.css"
+            file: "./resource/style/theme_bio.css"
 
     const:
         # ── Pace ──────────────────────────────────────────────────────────────────
@@ -131,7 +131,7 @@ defs:
         # is geometry, not two authored numbers, and it is the point.
         PACE_PX_PER_S: 250
 
-        # Arc lengths in pixels, printed by `resources/diagram/make_map_svg.py`. The
+        # Arc lengths in pixels, printed by `resource/temp/make_map_svg.py`. The
         # one figure a re-frame still requires pasting across: there is no `.length` on
         # a path in the language, so the geometry cannot supply it. Re-run the
         # generator after ANY change to its projection bounds or CITIES table.

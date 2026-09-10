@@ -23,11 +23,11 @@ defs:
         # The v2 diagram — overview_v1 + data-store + link-store-user + the callout.
         diagram:
             type: "scene"
-            file: "./resources/diagram/overview_v2.svg"
+            file: "./resource/scene/overview_v2.svg"
 
         chevron_layer:
             type: "scene"
-            file: "./resources/diagram/chevron_layer.svg"
+            file: "./resource/scene/chevron_layer.svg"
 
         chevron_marker:
             type: "actor"
@@ -43,19 +43,19 @@ defs:
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
 
         style:
             type: "style"
-            file: "./resources/css/theme_dark.css"
+            file: "./resource/style/theme_dark.css"
 
         audio_shot_01_omission:
             type: "audio"
-            file: "./audio/scene_03_01_omission.mp3"
+            file: "./resource/audio/part_03_01_omission.mp3"
         audio_shot_02_store:
             type: "audio"
-            file: "./audio/scene_03_02_store.mp3"
+            file: "./resource/audio/part_03_02_store.mp3"
 
     const:
         FADE_WINDOW: 300

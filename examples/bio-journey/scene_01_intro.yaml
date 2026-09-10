@@ -32,7 +32,7 @@ defs:
         # ⚠️ This file holds every personal detail in the example. See its header.
         intro_card:
             type: "scene"
-            file: "./resources/foreground/intro_card.svg"
+            file: "./resource/scene/intro_card.svg"
 
         # The four elements that animate, in reading order.
         intro_name:
@@ -58,15 +58,15 @@ defs:
         # inspector probes this at compile time and cannot guess.
         narration:
             type: "audio"
-            file: "./audio/beat_01_intro.mp3"
+            file: "./resource/audio/part_01_intro.mp3"
 
         template:
             type: "template"
-            file: "./resources/template/main.html"
+            file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resources/css/theme_bio.css"
+            file: "./resource/style/theme_bio.css"
 
     const:
         # Head and tail of quiet, so the cut into and out of this beat is not abrupt.

@@ -41,16 +41,16 @@ defs:
         # offset anywhere in this file.
         narration_01:
             type: audio
-            file: "./audio/beat_01_wave.mp3"
+            file: "./resource/audio/part_01_wave.mp3"
         narration_02:
             type: audio
-            file: "./audio/beat_02_amplitude.mp3"
+            file: "./resource/audio/part_02_amplitude.mp3"
         narration_03:
             type: audio
-            file: "./audio/beat_03_frequency.mp3"
+            file: "./resource/audio/part_03_frequency.mp3"
         narration_04:
             type: audio
-            file: "./audio/beat_04_shift.mp3"
+            file: "./resource/audio/part_04_shift.mp3"
 
 composition:
     context:

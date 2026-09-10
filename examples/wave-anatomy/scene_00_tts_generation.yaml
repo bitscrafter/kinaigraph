@@ -48,23 +48,23 @@ synthesis:
         # (cycle, crossing, peak) the other three beats spend, and closes on the
         # source: the authored expression IS the mathematics.
         audio_beat_01_wave:
-            file: "./script/beat_01_wave.txt"
-            export: "./audio/beat_01_wave.mp3"
+            file: "./resource/script/part_01_wave.txt"
+            export: "./resource/audio/part_01_wave.mp3"
 
         # Beat 2 — amplitude. The parameter that changes height and nothing else;
         # the crossings holding still is the whole lesson.
         audio_beat_02_amplitude:
-            file: "./script/beat_02_amplitude.txt"
-            export: "./audio/beat_02_amplitude.mp3"
+            file: "./resource/script/part_02_amplitude.txt"
+            export: "./resource/audio/part_02_amplitude.mp3"
 
         # Beat 3 — frequency. The mirror of beat 2: cycles multiply, height holds.
         # Named against amplitude so the pair reads as one idea in two places.
         audio_beat_03_frequency:
-            file: "./script/beat_03_frequency.txt"
-            export: "./audio/beat_03_frequency.mp3"
+            file: "./resource/script/part_03_frequency.txt"
+            export: "./resource/audio/part_03_frequency.mp3"
 
         # Beat 4 — phase and offset. Both are translation, and the payoff is that
         # a quarter-turn of phase turns the sine into the cosine.
         audio_beat_04_shift:
-            file: "./script/beat_04_shift.txt"
-            export: "./audio/beat_04_shift.mp3"
+            file: "./resource/script/part_04_shift.txt"
+            export: "./resource/audio/part_04_shift.mp3"
