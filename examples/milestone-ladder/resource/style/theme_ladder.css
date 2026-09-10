@@ -1,5 +1,5 @@
 /*
- * bio-journey — the ladder themes
+ * milestone-ladder — the ladder themes
  *
  * Six steps of one life on a rising sawtooth. Both palettes are SEQUENTIAL, not
  * categorical: one hue walked across the six nodes, because they are an ordered
@@ -79,8 +79,8 @@
     --kg-seg: #1c8177;
 }
 
-#bio-ladder,
-#bio-icon-layer {
+#milestone-ladder,
+#milestone-icon-layer {
     font-family: var(--kg-font-family);
 }
 

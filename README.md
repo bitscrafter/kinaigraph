@@ -260,7 +260,7 @@ themes, and narration scripts. Kinaigraph compiles a scene and renders it to an 
 | [`service-interaction`](examples/service-interaction/) | The same request, authored **twice** — once with hand-measured timings, once with action bookmarks and `pace_by: distance`. The two disagree, and the shorter one is the correct one. |
 | [`wave-anatomy`](examples/wave-anatomy/) | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is drawn anywhere** — every curve is generated from its own equation and sampled by the compiler. |
 | [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. **None of the route geometry is authored** — the trails were painted by hand and traced. |
-| [`bio-journey`](examples/bio-journey/) | A narrated portrait in three beats: a title card, a career timeline, and a world map. Narration-driven timing throughout. |
+| [`milestone-ladder`](examples/milestone-ladder/) | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark. |
 | [`life-lessons-en`](examples/life-lessons-en/) · [`life-lessons-es`](examples/life-lessons-es/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. The same two scenes in English and Spanish, which is what a localization actually costs. |
 | [`kinaigraph-avatar`](examples/kinaigraph-avatar/) | A rigged picture-in-picture presenter, exported from a Claude Design session. |
 

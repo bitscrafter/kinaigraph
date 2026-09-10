@@ -1,10 +1,10 @@
 # ------------------------------------------
-# bio-journey — narration (brief)
+# milestone-ladder — narration (brief)
 # ------------------------------------------
 # Generates the six clips for the brief cut. Run ONCE before rendering it, and
 # again whenever one of its scripts changes.
 #
-#     kinaigraph bio_journey_brief_tts.yaml
+#     kinaigraph milestone_ladder_brief_tts.yaml
 #
 # The animation is timed to the voice: every step holds for its own clip's probed
 # `.duration`, so the picture stretches to the narration rather than the
@@ -19,8 +19,8 @@
 # must not bill for the other.
 
 metadata:
-    title: "Bio Journey - Narration (brief)"
-    description: "Generate the six narration clips for the bio-journey brief"
+    title: "Milestone Ladder - Narration (brief)"
+    description: "Generate the six narration clips for the milestone-ladder brief"
     version: "1.0"
 
 defs:

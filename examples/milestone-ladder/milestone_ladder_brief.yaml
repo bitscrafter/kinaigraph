@@ -1,10 +1,10 @@
 # ------------------------------------------
-# bio-journey — the brief
+# milestone-ladder — the brief
 # ------------------------------------------
 # Six steps of one life, told at length
 #
-#     kinaigraph bio_journey_brief_tts.yaml   # once, needs an API key
-#     kinaigraph bio_journey_brief.yaml
+#     kinaigraph milestone_ladder_brief_tts.yaml   # once, needs an API key
+#     kinaigraph milestone_ladder_brief.yaml
 #
 # ── How a step is built ──────────────────────────────────────────────────────
 # Step 1 draws no span — it is the first node, and nothing precedes it. Steps
@@ -22,7 +22,7 @@
 # already-dashed line renders NOTHING, silently.
 
 metadata:
-    title: "Bio Journey - Brief"
+    title: "Milestone Ladder - Brief"
     description: "Six steps of one life, told at length"
     version: "1.0"
 
@@ -172,7 +172,7 @@ defs:
             file: "./resource/template/main.html"
         style:
             type: "style"
-            file: "./resource/style/theme_bio.css"
+            file: "./resource/style/theme_ladder.css"
             themes:
                 - dark
                 - care
@@ -198,7 +198,7 @@ defs:
         # SHORTEST clip in this cut, not the average. Raising it past that leaves
         # a negative hold.
         SEG_DRAW_MS: 320
-        NODE_FADE_MS: 2000
+        NODE_FADE_MS: 4000
 
         # How long a glyph takes to ride the span that reaches its node. Well
         # under the shortest clip (9.10 s), so it lands mid-sentence rather
@@ -530,8 +530,8 @@ animation:
                             after: "VIDEO_MARGIN"
 
     capture:
-        bio_journey_brief_silent:
-            output: "./resource/video/bio_journey_brief_silent.mp4"
+        milestone_ladder_brief_silent:
+            output: "./resource/video/milestone_ladder_brief_silent.mp4"
             fps: 30
 
 composition:
@@ -543,7 +543,7 @@ composition:
         # non-zero timestamp hits a known defect that places the audio at output
         # 0 — which here would stack all six lines on the first frame.
         "0":
-            - bio_journey_brief_silent:
+            - milestone_ladder_brief_silent:
                   - roll:
                   - mix:
                         span:
@@ -571,6 +571,6 @@ composition:
                         asset: audio_06_teaching
 
     capture:
-        bio_journey_brief:
-            output: "./bio_journey_brief.mp4"
+        milestone_ladder_brief:
+            output: "./milestone_ladder_brief.mp4"
             fps: 30

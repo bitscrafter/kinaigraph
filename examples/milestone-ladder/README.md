@@ -1,4 +1,4 @@
-# Bio Journey — six steps of one life
+# Milestone Ladder — six steps of one life
 
 A narrated portrait in under thirty seconds. Six moments arrive on a rising
 sawtooth, each as its own sentence is spoken, so you read a life left to right at
@@ -12,9 +12,9 @@ Two cuts of the same six steps. The **brief** tells the story; the **teaser**
 compresses it to a single line per node.
 
 ```sh
-kinaigraph bio_journey_teaser_tts.yaml   # once — needs ELEVENLABS_API_KEY, costs credits
-kinaigraph bio_journey_teaser.yaml
-open ./bio_journey_teaser.mp4
+kinaigraph milestone_ladder_teaser_tts.yaml   # once — needs ELEVENLABS_API_KEY, costs credits
+kinaigraph milestone_ladder_teaser.yaml
+open ./milestone_ladder_teaser.mp4
 ```
 
 Swap `teaser` for `brief` to build the longer cut. Each length has its own
@@ -26,12 +26,12 @@ nothing for the timeline to measure.
 
 | File | What it is |
 | ---- | ---------- |
-| `bio_journey_<cut>_tts.yaml` | Synthesis only. Turns that cut's six scripts into six clips. |
-| `bio_journey_<cut>.yaml` | The piece. Animation plus the composition that mixes the narration onto it. |
+| `milestone_ladder_<cut>_tts.yaml` | Synthesis only. Turns that cut's six scripts into six clips. |
+| `milestone_ladder_<cut>.yaml` | The piece. Animation plus the composition that mixes the narration onto it. |
 | `resource/scene/ladder.svg` | The rails, discs and labels. Generated — see below. |
 | `resource/scene/icons.svg` | The icon library. Source of truth for the six glyphs. |
 | `resource/scene/icon_layer.svg` | The glyphs, placed. Generated, stacked over the ladder. |
-| `resource/style/theme_bio.css` | The palette and type. |
+| `resource/style/theme_ladder.css` | The palette and type. |
 | `resource/script/<cut>/part_NN_*.txt` | The narration, one file per step. |
 | `resource/audio/<cut>/part_NN_*.mp3` | The recordings, once generated. |
 
