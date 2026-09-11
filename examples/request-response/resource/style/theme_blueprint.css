@@ -1,0 +1,58 @@
+/* Request/Response — Blueprint theme
+ *
+ * An engineering drawing: a deep navy ground, structure picked out in cyan, and the
+ * moving parts in warm amber. The warm accent against the cool field is what makes the
+ * packet read instantly — a cool accent on a cool ground would sink into the diagram
+ * it is travelling over.
+ *
+ * Pairs with theme_pastel.css. The two differ in hue, saturation AND lightness, which
+ * is the point: swapping them should look like the same diagram in a different world,
+ * not the same picture with the lights turned off. The scene files differ by exactly
+ * one line — which stylesheet the style asset points at.
+ */
+
+:root {
+    /* Scene */
+    --scene-background-color: #0d2137;
+
+    /* Structural Hierarchy */
+    --gateway-fill-color: #143654;
+    --gateway-stroke-color: #3d8fc4;
+    --service-node-fill-color: #102c47;
+    --service-node-stroke-color: #4cc9f0;
+
+    /* Connections */
+    --link-stroke-color: #6fd3ef;
+
+    /* Text */
+    --title-text-color: #eafaff;
+    --node-label-text-color: #b8e2f2;
+
+    /* Step badges */
+    --step-badge-fill-color: #143654;
+    --step-badge-stroke-color: #4cc9f0;
+
+    /* Accents & States */
+    /* The travelling packet. Warm against the cool field, per this file's header:
+       a cool packet on a cool ground sinks into the diagram it crosses. */
+    --packet-stroke-color: #ffc857;
+    /* Read by the store `note` annotation via css(). The note's TEXT colour is not
+       here: it is authored on the `type: text` asset, which css() cannot reach. */
+    --callout-fill-color: #1b4f72;
+    /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
+     Warm against the cool field, so an arriving packet reads at a glance. */
+    --pulse-stroke-color: #ffc857;
+    --pulse-stroke-width: 3.5;
+
+    /* Stroke weights (per role) */
+    --gateway-stroke-width: 2;
+    --service-node-stroke-width: 2;
+    --step-badge-stroke-width: 1.5;
+    --link-stroke-width: 2;
+
+    /* Link dash pattern */
+    --link-dash-pattern: 6 4;
+
+    /* Typography */
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+}

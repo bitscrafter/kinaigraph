@@ -1,4 +1,4 @@
-# Service Interaction — One Packet, Two Authorings
+# Request/Response — One Packet, Two Authorings
 
 A "Get User Info" request walks a small system: the client calls the gateway, the gateway
 checks the caller with auth, fetches the profile from the user service, and carries the
@@ -24,6 +24,75 @@ line"*) exist here as **narration and resources** — `get_user_info_v2.svg` add
 node, and `resource/style/` carries four stylesheets — but are not yet authored as scenes.
 The [`microservices-flow`](../microservices-flow/) example shows both of those ideas
 built out.
+
+### The store callout is a `note` annotation, not artwork
+
+`get_user_info_v2.svg` draws the diagram and nothing else. The callout that names the new
+store is declared by the **document**, as a `note` annotation — a box, an auto-aimed
+pointer and its own fade, authored in YAML. Keeping it out of the artwork is what lets the
+same scene be reused by a beat that does not want the callout at all.
+
+Paste this into the beat-2 document when it is authored; it is verified against
+`get_user_info_v2.svg` and reproduces the callout the SVG used to carry:
+
+```yaml
+defs:
+    assets:
+        data_store:
+            type: "actor"
+            part_of: diagram          # the scene asset holding get_user_info_v2.svg
+            id: data-store
+        store_caption:
+            type: "text"
+            content: |
+                now with a
+                data store
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 13
+            # A literal, necessarily: css() reads a style selected on a scene or
+            # template, and no style is in scope inside defs. This is blueprint's
+            # --title-text-color; re-theming the note's TEXT means editing it here.
+            font_color: "#eafaff"
+
+animation:
+    annotations:
+        store_note:
+            note:
+                text: store_caption
+                shape:
+                    rect:
+                        width: 100
+                        height: 40
+                padding: 6
+                align: center
+                pointer:
+                    target:                    # the fork aims itself; `side` is auto-only
+                        anchor:
+                            asset: data_store
+                            pos: right
+            at:
+                anchor:
+                    asset: data_store
+                    pos: center
+                    dx: 80
+                    dy: -20
+            origin: top_left
+            fill: 'css("callout-fill-color")'  # inside `animation`, so css() resolves
+    timeline:
+        0:
+            - store_note:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: 800
+```
+
+Two limits worth knowing before you extend it. The old artwork set the caption in
+**italic**; a `type: text` asset takes only `content` / `file` / `font_family` /
+`font_size` / `font_color`, so italic is not available. And the box fill tracks the
+attached stylesheet through `css()` while the text colour cannot — which is why
+`--callout-fill-color` is still a theme variable and a `--callout-text-color` is not.
 
 ## What it shows
 

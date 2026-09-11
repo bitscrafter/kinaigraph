@@ -1,5 +1,5 @@
 # ------------------------------------------
-# service-interaction — Audio Generation
+# request-response — Audio Generation
 # ------------------------------------------
 # Generates the narration for the three beats. Run ONCE, before rendering them, and
 # again whenever a script changes.
@@ -17,7 +17,7 @@
 # beat must not re-synthesise audio that did not change.
 
 metadata:
-    title: "Service Interaction - Audio Generation"
+    title: "Request/Response - Audio Generation"
     description: "Generate the narration for the three interaction beats"
     version: "1.0"
 

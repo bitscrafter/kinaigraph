@@ -1,5 +1,5 @@
 # ------------------------------------------
-# service-interaction — Beat 1: the request
+# request-response — Beat 1: the request
 # ------------------------------------------
 # ✅ COMPILES. This document was written BEFORE `action-bookmarks` was built, to check
 # the design against a real document rather than a sketch. The feature shipped
@@ -322,48 +322,48 @@ animation:
                   - pulse:
                         duration: leg1.duration
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         leg2.start:
             - badge_auth:
                   - pulse:
                         duration: leg2.duration
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         leg3.start:
             - badge_gateway:
                   - pulse:
                         duration: leg3.duration
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         leg4.start:
             - badge_user:
                   - pulse:
                         duration: leg4.duration
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         leg5.start:
             - badge_gateway:
                   - pulse:
                         duration: leg5.duration
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         leg6.start:
             - badge_client:
                   - pulse:
                         duration: leg6.duration
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- The request is answered; the packet leaves and the legend clears. ---
         # `walk.end` — the PARENT's bookmark — rather than `leg6.end`. Both resolve to
@@ -382,6 +382,6 @@ animation:
                             after: "VIDEO_MARGIN"
 
     capture:
-        video_beat_01_flow:
-            output: "./video/beat_01_flow_animation.mp4"
+        video_flow_with_bookmarks:
+            output: "./request_response_with_bookmarks.mp4"
             fps: 30

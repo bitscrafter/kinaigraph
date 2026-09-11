@@ -9,8 +9,9 @@
   translate(640 360) = API Gateway). Background is transparent; the diagram
   beneath shows through.
 
-  Theming: the chevron-packet class sets the icon color from the kg-bookmark-bg
-  theme variable; the inner use inherits it via currentColor.
+  Theming: the chevron-packet class sets the icon color from the
+  packet-stroke-color theme variable; the inner use inherits it via currentColor.
+  The fallback holds theme_dark.css's value, so this file opens standalone.
 
   Only `chevron-packet` (RIGHT) starts visible; the LEFT/UP/DOWN packets start
   hidden (opacity 0) — wire one from the timeline (show/move it) when you want a
@@ -18,7 +19,7 @@
 -->
 <svg id="chevron_layer" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .chevron-packet { color: var(--kg-bookmark-bg, #ffcc00); }
+    .chevron-packet { color: var(--packet-stroke-color, #ffcc00); }
   </style>
 
   <defs>

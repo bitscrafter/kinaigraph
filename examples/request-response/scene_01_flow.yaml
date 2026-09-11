@@ -1,5 +1,5 @@
 # ------------------------------------------
-# service-interaction — Beat 1: the request
+# request-response — Beat 1: the request
 # ------------------------------------------
 # A "Get User Info" request walks the system: the client calls the gateway, the gateway
 # checks the caller with auth, fetches the profile from the user service, and carries
@@ -124,13 +124,20 @@ defs:
         # proportion to its own length, so the packet holds one speed throughout —
         # a property of the arithmetic, not of six numbers agreeing.
         FIXED_MS: "VIDEO_MARGIN * 2"
-        TRAVEL_MS: "narration.duration - FIXED_MS"
-        LEG_1_MS: "LEG_1_PX / PATH_PX * TRAVEL_MS"
-        LEG_2_MS: "LEG_2_PX / PATH_PX * TRAVEL_MS"
-        LEG_3_MS: "LEG_3_PX / PATH_PX * TRAVEL_MS"
-        LEG_4_MS: "LEG_4_PX / PATH_PX * TRAVEL_MS"
-        LEG_5_MS: "LEG_5_PX / PATH_PX * TRAVEL_MS"
-        LEG_6_MS: "LEG_6_PX / PATH_PX * TRAVEL_MS"
+        # Whole milliseconds, deliberately. `orient: auto` writes `rotation` over a
+        # window snapped to whole ms, while a timeline entry's `.end` — which the next
+        # leg starts from — stays fractional. A fractional leg makes those two disagree
+        # by a fraction of a millisecond, so consecutive legs' rotation windows overlap
+        # and the render is refused. Integer legs make them agree exactly.
+        TRAVEL_MS: "round(narration.duration - FIXED_MS)"
+        LEG_1_MS: "round(LEG_1_PX / PATH_PX * TRAVEL_MS)"
+        LEG_2_MS: "round(LEG_2_PX / PATH_PX * TRAVEL_MS)"
+        LEG_3_MS: "round(LEG_3_PX / PATH_PX * TRAVEL_MS)"
+        LEG_4_MS: "round(LEG_4_PX / PATH_PX * TRAVEL_MS)"
+        LEG_5_MS: "round(LEG_5_PX / PATH_PX * TRAVEL_MS)"
+        # The last leg takes the remainder so the six still sum to TRAVEL_MS exactly,
+        # which is what keeps the clip the length of its narration.
+        LEG_6_MS: "TRAVEL_MS - LEG_1_MS - LEG_2_MS - LEG_3_MS - LEG_4_MS - LEG_5_MS"
 
         # Keeps the packet clear of the node boxes at each end of a connector, instead
         # of sliding under them. Whole-path arc-length trim, both ends.
@@ -208,8 +215,8 @@ animation:
                   - pulse:
                         duration: LEG_1_MS
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
             - chip_capability:
                   - show:
                         duration: CHIP_REVEAL_MS
@@ -238,8 +245,8 @@ animation:
                   - pulse:
                         duration: LEG_2_MS
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 3: auth -> gateway. `head: end` enters from the far end, reversing
         #     the traversal; `side: left` is relative to travel, so the return rides
@@ -263,8 +270,8 @@ animation:
                   - pulse:
                         duration: LEG_3_MS
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 4: gateway -> user ---
         leg3_ts.end @ leg4_ts:
@@ -285,8 +292,8 @@ animation:
                   - pulse:
                         duration: LEG_4_MS
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 5: user -> gateway ---
         leg4_ts.end @ leg5_ts:
@@ -308,8 +315,8 @@ animation:
                   - pulse:
                         duration: LEG_5_MS
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 6: gateway -> client. The answer comes home. ---
         leg5_ts.end @ leg6_ts:
@@ -331,8 +338,8 @@ animation:
                   - pulse:
                         duration: LEG_6_MS
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- The request is answered; the packet leaves and the legend clears. ---
         leg6_ts.end @ tear_down_ts:
@@ -349,6 +356,6 @@ animation:
                             after: "VIDEO_MARGIN"
 
     capture:
-        video_beat_01_flow:
-            output: "./video/beat_01_flow_animation.mp4"
+        video_flow:
+            output: "./request_response.mp4"
             fps: 30

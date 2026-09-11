@@ -257,7 +257,7 @@ themes, and narration scripts. Kinaigraph compiles a scene and renders it to an 
 | Example | What it shows |
 | --- | --- |
 | [`microservices-flow`](examples/microservices-flow/) | A narrated walkthrough of a request moving through a microservices architecture — animation paced to narration, animated diagrams, and compile-time theming (the same scene re-rendered in light and dark). |
-| [`service-interaction`](examples/service-interaction/) | The same request, authored **twice** — once with hand-measured timings, once with action bookmarks and `pace_by: distance`. The two disagree, and the shorter one is the correct one. |
+| [`request-response`](examples/request-response/) | The same request, authored **twice** — once with hand-measured timings, once with action bookmarks and `pace_by: distance`. The two disagree, and the shorter one is the correct one. |
 | [`wave-anatomy`](examples/wave-anatomy/) | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is drawn anywhere** — every curve is generated from its own equation and sampled by the compiler. |
 | [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. **None of the route geometry is authored** — the trails were painted by hand and traced. |
 | [`milestone-ladder`](examples/milestone-ladder/) | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark. |

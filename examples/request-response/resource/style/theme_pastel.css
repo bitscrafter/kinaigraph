@@ -1,4 +1,4 @@
-/* Service Interaction — Pastel theme
+/* Request/Response — Pastel theme
  *
  * Sunlit paper: a warm cream ground, structure in dusty rose and sage, and the moving
  * parts in coral. Everything is desaturated except the accent, so the packet still
@@ -15,47 +15,45 @@
  */
 
 :root {
-    /* Page & Scene */
-    --kg-page-bg: #fbf3e8;
-    --kg-scene-bg: #fffaf2;
+    /* Scene */
+    --scene-background-color: #fffaf2;
 
     /* Structural Hierarchy */
-    --kg-group-bg: #f3e3e6;
-    --kg-group-stroke: #c9a0ad;
-    --kg-node-bg: #ffffff;
-    --kg-node-stroke: #a3b8a0;
+    --gateway-fill-color: #f3e3e6;
+    --gateway-stroke-color: #c9a0ad;
+    --service-node-fill-color: #ffffff;
+    --service-node-stroke-color: #a3b8a0;
 
     /* Connections */
-    --kg-link: #b9a7c4;
+    --link-stroke-color: #b9a7c4;
 
     /* Text */
-    --kg-text-title: #4a3b52;
-    --kg-text-body: #6b5d75;
+    --title-text-color: #4a3b52;
+    --node-label-text-color: #6b5d75;
 
     /* Step badges */
-    --kg-step-bg: #f7ece2;
-    --kg-step-stroke: #c9a0ad;
+    --step-badge-fill-color: #f7ece2;
+    --step-badge-stroke-color: #c9a0ad;
 
     /* Accents & States */
-    --kg-bookmark-bg: #a3b8a0;
-    --kg-pulse-fill: #e8705f;
-    --kg-callout-bg: #f6d9c8;
+    --packet-stroke-color: #a3b8a0;
+    /* Read by the store `note` annotation via css(). The note's TEXT colour is not
+       here: it is authored on the `type: text` asset, which css() cannot reach. */
+    --callout-fill-color: #f6d9c8;
     /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
      Coral is the one saturated tone in the palette, so it carries the motion alone. */
-    --kg-pulse-stroke: #e8705f;
-    --kg-pulse-stroke-width: 3;
-    /* Arrival tint — distinguishes "the request landed here" from the neutral pulse. */
-    --kg-arrive-stroke: #7fb069;
+    --pulse-stroke-color: #e8705f;
+    --pulse-stroke-width: 3;
 
     /* Stroke weights (per role) — lighter than the blueprint's, to suit a pale ground */
-    --kg-group-stroke-width: 1.5;
-    --kg-node-stroke-width: 1.5;
-    --kg-badge-stroke-width: 1.25;
-    --kg-link-width: 1.5;
+    --gateway-stroke-width: 1.5;
+    --service-node-stroke-width: 1.5;
+    --step-badge-stroke-width: 1.25;
+    --link-stroke-width: 1.5;
 
     /* Link dash pattern */
-    --kg-link-dash: 4 4;
+    --link-dash-pattern: 4 4;
 
     /* Typography */
-    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
 }
