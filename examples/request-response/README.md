@@ -25,6 +25,70 @@ node, and `resource/style/` carries four stylesheets — but are not yet authore
 The [`microservices-flow`](../microservices-flow/) example shows both of those ideas
 built out.
 
+### The payloads are callouts, and their pointers move
+
+Beat 1 shows the actual HTTP exchange. The request appears while the packet carries it
+out — leg 1, client → gateway — and the response appears while the packet carries the
+answer home on leg 6. Each is up for **exactly its own leg** and never shares the screen
+with the other.
+
+What makes them worth reading is that the box and the pointer are bound at **different
+times**:
+
+```yaml
+pointer:
+    target:
+        anchor:
+            asset: packet
+            pos: center
+            binding: live # re-resolves EVERY FRAME
+at: # a literal coordinate — the box does not move
+    x: CALLOUT_X
+    y: REQUEST_CALLOUT_Y
+```
+
+`binding: live` on `pointer.target` re-aims the apex each frame, so the leader tracks the
+packet down the connector while the box holds still. That split is the reason these are
+annotations rather than artwork: a box drawn into the SVG could name the payload but
+could not follow the thing carrying it, and a box that *travelled* with the packet would
+be unreadable for the same reason a moving subtitle is.
+
+`binding` normally cascades from `at` to `pointer.target`. Here `at` is a literal, which
+carries no binding to inherit, so `live` is stated where it is meant. Naming
+`pointer.target` explicitly is also **required** off a literal `at` — there is no anchor
+for it to default from, and omitting it is a `MissingRequiredField`.
+
+The two boxes sit on the sides their own packets travel. `lateral` has already put the
+outbound pass above the connector and the return below it, so the request box is placed
+above the line and the response box below, and neither leader ever crosses it.
+
+Each callout's window is spelled as **actions in sequence inside one timeline entry** — a
+fade in, a hold, a fade out — whose three durations sum to `leg1.duration` exactly:
+
+```yaml
+leg1.start:
+    - callout_request:
+          - show:
+                duration: CALLOUT_FADE_MS
+                opacity: { from: 0, to: 1 }
+                hold:
+                    after: "leg1.duration - CALLOUT_FADE_MS * 2"
+          - show:
+                duration: CALLOUT_FADE_MS
+                opacity: { from: 1, to: 0 }
+```
+
+Keying the fade-out at `leg1.end` instead would *start* it there and let the box linger a
+fade into leg 2. Only `scene_01_flow_with_bookmarks.yaml` carries the callouts: naming
+the window `leg1.duration` costs nothing there, where the leg is already addressable,
+while `scene_01_flow.yaml` would have to spend another hand-measured constant on it.
+
+⚠️ **The payload text is inlined as `content:`, not read from `resource/text/`.** The same
+two payloads are committed at `resource/text/get_user_info_request.txt` and
+`…_response.txt`, and a `type: text` asset does accept a `file:` — but no layer reads it,
+so a note sourced from a file renders an **empty box**. Until that is fixed the `.txt`
+files are the authority and the inlined copies must be kept in agreement with them.
+
 ### The store callout is a `note` annotation, not artwork
 
 `get_user_info_v2.svg` draws the diagram and nothing else. The callout that names the new
@@ -90,9 +154,11 @@ animation:
 
 Two limits worth knowing before you extend it. The old artwork set the caption in
 **italic**; a `type: text` asset takes only `content` / `file` / `font_family` /
-`font_size` / `font_color`, so italic is not available. And the box fill tracks the
-attached stylesheet through `css()` while the text colour cannot — which is why
-`--callout-fill-color` is still a theme variable and a `--callout-text-color` is not.
+`font_size` / `font_color`, so italic is not available. And a note's box tracks the
+attached stylesheet through `css()` while its text colour cannot — which is why
+`--callout-fill-color` and `--callout-stroke-color` are theme variables and a
+`--callout-text-color` is not. Every note in the example inherits that split: each one's
+text colour is a literal on its `type: text` asset, tracking `theme_blueprint.css`.
 
 ## What it shows
 
@@ -106,6 +172,9 @@ attached stylesheet through `css()` while the text colour cannot — which is wh
   **direction of travel**, so `side: left` on every leg automatically places the return
   on the opposite side of the line from the outbound pass. One keyword; no per-leg
   bookkeeping.
+- **A fixed box with a moving pointer.** `binding: live` on a callout's `pointer.target`
+  re-resolves the apex every frame, so the two payload callouts keep aiming at the packet
+  as it travels while their boxes stay put and stay readable.
 - **Why six entries rather than one `move` with six sub-actions:** a sub-action was not
   addressable from the timeline when `scene_01_flow.yaml` was written, so nothing could
   hang a badge pulse on a leg boundary. Six entries buy that addressability; the cost is
@@ -138,13 +207,14 @@ written against is the spelling that shipped.
 scene_00_tts_generation.yaml      narration synthesis (run first)
 scene_01_flow.yaml                beat 1, hand-timed
 scene_01_flow_with_bookmarks.yaml beat 1, paced by distance
-resource/script/                           the three narration lines
 resource/
-  diagram/get_user_info_v1.svg    the system, as drawn
-  diagram/get_user_info_v2.svg    the same, plus the shared data store
-  diagram/chevron_layer.svg       the packet marker
-  css/theme_*.css                 four skins (dark, light, pastel, blueprint)
+  scene/get_user_info_v1.svg      the system, as drawn
+  scene/get_user_info_v2.svg      the same, plus the shared data store
+  scene/chevron_layer.svg         the packet marker
+  script/                         the three narration lines
+  style/theme_*.css               four skins (dark, light, pastel, blueprint)
   template/main.html              the page the scene is composed into
+  text/                           the two HTTP payloads beat 1 quotes
 ```
 
 ## Rendering it

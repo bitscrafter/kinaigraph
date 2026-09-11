@@ -36,9 +36,11 @@
     /* The travelling packet. Warm against the cool field, per this file's header:
        a cool packet on a cool ground sinks into the diagram it crosses. */
     --packet-stroke-color: #ffc857;
-    /* Read by the store `note` annotation via css(). The note's TEXT colour is not
-       here: it is authored on the `type: text` asset, which css() cannot reach. */
+    /* Read by every `note` annotation via css() — the two payload callouts in beat 1,
+       and the store callout beat 2 will add. The note's TEXT colour is not here: it is
+       authored on the `type: text` asset, which css() cannot reach. */
     --callout-fill-color: #1b4f72;
+    --callout-stroke-color: #4cc9f0;
     /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
      Warm against the cool field, so an arriving packet reads at a glance. */
     --pulse-stroke-color: #ffc857;

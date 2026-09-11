@@ -40,6 +40,7 @@
     /* Read by the store `note` annotation via css(). The note's TEXT colour is not
        here: it is authored on the `type: text` asset, which css() cannot reach. */
     --callout-fill-color: #f6d9c8;
+    --callout-stroke-color: #c9a0ad;
     /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
      Coral is the one saturated tone in the palette, so it carries the motion alone. */
     --pulse-stroke-color: #e8705f;

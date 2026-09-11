@@ -26,6 +26,7 @@
     /* Read by the store `note` annotation via css(). The note's TEXT colour is not
        here: it is authored on the `type: text` asset, which css() cannot reach. */
     --callout-fill-color: #a1b1c1;
+    --callout-stroke-color: #6f8296;
     /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
      The `from` is each node's own rest stroke (omitted in the DSL ⇒ defaults to
      it), so the pulse returns to rest per node. In light mode the border darkens
