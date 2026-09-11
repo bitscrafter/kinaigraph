@@ -1,1 +1,6 @@
-A request reaches the gateway, which checks it with auth, fetches the profile from the user service, and carries the answer back. What you are watching is not a drawing of that system — it is the source.
+The client asks for a profile. The document says only: ride that link.
+It checks the token with authn, and nothing told the packet where to turn.
+Allowed, and here is who. One word puts the return trip in its own lane.
+Now the profile itself, fetched by that id from the user service alone.
+Back comes everything the service holds on Jane Doe, exactly as stored.
+And home, unchanged — not one of those six legs was ever timed by hand.
