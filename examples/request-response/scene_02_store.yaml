@@ -95,7 +95,7 @@ defs:
                 now with a
                 data store
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
-            font_size: 15
+            font_size: 11
             font_color: "#eafaff"
 
         # Declared for its DURATION, not played here — every beat takes its length from
@@ -151,11 +151,21 @@ defs:
         #
         # The box holds still and only the pointer aims: the same split beat 1's
         # payload callouts use.
-        STORE_NOTE_X: 800
-        STORE_NOTE_Y: 324
-        STORE_NOTE_WIDTH: 160
-        STORE_NOTE_HEIGHT: 72
-        STORE_NOTE_PADDING: 12
+        # Sized to the caption, not to the space available. This is a label naming a
+        # node, so it should sit UNDER the node labels in weight — font 11 against the
+        # diagram's 14. Measured on the render, this face gives ~4.9 units per character
+        # at font 11, so the widest line ("now with a", 10 characters) needs ~53 units;
+        # 84 wide leaves margin and does not wrap. Two lines of ~17.6 leading plus the
+        # padding make 48.
+        #
+        # Centred on the store's own y 360, right edge just short of it. The LEFT edge
+        # at 876 is the binding constraint: the wedge between the two links runs
+        # y 297..423 there, and the box needs 336..384.
+        STORE_NOTE_X: 876
+        STORE_NOTE_Y: 336
+        STORE_NOTE_WIDTH: 84
+        STORE_NOTE_HEIGHT: 48
+        STORE_NOTE_PADDING: 6
         STORE_NOTE_RADIUS: 6
         STORE_NOTE_STROKE_WIDTH: 1.5
         # Clears the store's own box before it buys any gap — see beat 1's note on the
