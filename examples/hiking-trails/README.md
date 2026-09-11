@@ -25,7 +25,8 @@ clips into the headline deliverable.
 
 Each route scene sizes **itself** to its narration: it declares the line as an audio
 asset purely to probe its duration, and derives the callout's dwell from it. The audio
-is not played there — all three lines and the ambience bed mix once, in the stitch.
+is not played there — the three lines mix once, in the stitch, and the ambience
+version lays a bed under them.
 
 ⚠️ So the MP3s are **required to render anything**, not just the stitch: a scene that
 cannot probe its clip cannot compute its own dwell. They are committed for that reason.
@@ -74,7 +75,7 @@ cannot probe its clip cannot compute its own dwell. They are committed for that 
 | `resource/scene/markers*.svg` | Hand-authored glyph layers (one per route): the travelling arrowheads, the destination ring and star. |
 | `resource/template/main.html`, `resource/style/theme_dark.css` | Shared container and theme. |
 | `resource/script/` | Source narration text, one file per route. |
-| `scene_04_stitch_narration_only.yaml` | The same stitch without the ambience bed, so a clone renders the finished piece with nothing to download. **Read `scene_04_stitch.yaml` instead** — slicing a bed across separate roll entries is the capability worth studying, and it only exists there. |
+| `scene_04_stitch_with_ambience.yaml` | The same stitch with a forest bed under it. Needs the licensed track, so it is not the default — but it is **the one to read**: slicing a bed across separate roll entries is a capability that exists nowhere else here. |
 | `resource/audio/` | The narration. Committed, so a clone renders without a TTS key. |
 
 ## Rendering
@@ -90,10 +91,11 @@ kinaigraph scene_02_lake.yaml
 kinaigraph scene_03_rest.yaml
 
 # 3) Stitch the three into the final video.
-#    Needs the ambience track — see "Ambient audio" below. If you would rather
-#    not fetch it, run the narration-only companion instead.
 kinaigraph scene_04_stitch.yaml
-kinaigraph scene_04_stitch_narration_only.yaml
+
+# Optional: the same piece with a forest bed under it. Needs the track —
+# see "Ambient audio" below.
+kinaigraph scene_04_stitch_with_ambience.yaml
 ```
 
 To re-route a trail: repaint its trace, run
@@ -110,8 +112,14 @@ art in the example.
 [Pixabay](https://pixabay.com/), asset `445379`, under the
 [Pixabay Content License](https://pixabay.com/service/license-summary/).
 
-The audio file is **not committed**, which is why `scene_04_stitch_narration_only.yaml`
-exists: everything else in this example renders from a clone untouched. The licence permits free use, modification and
+The audio file is **not committed**, which is why the bed lives in its own document:
+`scene_04_stitch.yaml` is the default and renders from a clone untouched, while
+`scene_04_stitch_with_ambience.yaml` is the one that needs the download.
+
+⚠️ Read the ambience version even if you never render it. Slicing a bed across
+separate roll entries — source offsets expressed over the clips' own probed
+durations, so a re-timed route shifts the later slices automatically — is a
+capability that exists nowhere else in these examples. The licence permits free use, modification and
 commercial use without attribution, but forbids distributing the content "on a
 Standalone basis … where no creative effort has been applied to the Content and it
 remains in substantially the same form" — which is what shipping the raw MP3 in a
