@@ -12,8 +12,18 @@ to a before-and-after.
 
 | File | What it is |
 | ---- | ---------- |
-| `scene_01_flow.yaml` | Beat 1, authored with **six explicit `move` entries** and hand-measured leg lengths. |
-| `scene_01_flow_with_bookmarks.yaml` | The same beat, authored with **action bookmarks** and `pace_by: distance`. Shorter — and more correct. |
+| `scene_01_flow.yaml` | Beat 1, authored with **action bookmarks** and `pace_by: distance`. The canonical one. |
+| `scene_01_flow_with_orient_at_parent_action.yaml` | The same beat, authored with **six explicit `move` entries** and hand-measured leg lengths. |
+
+The names say where `orient: auto` sits, because that is what the two structures force.
+The canonical file rides one parent `move` carrying six bookmarked **sub-actions**, and
+`orient` goes on each sub-action. The other has no parent at all — six independent
+top-level **actions**, one per timeline entry, each carrying its own `orient`.
+
+⚠️ Neither is the *third* spelling, `orient` on a parent that carries only `actions:` and
+no `along` of its own. That parent has no tangent to read, writes a constant `0` rotation,
+and the chevron never turns around on the return legs. It is an open bug in the engine,
+not an authoring choice, and nothing in this example does it.
 
 `scene_00_tts_generation.yaml` is synthesis-only. It generates the narration for all
 three beats from the scripts under `resource/script/`. Run it once, before rendering, and again
@@ -69,19 +79,25 @@ fade in, a hold, a fade out — whose three durations sum to `leg1.duration` exa
 leg1.start:
     - callout_request:
           - show:
-                duration: CALLOUT_FADE_MS
+                duration: "leg1.duration * CALLOUT_FADE_SHARE"
                 opacity: { from: 0, to: 1 }
                 hold:
-                    after: "leg1.duration - CALLOUT_FADE_MS * 2"
+                    after: "leg1.duration * (1 - CALLOUT_FADE_SHARE * 2)"
           - show:
-                duration: CALLOUT_FADE_MS
+                duration: "leg1.duration * CALLOUT_FADE_SHARE"
                 opacity: { from: 1, to: 0 }
 ```
 
+The fade is a **share of the leg**, not a span in milliseconds. Two fades are spent inside
+one leg's window and the hold is what is left, so a fixed fade would go negative on any
+leg shorter than twice it — and a leg's length comes from `narration.duration`. The three
+windows are `SHARE + (1 - 2·SHARE) + SHARE`, which is 1 at every narration length.
+
 Keying the fade-out at `leg1.end` instead would *start* it there and let the box linger a
-fade into leg 2. Only `scene_01_flow_with_bookmarks.yaml` carries the callouts: naming
-the window `leg1.duration` costs nothing there, where the leg is already addressable,
-while `scene_01_flow.yaml` would have to spend another hand-measured constant on it.
+fade into leg 2. Only `scene_01_flow.yaml` carries the callouts: naming the window
+`leg1.duration` costs nothing there, where the leg is already addressable, while
+`scene_01_flow_with_orient_at_parent_action.yaml` would have to spend another
+hand-measured constant on it.
 
 ⚠️ **The payload text is inlined as `content:`, not read from `resource/text/`.** The same
 two payloads are committed at `resource/text/get_user_info_request.txt` and
@@ -176,8 +192,8 @@ text colour is a literal on its `type: text` asset, tracking `theme_blueprint.cs
   re-resolves the apex every frame, so the two payload callouts keep aiming at the packet
   as it travels while their boxes stay put and stay readable.
 - **Why six entries rather than one `move` with six sub-actions:** a sub-action was not
-  addressable from the timeline when `scene_01_flow.yaml` was written, so nothing could
-  hang a badge pulse on a leg boundary. Six entries buy that addressability; the cost is
+  addressable from the timeline when `scene_01_flow_with_orient_at_parent_action.yaml`
+  was written, so nothing could hang a badge pulse on a leg boundary. Six entries buy that addressability; the cost is
   six hand-measured lengths.
 
 ### The disagreement, and why the shorter file is the better one
@@ -192,11 +208,12 @@ envelope matches to a tenth of a millisecond. The **leg boundaries** do not:
 
 The compiler's numbers hold **one speed** across every leg: 372.0 / 2674.2 and
 269.3 / 1936.1 are both 0.1391 px/ms. The hand-measured constants give leg 1 a length
-ratio of 1.278 where the true arc ratio is 1.381 — so in `scene_01_flow.yaml` the packet
-**speeds up and slows down at each leg boundary**. That is exactly what
+ratio of 1.278 where the true arc ratio is 1.381 — so in
+`scene_01_flow_with_orient_at_parent_action.yaml` the packet **speeds up and slows down at
+each leg boundary**. That is exactly what
 `pace_by: distance` exists to prevent, and it was silently not happening.
 
-`scene_01_flow_with_bookmarks.yaml` was also written *before* the `action-bookmarks`
+`scene_01_flow.yaml` was also written *before* the `action-bookmarks`
 feature was built, as a check of the design against a real document rather than a sketch.
 The feature shipped and the file needed no change to become valid: the spelling it was
 written against is the spelling that shipped.
@@ -204,17 +221,17 @@ written against is the spelling that shipped.
 ## Layout
 
 ```text
-scene_00_tts_generation.yaml      narration synthesis (run first)
-scene_01_flow.yaml                beat 1, hand-timed
-scene_01_flow_with_bookmarks.yaml beat 1, paced by distance
+scene_00_tts_generation.yaml                       narration synthesis (run first)
+scene_01_flow.yaml                                 beat 1, paced by distance
+scene_01_flow_with_orient_at_parent_action.yaml    beat 1, hand-timed
 resource/
-  scene/get_user_info_v1.svg      the system, as drawn
-  scene/get_user_info_v2.svg      the same, plus the shared data store
-  scene/chevron_layer.svg         the packet marker
-  script/                         the three narration lines
-  style/theme_*.css               four skins (dark, light, pastel, blueprint)
-  template/main.html              the page the scene is composed into
-  text/                           the two HTTP payloads beat 1 quotes
+  scene/get_user_info_v1.svg                       the system, as drawn
+  scene/get_user_info_v2.svg                       the same, plus the shared data store
+  scene/chevron_layer.svg                          the packet marker
+  script/                                          the three narration lines
+  style/theme_*.css                                four skins (dark, light, pastel, blueprint)
+  template/main.html                               the page the scene is composed into
+  text/                                            the two HTTP payloads beat 1 quotes
 ```
 
 ## Rendering it
@@ -224,11 +241,11 @@ Run from this directory:
 
 ```sh
 kinaigraph scene_00_tts_generation.yaml --outdir ./out    # once, to synthesize narration
-kinaigraph scene_01_flow_with_bookmarks.yaml --outdir ./out
+kinaigraph scene_01_flow.yaml --outdir ./out
 ```
 
-Render `scene_01_flow.yaml` too if you want to see the difference the table above
-describes.
+Render `scene_01_flow_with_orient_at_parent_action.yaml` too if you want to see the
+difference the table above describes.
 
 Paths inside a scene resolve against the scene file's own folder — which is this
 directory — so `file:` values need no `../`. Outputs resolve against whatever you pass as
