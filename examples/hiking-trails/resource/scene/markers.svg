@@ -1,17 +1,17 @@
 <!--
   Marker layer — the glyphs that ride and terminate the route. Stacks ABOVE
-  map.svg and route_layer.svg on the shared 0 0 1920 1080 viewBox, so all three
+  map.svg and route_layer_summit.svg on the shared 0 0 1920 1080 viewBox, so all three
   address one coordinate space.
 
   Layer order is DECLARATION order in the scene file's `defs.assets`
   (painter's algorithm, ADR §47 D-Z1): map, then route_layer, then markers.
   Declare this one last or the route will paint over its own markers.
 
-  HAND-AUTHORED — unlike route_layer.svg, which ./make_route_svg.py regenerates
+  HAND-AUTHORED — unlike route_layer_summit.svg, which ./make_route_svg.py regenerates
   from the owner's trace. Keeping the glyphs here is what lets the route be
   regenerated freely without clobbering them, and lets the same shapes be reused
   by other scenes. A rider here can still `move … along` a path that lives in
-  route_layer.svg: move-along resolves an asset segment cross-scene within a frame.
+  route_layer_summit.svg: move-along resolves an asset segment cross-scene within a frame.
 
   Shapes come from tech-docs/internal/design/diagram/icons.svg (`star`,
   `navigation-arrow`), reproduced on the 24x24 grid with the same geometry. Only

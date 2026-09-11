@@ -3,7 +3,7 @@
 # ------------------------------------------
 # The walk out to the lake jetty, taken from an owner-authored trace painted over the
 # baked map and turned into overlay geometry by `resource/temp/make_route_svg.py`.
-# A companion to `scene_summit.yaml`, built to the same pattern: the route fades in
+# A companion to `scene_01_summit.yaml`, built to the same pattern: the route fades in
 # under a travelling marker that rides the drawn line, the destination is a star seated
 # in a pulsing ring, and a callout names what was reached.
 #
@@ -108,9 +108,14 @@ defs:
 
         # Declared for its DURATION, not to be played here. The clip takes its length
         # from this file so the visuals stretch to the voice; the narration itself is
-        # mixed once, in `scene_stitch.yaml`, where all three lines and the music bed
+        # mixed once, in `scene_04_stitch.yaml`, where all three lines and the music bed
         # meet. Generate it with `scene_00_tts_generation.yaml` before rendering — the
         # inspector probes this at compile time and cannot guess.
+        # Declared after the marker layers, so the badge paints over everything.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
         narration:
             type: "audio"
             file: "./resource/audio/part_02_lake.mp3"
@@ -275,6 +280,11 @@ animation:
                         opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+            # A scene is hidden until shown, the map included — the badge is no
+            # different, and declaring it without this draws nothing.
+            - brand:
+                  - show:
+                        opacity: 1
             - seg_1:
                   - show:
                         opacity: 0
@@ -378,5 +388,5 @@ animation:
 
     capture:
         video_lake:
-            output: "./video/scene_lake_animation.mp4"
+            output: "./resource/video/scene_02_lake_animation.mp4"
             fps: 30

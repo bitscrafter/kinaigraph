@@ -4,7 +4,7 @@
   in the headless pipeline) and JPEG-compressed (a PNG base64 is ~5x heavier and
   can freeze/truncate the per-frame render). viewBox matches the pixel size, so
   overlay-layer actors (routes, markers) address the same coordinate space.
-  Regenerate with ./make_map_svg.sh after replacing hiking.png (QUALITY env tunes it).
+  Regenerate with ./make_map_svg.sh after replacing hiking_map.png (QUALITY env tunes it).
 -->
 <svg id="map" width="1920" height="1080" viewBox="0 0 1920 1080"
      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

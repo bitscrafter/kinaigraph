@@ -15,17 +15,20 @@ figures in the callout all move together, because they all come from the same tr
 
 | Route | Scene | Stretches | Beat |
 | ----- | ----- | --------- | ---- |
-| Summit Peak | `scene_summit.yaml` | 9 (alternating) | The long climb. The marker turns onto the curve as it walks, and hands off between a solid arrowhead and an outline ghost nine times as the pines hide it. |
-| Serenity Lake | `scene_lake.yaml` | 1 (all visible) | The open walk. Traced entirely in the visible brush, so there is no ghost at all — the difference from the summit is the painting, not the code. |
-| Viewpoint Rest Stop | `scene_rest.yaml` | 7 (alternating) | The pull past the stone cabin, whose roof hides the longest stretch of the three. Ends on a callout anchored to the marker rather than to a coordinate. |
+| Summit Peak | `scene_01_summit.yaml` | 9 (alternating) | The long climb. The marker turns onto the curve as it walks, and hands off between a solid arrowhead and an outline ghost nine times as the pines hide it. |
+| Serenity Lake | `scene_02_lake.yaml` | 1 (all visible) | The open walk. Traced entirely in the visible brush, so there is no ghost at all — the difference from the summit is the painting, not the code. |
+| Viewpoint Rest Stop | `scene_03_rest.yaml` | 7 (alternating) | The pull past the stone cabin, whose roof hides the longest stretch of the three. Ends on a callout anchored to the marker rather than to a coordinate. |
 
 `scene_00_tts_generation.yaml` is synthesis-only — it generates the narration MP3s under
-`audio/` from the scripts under `resource/script/`. `scene_stitch.yaml` concatenates the three
+`resource/audio/` from the scripts under `resource/script/`. `scene_04_stitch.yaml` concatenates the three
 clips into the headline deliverable.
 
 Each route scene sizes **itself** to its narration: it declares the line as an audio
 asset purely to probe its duration, and derives the callout's dwell from it. The audio
 is not played there — all three lines and the ambience bed mix once, in the stitch.
+
+⚠️ So the MP3s are **required to render anything**, not just the stitch: a scene that
+cannot probe its clip cannot compute its own dwell. They are committed for that reason.
 
 ## How the capabilities show up
 
@@ -63,7 +66,7 @@ is not played there — all three lines and the ambience bed mix once, in the st
 
 | Path | What |
 | ---- | ---- |
-| `resource/image/hiking.png` | The source map artwork. |
+| `resource/image/hiking_map.png` | The source map artwork. |
 | `resource/scene/map.svg` | The backdrop layer — the map base64-embedded as a JPEG data URI. Rebuild with `make_map_svg.sh`. |
 | `resource/temp/hiking_trace*.png` / `*.jpeg` | The owner-authored paintings each route is extracted from. Every trace an example depends on lives here, beside the generator. |
 | `resource/temp/make_route_svg.py` | Turns a trace into a route overlay. One entry per route in its `ROUTES` table. |
@@ -71,22 +74,22 @@ is not played there — all three lines and the ambience bed mix once, in the st
 | `resource/scene/markers*.svg` | Hand-authored glyph layers (one per route): the travelling arrowheads, the destination ring and star. |
 | `resource/template/main.html`, `resource/style/theme_dark.css` | Shared container and theme. |
 | `resource/script/` | Source narration text, one file per route. |
-| `audio/` | TTS-generated narration (output of `scene_00`, not published). |
+| `resource/audio/` | The narration. Committed, so a clone renders without a TTS key. |
 
 ## Rendering
 
 ```bash
-# 1) Generate the narration once (only when a script changes). Needs ELEVENLABS_API_KEY.
-#    Nothing consumes these MP3s yet — see the note above.
-kinaigraph scene_00_tts_generation.yaml --outdir .
+# 1) Only if a SCRIPT changed. The narration is committed, so a clone can skip
+#    this entirely. Needs ELEVENLABS_API_KEY and costs credits.
+kinaigraph scene_00_tts_generation.yaml
 
 # 2) Render each route.
-kinaigraph scene_summit.yaml --outdir ./out
-kinaigraph scene_lake.yaml   --outdir ./out_lake
-kinaigraph scene_rest.yaml   --outdir ./out_rest
+kinaigraph scene_01_summit.yaml
+kinaigraph scene_02_lake.yaml
+kinaigraph scene_03_rest.yaml
 
 # 3) Stitch the three into the final video.
-kinaigraph scene_stitch.yaml --outdir ./out_full
+kinaigraph scene_04_stitch.yaml
 ```
 
 To re-route a trail: repaint its trace, run

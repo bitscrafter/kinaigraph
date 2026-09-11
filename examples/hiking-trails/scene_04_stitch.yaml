@@ -27,13 +27,13 @@ defs:
         # Each route renders to its own outdir, so the three clips do not collide.
         summit:
             type: video
-            file: "./out/video/scene_summit_animation.mp4"
+            file: "./resource/video/scene_01_summit_animation.mp4"
         lake:
             type: video
-            file: "./out/video/scene_lake_animation.mp4"
+            file: "./resource/video/scene_02_lake_animation.mp4"
         rest:
             type: video
-            file: "./out/video/scene_rest_animation.mp4"
+            file: "./resource/video/scene_03_rest_animation.mp4"
 
         # The narration. Each route scene already sized ITSELF to one of these — the
         # clip is as long as the line — so mixing each onto its own clip lands the
@@ -161,5 +161,5 @@ composition:
 
     capture:
         video_hiking_trails_full:
-            output: "./video/hiking_trails_full.mp4"
+            output: "./hiking_trails.mp4"
             fps: 30

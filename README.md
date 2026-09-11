@@ -187,8 +187,8 @@ Render the self-contained scene:
 
 ```sh
 cd kinaigraph/examples/hiking-trails
-kinaigraph scene_summit_faceted.yaml
-open ./video/scene_summit_faceted.mp4
+kinaigraph scene_01_summit_faceted.yaml
+open ./scene_01_summit_faceted.mp4
 ```
 
 That is the whole loop: a scene file in, an MP4 out.

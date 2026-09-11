@@ -46,5 +46,29 @@
     --kg-link-dash: 6 4;
 
     /* Typography */
-    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --kg-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+}
+
+/* ── Brand badge ────────────────────────────────────────────────────────────
+ * The map is an edge-to-edge cartoon illustration, so the mark cannot sit on it
+ * bare — dark ink on transparency disappears into the artwork. The disc gives it
+ * a surface, and the artwork is inverted to read against that disc.
+ *
+ * The logo is wider than the disc and clipped by it, which is the point: a mark
+ * that fits exactly inside a circle looks like a logo someone put in a circle,
+ * and one that is cropped looks like a stamp.
+ *
+ * ⚠️ The disc is LIGHT and the artwork is left dark. A dark disc with the artwork
+ * inverted was tried first and is worse here: the map is bright and busy, so the
+ * badge needs to separate from it, and inverting the ink leaves too little
+ * contrast INSIDE the badge. Compared three treatments against the real frame
+ * before choosing.
+ */
+.brand-disc {
+    fill: #f5f2e9;
+    opacity: 0.92;
+}
+
+.brand-art {
+    opacity: 0.88;
 }
