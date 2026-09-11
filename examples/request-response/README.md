@@ -1,6 +1,6 @@
 # Request/Response — One Packet, Two Authorings
 
-A "Get User Info" request walks a small system: the client calls the gateway, the gateway
+A "Get User Profile" request walks a small system: the client calls the gateway, the gateway
 checks the caller with auth, fetches the profile from the user service, and carries the
 answer home. Six legs over three drawn connectors, each ridden twice.
 
@@ -30,7 +30,7 @@ three beats from the scripts under `resource/script/`. Run it once, before rende
 whenever a script changes.
 
 Beats 2 (*"the data store this diagram forgot"*) and 3 (*"re-themes from a single
-line"*) exist here as **narration and resources** — `get_user_info_v2.svg` adds the store
+line"*) exist here as **narration and resources** — `get_user_profile_v2.svg` adds the store
 node, and `resource/style/` carries four stylesheets — but are not yet authored as scenes.
 The [`microservices-flow`](../microservices-flow/) example shows both of those ideas
 built out.
@@ -107,20 +107,20 @@ files are the authority and the inlined copies must be kept in agreement with th
 
 ### The store callout is a `note` annotation, not artwork
 
-`get_user_info_v2.svg` draws the diagram and nothing else. The callout that names the new
+`get_user_profile_v2.svg` draws the diagram and nothing else. The callout that names the new
 store is declared by the **document**, as a `note` annotation — a box, an auto-aimed
 pointer and its own fade, authored in YAML. Keeping it out of the artwork is what lets the
 same scene be reused by a beat that does not want the callout at all.
 
 Paste this into the beat-2 document when it is authored; it is verified against
-`get_user_info_v2.svg` and reproduces the callout the SVG used to carry:
+`get_user_profile_v2.svg` and reproduces the callout the SVG used to carry:
 
 ```yaml
 defs:
     assets:
         data_store:
             type: "actor"
-            part_of: diagram          # the scene asset holding get_user_info_v2.svg
+            part_of: diagram          # the scene asset holding get_user_profile_v2.svg
             id: data-store
         store_caption:
             type: "text"
@@ -225,8 +225,8 @@ scene_00_tts_generation.yaml                       narration synthesis (run firs
 scene_01_flow.yaml                                 beat 1, paced by distance
 scene_01_flow_with_orient_at_parent_action.yaml    beat 1, hand-timed
 resource/
-  scene/get_user_info_v1.svg                       the system, as drawn
-  scene/get_user_info_v2.svg                       the same, plus the shared data store
+  scene/get_user_profile_v1.svg                       the system, as drawn
+  scene/get_user_profile_v2.svg                       the same, plus the shared data store
   scene/chevron_layer.svg                          the packet marker
   script/                                          the three narration lines
   style/theme_*.css                                four skins (dark, light, pastel, blueprint)

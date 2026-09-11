@@ -1,7 +1,7 @@
 # ------------------------------------------
 # request-response — Beat 1: the request
 # ------------------------------------------
-# A "Get User Info" request walks the system: the client calls the gateway, the gateway
+# A "Get User Profile" request walks the system: the client calls the gateway, the gateway
 # checks the caller with auth, fetches the profile from the user service, and carries
 # the answer home. Six legs over three drawn connectors, each ridden twice.
 #
@@ -25,9 +25,9 @@ defs:
     assets:
         # v1 — no data store. Beat 2 introduces it, so it must genuinely be absent here
         # rather than hidden; the change is the point of that beat.
-        get_user_info_v1:
+        get_user_profile_v1:
             type: "scene"
-            file: "./resource/scene/get_user_info_v1.svg"
+            file: "./resource/scene/get_user_profile_v1.svg"
         # Stacked ABOVE the diagram (declaration order is render order), so the packet
         # travels over the connectors rather than under them.
         chevrons:
@@ -38,34 +38,34 @@ defs:
         # declared name — bare, since a defs key names one actor wherever it is written.
         link_client_gateway:
             type: "actor"
-            part_of: get_user_info_v1
+            part_of: get_user_profile_v1
             id: link-client-gateway
         link_gateway_auth:
             type: "actor"
-            part_of: get_user_info_v1
+            part_of: get_user_profile_v1
             id: link-gateway-auth
         link_gateway_user:
             type: "actor"
-            part_of: get_user_info_v1
+            part_of: get_user_profile_v1
             id: link-gateway-user
 
         # The step badges. Each leg pulses the badge of the node it is ARRIVING at, so
         # the numbers stop being decoration and become a running position indicator.
         badge_client:
             type: "actor"
-            part_of: get_user_info_v1
+            part_of: get_user_profile_v1
             id: step-1-badge
         badge_gateway:
             type: "actor"
-            part_of: get_user_info_v1
+            part_of: get_user_profile_v1
             id: step-2-badge
         badge_auth:
             type: "actor"
-            part_of: get_user_info_v1
+            part_of: get_user_profile_v1
             id: step-3-badge
         badge_user:
             type: "actor"
-            part_of: get_user_info_v1
+            part_of: get_user_profile_v1
             id: step-4-badge
 
         # ONE packet. `orient: auto` supplies every heading it needs.
@@ -157,7 +157,7 @@ defs:
 animation:
     defaults:
         assets:
-            scene: get_user_info_v1
+            scene: get_user_profile_v1
 
     annotations:
         # A note with NO pointer is just an author-sized box. The legend keeps one
@@ -182,7 +182,7 @@ animation:
 
     timeline:
         0 @ setup_ts:
-            - get_user_info_v1:
+            - get_user_profile_v1:
                   - show:
                         opacity: 1
                         hold:
@@ -349,7 +349,7 @@ animation:
             - chip_capability:
                   - show:
                         opacity: 0
-            - get_user_info_v1:
+            - get_user_profile_v1:
                   - show:
                         opacity: 1
                         hold:

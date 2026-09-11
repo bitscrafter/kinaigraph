@@ -1,4 +1,4 @@
-<svg id="get_user_info_v1" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+<svg id="get_user_profile_v1" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
   <!-- Static architecture diagram (Scenes 01-02). The chevron-packet that animates
        through this flow lives in a separate, stacked scene asset
        (resource/scene/chevron_layer.svg). Both SVGs share the 0 0 1280 720 viewBox
@@ -50,7 +50,7 @@
 
   <rect class="scene-bg" width="1280" height="720" />
 
-  <text id="title" class="title" x="640" y="115" text-anchor="middle">Get User Info</text>
+  <text id="title" class="title" x="640" y="115" text-anchor="middle">Get User Profile</text>
 
   <!-- Connection lines: center-to-center geometry; in-box portions hidden by the node groups. -->
   <path id="link-client-gateway" class="link-client-gateway" d="M 290 360 L 580 360" />

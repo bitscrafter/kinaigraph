@@ -1,6 +1,6 @@
-<svg id="get_user_info_v2" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
-  <!-- v2 diagram: get_user_info_v1 + a Data Store the User service reads.
-       Differences from get_user_info_v1.svg:
+<svg id="get_user_profile_v2" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- v2 diagram: get_user_profile_v1 + a Data Store the User service reads.
+       Differences from get_user_profile_v1.svg:
          - new node data-store (centered at 1040,360)
          - one new leg: link-store-user (auth is stateless — JWT authn/authz — so it
            does NOT consult the store; only the user service does)
@@ -56,7 +56,7 @@
 
   <rect class="scene-bg" width="1280" height="720" />
 
-  <text id="title" class="title" x="640" y="115" text-anchor="middle">Get User Info</text>
+  <text id="title" class="title" x="640" y="115" text-anchor="middle">Get User Profile</text>
 
   <!-- Connection lines (center-to-center); in-box portions hidden by the node groups. -->
   <path id="link-client-gateway" class="link-client-gateway" d="M 290 360 L 580 360" />
