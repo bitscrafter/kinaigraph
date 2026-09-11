@@ -9,11 +9,10 @@
 # permits use but not redistribution — so that document cannot run until you
 # fetch the track. This one has no such dependency.
 #
-#     kinaigraph scene_stitch_narration_only.yaml
+#     kinaigraph scene_04_stitch_narration_only.yaml
 #
-# ⚠️ UNNUMBERED on purpose. The numbers are stitch order and this is not a fourth
-# step; it is a companion to step 04, the way scene_summit_faceted is a companion
-# to step 01.
+# Numbered 04 like the document it mirrors: it IS step four, in the variant that
+# needs nothing fetched.
 #
 # ⚠️ The bedded version is the one to READ. Slicing a bed across separate roll
 # entries — so the source offsets follow the clips' own probed durations and a

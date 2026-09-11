@@ -58,17 +58,20 @@
  * that fits exactly inside a circle looks like a logo someone put in a circle,
  * and one that is cropped looks like a stamp.
  *
- * ⚠️ The disc is LIGHT and the artwork is left dark. A dark disc with the artwork
- * inverted was tried first and is worse here: the map is bright and busy, so the
- * badge needs to separate from it, and inverting the ink leaves too little
- * contrast INSIDE the badge. Compared three treatments against the real frame
- * before choosing.
+ * Black disc, inverted artwork, and a warm sand-coloured ring. The ring is what
+ * makes a dark badge work on this map: without it the disc reads as a hole
+ * punched in the illustration, and the map is dark in that corner anyway. Sand
+ * rather than white because the palette is earth and foliage, and a pure white
+ * ring looks like a UI element dropped on a painting.
  */
 .brand-disc {
-    fill: #f5f2e9;
-    opacity: 0.92;
+    fill: #0b0f0d;
+    stroke: #d8c8a0;
+    stroke-width: 2.6;
+    opacity: 0.86;
 }
 
 .brand-art {
-    opacity: 0.88;
+    filter: invert(1);
+    opacity: 0.9;
 }

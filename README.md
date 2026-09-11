@@ -186,9 +186,9 @@ their narration, so every input they use is already in this repository. Start th
 Render the self-contained scene:
 
 ```sh
-cd kinaigraph/examples/hiking-trails
-kinaigraph scene_summit_faceted.yaml
-open ./scene_summit_faceted.mp4
+cd kinaigraph/examples/milestone-ladder
+kinaigraph milestone_ladder_teaser.yaml
+open ./milestone_ladder_teaser.mp4
 ```
 
 That is the whole loop: a scene file in, an MP4 out.

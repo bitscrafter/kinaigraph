@@ -199,7 +199,7 @@ defs:
         # ONE walking speed, shared verbatim by all three route scenes, so the marker
         # reads as the same walker throughout the stitched piece. The rest stop sets
         # the value (its narration has the least slack); this route has room at it.
-        PACE_PX_PER_S: 168
+        PACE_PX_PER_S: 210
 
         # ── Geometry ──────────────────────────────────────────────────────────────
         # Per-stretch arc length, printed by `resource/temp/make_route_svg.py`.
@@ -243,12 +243,17 @@ defs:
         PULSE_CYCLES: 2
         # Star settle — shorter than one pulse cycle so it is planted before the
         # ring's first beat, rather than growing through it.
-        STAR_ARRIVE_MS: 600
-        STAR_SPIN_MS: 400
+        STAR_ARRIVE_MS: 420
+        STAR_SPIN_MS: 280
         # The ring's beat, and the ARRIVAL entry's true length: an entry runs as long
         # as its longest actor, and this outlasts the star's settle-then-spin.
-        PULSE_MS: 1100
-        NOTE_REVEAL_MS: 900
+        # ⚠️ PULSE_MS must be >= STAR_ARRIVE_MS + STAR_SPIN_MS. Both live in the
+        # `arrive_ts` entry, whose length is its LONGEST actor chain, and FIXED_MS
+        # below counts PULSE_MS as if the pulse always were it. Drop PULSE_MS under
+        # the star chain and the entry silently runs long, so NOTE_HOLD_MS
+        # over-subtracts and the scene stops matching its narration.
+        PULSE_MS: 700
+        NOTE_REVEAL_MS: 600
 
         # Everything in the clip that is NOT the callout's dwell. `FADE_WINDOW` is in
         # here because the traveller's fade-in and its first walk are two actions in
