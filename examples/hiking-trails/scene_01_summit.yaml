@@ -35,7 +35,7 @@ defs:
         # the trace generator rewrites.
         markers:
             type: "scene"
-            file: "./resource/scene/markers.svg"
+            file: "./resource/scene/markers_summit.svg"
 
         # Each stretch is a group (faded in as the marker enters it) wrapping the line
         # the marker rides. Odd stretches are visible, even ones hidden.
