@@ -10,8 +10,8 @@
 /* container. The browser cascade resolves the SVG's            */
 /* `var(--x)` references against `:root ⊕ .<activeTheme>`.       */
 /*                                                              */
-/* The animated pulse reads `--pulse-to`, and where a theme      */
-/* splits it, `--pulse-to-solid`, via the DSL's `css("…")` —     */
+/* The animated pulse reads `--pulse-target-color`, and where a theme      */
+/* splits it, `--pulse-target-solid-color`, via the DSL's `css("…")` —     */
 /* those names are extracted at compile time and baked per      */
 /* theme.                                                       */
 /*                                                              */
@@ -34,46 +34,46 @@
 /* ------------------------------------------------------------ */
 :root {
     /* Page chrome */
-    --page-bg: #202020;
-    --page-text: #E0E0E0;
+    --page-background-color: #202020;
+    --page-text-color: #E0E0E0;
 
     /* Canvas + containers */
-    --canvas-bg: #101010;
-    --hexagon-fill: #1A1A1A;
-    --hexagon-stroke: #888888;
-    --port-circle-fill: #242424;
-    --port-circle-stroke: #888888;
-    --adapter-box-fill: #1E1E1E;
-    --adapter-box-stroke: #888888;
-    --connection-line-stroke: #666666;
-    --layer-circle-stroke: #888888;
-    --subsystem-ring-stroke: #888888;
-    --subsystem-segment-fill-1: #1C1C1C;
-    --subsystem-segment-fill-2: #202020;
+    --canvas-background-color: #101010;
+    --hexagon-fill-color: #1A1A1A;
+    --hexagon-stroke-color: #888888;
+    --port-circle-fill-color: #242424;
+    --port-circle-stroke-color: #888888;
+    --adapter-box-fill-color: #1E1E1E;
+    --adapter-box-stroke-color: #888888;
+    --connection-line-stroke-color: #666666;
+    --layer-circle-stroke-color: #888888;
+    --subsystem-ring-stroke-color: #888888;
+    --subsystem-segment-1-fill-color: #1C1C1C;
+    --subsystem-segment-2-fill-color: #202020;
 
     /* Text scale */
-    --text-primary: #E0E0E0;
-    --text-secondary: #CCCCCC;
-    --text-tertiary: #BBBBBB;
-    --text-quaternary: #AAAAAA;
-    --text-subtitle: #999999;
-    --text-app-subtitle: #888888;
-    --text-diagram-title: #989898;
-    --text-legend: #999999;
+    --text-primary-color: #E0E0E0;
+    --text-secondary-color: #CCCCCC;
+    --text-tertiary-color: #BBBBBB;
+    --text-quaternary-color: #AAAAAA;
+    --text-subtitle-color: #999999;
+    --text-app-subtitle-color: #888888;
+    --text-diagram-title-color: #989898;
+    --text-legend-color: #999999;
 
     /* Layer gradients */
-    --gradient-model-start: #252525;
-    --gradient-model-end: #1E1E1E;
-    --gradient-usecase-start: #222222;
-    --gradient-usecase-end: #1A1A1A;
-    --gradient-infra-start: #252525;
-    --gradient-infra-end: #1E1E1E;
+    --gradient-model-start-color: #252525;
+    --gradient-model-end-color: #1E1E1E;
+    --gradient-usecase-start-color: #222222;
+    --gradient-usecase-end-color: #1A1A1A;
+    --gradient-infra-start-color: #252525;
+    --gradient-infra-end-color: #1E1E1E;
 
     /* Misc */
-    --pointer-stroke: #7070D0;
+    --pointer-stroke-color: #7070D0;
 
-    /* Animated pulse endpoint (read by css("pulse-to")) */
-    --pulse-to: #E0E0E0;
+    /* Animated pulse endpoint (read by css("pulse-target-color")) */
+    --pulse-target-color: #E0E0E0;
 }
 
 /* ------------------------------------------------------------ */
@@ -81,47 +81,47 @@
 /* ------------------------------------------------------------ */
 .dark {
     /* Page chrome */
-    --page-bg: #181818;
-    --page-text: #E0E0E0;
+    --page-background-color: #181818;
+    --page-text-color: #E0E0E0;
 
     /* Canvas + containers */
-    --canvas-bg: #101010;
-    --hexagon-fill: #1A1A1A;
-    --hexagon-stroke: #E0E0E0;
-    --port-circle-fill: #242424;
-    --port-circle-stroke: #C8C8C8;
-    --adapter-box-fill: #1E1E1E;
-    --adapter-box-stroke: #C8C8C8;
-    --connection-line-stroke: #888888;
-    --layer-circle-stroke: #C8C8C8;
-    --subsystem-ring-stroke: #C8C8C8;
-    --subsystem-segment-fill-1: #1C1C1C;
-    --subsystem-segment-fill-2: #202020;
+    --canvas-background-color: #101010;
+    --hexagon-fill-color: #1A1A1A;
+    --hexagon-stroke-color: #E0E0E0;
+    --port-circle-fill-color: #242424;
+    --port-circle-stroke-color: #C8C8C8;
+    --adapter-box-fill-color: #1E1E1E;
+    --adapter-box-stroke-color: #C8C8C8;
+    --connection-line-stroke-color: #888888;
+    --layer-circle-stroke-color: #C8C8C8;
+    --subsystem-ring-stroke-color: #C8C8C8;
+    --subsystem-segment-1-fill-color: #1C1C1C;
+    --subsystem-segment-2-fill-color: #202020;
 
     /* Text scale (light on dark) */
-    --text-primary: #F5F5F5;
-    --text-secondary: #E0E0E0;
-    --text-tertiary: #CCCCCC;
-    --text-quaternary: #BBBBBB;
-    --text-subtitle: #AAAAAA;
-    --text-app-subtitle: #999999;
-    --text-diagram-title: #C0C0C0;
-    --text-legend: #AAAAAA;
+    --text-primary-color: #F5F5F5;
+    --text-secondary-color: #E0E0E0;
+    --text-tertiary-color: #CCCCCC;
+    --text-quaternary-color: #BBBBBB;
+    --text-subtitle-color: #AAAAAA;
+    --text-app-subtitle-color: #999999;
+    --text-diagram-title-color: #C0C0C0;
+    --text-legend-color: #AAAAAA;
 
     /* Layer gradients (dark fills) */
-    --gradient-model-start: #2A2A2A;
-    --gradient-model-end: #1E1E1E;
-    --gradient-usecase-start: #242424;
-    --gradient-usecase-end: #1A1A1A;
-    --gradient-infra-start: #2A2A2A;
-    --gradient-infra-end: #1E1E1E;
+    --gradient-model-start-color: #2A2A2A;
+    --gradient-model-end-color: #1E1E1E;
+    --gradient-usecase-start-color: #242424;
+    --gradient-usecase-end-color: #1A1A1A;
+    --gradient-infra-start-color: #2A2A2A;
+    --gradient-infra-end-color: #1E1E1E;
 
     /* Misc */
-    --pointer-stroke: #9090E0;
+    --pointer-stroke-color: #9090E0;
 
     /* Animated pulse endpoint */
-    --pulse-to: #E0E0E0;
-    --pulse-to-solid: #E0E0E0;
+    --pulse-target-color: #E0E0E0;
+    --pulse-target-solid-color: #E0E0E0;
 }
 
 /* ------------------------------------------------------------ */
@@ -129,47 +129,47 @@
 /* ------------------------------------------------------------ */
 .light {
     /* Page chrome */
-    --page-bg: #E8E8E8;
-    --page-text: #101010;
+    --page-background-color: #E8E8E8;
+    --page-text-color: #101010;
 
     /* Canvas + containers */
-    --canvas-bg: #F5F5F5;
-    --hexagon-fill: #FFFFFF;
-    --hexagon-stroke: #202020;
-    --port-circle-fill: #FCFCFC;
-    --port-circle-stroke: #303030;
-    --adapter-box-fill: #EEEEEE;
-    --adapter-box-stroke: #303030;
-    --connection-line-stroke: #707070;
-    --layer-circle-stroke: #303030;
-    --subsystem-ring-stroke: #303030;
-    --subsystem-segment-fill-1: #E8E8E8;
-    --subsystem-segment-fill-2: #F0F0F0;
+    --canvas-background-color: #F5F5F5;
+    --hexagon-fill-color: #FFFFFF;
+    --hexagon-stroke-color: #202020;
+    --port-circle-fill-color: #FCFCFC;
+    --port-circle-stroke-color: #303030;
+    --adapter-box-fill-color: #EEEEEE;
+    --adapter-box-stroke-color: #303030;
+    --connection-line-stroke-color: #707070;
+    --layer-circle-stroke-color: #303030;
+    --subsystem-ring-stroke-color: #303030;
+    --subsystem-segment-1-fill-color: #E8E8E8;
+    --subsystem-segment-2-fill-color: #F0F0F0;
 
     /* Text scale (dark on light) */
-    --text-primary: #101010;
-    --text-secondary: #202020;
-    --text-tertiary: #333333;
-    --text-quaternary: #444444;
-    --text-subtitle: #555555;
-    --text-app-subtitle: #666666;
-    --text-diagram-title: #404040;
-    --text-legend: #555555;
+    --text-primary-color: #101010;
+    --text-secondary-color: #202020;
+    --text-tertiary-color: #333333;
+    --text-quaternary-color: #444444;
+    --text-subtitle-color: #555555;
+    --text-app-subtitle-color: #666666;
+    --text-diagram-title-color: #404040;
+    --text-legend-color: #555555;
 
     /* Layer gradients (light fills) */
-    --gradient-model-start: #F7F7F7;
-    --gradient-model-end: #F0F0F0;
-    --gradient-usecase-start: #EEEEEE;
-    --gradient-usecase-end: #CCCCCC;
-    --gradient-infra-start: #F7F7F7;
-    --gradient-infra-end: #F0F0F0;
+    --gradient-model-start-color: #F7F7F7;
+    --gradient-model-end-color: #F0F0F0;
+    --gradient-usecase-start-color: #EEEEEE;
+    --gradient-usecase-end-color: #CCCCCC;
+    --gradient-infra-start-color: #F7F7F7;
+    --gradient-infra-end-color: #F0F0F0;
 
     /* Misc */
-    --pointer-stroke: #6030C0;
+    --pointer-stroke-color: #6030C0;
 
     /* Animated pulse endpoint */
-    --pulse-to: #202020;
-    --pulse-to-solid: #202020;
+    --pulse-target-color: #202020;
+    --pulse-target-solid-color: #202020;
 }
 
 /* ------------------------------------------------------------ */
@@ -184,52 +184,52 @@
 /*                                                                  */
 /* ⚠ On a light ground, dimming the page REDUCES contrast: the ink   */
 /* is dark, so a darker ground closes the gap rather than opening    */
-/* it. `--text-subtitle` is stepped to #57606c for exactly that      */
+/* it. `--text-subtitle-color` is stepped to #57606c for exactly that      */
 /* reason — at the .dark value it measures 4.36:1 here, under the    */
 /* 4.5 floor for 11px text. Re-measure it before moving this ground. */
 .bitscrafter-light {
     /* Page chrome */
-    --page-bg: #d2d6dc;
-    --page-text: #2d333b;
+    --page-background-color: #d2d6dc;
+    --page-text-color: #2d333b;
 
     /* Canvas + containers */
-    --canvas-bg: #dcdfe4;
-    --hexagon-fill: #d6dae0;
-    --hexagon-stroke: #2d333b;
-    --port-circle-fill: #d9dde2;
-    --port-circle-stroke: #4d555f;
-    --adapter-box-fill: #e3e5e8;
-    --adapter-box-stroke: #4d555f;
-    --connection-line-stroke: #8b96a3;
-    --layer-circle-stroke: #4d555f;
-    --subsystem-ring-stroke: #6b7683;
-    --subsystem-segment-fill-1: #d6dae0;
-    --subsystem-segment-fill-2: #dcdfe4;
+    --canvas-background-color: #dcdfe4;
+    --hexagon-fill-color: #d6dae0;
+    --hexagon-stroke-color: #2d333b;
+    --port-circle-fill-color: #d9dde2;
+    --port-circle-stroke-color: #4d555f;
+    --adapter-box-fill-color: #e3e5e8;
+    --adapter-box-stroke-color: #4d555f;
+    --connection-line-stroke-color: #8b96a3;
+    --layer-circle-stroke-color: #4d555f;
+    --subsystem-ring-stroke-color: #6b7683;
+    --subsystem-segment-1-fill-color: #d6dae0;
+    --subsystem-segment-2-fill-color: #dcdfe4;
 
     /* Text scale (dark ink on a toned ground) */
-    --text-primary: #1c2128;
-    --text-secondary: #2d333b;
-    --text-tertiary: #3d444d;
-    --text-quaternary: #4d555f;
-    --text-subtitle: #57606c;
-    --text-app-subtitle: #5a636e;
-    --text-diagram-title: #35618f;
-    --text-legend: #5a636e;
+    --text-primary-color: #1c2128;
+    --text-secondary-color: #2d333b;
+    --text-tertiary-color: #3d444d;
+    --text-quaternary-color: #4d555f;
+    --text-subtitle-color: #57606c;
+    --text-app-subtitle-color: #5a636e;
+    --text-diagram-title-color: #35618f;
+    --text-legend-color: #5a636e;
 
     /* Layer gradients */
-    --gradient-model-start: #d9dde2;
-    --gradient-model-end: #dcdfe4;
-    --gradient-usecase-start: #dcdfe4;
-    --gradient-usecase-end: #d6dae0;
-    --gradient-infra-start: #d9dde2;
-    --gradient-infra-end: #dcdfe4;
+    --gradient-model-start-color: #d9dde2;
+    --gradient-model-end-color: #dcdfe4;
+    --gradient-usecase-start-color: #dcdfe4;
+    --gradient-usecase-end-color: #d6dae0;
+    --gradient-infra-start-color: #d9dde2;
+    --gradient-infra-end-color: #dcdfe4;
 
     /* Misc */
-    --pointer-stroke: #35618f;
+    --pointer-stroke-color: #35618f;
 
     /* Animated pulse endpoint */
-    --pulse-to: #35618f;
-    --pulse-to-solid: #35618f;
+    --pulse-target-color: #35618f;
+    --pulse-target-solid-color: #35618f;
 }
 
 /* The brand mark's artwork is light-on-transparent, drawn for a dark
@@ -256,49 +256,49 @@
 /* directly, so this is an override, not a default.                  */
 .bone {
     /* Page chrome */
-    --page-bg: #ddd6c8;
-    --page-text: #1c1917;
+    --page-background-color: #ddd6c8;
+    --page-text-color: #1c1917;
 
     /* Canvas + containers */
-    --canvas-bg: #EFE9DC;
-    --hexagon-fill: #EFE9DC;
-    --hexagon-stroke: #1c1917;
-    --port-circle-fill: #F7F3E9;
-    --port-circle-stroke: #1c1917;
-    --adapter-box-fill: #E7E0D0;
-    --adapter-box-stroke: #1c1917;
-    --connection-line-stroke: #6b6459;
-    --layer-circle-stroke: #1c1917;
-    --subsystem-ring-stroke: #b4553a;
-    --subsystem-segment-fill-1: #E9E2D3;
-    --subsystem-segment-fill-2: #F2ECE0;
+    --canvas-background-color: #EFE9DC;
+    --hexagon-fill-color: #EFE9DC;
+    --hexagon-stroke-color: #1c1917;
+    --port-circle-fill-color: #F7F3E9;
+    --port-circle-stroke-color: #1c1917;
+    --adapter-box-fill-color: #E7E0D0;
+    --adapter-box-stroke-color: #1c1917;
+    --connection-line-stroke-color: #6b6459;
+    --layer-circle-stroke-color: #1c1917;
+    --subsystem-ring-stroke-color: #b4553a;
+    --subsystem-segment-1-fill-color: #E9E2D3;
+    --subsystem-segment-2-fill-color: #F2ECE0;
 
     /* Text scale (ink on bone) */
-    --text-primary: #1c1917;
-    --text-secondary: #2a2622;
-    --text-tertiary: #3b3630;
-    --text-quaternary: #4d473f;
-    --text-subtitle: #5f584e;
-    --text-app-subtitle: #6b6459;
-    --text-diagram-title: #b4553a;
-    --text-legend: #6b6459;
+    --text-primary-color: #1c1917;
+    --text-secondary-color: #2a2622;
+    --text-tertiary-color: #3b3630;
+    --text-quaternary-color: #4d473f;
+    --text-subtitle-color: #5f584e;
+    --text-app-subtitle-color: #6b6459;
+    --text-diagram-title-color: #b4553a;
+    --text-legend-color: #6b6459;
 
     /* Layer gradients */
-    --gradient-model-start: #F7F3E9;
-    --gradient-model-end: #EFE9DC;
-    --gradient-usecase-start: #EFE9DC;
-    --gradient-usecase-end: #E7E0D0;
-    --gradient-infra-start: #F4EFE4;
-    --gradient-infra-end: #EFE9DC;
+    --gradient-model-start-color: #F7F3E9;
+    --gradient-model-end-color: #EFE9DC;
+    --gradient-usecase-start-color: #EFE9DC;
+    --gradient-usecase-end-color: #E7E0D0;
+    --gradient-infra-start-color: #F4EFE4;
+    --gradient-infra-end-color: #EFE9DC;
 
     /* Misc */
-    --pointer-stroke: #b4553a;
+    --pointer-stroke-color: #b4553a;
 
     /* Animated pulse — grey -> darker grey.
        A neutral highlight: the terracotta was identical to the Model
        fill (1.00:1), so that ring vanished at the moment it pulsed. */
-    --pulse-to: #b4553a;
-    --pulse-to-solid: #b4553a;
+    --pulse-target-color: #b4553a;
+    --pulse-target-solid-color: #b4553a;
 }
 
 /* Hairlines. This is the theme's whole character; without it the
@@ -348,55 +348,55 @@
 /* amber #e9a23b only 2.37/2.25).                                    */
 .zoned {
     /* Page chrome */
-    --page-bg: #ebebeb;
-    --page-text: #373f51;
+    --page-background-color: #ebebeb;
+    --page-text-color: #373f51;
 
     /* Canvas + containers */
-    --canvas-bg: #ebebeb;
-    --hexagon-fill: #dad7cd;
-    --hexagon-stroke: #373f51;
-    --port-circle-fill: #4d4a65;
-    --port-circle-stroke: #373f51;
-    --adapter-box-fill: #4d4a65;
-    --adapter-box-stroke: #373f51;
-    --connection-line-stroke: #8f97a5;
-    --layer-circle-stroke: #ebebeb;
-    --subsystem-ring-stroke: #8f97a5;
-    --subsystem-segment-fill-1: #4a5468;
-    --subsystem-segment-fill-2: #525c72;
+    --canvas-background-color: #ebebeb;
+    --hexagon-fill-color: #dad7cd;
+    --hexagon-stroke-color: #373f51;
+    --port-circle-fill-color: #4d4a65;
+    --port-circle-stroke-color: #373f51;
+    --adapter-box-fill-color: #4d4a65;
+    --adapter-box-stroke-color: #373f51;
+    --connection-line-stroke-color: #8f97a5;
+    --layer-circle-stroke-color: #ebebeb;
+    --subsystem-ring-stroke-color: #8f97a5;
+    --subsystem-segment-1-fill-color: #4a5468;
+    --subsystem-segment-2-fill-color: #525c72;
 
     /* Text scale — the default ink, for everything on the ground */
-    --text-primary: #373f51;
-    --text-secondary: #373f51;
-    --text-tertiary: #373f51;
-    --text-quaternary: #373f51;
-    --text-subtitle: #373f51;
-    --text-app-subtitle: #373f51;
-    --text-diagram-title: #373f51;
-    --text-legend: #373f51;
+    --text-primary-color: #373f51;
+    --text-secondary-color: #373f51;
+    --text-tertiary-color: #373f51;
+    --text-quaternary-color: #373f51;
+    --text-subtitle-color: #373f51;
+    --text-app-subtitle-color: #373f51;
+    --text-diagram-title-color: #373f51;
+    --text-legend-color: #373f51;
 
     /* Layer rings — flat, not gradients: a gradient blurs the boundary
        between rings that are meant to read as distinct zones. */
-    --gradient-infra-start: #6b705c;
-    --gradient-infra-end: #6b705c;
-    --gradient-usecase-start: #ffd166;
-    --gradient-usecase-end: #ffd166;
-    --gradient-model-start: #b85237;
-    --gradient-model-end: #b85237;
+    --gradient-infra-start-color: #6b705c;
+    --gradient-infra-end-color: #6b705c;
+    --gradient-usecase-start-color: #ffd166;
+    --gradient-usecase-end-color: #ffd166;
+    --gradient-model-start-color: #b85237;
+    --gradient-model-end-color: #b85237;
 
     /* Misc */
-    --pointer-stroke: #b85237;
+    --pointer-stroke-color: #b85237;
 
     /* Animated pulse — grey -> darker grey.
        A neutral highlight: the terracotta was identical to the Model
        fill (1.00:1), so that ring vanished at the moment it pulsed. */
-    --pulse-to: #6c757d;
+    --pulse-target-color: #6c757d;
 
     /* The frame (hexagon, connection lines) sits on the LIGHT ground, so it
        pulses grey. Everything with a DARK fill — chips, wedges, rings —
        pulses white: grey on those measures 1.0–1.8:1 and simply does not
        read. One pulse colour cannot serve both. */
-    --pulse-to-solid: #E3F2FF;
+    --pulse-target-solid-color: #E3F2FF;
 }
 
 /* White ink: olive Infra, terracotta Model, slate wedges, violet chips. */
@@ -464,47 +464,47 @@
 /* on order — the id out-specifies its bare class selectors instead. */
 .depth {
     /* Page chrome */
-    --page-bg: #0b0d10;
-    --page-text: #c9d3dd;
+    --page-background-color: #0b0d10;
+    --page-text-color: #c9d3dd;
 
     /* Canvas + containers */
-    --canvas-bg: #0e1116;
-    --hexagon-fill: #12161c;
-    --hexagon-stroke: #5d6b7a;
-    --port-circle-fill: #161b22;
-    --port-circle-stroke: #7b8b9c;
-    --adapter-box-fill: #12161c;
-    --adapter-box-stroke: #7b8b9c;
-    --connection-line-stroke: #3f4a56;
-    --layer-circle-stroke: #8fa3b8;
-    --subsystem-ring-stroke: #4a5765;
-    --subsystem-segment-fill-1: #11151a;
-    --subsystem-segment-fill-2: #151a21;
+    --canvas-background-color: #0e1116;
+    --hexagon-fill-color: #12161c;
+    --hexagon-stroke-color: #5d6b7a;
+    --port-circle-fill-color: #161b22;
+    --port-circle-stroke-color: #7b8b9c;
+    --adapter-box-fill-color: #12161c;
+    --adapter-box-stroke-color: #7b8b9c;
+    --connection-line-stroke-color: #3f4a56;
+    --layer-circle-stroke-color: #8fa3b8;
+    --subsystem-ring-stroke-color: #4a5765;
+    --subsystem-segment-1-fill-color: #11151a;
+    --subsystem-segment-2-fill-color: #151a21;
 
     /* Text scale */
-    --text-primary: #f0f6fc;
-    --text-secondary: #c9d3dd;
-    --text-tertiary: #aab6c3;
-    --text-quaternary: #93a1b0;
-    --text-subtitle: #8494a3;
-    --text-app-subtitle: #7b8b9c;
-    --text-diagram-title: #a2d2ff;
-    --text-legend: #7b8b9c;
+    --text-primary-color: #f0f6fc;
+    --text-secondary-color: #c9d3dd;
+    --text-tertiary-color: #aab6c3;
+    --text-quaternary-color: #93a1b0;
+    --text-subtitle-color: #8494a3;
+    --text-app-subtitle-color: #7b8b9c;
+    --text-diagram-title-color: #a2d2ff;
+    --text-legend-color: #7b8b9c;
 
     /* Layer gradients — the core sits lightest */
-    --gradient-model-start: #1d2630;
-    --gradient-model-end: #141a21;
-    --gradient-usecase-start: #161c23;
-    --gradient-usecase-end: #0e1116;
-    --gradient-infra-start: #12161c;
-    --gradient-infra-end: #0e1116;
+    --gradient-model-start-color: #1d2630;
+    --gradient-model-end-color: #141a21;
+    --gradient-usecase-start-color: #161c23;
+    --gradient-usecase-end-color: #0e1116;
+    --gradient-infra-start-color: #12161c;
+    --gradient-infra-end-color: #0e1116;
 
     /* Misc */
-    --pointer-stroke: #a2d2ff;
+    --pointer-stroke-color: #a2d2ff;
 
     /* Animated pulse endpoint */
-    --pulse-to: #a2d2ff;
-    --pulse-to-solid: #a2d2ff;
+    --pulse-target-color: #a2d2ff;
+    --pulse-target-solid-color: #a2d2ff;
 }
 
 /* The focus gradient: outer rings recede, the model core is lit. */
@@ -541,8 +541,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: var(--page-bg, #202020);
-    color: var(--page-text, #E0E0E0);
+    background-color: var(--page-background-color, #202020);
+    color: var(--page-text-color, #E0E0E0);
     font-family: Arial, sans-serif;
 }
 

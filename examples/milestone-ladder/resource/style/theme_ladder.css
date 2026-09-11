@@ -36,27 +36,25 @@
  */
 
 :root {
-    --kg-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
 }
 
 /* ── dark ────────────────────────────────────────────────────────────────── */
 .dark {
-    --kg-page-bg: #0b1220;
-    --kg-scene-bg: #0b1220;
-    --kg-text-title: #f4f7fb;
-    --kg-text-muted: #8ea3bd;
+    --scene-background-color: #0b1220;
+    --node-title-text-color: #f4f7fb;
+    --node-detail-text-color: #8ea3bd;
 
-    --kg-track: #1e2c44;
-    --kg-disc-fill: #0f1a2b;
-    --kg-icon: #eaf6ff;
-    --kg-seg: #4cc0d2;
+    --ladder-track-stroke-color: #1e2c44;
+    --node-disc-fill-color: #0f1a2b;
+    --ladder-walked-stroke-color: #4cc0d2;
 
-    --kg-step-1: #2f6d7a;
-    --kg-step-2: #37879a;
-    --kg-step-3: #3fa3b8;
-    --kg-step-4: #4cc0d2;
-    --kg-step-5: #6bdcea;
-    --kg-step-6: #93f0f7;
+    --ladder-step-1-color: #2f6d7a;
+    --ladder-step-2-color: #37879a;
+    --ladder-step-3-color: #3fa3b8;
+    --ladder-step-4-color: #4cc0d2;
+    --ladder-step-5-color: #6bdcea;
+    --ladder-step-6-color: #93f0f7;
 
     /* The catalog's icon vocabulary. Solid areas take the DISC colour, so a
        filled glyph reads as outline-on-disc rather than as a blot — the discs
@@ -72,22 +70,20 @@
 
 /* ── care ────────────────────────────────────────────────────────────────── */
 .care {
-    --kg-page-bg: #f4f8f9;
-    --kg-scene-bg: #f4f8f9;
-    --kg-text-title: #10202a;
-    --kg-text-muted: #5d7382;
+    --scene-background-color: #f4f8f9;
+    --node-title-text-color: #10202a;
+    --node-detail-text-color: #5d7382;
 
-    --kg-track: #d3e2e6;
-    --kg-disc-fill: #ffffff;
-    --kg-icon: currentColor;
-    --kg-seg: #1c8177;
+    --ladder-track-stroke-color: #d3e2e6;
+    --node-disc-fill-color: #ffffff;
+    --ladder-walked-stroke-color: #1c8177;
 
-    --kg-step-1: #86c9c0;
-    --kg-step-2: #5cb3a9;
-    --kg-step-3: #349a90;
-    --kg-step-4: #1c8177;
-    --kg-step-5: #0f6860;
-    --kg-step-6: #084f49;
+    --ladder-step-1-color: #86c9c0;
+    --ladder-step-2-color: #5cb3a9;
+    --ladder-step-3-color: #349a90;
+    --ladder-step-4-color: #1c8177;
+    --ladder-step-5-color: #0f6860;
+    --ladder-step-6-color: #084f49;
 
     /* Same idea inverted: fills take the white disc, ink takes the ramp. */
     --icon-fill: #ffffff;
@@ -107,9 +103,9 @@
  * These stay HERE rather than in the scene because they are theme-specific —
  * the scene's own style block must say the same thing under every theme.
  */
-.care #icon-career-decision { --icon-stroke: var(--kg-step-1); --icon-fill-dark: var(--kg-step-1); --icon-fill-medium: var(--kg-step-1); }
-.care #icon-medical-school  { --icon-stroke: var(--kg-step-2); --icon-fill-dark: var(--kg-step-2); --icon-fill-medium: var(--kg-step-2); }
-.care #icon-internship      { --icon-stroke: var(--kg-step-3); --icon-fill-dark: var(--kg-step-3); --icon-fill-medium: var(--kg-step-3); }
-.care #icon-family          { --icon-stroke: var(--kg-step-4); --icon-fill-dark: var(--kg-step-4); --icon-fill-medium: var(--kg-step-4); }
-.care #icon-community       { --icon-stroke: var(--kg-step-5); --icon-fill-dark: var(--kg-step-5); --icon-fill-medium: var(--kg-step-5); }
-.care #icon-teaching        { --icon-stroke: var(--kg-step-6); --icon-fill-dark: var(--kg-step-6); --icon-fill-medium: var(--kg-step-6); }
+.care #icon-career-decision { --icon-stroke: var(--ladder-step-1-color); --icon-fill-dark: var(--ladder-step-1-color); --icon-fill-medium: var(--ladder-step-1-color); }
+.care #icon-medical-school  { --icon-stroke: var(--ladder-step-2-color); --icon-fill-dark: var(--ladder-step-2-color); --icon-fill-medium: var(--ladder-step-2-color); }
+.care #icon-internship      { --icon-stroke: var(--ladder-step-3-color); --icon-fill-dark: var(--ladder-step-3-color); --icon-fill-medium: var(--ladder-step-3-color); }
+.care #icon-family          { --icon-stroke: var(--ladder-step-4-color); --icon-fill-dark: var(--ladder-step-4-color); --icon-fill-medium: var(--ladder-step-4-color); }
+.care #icon-community       { --icon-stroke: var(--ladder-step-5-color); --icon-fill-dark: var(--ladder-step-5-color); --icon-fill-medium: var(--ladder-step-5-color); }
+.care #icon-teaching        { --icon-stroke: var(--ladder-step-6-color); --icon-fill-dark: var(--ladder-step-6-color); --icon-fill-medium: var(--ladder-step-6-color); }

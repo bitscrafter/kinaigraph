@@ -251,31 +251,31 @@ animation:
       #          - show: { duration: part_01_intro.duration / 2, restore: original-title-state }
       - hexagon:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_intro.duration
       - all_ports:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_intro.duration
       - all_adapters:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_intro.duration
       - all_layers:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_intro.duration
       - all_subsystems:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_intro.duration
@@ -284,19 +284,19 @@ animation:
     step_intro.end + delayBetweenSteps @ step_hex_architecture:
       - hexagon:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               cycles: 4
               stroke_width: 5
               duration: part_02_hex_architecture.duration
       - all_ports:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_02_hex_architecture.duration
       - all_adapters:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_02_hex_architecture.duration
@@ -314,19 +314,19 @@ animation:
       #          - show: { duration: part_03_adapter_1.duration / 2, opacity: { to: 0.0 } }
       - port-media-encoding:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_03_adapter_1.duration
               cycles: 2
       - adapter-ffmpeg-box:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_03_adapter_1.duration
               cycles: 2
       - adapter-ffmpeg-line:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               stroke_width: 5
               duration: part_03_adapter_1.duration
               cycles: 2
@@ -339,19 +339,19 @@ animation:
       #          - show: { duration: part_04_adapter_2.duration / 2, opacity: 0.0 }
       - port-browser-automation:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_04_adapter_2.duration
               cycles: 2
       - adapter-cdp-box:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_04_adapter_2.duration
               cycles: 2
       - adapter-cdp-line:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               stroke_width: 5
               duration: part_04_adapter_2.duration
               cycles: 2
@@ -364,19 +364,19 @@ animation:
       #          - show: { duration: part_05_adapter_3.duration / 2, opacity: 0.0 }
       - port-asset-reading:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_05_adapter_3.duration
               cycles: 2
       - adapter-filesystem-box:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_05_adapter_3.duration
               cycles: 2
       - adapter-filesystem-line:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               stroke_width: 5
               duration: part_05_adapter_3.duration
               cycles: 2
@@ -389,19 +389,19 @@ animation:
       #          - show: { duration: part_06_adapter_4.duration / 2, opacity: 0.0 }
       - port-expression-evaluation:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_06_adapter_4.duration
               cycles: 2
       - adapter-evaluator-box:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_06_adapter_4.duration
               cycles: 2
       - adapter-evaluator-line:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               stroke_width: 5
               duration: part_06_adapter_4.duration
               cycles: 2
@@ -414,19 +414,19 @@ animation:
       #          - show: { duration: part_08_adapter_6.duration / 2, opacity: 0.0 }
       - port-speech-synthesis:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_07_adapter_5.duration
               cycles: 2
       - adapter-tts-box:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_07_adapter_5.duration
               cycles: 2
       - adapter-tts-line:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               stroke_width: 5
               duration: part_07_adapter_5.duration
               cycles: 2
@@ -439,19 +439,19 @@ animation:
       #          - show: { duration: part_07_adapter_5.duration / 2, opacity: 0.0 }
       - port-media-inspection:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_08_adapter_6.duration
               cycles: 2
       - adapter-ffprobe-box:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_08_adapter_6.duration
               cycles: 2
       - adapter-ffprobe-line:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               stroke_width: 5
               duration: part_08_adapter_6.duration
               cycles: 2
@@ -464,7 +464,7 @@ animation:
       #          - show: { duration: part_09_subsystems_intro.duration / 2, opacity: 0.0 }
       - all_subsystems:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_09_subsystems_intro.duration
               cycles: 3
@@ -476,7 +476,7 @@ animation:
       #          - show: { duration: part_10_subsystem_syntax.duration / 2, opacity: 0.0 }
       - subsystem-syntax:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_10_subsystem_syntax.duration
               cycles: 2
@@ -488,7 +488,7 @@ animation:
       #          - show: { duration: part_11_subsystem_semantic.duration / 2, opacity: 0.0 }
       - subsystem-semantic:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_11_subsystem_semantic.duration
               cycles: 2
@@ -500,7 +500,7 @@ animation:
       #          - show: { duration: part_12_subsystem_resolution.duration / 2, opacity: 0.0 }
       - subsystem-resolution:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_12_subsystem_resolution.duration
               cycles: 2
@@ -512,7 +512,7 @@ animation:
       #          - show: { duration: part_13_subsystem_bytecode.duration / 2, opacity: 0.0 }
       - subsystem-bytecode:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_13_subsystem_bytecode.duration
               cycles: 2
@@ -524,7 +524,7 @@ animation:
       #          - show: { duration: part_14_subsystem_instruction.duration / 2, opacity: 0.0 }
       - subsystem-instruction:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_14_subsystem_instruction.duration
               cycles: 2
@@ -536,7 +536,7 @@ animation:
       #          - show: { duration: part_15_subsystem_dependency.duration / 2, opacity: 0.0 }
       - subsystem-dependency:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_15_subsystem_dependency.duration
               cycles: 2
@@ -545,7 +545,7 @@ animation:
     step_sub_6.end + delayBetweenSteps @ step_clean_architecture:
       - all_layers:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_16_clean_architecture.duration
@@ -557,7 +557,7 @@ animation:
       #          - show: { duration: part_17_layer_infra.duration / 2, opacity: 0.0 }
       - layer_infra_ring:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_17_layer_infra.duration
               cycles: 2
@@ -576,7 +576,7 @@ animation:
       #          - show: { duration: part_18_layer_usecase.duration / 2, opacity: 0.0 }
       - layer_usecase_ring:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_18_layer_usecase.duration
               cycles: 2
@@ -595,7 +595,7 @@ animation:
       #          - show: { duration: part_19_layer_model.duration / 2, opacity: 0.0 }
       - layer_model_ring:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               stroke_width: 5
               duration: part_19_layer_model.duration
               cycles: 2
@@ -611,31 +611,31 @@ animation:
     step_layer_3.end + delayBetweenSteps @ step_conclusion:
       - hexagon:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               cycles: 4
               stroke_width: 5
               duration: part_20_conclusion.duration
       - all_ports:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_20_conclusion.duration
       - all_adapters:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_20_conclusion.duration
       - all_layers:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_20_conclusion.duration
       - all_subsystems:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_20_conclusion.duration

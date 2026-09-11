@@ -131,31 +131,31 @@ animation:
                 to: 1.0
       - hexagon:
           - pulse:
-              stroke: 'css("pulse-to")'
+              stroke: 'css("pulse-target-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_what.duration
       - all_ports:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_what.duration
       - all_adapters:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_what.duration
       - all_subsystems:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_what.duration
       - all_layers:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_01_what.duration
@@ -165,13 +165,13 @@ animation:
     step_intro.end + delayBetweenSteps @ step_structure_outer:
       - all_ports:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_02_structure.duration / 2.33
       - all_adapters:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_02_structure.duration / 2.33
@@ -182,7 +182,7 @@ animation:
     step_structure_outer.end @ step_structure_inner:
       - all_subsystems:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_02_structure.duration / 1.75
@@ -191,7 +191,7 @@ animation:
     step_structure_inner.end + delayBetweenSteps @ step_layers:
       - all_layers:
           - pulse:
-              stroke: 'css("pulse-to-solid")'
+              stroke: 'css("pulse-target-solid-color")'
               cycles: 4
               stroke_width: 5
               duration: part_03_why.duration

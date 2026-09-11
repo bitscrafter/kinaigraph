@@ -3,7 +3,7 @@
      source of truth; cross-file <use> is not consumed by the pipeline). -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" id="milestone-icon-layer">
 	<style>
-		#milestone-icon-layer { font-family: var(--kg-font-family, Arial, "Liberation Sans", Helvetica, sans-serif); }
+		#milestone-icon-layer { font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif); }
 		/* The catalog's classes, copied from icon-catalog.svg so a symbol drops in
 		   unmodified. Each sets exactly one property; a line part carries its own
 		   fill="none". */

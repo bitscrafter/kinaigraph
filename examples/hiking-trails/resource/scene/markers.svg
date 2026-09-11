@@ -65,16 +65,16 @@
        Two actors, not one — the ring animates its stroke while the star simply
        appears, so they need independent timelines. -->
   <circle id="dest-ring" class="dest-ring" cx="956" cy="51" r="18" opacity="0" />
-  <g id="dest-star" transform="translate(956 51)" opacity="0">
+  <g id="dest-star" transform="translate(956 51)">
     <use href="#arrival_star" x="-16" y="-16" width="32" height="32" />
   </g>
 
   <!-- Travelling markers. Both inherit the icon set's +x rest heading, so
        `orient: auto` turns them onto the travel tangent unaided. -->
-  <g id="traveller-solid" class="marker" transform="translate(792 654)" opacity="0">
+  <g id="traveller-solid" class="marker" transform="translate(792 654)">
     <use href="#nav_arrow_solid" x="-16" y="-16" width="32" height="32" />
   </g>
-  <g id="traveller-ghost" class="marker" transform="translate(827 645)" opacity="0">
+  <g id="traveller-ghost" class="marker" transform="translate(827 645)">
     <use href="#nav_arrow_ghost" x="-16" y="-16" width="32" height="32" />
   </g>
 </svg>

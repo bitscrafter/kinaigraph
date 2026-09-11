@@ -34,18 +34,18 @@
             /* Apply CSS variables to elements */
             /* ------------------------------------------ */
             .canvas-bg {
-            fill: var(--canvas-bg, #101010);
+            fill: var(--canvas-background-color, #101010);
             }
 
             .hexagon {
-            fill: var(--hexagon-fill, #1A1A1A);
-            stroke: var(--hexagon-stroke, #E0E0E0);
+            fill: var(--hexagon-fill-color, #1A1A1A);
+            stroke: var(--hexagon-stroke-color, #E0E0E0);
             stroke-width: 2;
             }
 
             .port-circle {
-            fill: var(--port-circle-fill, #242424);
-            stroke: var(--port-circle-stroke, #C8C8C8);
+            fill: var(--port-circle-fill-color, #242424);
+            stroke: var(--port-circle-stroke-color, #C8C8C8);
             stroke-width: 2;
             }
 
@@ -53,12 +53,12 @@
             font-family: Arial, sans-serif;
             font-size: 13px;
             font-weight: bold;
-            fill: var(--text-secondary, #E0E0E0);
+            fill: var(--text-secondary-color, #E0E0E0);
             }
 
             .adapter-box {
-            fill: var(--adapter-box-fill, #1E1E1E);
-            stroke: var(--adapter-box-stroke, #C8C8C8);
+            fill: var(--adapter-box-fill-color, #1E1E1E);
+            stroke: var(--adapter-box-stroke-color, #C8C8C8);
             stroke-width: 2;
             }
 
@@ -70,21 +70,21 @@
             font-family: Arial, sans-serif;
             font-size: 12px;
             font-weight: bold;
-            fill: var(--text-secondary, #E0E0E0);
+            fill: var(--text-secondary-color, #E0E0E0);
             }
 
             .connection-line {
-            stroke: var(--connection-line-stroke, #888888);
+            stroke: var(--connection-line-stroke-color, #888888);
             stroke-width: 2;
             }
 
             .layer-circle {
-            stroke: var(--layer-circle-stroke, #C8C8C8);
+            stroke: var(--layer-circle-stroke-color, #C8C8C8);
             stroke-width: 2;
             }
 
             .subsystem-ring {
-            stroke: var(--subsystem-ring-stroke, #C8C8C8);
+            stroke: var(--subsystem-ring-stroke-color, #C8C8C8);
             stroke-width: 2;
             stroke-dasharray: 8,4;
             fill: none;
@@ -94,84 +94,84 @@
             font-family: Arial, sans-serif;
             font-size: 14px;
             font-weight: bold;
-            fill: var(--text-tertiary, #CCCCCC);
+            fill: var(--text-tertiary-color, #CCCCCC);
             }
 
             .layer-title {
             font-family: Arial, sans-serif;
             font-size: 18px;
             font-weight: bold;
-            fill: var(--text-primary, #F5F5F5);
+            fill: var(--text-primary-color, #F5F5F5);
             }
 
             .layer-subtitle {
             font-family: Arial, sans-serif;
             font-size: 11px;
-            fill: var(--text-subtitle, #AAAAAA);
+            fill: var(--text-subtitle-color, #AAAAAA);
             }
 
             .diagram-title {
             font-family: Arial, sans-serif;
             font-size: 28px;
             font-weight: bold;
-            fill: var(--text-diagram-title, #C0C0C0);
+            fill: var(--text-diagram-title-color, #C0C0C0);
             }
 
             .diagram-subtitle {
             font-family: Arial, sans-serif;
             font-size: 22px;
             font-weight: bold;
-            fill: var(--text-diagram-title, #C0C0C0);
+            fill: var(--text-diagram-title-color, #C0C0C0);
             }
 
 			.diagram-label {
 			font-family: Arial, sans-serif;
 			font-size: 16px;
-			fill: var(--text-quaternary, #BBBBBB);
+			fill: var(--text-quaternary-color, #BBBBBB);
 			}
 
             .app-title {
             font-family: Arial, sans-serif;
             font-size: 18px;
             font-weight: bold;
-            fill: var(--text-primary, #F5F5F5);
+            fill: var(--text-primary-color, #F5F5F5);
             }
 
             .app-subtitle {
             font-family: Arial, sans-serif;
             font-size: 11px;
-            fill: var(--text-app-subtitle, #999999);
+            fill: var(--text-app-subtitle-color, #999999);
             }
 
             .legend-title {
             font-family: Arial, sans-serif;
             font-size: 12px;
             font-weight: bold;
-            fill: var(--text-secondary, #E0E0E0);
+            fill: var(--text-secondary-color, #E0E0E0);
             }
 
             .legend-text {
             font-family: Arial, sans-serif;
             font-size: 10px;
-            fill: var(--text-legend, #AAAAAA);
+            fill: var(--text-legend-color, #AAAAAA);
             }
 
             .pointer-circle {
             fill: none;
-            stroke: var(--pointer-stroke, #9090E0);
+            stroke: var(--pointer-stroke-color, #9090E0);
             stroke-width: 3;
             opacity: 0;
             }
 
             .subsystem-segment-1 {
-            fill: var(--subsystem-segment-fill-1, #1C1C1C);
-            stroke: var(--layer-circle-stroke, #C8C8C8);
+            fill: var(--subsystem-segment-1-fill-color, #1C1C1C);
+            stroke: var(--layer-circle-stroke-color, #C8C8C8);
             stroke-width: 2;
             }
 
             .subsystem-segment-2 {
-            fill: var(--subsystem-segment-fill-2, #202020);
-            stroke: var(--layer-circle-stroke, #C8C8C8);
+            fill: var(--subsystem-segment-2-fill-color, #202020);
+            stroke: var(--layer-circle-stroke-color, #C8C8C8);
             stroke-width: 2;
             }
         </style>
@@ -180,33 +180,33 @@
         <radialGradient id="modelGradient" cx="50%" cy="50%" r="50%">
             <stop
 				offset="0%"
-				style="stop-color:var(--gradient-model-start, #2A2A2A);stop-opacity:0.95"
+				style="stop-color:var(--gradient-model-start-color, #2A2A2A);stop-opacity:0.95"
 			/>
             <stop
 				offset="100%"
-				style="stop-color:var(--gradient-model-end, #1E1E1E);stop-opacity:0.95"
+				style="stop-color:var(--gradient-model-end-color, #1E1E1E);stop-opacity:0.95"
 			/>
         </radialGradient>
 
         <radialGradient id="usecaseGradient" cx="50%" cy="50%" r="50%">
             <stop
 				offset="0%"
-				style="stop-color:var(--gradient-usecase-start, #242424);stop-opacity:0.9"
+				style="stop-color:var(--gradient-usecase-start-color, #242424);stop-opacity:0.9"
 			/>
             <stop
 				offset="100%"
-				style="stop-color:var(--gradient-usecase-end, #1A1A1A);stop-opacity:0.9"
+				style="stop-color:var(--gradient-usecase-end-color, #1A1A1A);stop-opacity:0.9"
 			/>
         </radialGradient>
 
         <radialGradient id="infraGradient" cx="50%" cy="50%" r="50%">
             <stop
 				offset="0%"
-				style="stop-color:var(--gradient-infra-start, #2A2A2A);stop-opacity:0.95"
+				style="stop-color:var(--gradient-infra-start-color, #2A2A2A);stop-opacity:0.95"
 			/>
             <stop
 				offset="100%"
-				style="stop-color:var(--gradient-infra-end, #1E1E1E);stop-opacity:0.95"
+				style="stop-color:var(--gradient-infra-end-color, #1E1E1E);stop-opacity:0.95"
 			/>
         </radialGradient>
     </defs>

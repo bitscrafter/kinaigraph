@@ -75,13 +75,13 @@
        ring animates its stroke while the star simply appears, so they need
        independent timelines. -->
   <circle id="dest-ring" class="dest-ring" cx="1400" cy="457" r="18" opacity="0" />
-  <g id="dest-star" transform="translate(1400 457)" opacity="0">
+  <g id="dest-star" transform="translate(1400 457)">
     <use href="#arrival_star" x="-16" y="-16" width="32" height="32" />
   </g>
 
   <!-- Travelling marker, resting at the trailhead. It inherits the icon set's +x
        rest heading, so `orient: auto` turns it onto the travel tangent unaided. -->
-  <g id="traveller-solid" class="marker" transform="translate(1259 824)" opacity="0">
+  <g id="traveller-solid" class="marker" transform="translate(1259 824)">
     <use href="#nav_arrow_solid" x="-16" y="-16" width="32" height="32" />
   </g>
 </svg>
