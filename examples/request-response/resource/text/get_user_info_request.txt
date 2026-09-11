@@ -1,3 +1,0 @@
-GET /userinfo HTTP/1.1
-Host: server.example.com
-Authorization: Bearer SlAV32hkKG

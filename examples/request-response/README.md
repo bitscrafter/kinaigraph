@@ -100,7 +100,7 @@ fade into leg 2. Only `scene_01_flow.yaml` carries the callouts: naming the wind
 hand-measured constant on it.
 
 ⚠️ **The payload text is inlined as `content:`, not read from `resource/text/`.** The same
-two payloads are committed at `resource/text/get_user_info_request.txt` and
+two payloads are committed at `resource/text/get_user_profile_request.txt` and
 `…_response.txt`, and a `type: text` asset does accept a `file:` — but no layer reads it,
 so a note sourced from a file renders an **empty box**. Until that is fixed the `.txt`
 files are the authority and the inlined copies must be kept in agreement with them.

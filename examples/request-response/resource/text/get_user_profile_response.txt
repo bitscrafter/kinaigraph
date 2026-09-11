@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{
+	"id": "da7101d8-5001-4c38-86fd-d2f4b0f16eb6",
+	"username": "janedoe",
+	"profile": {
+		"first_name": "Jane",
+		"last_name": "Doe",
+		"email": "jane.doe@example.com",
+		"website": "https://janedoe.example.com"
+	},
+	"preferences": {
+		"theme": "dark",
+		"notifications_enabled": true
+	}
+}

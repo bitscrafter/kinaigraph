@@ -107,7 +107,7 @@ defs:
 
         # ── The payloads, quoted verbatim ─────────────────────────────────────────
         # ⚠️ INLINE `content:` RATHER THAN `file:`, DELIBERATELY. The same two payloads
-        # are committed at `resource/text/get_user_info_request.txt` and
+        # are committed at `resource/text/get_user_profile_request.txt` and
         # `…_response.txt`, and a `type: text` asset accepts a `file:` — but NO LAYER
         # READS IT, so a note sourced from a file renders an empty box. See
         # kinaigraph-core's finding `text-asset-file-has-no-reader-in-any-layer`. When
@@ -127,9 +127,9 @@ defs:
         request_payload_text:
             type: "text"
             content: |
-                GET /userinfo HTTP/1.1
-                Host: server.example.com
-                Authorization: Bearer SlAV32hkKG
+                GET /userprofile HTTP/1.1
+                Host: api.example.com
+                Authorization: Bearer EnCd15LmKU
             font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
             font_size: 12
             # A literal, necessarily: css() reads a style selected on a scene or
@@ -144,16 +144,21 @@ defs:
             type: "text"
             content: |
                 HTTP/1.1 200 OK
-                Content-Type: application/json
+                Content-Type: application/json; charset=utf-8
 
                 {
-                  "sub": "248289761001",
-                  "name": "Jane Doe",
-                  "given_name": "Jane",
-                  "family_name": "Doe",
-                  "preferred_username": "j.doe",
-                  "email": "janedoe@example.com",
-                  "picture": "http://example.com/janedoe/me.jpg"
+                  "id": "da7101d8-5001-4c38-86fd-d2f4b0f16eb6",
+                  "username": "janedoe",
+                  "profile": {
+                    "first_name": "Jane",
+                    "last_name": "Doe",
+                    "email": "jane.doe@example.com",
+                    "website": "https://janedoe.example.com"
+                  },
+                  "preferences": {
+                    "theme": "dark",
+                    "notifications_enabled": true
+                  }
                 }
             font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
             font_size: 12
@@ -224,23 +229,36 @@ defs:
         CALLOUT_PADDING: 12
         CALLOUT_RADIUS: 6
         CALLOUT_STROKE_WIDTH: 1.5
-        # Left edges shared, so the two boxes read as one pair seen twice.
-        CALLOUT_X: 290
+        # ⚠️ THE TWO BOXES DO NOT SHARE A LEFT EDGE, and cannot: the response is
+        # nearly four times the request's height and has to take the one field tall
+        # enough to hold it. Each is placed against the obstacles on its own side.
 
         # Request: three header lines, parked between the title and the outbound lane.
         # The packet sweeps x 304 -> 566 at y 349, directly beneath this box, so the
-        # pointer stays short for the whole leg.
+        # pointer stays short for the whole leg. x 290 clears badge 1 (which ends at
+        # x 255) and the right edge at 570 clears the gateway (which starts at 580).
+        REQUEST_CALLOUT_X: 290
         REQUEST_CALLOUT_Y: 210
         REQUEST_CALLOUT_WIDTH: 280
         REQUEST_CALLOUT_HEIGHT: 74
 
-        # Response: status line, one header and the JSON body — twelve lines, so it
-        # needs the whole lower-left field. Its top edge clears the gateway box
-        # (which ends at y 460) and its left edge clears the legend (which ends at
-        # x 259).
-        RESPONSE_CALLOUT_Y: 470
-        RESPONSE_CALLOUT_WIDTH: 380
-        RESPONSE_CALLOUT_HEIGHT: 190
+        # Response: status line, one header and a nested JSON body — SEVENTEEN lines.
+        # That needs the lower-left field entire, and it is the only block in the
+        # frame big enough: the client box ends at y 410 and the gateway occupies
+        # x 580..700 down to y 460, so a box this tall must sit below the one and
+        # left of the other. x 175..575, y 428..693 does both and clears the frame
+        # floor at 720.
+        #
+        # ⚠️ THE WIDTH IS SET BY THE LONGEST LINE, NOT BY TASTE. A note does not
+        # auto-fit and does not auto-wrap on purpose — overflow is a soft CSS outcome,
+        # never a compile error — so a box narrower than its widest line wraps
+        # SILENTLY. At 360 the 46-character `"id"` line broke across two rows and the
+        # JSON stopped looking like JSON. 400 leaves it whole and still stops short of
+        # the gateway at x 580.
+        RESPONSE_CALLOUT_X: 175
+        RESPONSE_CALLOUT_Y: 428
+        RESPONSE_CALLOUT_WIDTH: 400
+        RESPONSE_CALLOUT_HEIGHT: 265
 
         # Each callout fades in, holds for the middle of its leg, and fades out so the
         # last frame it paints is the last frame of that leg.
@@ -309,7 +327,7 @@ animation:
                             pos: center
                             binding: live
             at:
-                x: CALLOUT_X
+                x: REQUEST_CALLOUT_X
                 y: REQUEST_CALLOUT_Y
             origin: top_left
             fill: 'css("callout-fill-color")'
@@ -333,7 +351,7 @@ animation:
                             pos: center
                             binding: live
             at:
-                x: CALLOUT_X
+                x: RESPONSE_CALLOUT_X
                 y: RESPONSE_CALLOUT_Y
             origin: top_left
             fill: 'css("callout-fill-color")'

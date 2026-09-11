@@ -1,0 +1,3 @@
+GET /userprofile HTTP/1.1
+Host: api.example.com
+Authorization: Bearer EnCd15LmKU
