@@ -1,0 +1,3 @@
+GET /user/Cf20gL4nT9qSBu/profile HTTP/1.1
+Host: user.example.com
+Authorization: Bearer gw_credentials

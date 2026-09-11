@@ -138,7 +138,7 @@ defs:
         # Both carry `font_size: 12` written out rather than a shared const: a
         # `type: text` asset's `font_size` takes a literal number and cannot read
         # `defs.const`, so changing one means changing both.
-        request_payload_text:
+        client_request_text:
             type: "text"
             content: |
                 GET /userprofile HTTP/1.1
@@ -154,14 +154,14 @@ defs:
         # The body is the response payload's tab indentation rewritten as two spaces.
         # A tab inside SVG text has no defined advance width, so the file's tabs would
         # render at the browser's discretion and the JSON would lose its shape.
-        response_payload_text:
+        profile_response_text:
             type: "text"
             content: |
                 HTTP/1.1 200 OK
                 Content-Type: application/json; charset=utf-8
 
                 {
-                  "id": "da7101d8-5001-4c38-86fd-d2f4b0f16eb6",
+                  "id": "Cf20gL4nT9qSBu",
                   "username": "janedoe",
                   "profile": {
                     "first_name": "Jane",
@@ -174,6 +174,51 @@ defs:
                     "notifications_enabled": true
                   }
                 }
+            font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
+            font_size: 12
+            font_color: "#eafaff"
+
+        # Hop B — the gateway presents its own credentials and the caller's token,
+        # and authn/authz answers with a verdict and the subject it resolved to. The
+        # `id` it returns is the one the user request below is addressed with, so a
+        # viewer who reads both boxes watches a value carried forward.
+        authz_request_text:
+            type: "text"
+            content: |
+                POST /authorize HTTP/1.1
+                Host: authz.example.com
+                Authorization: Bearer gw_credentials
+                Content-Type: application/json; charset=utf-8
+
+                {
+                  "access_token": "EnCd15LmKU"
+                }
+            font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
+            font_size: 12
+            font_color: "#eafaff"
+
+        authz_response_text:
+            type: "text"
+            content: |
+                HTTP/1.1 200 OK
+                Content-Type: application/json; charset=utf-8
+
+                {
+                  "status": "ALLOW",
+                  "id": "Cf20gL4nT9qSBu"
+                }
+            font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
+            font_size: 12
+            font_color: "#eafaff"
+
+        # Hop C — addressed by the id authz just returned, on the gateway's own
+        # credentials rather than the caller's.
+        user_request_text:
+            type: "text"
+            content: |
+                GET /user/Cf20gL4nT9qSBu/profile HTTP/1.1
+                Host: user.example.com
+                Authorization: Bearer gw_credentials
             font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
             font_size: 12
             font_color: "#eafaff"
@@ -251,10 +296,10 @@ defs:
         # The packet sweeps x 304 -> 566 at y 349, directly beneath this box, so the
         # pointer stays short for the whole leg. x 290 clears badge 1 (which ends at
         # x 255) and the right edge at 570 clears the gateway (which starts at 580).
-        REQUEST_CALLOUT_X: 290
-        REQUEST_CALLOUT_Y: 210
-        REQUEST_CALLOUT_WIDTH: 280
-        REQUEST_CALLOUT_HEIGHT: 74
+        CLIENT_CALLOUT_X: 290
+        CLIENT_CALLOUT_Y: 210
+        CLIENT_CALLOUT_WIDTH: 280
+        CLIENT_CALLOUT_HEIGHT: 74
 
         # Response: status line, one header and a nested JSON body — SEVENTEEN lines.
         # That needs the lower-left field entire, and it is the only block in the
@@ -269,10 +314,27 @@ defs:
         # SILENTLY. At 360 the 46-character `"id"` line broke across two rows and the
         # JSON stopped looking like JSON. 400 leaves it whole and still stops short of
         # the gateway at x 580.
-        RESPONSE_CALLOUT_X: 175
-        RESPONSE_CALLOUT_Y: 428
-        RESPONSE_CALLOUT_WIDTH: 400
-        RESPONSE_CALLOUT_HEIGHT: 265
+        PROFILE_CALLOUT_X: 175
+        PROFILE_CALLOUT_Y: 428
+        PROFILE_CALLOUT_WIDTH: 380
+        PROFILE_CALLOUT_HEIGHT: 265
+
+        # Hop B, legs 2 and 3. Both take the upper-left field — the client-request box
+        # has gone by then and the two never share the screen. y 128 clears the title
+        # (which ends at y 121 for a 26 px face on a y 115 baseline) and the box stops
+        # short of badge 1 at y 270.
+        AUTHZ_CALLOUT_X: 175
+        AUTHZ_CALLOUT_Y: 128
+        AUTHZ_CALLOUT_WIDTH: 360
+        AUTHZ_REQUEST_CALLOUT_HEIGHT: 140
+        AUTHZ_RESPONSE_CALLOUT_HEIGHT: 126
+
+        # Hop C's request, leg 4. Below the user service (which ends at y 540) and
+        # left of the brand mark (which starts at x 1126).
+        USER_CALLOUT_X: 600
+        USER_CALLOUT_Y: 600
+        USER_CALLOUT_WIDTH: 360
+        USER_CALLOUT_HEIGHT: 74
 
         # Each callout fades in, holds for the middle of its leg, and fades out so the
         # last frame it paints is the last frame of that leg.
@@ -324,13 +386,13 @@ animation:
         # the box is placed in `get_user_profile_v1`. Both SVGs share the 0 0 1280 720
         # viewBox, so the two coordinate systems are one; a `defs`-declared actor is
         # document-global and resolves from either.
-        callout_request:
+        callout_client_request:
             note:
-                text: request_payload_text
+                text: client_request_text
                 shape:
                     rect:
-                        width: REQUEST_CALLOUT_WIDTH
-                        height: REQUEST_CALLOUT_HEIGHT
+                        width: CLIENT_CALLOUT_WIDTH
+                        height: CLIENT_CALLOUT_HEIGHT
                         radius: CALLOUT_RADIUS
                 padding: CALLOUT_PADDING
                 align: left
@@ -341,20 +403,20 @@ animation:
                             pos: center
                             binding: live
             at:
-                x: REQUEST_CALLOUT_X
-                y: REQUEST_CALLOUT_Y
+                x: CLIENT_CALLOUT_X
+                y: CLIENT_CALLOUT_Y
             origin: top_left
             fill: 'css("callout-fill-color")'
             stroke: 'css("callout-stroke-color")'
             stroke_width: CALLOUT_STROKE_WIDTH
 
-        callout_response:
+        callout_profile_response:
             note:
-                text: response_payload_text
+                text: profile_response_text
                 shape:
                     rect:
-                        width: RESPONSE_CALLOUT_WIDTH
-                        height: RESPONSE_CALLOUT_HEIGHT
+                        width: PROFILE_CALLOUT_WIDTH
+                        height: PROFILE_CALLOUT_HEIGHT
                         radius: CALLOUT_RADIUS
                 padding: CALLOUT_PADDING
                 align: left
@@ -365,8 +427,80 @@ animation:
                             pos: center
                             binding: live
             at:
-                x: RESPONSE_CALLOUT_X
-                y: RESPONSE_CALLOUT_Y
+                x: PROFILE_CALLOUT_X
+                y: PROFILE_CALLOUT_Y
+            origin: top_left
+            fill: 'css("callout-fill-color")'
+            stroke: 'css("callout-stroke-color")'
+            stroke_width: CALLOUT_STROKE_WIDTH
+
+        callout_authz_request:
+            note:
+                text: authz_request_text
+                shape:
+                    rect:
+                        width: AUTHZ_CALLOUT_WIDTH
+                        height: AUTHZ_REQUEST_CALLOUT_HEIGHT
+                        radius: CALLOUT_RADIUS
+                padding: CALLOUT_PADDING
+                align: left
+                pointer:
+                    target:
+                        anchor:
+                            asset: packet
+                            pos: center
+                            binding: live
+            at:
+                x: AUTHZ_CALLOUT_X
+                y: AUTHZ_CALLOUT_Y
+            origin: top_left
+            fill: 'css("callout-fill-color")'
+            stroke: 'css("callout-stroke-color")'
+            stroke_width: CALLOUT_STROKE_WIDTH
+
+        callout_authz_response:
+            note:
+                text: authz_response_text
+                shape:
+                    rect:
+                        width: AUTHZ_CALLOUT_WIDTH
+                        height: AUTHZ_RESPONSE_CALLOUT_HEIGHT
+                        radius: CALLOUT_RADIUS
+                padding: CALLOUT_PADDING
+                align: left
+                pointer:
+                    target:
+                        anchor:
+                            asset: packet
+                            pos: center
+                            binding: live
+            at:
+                x: AUTHZ_CALLOUT_X
+                y: AUTHZ_CALLOUT_Y
+            origin: top_left
+            fill: 'css("callout-fill-color")'
+            stroke: 'css("callout-stroke-color")'
+            stroke_width: CALLOUT_STROKE_WIDTH
+
+        callout_user_request:
+            note:
+                text: user_request_text
+                shape:
+                    rect:
+                        width: USER_CALLOUT_WIDTH
+                        height: USER_CALLOUT_HEIGHT
+                        radius: CALLOUT_RADIUS
+                padding: CALLOUT_PADDING
+                align: left
+                pointer:
+                    target:
+                        anchor:
+                            asset: packet
+                            pos: center
+                            binding: live
+            at:
+                x: USER_CALLOUT_X
+                y: USER_CALLOUT_Y
             origin: top_left
             fill: 'css("callout-fill-color")'
             stroke: 'css("callout-stroke-color")'
@@ -410,10 +544,19 @@ animation:
             - chip_capability:
                   - show:
                         opacity: 0
-            - callout_request:
+            - callout_client_request:
                   - show:
                         opacity: 0
-            - callout_response:
+            - callout_profile_response:
+                  - show:
+                        opacity: 0
+            - callout_authz_request:
+                  - show:
+                        opacity: 0
+            - callout_authz_response:
+                  - show:
+                        opacity: 0
+            - callout_user_request:
                   - show:
                         opacity: 0
 
@@ -546,7 +689,7 @@ animation:
             # inside its own leg. Keying the
             # fade-out at `leg1.end` instead would start it there and let the box
             # linger a fade into leg 2.
-            - callout_request:
+            - callout_client_request:
                   - show:
                         duration: "leg1.duration * CALLOUT_FADE_SHARE"
                         opacity:
@@ -569,6 +712,22 @@ animation:
                         cycles: PULSE_CYCLES
                         stroke: 'css("pulse-stroke-color")'
                         stroke_width: 'css("pulse-stroke-width")'
+            # Hop B outbound: the gateway asks authn/authz to vouch for the caller.
+            - callout_authz_request:
+                  - show:
+                        duration: "(leg2.duration) * CALLOUT_FADE_SHARE"
+                        opacity:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "(leg2.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
+                  - show:
+                        duration: "(leg2.duration) * CALLOUT_FADE_SHARE"
+                        opacity:
+                            from: 1
+                            to: 0
+                        easing: ease_in_quad
 
         leg3.start:
             - badge_gateway:
@@ -577,6 +736,22 @@ animation:
                         cycles: PULSE_CYCLES
                         stroke: 'css("pulse-stroke-color")'
                         stroke_width: 'css("pulse-stroke-width")'
+            # Hop B home: the verdict, and the subject id leg 4 is addressed with.
+            - callout_authz_response:
+                  - show:
+                        duration: "(leg3.duration) * CALLOUT_FADE_SHARE"
+                        opacity:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "(leg3.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
+                  - show:
+                        duration: "(leg3.duration) * CALLOUT_FADE_SHARE"
+                        opacity:
+                            from: 1
+                            to: 0
+                        easing: ease_in_quad
 
         leg4.start:
             - badge_user:
@@ -585,6 +760,22 @@ animation:
                         cycles: PULSE_CYCLES
                         stroke: 'css("pulse-stroke-color")'
                         stroke_width: 'css("pulse-stroke-width")'
+            # Hop C outbound: addressed by that id, on the gateway's own credentials.
+            - callout_user_request:
+                  - show:
+                        duration: "(leg4.duration) * CALLOUT_FADE_SHARE"
+                        opacity:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "(leg4.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
+                  - show:
+                        duration: "(leg4.duration) * CALLOUT_FADE_SHARE"
+                        opacity:
+                            from: 1
+                            to: 0
+                        easing: ease_in_quad
 
         leg5.start:
             - badge_gateway:
@@ -593,6 +784,26 @@ animation:
                         cycles: PULSE_CYCLES
                         stroke: 'css("pulse-stroke-color")'
                         stroke_width: 'css("pulse-stroke-width")'
+            # ⚡ THE ONLY CALLOUT THAT OUTLIVES ITS LEG, and deliberately. The body
+            # the user service returns and the body the gateway hands back are the
+            # same bytes, so showing it twice would read as repetition rather than as
+            # a pass-through. One box, held across legs 5 AND 6, SHOWS what a second
+            # box could only assert: the gateway did not touch it.
+            - callout_profile_response:
+                  - show:
+                        duration: "(leg5.duration + leg6.duration) * CALLOUT_FADE_SHARE"
+                        opacity:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+                        hold:
+                            after: "(leg5.duration + leg6.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
+                  - show:
+                        duration: "(leg5.duration + leg6.duration) * CALLOUT_FADE_SHARE"
+                        opacity:
+                            from: 1
+                            to: 0
+                        easing: ease_in_quad
 
         leg6.start:
             - badge_client:
@@ -601,23 +812,6 @@ animation:
                         cycles: PULSE_CYCLES
                         stroke: 'css("pulse-stroke-color")'
                         stroke_width: 'css("pulse-stroke-width")'
-            # The answer, on the leg that brings it home — the same shape as the
-            # request above, over the same connector, on the opposite lane.
-            - callout_response:
-                  - show:
-                        duration: "leg6.duration * CALLOUT_FADE_SHARE"
-                        opacity:
-                            from: 0
-                            to: 1
-                        easing: ease_out_quad
-                        hold:
-                            after: "leg6.duration * (1 - CALLOUT_FADE_SHARE * 2)"
-                  - show:
-                        duration: "leg6.duration * CALLOUT_FADE_SHARE"
-                        opacity:
-                            from: 1
-                            to: 0
-                        easing: ease_in_quad
 
         # --- The request is answered; the packet leaves and the legend clears. ---
         # `walk.end` — the PARENT's bookmark — rather than `leg6.end`. Both resolve to

@@ -1,0 +1,8 @@
+POST /authorize HTTP/1.1
+Host: authz.example.com
+Authorization: Bearer gw_credentials
+Content-Type: application/json; charset=utf-8
+
+{
+	"access_token": "EnCd15LmKU"
+}
