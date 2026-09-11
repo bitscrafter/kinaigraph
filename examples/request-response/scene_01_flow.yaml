@@ -105,6 +105,20 @@ defs:
             id: chevron-packet
             origin: center
 
+        # Last of the scenes, so it draws above everything. Its own scene because it
+        # carries ~60 KB of embedded PNG — inside the diagram that payload would be
+        # four fifths of the file and bury the geometry. Authored in the same
+        # 1280 x 720 viewBox the other scenes use, so one coordinate space covers
+        # every scene in the document.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand-mark
+
         # ── The payloads, quoted verbatim ─────────────────────────────────────────
         # ⚠️ INLINE `content:` RATHER THAN `file:`, DELIBERATELY. The same two payloads
         # are committed at `resource/text/get_user_profile_request.txt` and
@@ -385,6 +399,11 @@ animation:
                         opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+            # Present from the first frame and never touched again — it is the
+            # publisher's mark, not part of the story.
+            - brand_mark:
+                  - show:
+                        opacity: 1
             - packet:
                   - show:
                         opacity: 0
