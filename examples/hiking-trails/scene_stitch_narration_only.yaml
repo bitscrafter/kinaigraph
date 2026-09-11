@@ -1,0 +1,94 @@
+# ------------------------------------------
+# hiking-trails — the stitch, NARRATION ONLY
+# ------------------------------------------
+# The same three routes in the same order as `scene_04_stitch.yaml`, without the
+# ambience bed.
+#
+# It exists so a CLONE can render the finished piece. The bedded stitch mixes a
+# licensed forest recording that is deliberately not committed — the licence
+# permits use but not redistribution — so that document cannot run until you
+# fetch the track. This one has no such dependency.
+#
+#     kinaigraph scene_stitch_narration_only.yaml
+#
+# ⚠️ UNNUMBERED on purpose. The numbers are stitch order and this is not a fourth
+# step; it is a companion to step 04, the way scene_summit_faceted is a companion
+# to step 01.
+#
+# ⚠️ The bedded version is the one to READ. Slicing a bed across separate roll
+# entries — so the source offsets follow the clips' own probed durations and a
+# re-timed route shifts the later slices automatically — is the capability worth
+# studying, and it only exists there.
+
+defs:
+    assets:
+        # The silent scene animations, exactly where scenes 01-03 write them.
+        summit:
+            type: video
+            file: "./resource/video/scene_01_summit_animation.mp4"
+        lake:
+            type: video
+            file: "./resource/video/scene_02_lake_animation.mp4"
+        rest:
+            type: video
+            file: "./resource/video/scene_03_rest_animation.mp4"
+
+        # The narration. Each route scene already sized ITSELF to one of these — the
+        # clip is as long as the line — so mixing each onto its own clip lands the
+        # voice against the pictures it describes without a single authored offset.
+        narration_summit:
+            type: audio
+            file: "./resource/audio/part_01_summit.mp3"
+        narration_lake:
+            type: audio
+            file: "./resource/audio/part_02_lake.mp3"
+        narration_rest:
+            type: audio
+            file: "./resource/audio/part_03_rest.mp3"
+
+
+
+        # How long the bed takes to arrive and to leave. A ranged volume ramps across
+        # the mix's SPAN, so a mix riding a whole clip fades across that whole clip —
+        # which put the bed below full level for most of the piece and left it barely
+        # audible. Scoping the ramp to its own short span instead, and running a flat
+        # mix over the remainder, holds the bed at full level for all but three seconds.
+
+composition:
+    context:
+        status: active
+
+    # Signpost order — the same order the boards read on the map, so a viewer who
+    # noticed the signpost sees the routes arrive in the order it promised.
+    #
+    # Every clip carries TWO mixes: its own narration line, and a slice of the shared
+    # ambience bed. The bed is sliced rather than laid down once because a mix's `span`
+    # is SEGMENT time — a range within the clip it rides — not output time, so no
+    # single mix can reach across three separate roll entries. Giving each clip the
+    # slice that follows the previous one makes the bed continuous across the cut: the
+    # source offsets are expressions over the clips' own probed durations, so a
+    # re-rendered route shifts the later slices automatically and the ambience never
+    # jumps or repeats at a boundary.
+    timeline:
+        "0 @ summit_bk":
+            - summit:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_summit
+        "summit_bk.end @ lake_bk":
+            - lake:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_lake
+        "lake_bk.end @ rest_bk":
+            - rest:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_rest
+    capture:
+        video_hiking_trails_narration_only:
+            output: "./hiking_trails_narration_only.mp4"
+            fps: 30

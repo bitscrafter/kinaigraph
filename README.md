@@ -178,8 +178,8 @@ Kinaigraph times animation to narration, so most scenes here read an audio clip 
 [ElevenLabs](https://elevenlabs.io/) API key in `ELEVENLABS_API_KEY`, and each synthesis run
 costs credits. Every example has a `scene_00_tts_generation.yaml` that does that step.
 
-**One example renders with no key and no synthesis** — every input it uses is in this
-repository. Start there.
+**Two examples render with no key** — `milestone-ladder` and `hiking-trails` both ship
+their narration, so every input they use is already in this repository. Start there.
 
 ## Using it
 

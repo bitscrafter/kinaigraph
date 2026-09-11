@@ -24,7 +24,7 @@
 
 defs:
     assets:
-        # Each route renders to its own outdir, so the three clips do not collide.
+        # The silent scene animations, exactly where scenes 01-03 write them.
         summit:
             type: video
             file: "./resource/video/scene_01_summit_animation.mp4"

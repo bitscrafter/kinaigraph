@@ -74,6 +74,7 @@ cannot probe its clip cannot compute its own dwell. They are committed for that 
 | `resource/scene/markers*.svg` | Hand-authored glyph layers (one per route): the travelling arrowheads, the destination ring and star. |
 | `resource/template/main.html`, `resource/style/theme_dark.css` | Shared container and theme. |
 | `resource/script/` | Source narration text, one file per route. |
+| `scene_stitch_narration_only.yaml` | The same stitch without the ambience bed, so a clone renders the finished piece with nothing to download. Not a fourth step, hence no number. **Read `scene_04_stitch.yaml` instead** — slicing a bed across separate roll entries is the capability worth studying, and it only exists there. |
 | `scene_summit_faceted.yaml` | The summit route again, as an explicit waypoint polyline. **The only place `along.smoothing` can be exercised** — the field is rejected if any segment in an `along` is an asset segment, and the numbered scenes all ride named paths. Deliberately unsmoothed and coarsely sampled, so the faceting is visible. Not part of the stitch, hence no number. |
 | `resource/audio/` | The narration. Committed, so a clone renders without a TTS key. |
 
@@ -90,7 +91,10 @@ kinaigraph scene_02_lake.yaml
 kinaigraph scene_03_rest.yaml
 
 # 3) Stitch the three into the final video.
+#    Needs the ambience track — see "Ambient audio" below. If you would rather
+#    not fetch it, run the narration-only companion instead.
 kinaigraph scene_04_stitch.yaml
+kinaigraph scene_stitch_narration_only.yaml
 ```
 
 To re-route a trail: repaint its trace, run
@@ -107,7 +111,8 @@ art in the example.
 [Pixabay](https://pixabay.com/), asset `445379`, under the
 [Pixabay Content License](https://pixabay.com/service/license-summary/).
 
-The audio file is **not committed**. The licence permits free use, modification and
+The audio file is **not committed**, which is why `scene_stitch_narration_only.yaml`
+exists: everything else in this example renders from a clone untouched. The licence permits free use, modification and
 commercial use without attribution, but forbids distributing the content "on a
 Standalone basis … where no creative effort has been applied to the Content and it
 remains in substantially the same form" — which is what shipping the raw MP3 in a
