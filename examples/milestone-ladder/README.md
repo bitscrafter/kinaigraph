@@ -77,6 +77,19 @@ one — darkens. In both, further from the background means further along. Each
 keeps the icon legible by holding the disc away from the ramp: dark disc with
 near-white glyphs on `dark`, white disc with ramp-coloured glyphs on `care`.
 
+**A scene opens on its own.** Each carries a `<style>` block holding the MAPPING —
+which class takes which property from which variable — while `theme_ladder.css`
+holds the VALUES. Every `var()` in a scene is emitted with the stylesheet's `.dark`
+value as its fallback, so opening `ladder.svg` in a browser, an editor or a GitHub
+preview shows the dark theme rather than unstyled shapes; whenever the stylesheet
+is in scope, the theme wins.
+
+Nothing is duplicated by that split: a mapping lives in the scene, a value lives in
+the stylesheet. The one exception is deliberate — the `.dark` column appears twice,
+once as values and once as fallbacks — and the generator READS the stylesheet to
+produce them, so they cannot drift. A variable a scene uses but the stylesheet does
+not define stops generation rather than emitting a fallback-less `var()`.
+
 **Arial only, deliberately.** Nothing in the stylesheet may name a font that is
 not installed by default on Windows, macOS and Linux — an example that renders
 differently depending on who clones it is a broken example. Liberation Sans, the

@@ -1,4 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" id="milestone-ladder">
+	<style>
+		#milestone-ladder { font-family: var(--kg-font-family, Arial, "Liberation Sans", Helvetica, sans-serif); }
+		.stage { fill: var(--kg-scene-bg, #0b1220); }
+		/* ⚠️ .seg must never carry a stroke-dasharray. `reveal` drives that same
+		   attribute to draw a stroke on progressively, so a dashed segment renders
+		   NOTHING when revealed — silently. Dashes or draw-on, never both. */
+		.track { fill: none; stroke: var(--kg-track, #1e2c44); stroke-width: 7; stroke-linecap: round; }
+		.seg   { fill: none; stroke: var(--kg-seg, #4cc0d2);   stroke-width: 7; stroke-linecap: round; }
+		.halo  { fill: none; stroke-width: 2; opacity: 0.26; }
+		.disc  { fill: var(--kg-disc-fill, #0f1a2b); stroke-width: 5; }
+		/* The ramp, on the RING. Never on the disc fill — see the stylesheet. */
+		.ring-1 { stroke: var(--kg-step-1, #2f6d7a); }
+		.ring-2 { stroke: var(--kg-step-2, #37879a); }
+		.ring-3 { stroke: var(--kg-step-3, #3fa3b8); }
+		.ring-4 { stroke: var(--kg-step-4, #4cc0d2); }
+		.ring-5 { stroke: var(--kg-step-5, #6bdcea); }
+		.ring-6 { stroke: var(--kg-step-6, #93f0f7); }
+		.yr { font-size: 25px; font-weight: 700; letter-spacing: 0.14em; text-anchor: middle; }
+		.ink-1 { fill: var(--kg-step-1, #2f6d7a); }
+		.ink-2 { fill: var(--kg-step-2, #37879a); }
+		.ink-3 { fill: var(--kg-step-3, #3fa3b8); }
+		.ink-4 { fill: var(--kg-step-4, #4cc0d2); }
+		.ink-5 { fill: var(--kg-step-5, #6bdcea); }
+		.ink-6 { fill: var(--kg-step-6, #93f0f7); }
+		.ti { font-size: 30px; font-weight: 700; fill: var(--kg-text-title, #f4f7fb); text-anchor: middle; }
+		.de { font-size: 21px; fill: var(--kg-text-muted, #8ea3bd); text-anchor: middle; }
+		.title-name { font-size: 56px; font-weight: 700; fill: var(--kg-text-title, #f4f7fb); }
+		.title-role { font-size: 22px; fill: var(--kg-text-muted, #8ea3bd); letter-spacing: 0.16em; }
+	</style>
 	<rect id="stage" class="stage" x="0" y="0" width="1920" height="1080"/>
 	<g id="title">
 		<text id="title-name" class="title-name" x="140" y="128">Dr. Jane Doe, MD</text>

@@ -2,6 +2,19 @@
      Symbols are inlined copies of resource/scene/icons.svg (that file is the
      source of truth; cross-file <use> is not consumed by the pipeline). -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" id="milestone-icon-layer">
+	<style>
+		#milestone-icon-layer { font-family: var(--kg-font-family, Arial, "Liberation Sans", Helvetica, sans-serif); }
+		/* The catalog's classes, copied from icon-catalog.svg so a symbol drops in
+		   unmodified. Each sets exactly one property; a line part carries its own
+		   fill="none". */
+		.icon-fill        { fill: var(--icon-fill, #0f1a2b); }
+		.icon-fill-light  { fill: var(--icon-fill-light, #16243a); }
+		.icon-fill-medium { fill: var(--icon-fill-medium, #9fc9dd); }
+		.icon-fill-dark   { fill: var(--icon-fill-dark, #eaf6ff); }
+		.icon-stroke        { stroke: var(--icon-stroke, #eaf6ff); }
+		.icon-stroke-light  { stroke: var(--icon-stroke-light, #9fc9dd); }
+		.icon-stroke-medium { stroke: var(--icon-stroke-medium, #c6e4f2); }
+	</style>
 	<defs>
 	<symbol id="clock" viewBox="0 0 24 24">
 		    <!-- Face -->

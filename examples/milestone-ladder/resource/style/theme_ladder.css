@@ -1,21 +1,30 @@
 /*
- * milestone-ladder — the ladder themes
+ * milestone-ladder — the themes
  *
- * Six steps of one life on a rising sawtooth. Both palettes are SEQUENTIAL, not
- * categorical: one hue walked across the six nodes, because they are an ordered
- * progression rather than six kinds of thing. Six distinct hues would say these
- * steps are unrelated; one hue moving says they are one thing getting further
- * along, and the movement itself encodes how far.
+ * ⚠️ This file holds VALUES only. Which class takes which property lives in the
+ * scenes' own `<style>` blocks, emitted by `resource/temp/make_ladder_svg.py`.
+ * The split is what lets a scene render on its own: each `var(--x)` there
+ * carries this file's `.dark` value as its fallback, so opening ladder.svg in a
+ * browser, an editor or a GitHub preview shows the dark theme instead of
+ * unstyled shapes. Whenever the stylesheet is in scope, the theme wins.
+ *
+ * Nothing is duplicated by that arrangement — a mapping lives in the scene, a
+ * value lives here. The one exception is deliberate: the `.dark` column appears
+ * twice, once here and once as the fallbacks. The generator READS this file to
+ * produce them, so they cannot drift; re-run it after changing a value.
+ *
+ * Both palettes are SEQUENTIAL: one hue walked across the six nodes, because
+ * they are an ordered progression rather than six kinds of thing.
  *
  * ⚠️ The two themes move the ramp in OPPOSITE directions, and the reason is
  * contrast, not taste. `dark` BRIGHTENS toward 2025; `care` DARKENS. In both,
  * "further along" means "further from the background".
  *
- * ⚠️ And each keeps the icon legible by holding the disc away from the ramp.
- * On `dark` the disc stays dark and the icon is near-white — white on the bright
+ * ⚠️ Each keeps the icon legible by holding the disc away from the ramp. On
+ * `dark` the disc stays dark and the icon is near-white — white on the bright
  * end of that ramp measures about 2.2:1, so brightening the FILL would have made
  * the last two icons unreadable. On `care` the disc is white and the icon takes
- * the ramp colour directly, which is legible because the ramp is dark there.
+ * the ramp directly, which is legible because the ramp is dark there.
  *
  * Fonts: Arial and its metric-compatible twins ONLY. Nothing here may name a
  * font that is not installed by default on Windows, macOS and Linux — an example
@@ -23,16 +32,14 @@
  * Liberation Sans (the Linux default) has identical advance widths to Arial, so
  * a fallback shifts no layout. There is no cross-platform cursive: `cursive`
  * resolves to Comic Sans on Windows and Apple Chancery on macOS, with no metric
- * relationship. If a script face is ever wanted, it has to be EMBEDDED.
+ * relationship. A script face would have to be EMBEDDED.
  */
 
 :root {
     --kg-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
 }
 
-/* ── dark ───────────────────────────────────────────────────────────────────
- * The original. Deep navy, one cyan hue brightening toward the present.
- */
+/* ── dark ────────────────────────────────────────────────────────────────── */
 .dark {
     --kg-page-bg: #0b1220;
     --kg-scene-bg: #0b1220;
@@ -42,6 +49,7 @@
     --kg-track: #1e2c44;
     --kg-disc-fill: #0f1a2b;
     --kg-icon: #eaf6ff;
+    --kg-seg: #4cc0d2;
 
     --kg-step-1: #2f6d7a;
     --kg-step-2: #37879a;
@@ -49,7 +57,6 @@
     --kg-step-4: #4cc0d2;
     --kg-step-5: #6bdcea;
     --kg-step-6: #93f0f7;
-    --kg-seg: #4cc0d2;
 
     /* The catalog's icon vocabulary. Solid areas take the DISC colour, so a
        filled glyph reads as outline-on-disc rather than as a blot — the discs
@@ -63,14 +70,7 @@
     --icon-stroke-medium: #c6e4f2;
 }
 
-/* ── care ───────────────────────────────────────────────────────────────────
- * The light theme. Teal on near-white — the register clinical material has used
- * for decades, and readable in a printed still or a bright room, which the dark
- * theme is not.
- *
- * The ramp DARKENS toward 2025, and the icon takes the ramp colour rather than a
- * fixed ink, so a node's glyph gets more definite as she does.
- */
+/* ── care ────────────────────────────────────────────────────────────────── */
 .care {
     --kg-page-bg: #f4f8f9;
     --kg-scene-bg: #f4f8f9;
@@ -80,6 +80,7 @@
     --kg-track: #d3e2e6;
     --kg-disc-fill: #ffffff;
     --kg-icon: currentColor;
+    --kg-seg: #1c8177;
 
     --kg-step-1: #86c9c0;
     --kg-step-2: #5cb3a9;
@@ -87,11 +88,8 @@
     --kg-step-4: #1c8177;
     --kg-step-5: #0f6860;
     --kg-step-6: #084f49;
-    --kg-seg: #1c8177;
 
-    /* Same idea inverted: fills take the white disc, ink takes the ramp. The
-       per-node overrides below re-point the ink so a glyph darkens with its
-       node. */
+    /* Same idea inverted: fills take the white disc, ink takes the ramp. */
     --icon-fill: #ffffff;
     --icon-fill-light: #eef5f5;
     --icon-fill-medium: #1c8177;
@@ -101,68 +99,17 @@
     --icon-stroke-medium: #349a90;
 }
 
-/* ── The catalog's classes ─────────────────────────────────────────────────
- * Copied verbatim from icon-catalog.svg so a symbol drops in unmodified. Each
- * sets exactly one property; a line part carries fill="none" of its own.
+/* ── Per-node ink, `care` only ───────────────────────────────────────────────
+ * A glyph takes its node's step from the ramp, so it darkens as she advances.
+ * `dark` keeps a fixed near-white ink instead: that ramp's dim end would be
+ * unreadable at 56 px inside a dark disc.
+ *
+ * These stay HERE rather than in the scene because they are theme-specific —
+ * the scene's own style block must say the same thing under every theme.
  */
-.icon-fill        { fill: var(--icon-fill); }
-.icon-fill-light  { fill: var(--icon-fill-light); }
-.icon-fill-medium { fill: var(--icon-fill-medium); }
-.icon-fill-dark   { fill: var(--icon-fill-dark); }
-.icon-stroke        { stroke: var(--icon-stroke); }
-.icon-stroke-light  { stroke: var(--icon-stroke-light); }
-.icon-stroke-medium { stroke: var(--icon-stroke-medium); }
-
-#milestone-ladder,
-#milestone-icon-layer {
-    font-family: var(--kg-font-family);
-}
-
-.stage {
-    fill: var(--kg-scene-bg);
-}
-
-/* ── Path ──────────────────────────────────────────────────────────────────
- * ⚠️ `.seg` must never carry a `stroke-dasharray`. `reveal` drives that same
- * attribute to draw a stroke on progressively, so a dashed segment renders
- * NOTHING when revealed — silently. Dashes or draw-on, never both.
- */
-.track { fill: none; stroke: var(--kg-track); stroke-width: 7; stroke-linecap: round; }
-.seg   { fill: none; stroke: var(--kg-seg);   stroke-width: 7; stroke-linecap: round; }
-
-/* ── Nodes ────────────────────────────────────────────────────────────────── */
-.halo { fill: none; stroke-width: 2; opacity: 0.26; }
-.disc { fill: var(--kg-disc-fill); stroke-width: 5; }
-
-/* The ramp, on the RING. Never on the disc fill — see the header. */
-.ring-1 { stroke: var(--kg-step-1); }
-.ring-2 { stroke: var(--kg-step-2); }
-.ring-3 { stroke: var(--kg-step-3); }
-.ring-4 { stroke: var(--kg-step-4); }
-.ring-5 { stroke: var(--kg-step-5); }
-.ring-6 { stroke: var(--kg-step-6); }
-
-/* On `care` a glyph takes its node's step from the ramp, so it darkens as she
-   advances. On `dark` the ink is fixed near-white: the ramp's dim end would be
-   unreadable at 40 px inside a dark disc. */
 .care #icon-career-decision { --icon-stroke: var(--kg-step-1); --icon-fill-dark: var(--kg-step-1); --icon-fill-medium: var(--kg-step-1); }
 .care #icon-medical-school  { --icon-stroke: var(--kg-step-2); --icon-fill-dark: var(--kg-step-2); --icon-fill-medium: var(--kg-step-2); }
 .care #icon-internship      { --icon-stroke: var(--kg-step-3); --icon-fill-dark: var(--kg-step-3); --icon-fill-medium: var(--kg-step-3); }
 .care #icon-family          { --icon-stroke: var(--kg-step-4); --icon-fill-dark: var(--kg-step-4); --icon-fill-medium: var(--kg-step-4); }
 .care #icon-community       { --icon-stroke: var(--kg-step-5); --icon-fill-dark: var(--kg-step-5); --icon-fill-medium: var(--kg-step-5); }
 .care #icon-teaching        { --icon-stroke: var(--kg-step-6); --icon-fill-dark: var(--kg-step-6); --icon-fill-medium: var(--kg-step-6); }
-
-/* ── Labels ───────────────────────────────────────────────────────────────── */
-.yr { font-size: 25px; font-weight: 700; letter-spacing: 0.14em; text-anchor: middle; }
-.ink-1 { fill: var(--kg-step-1); }
-.ink-2 { fill: var(--kg-step-2); }
-.ink-3 { fill: var(--kg-step-3); }
-.ink-4 { fill: var(--kg-step-4); }
-.ink-5 { fill: var(--kg-step-5); }
-.ink-6 { fill: var(--kg-step-6); }
-
-.ti { font-size: 30px; font-weight: 700; fill: var(--kg-text-title); text-anchor: middle; }
-.de { font-size: 21px; fill: var(--kg-text-muted); text-anchor: middle; }
-
-.title-name { font-size: 56px; font-weight: 700; fill: var(--kg-text-title); }
-.title-role { font-size: 22px; fill: var(--kg-text-muted); letter-spacing: 0.16em; }
