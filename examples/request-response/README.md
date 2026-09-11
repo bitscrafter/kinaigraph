@@ -29,11 +29,33 @@ not an authoring choice, and nothing in this example does it.
 three beats from the scripts under `resource/script/`. Run it once, before rendering, and again
 whenever a script changes.
 
-Beats 2 (*"the data store this diagram forgot"*) and 3 (*"re-themes from a single
-line"*) exist here as **narration and resources** — `get_user_profile_v2.svg` adds the store
-node, and `resource/style/` carries four stylesheets — but are not yet authored as scenes.
-The [`microservices-flow`](../microservices-flow/) example shows both of those ideas
-built out.
+| `scene_02_store.yaml` | Beat 2 — the shared store is added, and the packet rides the new leg. |
+
+Beat 3 (*"re-themes from a single line"*) exists here as **narration and resources** —
+`resource/style/` carries four stylesheets — but is not yet authored as a scene.
+
+### Beat 2's claim is checkable by eye
+
+`get_user_profile_v2.svg` is `get_user_profile_v1.svg` — the file beat 1 rides — **plus
+the `data-store` group and the `link-store-user` path, and nothing else**. Every other
+node, link, badge and CSS rule is byte-identical, which is why the diagram does not move
+at the cut between the beats. A viewer who suspects the two are different drawings can
+watch for a jump and not find one.
+
+⚠️ That property is load-bearing and easy to lose. **v2 is derived from v1** — re-derive
+it rather than hand-editing it, or the beat starts asserting something the render no
+longer shows. (Badge 4 sits *below* the user service in both files for the same reason:
+the store needs the gap above it, and the two diagrams must differ by the store alone.)
+
+The store is not decoration — the packet rides the new leg. `link-store-user` is only
+35 px of visible line, because the two nodes really are that close, so the dip down and
+back is quick. That is what a local lookup should look like, and it is a consequence of
+the drawing rather than a duration anyone chose: `pace_by: distance` splits the beat's
+travel by arc length, so the two long legs take most of it by themselves.
+
+⛔ **Beat 2 does not change the theme.** Re-skinning is beat 3's subject, and a beat that
+changed the structure *and* the palette at one cut would leave a viewer unable to
+attribute either. The force of "one node, one link" is that everything else held still.
 
 ### The payloads are callouts, and their pointers move
 
@@ -224,6 +246,7 @@ written against is the spelling that shipped.
 scene_00_tts_generation.yaml                       narration synthesis (run first)
 scene_01_flow.yaml                                 beat 1, paced by distance
 scene_01_flow_with_orient_at_parent_action.yaml    beat 1, hand-timed
+scene_02_store.yaml                                beat 2, the store arrives
 resource/
   scene/get_user_profile_v1.svg                       the system, as drawn
   scene/get_user_profile_v2.svg                       the same, plus the shared data store
@@ -242,7 +265,11 @@ Run from this directory:
 ```sh
 kinaigraph scene_00_tts_generation.yaml --outdir ./out    # once, to synthesize narration
 kinaigraph scene_01_flow.yaml --outdir ./out
+kinaigraph scene_02_store.yaml --outdir ./out
 ```
+
+Each beat captures an intermediate into `resource/video/`; the headline
+`request_response.mp4` is the stitch's output, and the stitch is not authored yet.
 
 Render `scene_01_flow_with_orient_at_parent_action.yaml` too if you want to see the
 difference the table above describes.

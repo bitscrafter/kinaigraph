@@ -1,0 +1,362 @@
+# ------------------------------------------
+# request-response — Beat 2: the store the diagram forgot
+# ------------------------------------------
+# Beat 1 walked the whole system. This beat changes it, and the point is HOW LITTLE
+# the change is: one node in the drawing, one link beside it, and a few lines here.
+#
+# ⚡ THE CLAIM IS CHECKABLE BY EYE, WHICH IS WHY IT IS WORTH MAKING. The scene this
+# document uses is `get_user_profile_v2.svg`, and that file is `get_user_profile_v1.svg`
+# — the one beat 1 rides — PLUS the `data-store` group and the `link-store-user` path,
+# and nothing else. Every other node, link, badge and CSS rule is byte-identical. So at
+# the cut between the beats the diagram does not move, and a viewer who suspects the
+# two are different drawings can watch for a jump and not find one.
+#
+# ⚠️ That property is load-bearing and easy to lose. v2 is DERIVED from v1; re-derive it
+# rather than hand-editing it, or the beat starts asserting something the render no
+# longer shows.
+#
+# ⛔ NO THEME CHANGE HERE. Re-skinning is beat 3's subject, and a beat that changed the
+# structure AND the palette at the same cut would leave a viewer unable to attribute
+# either one. The whole force of "one node, one link" is that everything else held still.
+#
+# The store is not decoration: the packet rides the new leg. `link-store-user` is only
+# 35 px of visible line — the two nodes really are that close — so the dip down and back
+# is quick, which is what a local lookup should look like.
+
+metadata:
+    title: "Request/Response - Beat 2: the shared store"
+    description: "One node and one link are added to the diagram, and the packet rides the new leg"
+    version: "1.0"
+
+defs:
+    assets:
+        # v1 plus the store. See the header: the two files differ by that alone.
+        get_user_profile_v2:
+            type: "scene"
+            file: "./resource/scene/get_user_profile_v2.svg"
+        # Stacked above the diagram so the packet travels over the connectors.
+        chevrons:
+            type: "scene"
+            file: "./resource/scene/chevron_layer.svg"
+        # Last, so it draws above everything.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
+        # ── The two links this beat rides ─────────────────────────────────────────
+        link_gateway_user:
+            type: "actor"
+            part_of: get_user_profile_v2
+            id: link-gateway-user
+        # The new one. Declared here and ridden below — a leg the document names the
+        # same way it names the three that were already there.
+        link_store_user:
+            type: "actor"
+            part_of: get_user_profile_v2
+            id: link-store-user
+
+        # ── What arrives ──────────────────────────────────────────────────────────
+        # The store is the whole subject of the beat, so it is an actor: it starts
+        # hidden and the timeline brings it in.
+        data_store:
+            type: "actor"
+            part_of: get_user_profile_v2
+            id: data-store
+
+        badge_gateway:
+            type: "actor"
+            part_of: get_user_profile_v2
+            id: step-2-badge
+        badge_user:
+            type: "actor"
+            part_of: get_user_profile_v2
+            id: step-4-badge
+
+        packet:
+            type: "actor"
+            part_of: chevrons
+            id: chevron-packet
+            origin: center
+
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand-mark
+
+        # ── The callout that names the store ──────────────────────────────────────
+        # Declared by the DOCUMENT, not drawn into the artwork — which is what lets the
+        # same scene be reused by a beat that does not want the callout at all. A
+        # literal font_color, necessarily: css() reads a style selected on a scene or
+        # template and no style is in scope inside `defs`. This is blueprint's
+        # --title-text-color.
+        store_caption_text:
+            type: "text"
+            content: |
+                now with a
+                data store
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 15
+            font_color: "#eafaff"
+
+        # Declared for its DURATION, not played here — every beat takes its length from
+        # its own line, and all three lines mix once, in the stitch.
+        narration:
+            type: "audio"
+            file: "./resource/audio/part_02_store.mp3"
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resource/style/theme_blueprint.css"
+
+    const:
+        VIDEO_MARGIN: 350
+        PULSE_CYCLES: 1
+
+        # ⚠️ EVERY COORDINATE HERE IS IN THE SCENE'S OWN viewBox UNITS (1280 x 720),
+        # not the 1920 x 1080 capture. The frame is the viewBox scaled 1.5x; an
+        # annotation placed at a capture coordinate lands off-screen and paints nothing.
+
+        # ── The shape of the beat ─────────────────────────────────────────────────
+        # Four phases, each a share of the line that narrates them, so the whole beat
+        # re-fits a re-recording the way beat 1 does. The store arrives while the first
+        # clause names it, the callout while the second counts the edit, and the ride
+        # fills the two clauses that describe it.
+        STORE_REVEAL_MS: "narration.duration * 0.14"
+        NOTE_REVEAL_MS: "narration.duration * 0.10"
+        FIXED_MS: "VIDEO_MARGIN * 2 + STORE_REVEAL_MS + NOTE_REVEAL_MS"
+        TRAVEL_MS: "narration.duration - FIXED_MS"
+
+        # Keeps the packet clear of the node boxes at each end of a connector.
+        LINK_INSET: 14
+        # ⚠️ A SEPARATE, SMALLER INSET FOR THE STORE LEGS. `link-store-user` is 35 px
+        # end to end, so trimming 14 from each end would leave 7 px of ride and the dip
+        # would read as a stutter rather than a movement.
+        STORE_INSET: 4
+        # Perpendicular offset of the ride, so the outbound and return passes over one
+        # connector never retrace the same pixels.
+        LANE_OFFSET: 11
+        STORE_LANE_OFFSET: 9
+
+        # ── The store callout ─────────────────────────────────────────────────────
+        # In the WEDGE between the two links leaving the gateway, level with the store,
+        # so the pointer runs horizontally into the store's left edge and crosses
+        # nothing. The wedge opens rightward — at x 800 it is y 324..410, at x 960 it is
+        # y 267..453 — so a 72-tall box centred on the store's own y 360 fits from
+        # x 800 rightward and not before it. Parked below the gateway instead, the
+        # leader had to cut across `link-gateway-user` to reach the store.
+        #
+        # The box holds still and only the pointer aims: the same split beat 1's
+        # payload callouts use.
+        STORE_NOTE_X: 800
+        STORE_NOTE_Y: 324
+        STORE_NOTE_WIDTH: 160
+        STORE_NOTE_HEIGHT: 72
+        STORE_NOTE_PADDING: 12
+        STORE_NOTE_RADIUS: 6
+        STORE_NOTE_STROKE_WIDTH: 1.5
+        # Clears the store's own box before it buys any gap — see beat 1's note on the
+        # apex landing ON its target.
+        STORE_NOTE_APEX_GAP: 6
+
+animation:
+    defaults:
+        assets:
+            scene: get_user_profile_v2
+
+    annotations:
+        store_note:
+            note:
+                text: store_caption_text
+                shape:
+                    rect:
+                        width: STORE_NOTE_WIDTH
+                        height: STORE_NOTE_HEIGHT
+                        radius: STORE_NOTE_RADIUS
+                padding: STORE_NOTE_PADDING
+                align: center
+                pointer:
+                    target:
+                        anchor:
+                            asset: data_store
+                            pos: left
+                            # Straight back toward the box, which is level with it.
+                            dx: "-STORE_NOTE_APEX_GAP"
+            at:
+                x: STORE_NOTE_X
+                y: STORE_NOTE_Y
+            origin: top_left
+            fill: 'css("callout-fill-color")'
+            stroke: 'css("callout-stroke-color")'
+            stroke_width: STORE_NOTE_STROKE_WIDTH
+
+    timeline:
+        # ── The diagram beat 1 left behind, minus the store ───────────────────────
+        # The store and its link are present in the SVG and hidden here, so the frame
+        # this beat opens on is the frame beat 1 closed on.
+        0 @ setup_ts:
+            - get_user_profile_v2:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - data_store:
+                  - show:
+                        opacity: 0
+            - link_store_user:
+                  - show:
+                        opacity: 0
+            - packet:
+                  - show:
+                        opacity: 0
+            - store_note:
+                  - show:
+                        opacity: 0
+            # Present from the first frame and never touched again.
+            - brand_mark:
+                  - show:
+                        opacity: 1
+
+        # ── The edit ──────────────────────────────────────────────────────────────
+        # One node and one link, arriving together because they arrived together in the
+        # source. Nothing else on screen is written to at this timestamp, which is the
+        # beat's whole claim expressed as a timeline entry.
+        setup_ts.end @ reveal_ts:
+            - data_store:
+                  - show:
+                        duration: STORE_REVEAL_MS
+                        opacity:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+            - link_store_user:
+                  - show:
+                        duration: STORE_REVEAL_MS
+                        opacity:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+
+        # The callout names what just arrived. `reveal` walks the box∪fork outline
+        # rather than fading it, so the pointer draws itself toward the store.
+        reveal_ts.end @ note_ts:
+            - store_note:
+                  - show:
+                        duration: NOTE_REVEAL_MS
+                        opacity: 1
+                        reveal:
+                            from: 0
+                            to: 1
+                        easing: ease_out_quad
+
+        # ── The new leg carries traffic ───────────────────────────────────────────
+        # Gateway to user, down into the store, back up, and home. `pace_by: distance`
+        # splits TRAVEL_MS by arc length, so the two long legs take most of it and the
+        # store dip is the blink it ought to be — a property of the drawing, not a
+        # number anyone chose.
+        #
+        # `orient: auto` sits on EVERY leg and never on the parent: the parent carries
+        # no `along`, so it has no tangent to face, and putting it there writes a
+        # constant rotation over the whole journey.
+        note_ts.end @ walk_ts:
+            - packet:
+                  - show:
+                        opacity: 1
+                  - move @ walk:
+                        duration: TRAVEL_MS
+                        pace_by: distance
+                        easing: linear
+                        actions:
+                            # Leg 1: gateway -> user.
+                            - move @ leg1:
+                                  orient: auto
+                                  along:
+                                      asset: link_gateway_user
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
+
+                            # Leg 2: user -> store. The new leg, ridden by name exactly
+                            # as the three older ones are.
+                            - move @ leg2:
+                                  orient: auto
+                                  along:
+                                      asset: link_store_user
+                                  inset:
+                                      from: STORE_INSET
+                                      to: STORE_INSET
+                                  lateral:
+                                      side: left
+                                      distance: STORE_LANE_OFFSET
+
+                            # Leg 3: store -> user. `head: right` enters from the far
+                            # end; `side: left` is relative to travel, so the return
+                            # rides the opposite lane by itself.
+                            - move @ leg3:
+                                  orient: auto
+                                  along:
+                                      asset: link_store_user
+                                      head: right
+                                  inset:
+                                      from: STORE_INSET
+                                      to: STORE_INSET
+                                  lateral:
+                                      side: left
+                                      distance: STORE_LANE_OFFSET
+
+                            # Leg 4: user -> gateway. The answer goes back.
+                            - move @ leg4:
+                                  orient: auto
+                                  along:
+                                      asset: link_gateway_user
+                                      head: right
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
+
+        # ── The badges ────────────────────────────────────────────────────────────
+        # Each leg pulses the badge of the node it is ARRIVING at, for exactly that
+        # leg's window — the same rule beat 1 follows. The store has no badge of its
+        # own, so the store legs pulse nothing; the dip is its own signal.
+        leg1.start:
+            - badge_user:
+                  - pulse:
+                        duration: leg1.duration
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
+
+        leg4.start:
+            - badge_gateway:
+                  - pulse:
+                        duration: leg4.duration
+                        cycles: PULSE_CYCLES
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
+
+        # --- The lookup is done; the packet leaves and the store stays. ---
+        # `walk.end` — the PARENT's bookmark — rather than `leg4.end`. Both resolve to
+        # the same instant, and naming the whole journey says what this moment is.
+        walk.end @ tear_down_ts:
+            - packet:
+                  - show:
+                        opacity: 0
+            - get_user_profile_v2:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+
+    capture:
+        video_store:
+            output: "./resource/video/scene_02_store.mp4"
+            fps: 30

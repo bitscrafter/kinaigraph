@@ -856,6 +856,8 @@ animation:
                             after: "VIDEO_MARGIN"
 
     capture:
+        # An INTERMEDIATE: the beats stitch into ./request_response.mp4, which is the
+        # deliverable that lands beside the document.
         video_flow:
-            output: "./request_response.mp4"
+            output: "./resource/video/scene_01_flow.mp4"
             fps: 30

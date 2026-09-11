@@ -1,1 +1,4 @@
-Now the data store this diagram forgot. Adding it means one new node in the source and one line in the timeline. Nothing is re-drawn and nothing is re-timed.
+Here is the data store this diagram forgot.
+Adding it took one node in the drawing, and one link beside it.
+The user service dips into the store and comes straight back.
+Nothing else moved, nothing was re-timed, and the new leg rides like the rest.
