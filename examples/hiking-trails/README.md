@@ -74,6 +74,7 @@ cannot probe its clip cannot compute its own dwell. They are committed for that 
 | `resource/scene/markers*.svg` | Hand-authored glyph layers (one per route): the travelling arrowheads, the destination ring and star. |
 | `resource/template/main.html`, `resource/style/theme_dark.css` | Shared container and theme. |
 | `resource/script/` | Source narration text, one file per route. |
+| `scene_summit_faceted.yaml` | The summit route again, as an explicit waypoint polyline. **The only place `along.smoothing` can be exercised** — the field is rejected if any segment in an `along` is an asset segment, and the numbered scenes all ride named paths. Deliberately unsmoothed and coarsely sampled, so the faceting is visible. Not part of the stitch, hence no number. |
 | `resource/audio/` | The narration. Committed, so a clone renders without a TTS key. |
 
 ## Rendering
