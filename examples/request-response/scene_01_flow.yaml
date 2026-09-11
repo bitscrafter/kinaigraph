@@ -336,6 +336,22 @@ defs:
         USER_CALLOUT_WIDTH: 360
         USER_CALLOUT_HEIGHT: 74
 
+        # ⚠️ THE APEX LANDS ON THE TARGET — there is no standoff field. A pointer's tip
+        # is placed at `pointer.target`, so aimed at the packet's centre it draws over
+        # the chevron. `dx`/`dy` on the anchor pull it back, and because each box sits
+        # in one place for its whole leg, the BEARING from packet to box barely turns:
+        # a fixed offset along that bearing reads as a constant gap. It is an
+        # approximation, not a radius — the gap breathes by a pixel or so across a leg.
+        #
+        # ⚠️ THE OFFSET MUST CLEAR THE GLYPH BEFORE IT BUYS ANY GAP. The anchor is the
+        # packet's CENTRE, and the chevron is drawn around that centre: its symbol path
+        # runs `M 6 7 L 10 12 L 6 17` inside a 24x24 box placed at (-12,-12), so the
+        # strokes reach 5 units from centre and a 2.5 stroke-width adds 1.25 more. A
+        # 5-unit pullback therefore lands ON the chevron. 7 clears it; the 5 after that
+        # is the gap actually seen.
+        PACKET_HALF_EXTENT: 7
+        CALLOUT_APEX_GAP: "PACKET_HALF_EXTENT + 5"
+
         # Each callout fades in, holds for the middle of its leg, and fades out so the
         # last frame it paints is the last frame of that leg.
         #
@@ -401,6 +417,8 @@ animation:
                         anchor:
                             asset: packet
                             pos: center
+                            # box sits ABOVE the leg-1 lane
+                            dy: "-CALLOUT_APEX_GAP"
                             binding: live
             at:
                 x: CLIENT_CALLOUT_X
@@ -425,6 +443,8 @@ animation:
                         anchor:
                             asset: packet
                             pos: center
+                            # box sits BELOW both legs it spans
+                            dy: "CALLOUT_APEX_GAP"
                             binding: live
             at:
                 x: PROFILE_CALLOUT_X
@@ -449,6 +469,8 @@ animation:
                         anchor:
                             asset: packet
                             pos: center
+                            # box sits LEFT of the auth link
+                            dx: "-CALLOUT_APEX_GAP"
                             binding: live
             at:
                 x: AUTHZ_CALLOUT_X
@@ -473,6 +495,8 @@ animation:
                         anchor:
                             asset: packet
                             pos: center
+                            # box sits LEFT of the auth link
+                            dx: "-CALLOUT_APEX_GAP"
                             binding: live
             at:
                 x: AUTHZ_CALLOUT_X
@@ -497,6 +521,8 @@ animation:
                         anchor:
                             asset: packet
                             pos: center
+                            # box sits BELOW the user link
+                            dy: "CALLOUT_APEX_GAP"
                             binding: live
             at:
                 x: USER_CALLOUT_X
