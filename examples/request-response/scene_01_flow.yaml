@@ -119,15 +119,17 @@ defs:
             part_of: brand
             id: brand-mark
 
-        # ── The payloads, quoted verbatim ─────────────────────────────────────────
-        # ⚠️ INLINE `content:` RATHER THAN `file:`, DELIBERATELY. The same two payloads
-        # are committed at `resource/text/get_user_profile_request.txt` and
-        # `…_response.txt`, and a `type: text` asset accepts a `file:` — but NO LAYER
-        # READS IT, so a note sourced from a file renders an empty box. See
-        # kinaigraph-core's finding `text-asset-file-has-no-reader-in-any-layer`. When
-        # that lands, these two `content:` blocks become `file:` pointing at the .txt
-        # files and the duplication goes away. Until then the .txt files are the
-        # authority and these blocks must be kept in agreement with them.
+        # ── The payloads, read from the files that hold them ──────────────────────
+        # Each callout's text is the committed payload under `resource/text/`, named
+        # by `file:` rather than copied inline. The compiler reads it at Pass 3 and
+        # inlines the contents, so the .txt file is the single authority and there is
+        # no second copy to keep in agreement with it. A file it cannot read — absent,
+        # unreadable, not UTF-8 — is a compilation error, not a silently empty box.
+        #
+        # The payloads are indented with SPACES, not tabs, and that is a rendering
+        # constraint rather than a style choice: a tab inside SVG text has no defined
+        # advance width, so the browser would set the JSON's shape at its own
+        # discretion.
         #
         # Monospace, not the diagram's Arial stack: an HTTP payload set in a
         # proportional face stops reading as a wire format, and the header block's
@@ -135,15 +137,12 @@ defs:
         # `monospace` keyword, so it resolves in any render container even when none
         # of the named faces is installed.
         #
-        # Both carry `font_size: 12` written out rather than a shared const: a
+        # Every one carries `font_size: 12` written out rather than a shared const: a
         # `type: text` asset's `font_size` takes a literal number and cannot read
-        # `defs.const`, so changing one means changing both.
+        # `defs.const`, so changing one means changing all five.
         client_request_text:
             type: "text"
-            content: |
-                GET /userprofile HTTP/1.1
-                Host: api.example.com
-                Authorization: Bearer EnCd15LmKU
+            file: "./resource/text/get_user_profile_request.txt"
             font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
             font_size: 12
             # A literal, necessarily: css() reads a style selected on a scene or
@@ -151,29 +150,9 @@ defs:
             # --title-text-color; re-theming the callouts' TEXT means editing it here.
             font_color: "#eafaff"
 
-        # The body is the response payload's tab indentation rewritten as two spaces.
-        # A tab inside SVG text has no defined advance width, so the file's tabs would
-        # render at the browser's discretion and the JSON would lose its shape.
         profile_response_text:
             type: "text"
-            content: |
-                HTTP/1.1 200 OK
-                Content-Type: application/json; charset=utf-8
-
-                {
-                  "id": "Cf20gL4nT9qSBu",
-                  "username": "janedoe",
-                  "profile": {
-                    "first_name": "Jane",
-                    "last_name": "Doe",
-                    "email": "jane.doe@example.com",
-                    "website": "https://janedoe.example.com"
-                  },
-                  "preferences": {
-                    "theme": "dark",
-                    "notifications_enabled": true
-                  }
-                }
+            file: "./resource/text/get_user_profile_response.txt"
             font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
             font_size: 12
             font_color: "#eafaff"
@@ -184,29 +163,14 @@ defs:
         # viewer who reads both boxes watches a value carried forward.
         authz_request_text:
             type: "text"
-            content: |
-                POST /authorize HTTP/1.1
-                Host: authz.example.com
-                Authorization: Bearer gw_credentials
-                Content-Type: application/json; charset=utf-8
-
-                {
-                  "access_token": "EnCd15LmKU"
-                }
+            file: "./resource/text/authn_authz_request.txt"
             font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
             font_size: 12
             font_color: "#eafaff"
 
         authz_response_text:
             type: "text"
-            content: |
-                HTTP/1.1 200 OK
-                Content-Type: application/json; charset=utf-8
-
-                {
-                  "status": "ALLOW",
-                  "id": "Cf20gL4nT9qSBu"
-                }
+            file: "./resource/text/authn_authz_response.txt"
             font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
             font_size: 12
             font_color: "#eafaff"
@@ -215,10 +179,7 @@ defs:
         # credentials rather than the caller's.
         user_request_text:
             type: "text"
-            content: |
-                GET /user/Cf20gL4nT9qSBu/profile HTTP/1.1
-                Host: user.example.com
-                Authorization: Bearer gw_credentials
+            file: "./resource/text/user_profile_request.txt"
             font_family: 'Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace'
             font_size: 12
             font_color: "#eafaff"

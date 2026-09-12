@@ -2,16 +2,16 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 
 {
-	"id": "Cf20gL4nT9qSBu",
-	"username": "janedoe",
-	"profile": {
-		"first_name": "Jane",
-		"last_name": "Doe",
-		"email": "jane.doe@example.com",
-		"website": "https://janedoe.example.com"
-	},
-	"preferences": {
-		"theme": "dark",
-		"notifications_enabled": true
-	}
+  "id": "Cf20gL4nT9qSBu",
+  "username": "janedoe",
+  "profile": {
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "email": "jane.doe@example.com",
+    "website": "https://janedoe.example.com"
+  },
+  "preferences": {
+    "theme": "dark",
+    "notifications_enabled": true
+  }
 }
