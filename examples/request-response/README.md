@@ -62,7 +62,17 @@ Three things the beat gives up, each for its own reason:
 **The source panels are authored at 1920×540 — the cell's own aspect** — so they fill
 without letterboxing and one unit in them is one capture pixel. That is what lets their
 text render at full size beside a diagram sitting at 0.75, and it gives per-word control
-(`<tspan>`) that a `note` cannot: a note takes one `font_color` for its whole text.
+(`<tspan>`) that a `note` cannot: a note takes one `font_color` for its whole text, so
+the amber on the stylesheet name would be unavailable.
+
+⚠️ **Their key and value columns are set by explicit `x` on each `tspan`, not by spaces.**
+XML collapses runs of whitespace and drops leading whitespace in a text node, so an
+indent typed into the content renders flush and a padded `cell:  ` collapses to one
+space. Spaces cannot hold a column here.
+
+Each panel shows its own cell's `context.scenes[]` entry, so the two differ in the three
+places those entries genuinely differ — the asset, the stylesheet and the cell. The
+stylesheet is the one picked out in amber, because it is the line the beat is about.
 
 Their slab and text are off-palette, because the panel is the document talking about
 itself. Their full-bleed **ground** is themed and has to be — without it the page shows

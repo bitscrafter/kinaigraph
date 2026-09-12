@@ -1,14 +1,22 @@
 <!--
-  Source panel, bottom cell. Authored at 1920 x 540 — the CELL's own aspect under the 2x1
-  grid — so it fills its cell exactly and ONE UNIT HERE IS ONE CAPTURE PIXEL. The
+  Source panel, bottom cell. Authored at 1920 x 540 — the CELL's own aspect under the
+  2x1 grid — so it fills its cell exactly and ONE UNIT HERE IS ONE CAPTURE PIXEL. The
   diagram beside it is 1280 x 720 and letterboxes to the middle 960, which is what
   leaves x 0..480 free for this.
 
-  ⚠️ OFF-PALETTE ON PURPOSE, and it carries NO theme variables. This panel is the
-  document talking about itself; if it re-themed with the diagram, the two cells'
-  panels would differ in more than the one word they exist to isolate.
+  ⚠️ THE KEY AND VALUE COLUMNS ARE SET BY EXPLICIT `x` ON EACH tspan, NOT BY SPACES.
+  XML collapses runs of whitespace and drops leading whitespace in a text node, so an
+  indent typed into the content renders flush and the columns do not line up. Two
+  tspans per line — key at 80, value at 152 — is the spelling that holds.
 
-  Its pair is source_panel_blueprint.svg, which differs by ONE WORD.
+  ⚠️ The full-bleed ground is REQUIRED and this panel must be declared FIRST in
+  `defs.assets`: without a ground the page shows through as white bars where the
+  diagram letterboxes, and declaration order is render order, so a ground declared
+  after the diagram paints over it.
+
+  Its pair is source_panel_blueprint.svg. The two differ where the two grid entries genuinely differ —
+  the asset, the stylesheet and the cell — and the stylesheet is the one picked out in
+  amber, because that is the line the beat is about.
 -->
 <svg id="source_panel_pastel" width="1920" height="540" viewBox="0 0 1920 540" xmlns="http://www.w3.org/2000/svg">
   <style>
@@ -20,9 +28,9 @@
   </style>
   <rect class="cell-bg" x="0" y="0" width="1920" height="540" />
   <g id="source-panel">
-    <rect class="src-slab" x="44" y="196" width="330" height="132" rx="8" />
-    <text class="src-line" x="70" y="238">- <tspan class="src-key">asset</tspan>: diagram</text>
-    <text class="src-line" x="70" y="268">  <tspan class="src-key">style</tspan>: theme_<tspan class="src-diff">pastel</tspan></text>
-    <text class="src-line" x="70" y="298">  <tspan class="src-key">cell</tspan>:  [1, 0]</text>
+    <rect class="src-slab" x="54" y="196" width="330" height="132" rx="8" />
+    <text class="src-line" y="238"><tspan class="src-key" x="80">asset:</tspan><tspan x="152">diagram_bottom</tspan></text>
+    <text class="src-line" y="268"><tspan class="src-key" x="80">style:</tspan><tspan x="152">theme_<tspan class="src-diff">pastel</tspan></tspan></text>
+    <text class="src-line" y="298"><tspan class="src-key" x="80">cell:</tspan><tspan x="152">[1, 0]</tspan></text>
   </g>
 </svg>

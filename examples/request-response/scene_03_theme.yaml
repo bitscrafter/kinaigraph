@@ -81,8 +81,9 @@ defs:
             type: "scene"
             file: "./resource/scene/chevron_layer_bottom.svg"
 
-        # The mark appears ONCE, in the bottom cell, placed so it lands where it lands
-        # in beats 1 and 2 — bottom-right of the finished frame.
+        # The mark appears ONCE, in the TOP cell. The logo is light: on pastel's cream
+        # ground it all but disappears, while on blueprint's navy it reads the way it
+        # does in beats 1 and 2.
         brand:
             type: "scene"
             file: "./resource/scene/brand_layer_cell.svg"
@@ -189,7 +190,7 @@ animation:
             - { asset: source_bottom, style: theme_pastel, cell: [1, 0] }
             - { asset: diagram_bottom, style: theme_pastel, cell: [1, 0] }
             - { asset: chevrons_bottom, style: theme_pastel, cell: [1, 0] }
-            - { asset: brand, cell: [1, 0] }
+            - { asset: brand, cell: [0, 0] }
 
     timeline:
         0 @ setup_ts:

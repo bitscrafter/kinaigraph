@@ -95,8 +95,8 @@
   <!-- Below the user service, not above it: v2 puts the shared store in the gap
        above, and the two diagrams must differ by the store ALONE. -->
   <g id="step-4-badge" class="step-4-badge">
-    <circle cx="1040" cy="560" r="14" />
-    <text x="1040" y="565">4</text>
+    <circle cx="1040" cy="525" r="14" />
+    <text x="1040" y="530">4</text>
   </g>
 
 </svg>
