@@ -31,8 +31,51 @@ whenever a script changes.
 
 | `scene_02_store.yaml` | Beat 2 — the shared store is added, and the packet rides the new leg. |
 
-Beat 3 (*"re-themes from a single line"*) exists here as **narration and resources** —
-`resource/style/` carries four stylesheets — but is not yet authored as a scene.
+| `scene_03_theme.yaml` | Beat 3 — the same diagram and route in two themes, side by side. |
+
+### Beat 3 is side by side because theming is compile-time
+
+`css()` resolves during compilation and the runtime never re-reads a variable, so there
+is no such thing as animating from one theme to another. Two compiled results shown
+together is not a stylistic choice — it is the only honest picture of the property. A cut
+would make the viewer compare against memory, which is what a compile-time claim should
+least have to rely on.
+
+Both halves run the same six-leg route for the same `TRAVEL_MS`. Measured on the render,
+the two packets stay within **1.6 px of each other at worst, typically under 1** — a
+viewer watching for a difference in timing will not find one.
+
+Three things the beat gives up, each for its own reason:
+
+- ⛔ **No `css()`, and therefore no pulses.** `css()` bakes one value per animation
+  section from the default-scope scene and never looks at which scene an entry targets,
+  so under a grid a `css()`-driven colour comes out identical in both cells while
+  everything around it re-themes. Beat 1's badge pulses all read
+  `css("pulse-stroke-color")`, so they are dropped rather than frozen.
+- ⚠️ **No payload callouts.** A cell is 1920×540 and the 1280×720 diagram letterboxes
+  into it at 0.75; beat 1's seventeen-line response box would take a third of the cell at
+  text too small to read.
+- ⚠️ **Six SVG copies.** Two scene assets may not share a root `<svg id>`, so each cell
+  needs its own diagram and chevron layer. The `*_top` / `*_bottom` files differ from
+  their originals by that id alone — re-derive them rather than editing.
+
+**The source panels are authored at 1920×540 — the cell's own aspect** — so they fill
+without letterboxing and one unit in them is one capture pixel. That is what lets their
+text render at full size beside a diagram sitting at 0.75, and it gives per-word control
+(`<tspan>`) that a `note` cannot: a note takes one `font_color` for its whole text.
+
+Their slab and text are off-palette, because the panel is the document talking about
+itself. Their full-bleed **ground** is themed and has to be — without it the page shows
+through as white bars where the diagram letterboxes. ⚠️ And they are declared **first**
+in `defs.assets`: declaration order is render order, and an opaque ground declared after
+the diagram paints straight over it.
+
+⛔ **Both stylesheets declare their variables twice** — once at `:root`, once under this
+document's asset names. A grid puts both scenes in one document and `:root` is one
+element per document, so without the second declaration the last stylesheet emitted
+paints the whole frame. The stylesheets carry beat 3's asset names as a result, a
+coupling the compiler could remove; filed upstream as
+`grid-cells-cannot-carry-one-theme-each`.
 
 ### Beat 2's claim is checkable by eye
 
@@ -247,6 +290,7 @@ scene_00_tts_generation.yaml                       narration synthesis (run firs
 scene_01_flow.yaml                                 beat 1, paced by distance
 scene_01_flow_with_orient_at_parent_action.yaml    beat 1, hand-timed
 scene_02_store.yaml                                beat 2, the store arrives
+scene_03_theme.yaml                                beat 3, two themes at once
 resource/
   scene/get_user_profile_v1.svg                       the system, as drawn
   scene/get_user_profile_v2.svg                       the same, plus the shared data store
@@ -266,6 +310,7 @@ Run from this directory:
 kinaigraph scene_00_tts_generation.yaml --outdir ./out    # once, to synthesize narration
 kinaigraph scene_01_flow.yaml --outdir ./out
 kinaigraph scene_02_store.yaml --outdir ./out
+kinaigraph scene_03_theme.yaml --outdir ./out
 ```
 
 Each beat captures an intermediate into `resource/video/`; the headline

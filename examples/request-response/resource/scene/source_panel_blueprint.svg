@@ -1,0 +1,28 @@
+<!--
+  Source panel, top cell. Authored at 1920 x 540 — the CELL's own aspect under the 2x1
+  grid — so it fills its cell exactly and ONE UNIT HERE IS ONE CAPTURE PIXEL. The
+  diagram beside it is 1280 x 720 and letterboxes to the middle 960, which is what
+  leaves x 0..480 free for this.
+
+  ⚠️ OFF-PALETTE ON PURPOSE, and it carries NO theme variables. This panel is the
+  document talking about itself; if it re-themed with the diagram, the two cells'
+  panels would differ in more than the one word they exist to isolate.
+
+  Its pair is source_panel_pastel.svg, which differs by ONE WORD.
+-->
+<svg id="source_panel_blueprint" width="1920" height="540" viewBox="0 0 1920 540" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .cell-bg  { fill: var(--scene-background-color, #0d2137); }
+    .src-slab { fill: #10202c; stroke: #2f4d61; stroke-width: 1.5; }
+    .src-line { font-family: Menlo, "Liberation Mono", "DejaVu Sans Mono", monospace; font-size: 17px; fill: #7ea6bb; }
+    .src-key  { fill: #cfe6f2; }
+    .src-diff { fill: #ffc857; font-weight: bold; }
+  </style>
+  <rect class="cell-bg" x="0" y="0" width="1920" height="540" />
+  <g id="source-panel">
+    <rect class="src-slab" x="44" y="196" width="330" height="132" rx="8" />
+    <text class="src-line" x="70" y="238">- <tspan class="src-key">asset</tspan>: diagram</text>
+    <text class="src-line" x="70" y="268">  <tspan class="src-key">style</tspan>: theme_<tspan class="src-diff">blueprint</tspan></text>
+    <text class="src-line" x="70" y="298">  <tspan class="src-key">cell</tspan>:  [0, 0]</text>
+  </g>
+</svg>

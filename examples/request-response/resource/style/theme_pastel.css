@@ -58,3 +58,66 @@
     /* Typography */
     --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
 }
+
+/* ── Beat 3 only: the same variables, scoped to one cell of the 2x1 grid ─────────
+ *
+ * ⚠️ A GRID PUTS TWO SCENES IN ONE DOCUMENT, AND `:root` IS ONE ELEMENT PER DOCUMENT.
+ * Two stylesheets declaring `:root` collide and the last one emitted wins for the
+ * whole frame. Declaring the same values again under the per-scene wrapper class the
+ * compiler already emits gives each cell its own, because a nearer ancestor wins.
+ *
+ * The `:root` block above is kept because css() reads ONLY `:root` — it does not see
+ * a selector list containing it, and it does not see this block at all.
+ *
+ * ⛔ THIS DUPLICATION IS A WORKAROUND, and it coupled this stylesheet to an asset NAME
+ * in one document. The compiler knows which style belongs to which scene — that is
+ * what `context.scenes[].style` states — and could scope it on emission. Filed as
+ * `grid-cells-cannot-carry-one-theme-each` in kinaigraph-core.
+ *
+ * Beats 1 and 2 declare no such classes, so this block has no effect on them. */
+.kinai-scene-asset-diagram_bottom,
+.kinai-scene-asset-chevrons_bottom,
+.kinai-scene-asset-source_bottom {
+    /* Scene */
+    --scene-background-color: #fffaf2;
+
+    /* Structural Hierarchy */
+    --gateway-fill-color: #f3e3e6;
+    --gateway-stroke-color: #c9a0ad;
+    --service-node-fill-color: #ffffff;
+    --service-node-stroke-color: #a3b8a0;
+
+    /* Connections */
+    --link-stroke-color: #b9a7c4;
+
+    /* Text */
+    --title-text-color: #4a3b52;
+    --node-label-text-color: #6b5d75;
+
+    /* Step badges */
+    --step-badge-fill-color: #f7ece2;
+    --step-badge-stroke-color: #c9a0ad;
+
+    /* Accents & States */
+    --packet-stroke-color: #a3b8a0;
+    /* Read by the store `note` annotation via css(). The note's TEXT colour is not
+       here: it is authored on the `type: text` asset, which css() cannot reach. */
+    --callout-fill-color: #f6d9c8;
+    --callout-stroke-color: #c9a0ad;
+    /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
+     Coral is the one saturated tone in the palette, so it carries the motion alone. */
+    --pulse-stroke-color: #e8705f;
+    --pulse-stroke-width: 3;
+
+    /* Stroke weights (per role) — lighter than the blueprint's, to suit a pale ground */
+    --gateway-stroke-width: 1.5;
+    --service-node-stroke-width: 1.5;
+    --step-badge-stroke-width: 1.25;
+    --link-stroke-width: 1.5;
+
+    /* Link dash pattern */
+    --link-dash-pattern: 4 4;
+
+    /* Typography */
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+}

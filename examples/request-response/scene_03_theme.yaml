@@ -1,0 +1,322 @@
+# ------------------------------------------
+# request-response — Beat 3: one word, two skins
+# ------------------------------------------
+# The same diagram runs the same route in two palettes, side by side, and the only
+# authored difference between the halves is which stylesheet each names.
+#
+# ⚡ WHY SIDE BY SIDE RATHER THAN A CUT. Theming bakes at COMPILE TIME — `css()`
+# resolves during compilation, and the runtime never re-reads a variable — so there is
+# no such thing as animating from one theme to another. Two compiled results shown
+# together is not a stylistic choice; it is the only honest picture of the property.
+# A cut would make the viewer compare against memory, which is exactly what a
+# compile-time claim should not have to rely on.
+#
+# ⛔ NO `css()` ANYWHERE IN THIS DOCUMENT, AND THEREFORE NO PULSES. `css()` bakes ONE
+# value per animation section, taken from the default-scope scene, and never looks at
+# which scene a timeline entry targets. Under a grid that means a `css()`-driven colour
+# would come out IDENTICAL in both cells while everything around it re-themed — a
+# visible exception in the one beat that can least afford one. Beat 1's badge pulses
+# all read `css("pulse-stroke-color")`, so they are dropped here rather than frozen.
+# See `grid-cells-cannot-carry-one-theme-each` in kinaigraph-core.
+#
+# ⚠️ THE CALLOUTS ARE DROPPED TOO, for a different reason: a cell is 1920x540, the
+# 1280x720 diagram letterboxes into it at 0.75, and beat 1's seventeen-line response
+# box would take a third of the cell's height at text too small to read.
+#
+# ── What the six SVGs are ───────────────────────────────────────────────────────────
+# Two scene assets may not share a root <svg id>, so each cell needs its own copy of
+# the diagram and of the chevron layer. `*_top.svg` and `*_bottom.svg` differ from
+# their originals by that id and nothing else — re-derive them rather than editing.
+#
+# The two source panels are authored at 1920x540 — the CELL's own aspect — so they fill
+# without letterboxing and one unit in them is one capture pixel. That is what lets
+# their text render at full size beside a diagram sitting at 0.75.
+#
+# Their SLAB and TEXT are deliberately off-palette: the panel is the document talking
+# about itself, and if it re-themed too, the two panels would differ in more than the
+# one word they exist to isolate. Their full-bleed GROUND is themed, though, and has
+# to be — the 16:9 diagram letterboxes into a 3.56:1 cell, and without a ground behind
+# the margins the page shows through as white bars down both sides of the frame.
+
+metadata:
+    title: "Request/Response - Beat 3: one word, two skins"
+    description: "The same diagram and the same route in two themes, side by side in a 2x1 grid"
+    version: "1.0"
+
+defs:
+    assets:
+        # ── The grid ──────────────────────────────────────────────────────────────
+        # Matrix convention: rows x cols. Stacked rather than side-by-side because this
+        # diagram is WIDE — its content is about 1.9:1 — so splitting the frame
+        # horizontally would crop into the very thing being compared.
+        side_by_side:
+            type: "layout"
+            kind: "grid"
+            rows: 2
+            cols: 1
+
+        # ── Cell [0, 0] ───────────────────────────────────────────────────────────
+        # ⚠️ THE SOURCE PANEL IS DECLARED FIRST. Declaration order is render order, and
+        # the panel carries a full-bleed ground — without one the page shows through as
+        # white bars where the 16:9 diagram letterboxes into a 3.56:1 cell. Declared
+        # after the diagram, that ground paints straight over it.
+        source_top:
+            type: "scene"
+            file: "./resource/scene/source_panel_blueprint.svg"
+        diagram_top:
+            type: "scene"
+            file: "./resource/scene/get_user_profile_v2_top.svg"
+        chevrons_top:
+            type: "scene"
+            file: "./resource/scene/chevron_layer_top.svg"
+
+        # ── Cell [1, 0] ───────────────────────────────────────────────────────────
+        source_bottom:
+            type: "scene"
+            file: "./resource/scene/source_panel_pastel.svg"
+        diagram_bottom:
+            type: "scene"
+            file: "./resource/scene/get_user_profile_v2_bottom.svg"
+        chevrons_bottom:
+            type: "scene"
+            file: "./resource/scene/chevron_layer_bottom.svg"
+
+        # The mark appears ONCE, in the bottom cell, placed so it lands where it lands
+        # in beats 1 and 2 — bottom-right of the finished frame.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer_cell.svg"
+
+        # ── What moves ────────────────────────────────────────────────────────────
+        # One packet per cell, riding its own cell's copy of the connectors.
+        packet_top:
+            type: "actor"
+            part_of: chevrons_top
+            id: chevron-packet
+            origin: center
+        packet_bottom:
+            type: "actor"
+            part_of: chevrons_bottom
+            id: chevron-packet
+            origin: center
+
+        link_client_gateway_top:
+            type: "actor"
+            part_of: diagram_top
+            id: link-client-gateway
+        link_gateway_auth_top:
+            type: "actor"
+            part_of: diagram_top
+            id: link-gateway-auth
+        link_gateway_user_top:
+            type: "actor"
+            part_of: diagram_top
+            id: link-gateway-user
+
+        link_client_gateway_bottom:
+            type: "actor"
+            part_of: diagram_bottom
+            id: link-client-gateway
+        link_gateway_auth_bottom:
+            type: "actor"
+            part_of: diagram_bottom
+            id: link-gateway-auth
+        link_gateway_user_bottom:
+            type: "actor"
+            part_of: diagram_bottom
+            id: link-gateway-user
+
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand-mark
+
+        # ── The two stylesheets, which is the whole subject ───────────────────────
+        # ⚠️ Each of these files declares its variables TWICE: once at `:root`, and once
+        # under this document's own asset names. A grid puts both scenes in ONE
+        # document and `:root` is one element per document, so without the second
+        # declaration the last stylesheet emitted would paint the entire frame. The
+        # stylesheets carry the asset names of THIS document as a result — a coupling
+        # the compiler could remove, since `context.scenes[].style` already states which
+        # style belongs to which scene.
+        theme_blueprint:
+            type: "style"
+            file: "./resource/style/theme_blueprint.css"
+        theme_pastel:
+            type: "style"
+            file: "./resource/style/theme_pastel.css"
+
+        # Declared for its DURATION, not played here. All three lines mix in the stitch.
+        narration:
+            type: "audio"
+            file: "./resource/audio/part_03_theme.mp3"
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+
+    const:
+        VIDEO_MARGIN: 350
+
+        # The clip is exactly as long as the line that narrates it; the walk fills what
+        # is left after the head and tail pads. Both halves take the SAME number, which
+        # is what makes them comparable — a viewer watching for a difference in timing
+        # must not find one.
+        FIXED_MS: "VIDEO_MARGIN * 2"
+        TRAVEL_MS: "narration.duration - FIXED_MS"
+
+        LINK_INSET: 14
+        LANE_OFFSET: 11
+
+animation:
+    defaults:
+        assets:
+            # Default scope only. It decides which scene an UNQUALIFIED actor reference
+            # resolves against; every reference below is qualified through its own
+            # `part_of`, so this picks no winner between the cells.
+            scene: diagram_top
+
+    context:
+        layout: side_by_side
+        # ⚠️ ENTRIES SHARING A CELL Z-STACK IN DECLARATION ORDER, so the source panels
+        # come FIRST. Each carries a full-bleed ground — the 16:9 diagram letterboxes
+        # into a 3.56:1 cell and without one the page shows through as white bars down
+        # both margins — and an opaque ground declared after the diagram hides it.
+        scenes:
+            - { asset: source_top, style: theme_blueprint, cell: [0, 0] }
+            - { asset: diagram_top, style: theme_blueprint, cell: [0, 0] }
+            - { asset: chevrons_top, style: theme_blueprint, cell: [0, 0] }
+            - { asset: source_bottom, style: theme_pastel, cell: [1, 0] }
+            - { asset: diagram_bottom, style: theme_pastel, cell: [1, 0] }
+            - { asset: chevrons_bottom, style: theme_pastel, cell: [1, 0] }
+            - { asset: brand, cell: [1, 0] }
+
+    timeline:
+        0 @ setup_ts:
+            - diagram_top:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+            - diagram_bottom:
+                  - show:
+                        opacity: 1
+            - source_top:
+                  - show:
+                        opacity: 1
+            - source_bottom:
+                  - show:
+                        opacity: 1
+            - brand_mark:
+                  - show:
+                        opacity: 1
+            - packet_top:
+                  - show:
+                        opacity: 0
+            - packet_bottom:
+                  - show:
+                        opacity: 0
+
+        # ── The same journey, twice ───────────────────────────────────────────────
+        # Six legs over three connectors, each ridden twice — beat 1's route, without
+        # its callouts and without its pulses. The two entries are identical but for the
+        # assets they name, and both take TRAVEL_MS, so the halves stay in step for the
+        # whole clip. Any drift between them would be a difference the beat is claiming
+        # does not exist.
+        setup_ts.end @ walk_ts:
+            - packet_top:
+                  - show:
+                        opacity: 1
+                  - move @ walk_top:
+                        duration: TRAVEL_MS
+                        pace_by: distance
+                        easing: linear
+                        actions:
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_client_gateway_top }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_gateway_auth_top }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_gateway_auth_top, head: right }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_gateway_user_top }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_gateway_user_top, head: right }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_client_gateway_top, head: right }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+
+            - packet_bottom:
+                  - show:
+                        opacity: 1
+                  - move @ walk_bottom:
+                        duration: TRAVEL_MS
+                        pace_by: distance
+                        easing: linear
+                        actions:
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_client_gateway_bottom }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_gateway_auth_bottom }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_gateway_auth_bottom, head: right }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_gateway_user_bottom }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_gateway_user_bottom, head: right }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+                            - move:
+                                  orient: auto
+                                  along: { asset: link_client_gateway_bottom, head: right }
+                                  inset: { from: LINK_INSET, to: LINK_INSET }
+                                  lateral: { side: left, distance: LANE_OFFSET }
+
+        # --- Both packets leave together; both diagrams hold. ---
+        walk_top.end @ tear_down_ts:
+            - packet_top:
+                  - show:
+                        opacity: 0
+            - packet_bottom:
+                  - show:
+                        opacity: 0
+            - diagram_top:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: "VIDEO_MARGIN"
+
+    capture:
+        video_theme:
+            output: "./resource/video/scene_03_theme.mp4"
+            fps: 30

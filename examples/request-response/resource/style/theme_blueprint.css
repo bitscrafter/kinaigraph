@@ -58,3 +58,69 @@
     /* Typography */
     --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
 }
+
+/* ── Beat 3 only: the same variables, scoped to one cell of the 2x1 grid ─────────
+ *
+ * ⚠️ A GRID PUTS TWO SCENES IN ONE DOCUMENT, AND `:root` IS ONE ELEMENT PER DOCUMENT.
+ * Two stylesheets declaring `:root` collide and the last one emitted wins for the
+ * whole frame. Declaring the same values again under the per-scene wrapper class the
+ * compiler already emits gives each cell its own, because a nearer ancestor wins.
+ *
+ * The `:root` block above is kept because css() reads ONLY `:root` — it does not see
+ * a selector list containing it, and it does not see this block at all.
+ *
+ * ⛔ THIS DUPLICATION IS A WORKAROUND, and it coupled this stylesheet to an asset NAME
+ * in one document. The compiler knows which style belongs to which scene — that is
+ * what `context.scenes[].style` states — and could scope it on emission. Filed as
+ * `grid-cells-cannot-carry-one-theme-each` in kinaigraph-core.
+ *
+ * Beats 1 and 2 declare no such classes, so this block has no effect on them. */
+.kinai-scene-asset-diagram_top,
+.kinai-scene-asset-chevrons_top,
+.kinai-scene-asset-source_top {
+    /* Scene */
+    --scene-background-color: #0d2137;
+
+    /* Structural Hierarchy */
+    --gateway-fill-color: #143654;
+    --gateway-stroke-color: #3d8fc4;
+    --service-node-fill-color: #102c47;
+    --service-node-stroke-color: #4cc9f0;
+
+    /* Connections */
+    --link-stroke-color: #6fd3ef;
+
+    /* Text */
+    --title-text-color: #eafaff;
+    --node-label-text-color: #b8e2f2;
+
+    /* Step badges */
+    --step-badge-fill-color: #143654;
+    --step-badge-stroke-color: #4cc9f0;
+
+    /* Accents & States */
+    /* The travelling packet. Warm against the cool field, per this file's header:
+       a cool packet on a cool ground sinks into the diagram it crosses. */
+    --packet-stroke-color: #ffc857;
+    /* Read by every `note` annotation via css() — the two payload callouts in beat 1,
+       and the store callout beat 2 will add. The note's TEXT colour is not here: it is
+       authored on the `type: text` asset, which css() cannot reach. */
+    --callout-fill-color: #1b4f72;
+    --callout-stroke-color: #4cc9f0;
+    /* Node pulse highlight: the `to` colour a stroke pulse brightens the border to.
+     Warm against the cool field, so an arriving packet reads at a glance. */
+    --pulse-stroke-color: #ffc857;
+    --pulse-stroke-width: 3.5;
+
+    /* Stroke weights (per role) */
+    --gateway-stroke-width: 2;
+    --service-node-stroke-width: 2;
+    --step-badge-stroke-width: 1.5;
+    --link-stroke-width: 2;
+
+    /* Link dash pattern */
+    --link-dash-pattern: 6 4;
+
+    /* Typography */
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+}
