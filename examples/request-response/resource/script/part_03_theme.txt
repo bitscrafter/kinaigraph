@@ -1,3 +1,3 @@
 The same diagram, the same route, the same timings, rendered twice.
-One line in each half names the stylesheet that half should wear.
-Nothing else differs. Change that one word, run it again, the video is new.
+Each half names its own stylesheet, and the highlighted word is the difference.
+Nothing else was written twice. Change that word, run it again, the video is new.

@@ -1,0 +1,90 @@
+# ------------------------------------------
+# request-response — the stitch
+# ------------------------------------------
+# The three beats in order, each with its own narration mixed onto it, captured as the
+# example's headline deliverable.
+#
+# ⚡ THERE IS NOT ONE AUTHORED OFFSET IN THIS FILE, and that is the whole point of it.
+# Each beat sizes ITSELF to its own line — every one of them spends
+# `narration.duration` minus its margins on the walk, so the rendered clip comes out
+# exactly as long as the line that narrates it. Mixing each line onto its own clip at
+# offset zero therefore lands the voice against the pictures it describes, with nothing
+# to keep in step by hand.
+#
+# The timestamps chain by BOOKMARK — `flow_bk.end`, `store_bk.end` — rather than by
+# number, so the offsets are read from the clips' own probed durations. Re-record a
+# line, re-render that beat, and everything after it moves by itself.
+#
+# ⚠️ IT ROLLS WHAT THE BEATS WROTE, so all three must have been rendered first:
+#
+#     kinaigraph scene_00_tts_generation.yaml --outdir .   # once, and it costs credits
+#     kinaigraph scene_01_flow.yaml
+#     kinaigraph scene_02_store.yaml
+#     kinaigraph scene_03_theme.yaml
+#     kinaigraph scene_04_stitch.yaml
+#
+# The beats capture INTERMEDIATES into `resource/video/`; this document is the only one
+# that writes beside the document, and `./request_response.mp4` is the file to watch.
+
+metadata:
+    title: "Request/Response - the stitch"
+    description: "The three beats in order, each carrying its own narration"
+    version: "1.0"
+
+defs:
+    assets:
+        # The three silent beats, exactly where scenes 01-03 write them.
+        flow:
+            type: video
+            file: "./resource/video/scene_01_flow.mp4"
+        store:
+            type: video
+            file: "./resource/video/scene_02_store.mp4"
+        theme:
+            type: video
+            file: "./resource/video/scene_03_theme.mp4"
+
+        # The three lines. Each beat already took its length from one of these, so a
+        # mix at offset zero puts the voice over the pictures it is describing.
+        narration_flow:
+            type: audio
+            file: "./resource/audio/part_01_flow.mp3"
+        narration_store:
+            type: audio
+            file: "./resource/audio/part_02_store.mp3"
+        narration_theme:
+            type: audio
+            file: "./resource/audio/part_03_theme.mp3"
+
+composition:
+    context:
+        status: active
+
+    # Story order: the flow, the change, the two skins. Each beat is followed by the one
+    # that could not have been told before it — you cannot add the store to a diagram
+    # nobody has watched, and re-skinning means nothing until there is something worth
+    # re-skinning.
+    timeline:
+        "0 @ flow_bk":
+            - flow:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_flow
+        "flow_bk.end @ store_bk":
+            - store:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_store
+        "store_bk.end @ theme_bk":
+            - theme:
+                  - roll:
+                  - mix:
+                        asset:
+                            name: narration_theme
+
+    capture:
+        video_request_response_full:
+            output: "./request_response.mp4"
+            fps: 30

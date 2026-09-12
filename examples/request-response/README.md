@@ -32,6 +32,7 @@ whenever a script changes.
 | `scene_02_store.yaml` | Beat 2 — the shared store is added, and the packet rides the new leg. |
 
 | `scene_03_theme.yaml` | Beat 3 — the same diagram and route in two themes, side by side. |
+| `scene_04_stitch.yaml` | The three beats in order, each carrying its own narration. |
 
 ### Beat 3 is side by side because theming is compile-time
 
@@ -301,6 +302,7 @@ scene_01_flow.yaml                                 beat 1, paced by distance
 scene_01_flow_with_orient_at_parent_action.yaml    beat 1, hand-timed
 scene_02_store.yaml                                beat 2, the store arrives
 scene_03_theme.yaml                                beat 3, two themes at once
+scene_04_stitch.yaml                               the three beats, with narration
 resource/
   scene/get_user_profile_v1.svg                       the system, as drawn
   scene/get_user_profile_v2.svg                       the same, plus the shared data store
@@ -321,10 +323,24 @@ kinaigraph scene_00_tts_generation.yaml --outdir ./out    # once, to synthesize 
 kinaigraph scene_01_flow.yaml --outdir ./out
 kinaigraph scene_02_store.yaml --outdir ./out
 kinaigraph scene_03_theme.yaml --outdir ./out
+kinaigraph scene_04_stitch.yaml --outdir ./out
 ```
 
-Each beat captures an intermediate into `resource/video/`; the headline
-`request_response.mp4` is the stitch's output, and the stitch is not authored yet.
+The beats capture **intermediates** into `resource/video/`; `scene_04_stitch.yaml` is the
+only document that writes beside the document, and `request_response.mp4` is the file to
+watch. The finished piece runs about **63 s**.
+
+### The stitch carries no authored offset
+
+Every beat sizes *itself* to its own line — each spends `narration.duration` minus its
+margins on the walk — so a rendered clip comes out **exactly as long as the line that
+narrates it**. Measured across the three: 29.93 / 29.93, 17.13 / 17.10, 15.80 / 15.79.
+
+Mixing each line onto its own clip at offset zero therefore lands the voice against the
+pictures it describes, with nothing to keep in step by hand. The timestamps chain by
+**bookmark** (`flow_bk.end`, `store_bk.end`) rather than by number, so the offsets are
+read from the clips' own probed durations: re-record a line, re-render that beat, and
+everything after it moves by itself.
 
 Render `scene_01_flow_with_orient_at_parent_action.yaml` too if you want to see the
 difference the table above describes.
