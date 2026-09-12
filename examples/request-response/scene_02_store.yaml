@@ -152,20 +152,38 @@ defs:
         # The box holds still and only the pointer aims: the same split beat 1's
         # payload callouts use.
         # Sized to the caption, not to the space available. This is a label naming a
-        # node, so it should sit UNDER the node labels in weight — font 11 against the
-        # diagram's 14. Measured on the render, this face gives ~4.9 units per character
-        # at font 11, so the widest line ("now with a", 10 characters) needs ~53 units;
-        # 84 wide leaves margin and does not wrap. Two lines of ~17.6 leading plus the
-        # padding make 48.
+        # node, so it sits UNDER the node labels in weight — font 11 against the
+        # diagram's 14. At that size this face gives ~4.9 units per character, so the
+        # widest line ("now with a", 10 characters) needs ~53 and 74 holds it whole.
         #
-        # Centred on the store's own y 360, right edge just short of it. The LEFT edge
-        # at 876 is the binding constraint: the wedge between the two links runs
-        # y 297..423 there, and the box needs 336..384.
-        STORE_NOTE_X: 876
-        STORE_NOTE_Y: 336
-        STORE_NOTE_WIDTH: 84
-        STORE_NOTE_HEIGHT: 48
-        STORE_NOTE_PADDING: 6
+        # ⚠️ THERE IS NO AUTO-FIT AND NO AUTO-WRAP, AND OVERFLOW IS SILENT. `align`
+        # centres the text horizontally and there is no vertical equivalent, so a box
+        # shorter than its lines clips them with no error and no warning. At 32 tall
+        # this caption lost the bottom half of its second line and still compiled.
+        STORE_NOTE_X: 886
+        STORE_NOTE_Y: 340
+        STORE_NOTE_WIDTH: 74
+        STORE_NOTE_HEIGHT: 44
+
+        # ── Optical centring, by hand, because the box cannot do it ───────────────
+        # MEASURED on the render at a symmetric padding of 6: the left and right gaps
+        # came out 18 px and 18 px — `align: center` is exact — but the top and bottom
+        # came out 8.0 and 16.7 units. The text block is laid from the TOP of the
+        # padded area and the trailing leading below the last line is not accounted
+        # for, so a symmetric padding leaves the caption riding high by half that
+        # difference. Padding is the only lever: `top` pushes the block down 1:1.
+        #
+        # The horizontal pair is EQUAL and needs no correction: measured at 18 px and
+        # 18 px, `align: center` is already exact. The fork hanging off the right edge
+        # makes the composite read slightly left-heavy, but centring the text in the
+        # BOX is the rule that stays true when the caption or the fork's aim changes.
+        #
+        # ⚠️ These four are tuned to THIS caption at THIS font size. Change either and
+        # re-measure — they encode where the renderer put this text, not a rule.
+        STORE_NOTE_PADDING_TOP: 10
+        STORE_NOTE_PADDING_BOTTOM: 2
+        STORE_NOTE_PADDING_LEFT: 6
+        STORE_NOTE_PADDING_RIGHT: 6
         STORE_NOTE_RADIUS: 6
         STORE_NOTE_STROKE_WIDTH: 1.5
         # Clears the store's own box before it buys any gap — see beat 1's note on the
@@ -186,7 +204,11 @@ animation:
                         width: STORE_NOTE_WIDTH
                         height: STORE_NOTE_HEIGHT
                         radius: STORE_NOTE_RADIUS
-                padding: STORE_NOTE_PADDING
+                padding:
+                    top: STORE_NOTE_PADDING_TOP
+                    bottom: STORE_NOTE_PADDING_BOTTOM
+                    left: STORE_NOTE_PADDING_LEFT
+                    right: STORE_NOTE_PADDING_RIGHT
                 align: center
                 pointer:
                     target:
