@@ -25,7 +25,16 @@
     --service-node-stroke-color: #a3b8a0;
 
     /* Connections */
-    --link-stroke-color: #b9a7c4;
+    /* Contrast against this theme's own ground (#fffaf2), measured: the previous
+       #b9a7c4 sat at 2.15 where blueprint's link sits at 9.49 against its navy. A
+       light theme cannot reach that, but 5.67 reads.
+
+       ⚠️ COLOUR WAS ONLY HALF OF IT. Beat 3 renders this diagram into a grid cell at
+       0.75, where a thin line antialiases into the ground — and this theme's link was
+       1.5 wide against blueprint's 2, so it started thinner as well. Darkening alone
+       left it measuring 1.95 on the render. The width matches blueprint's now; both
+       are stylesheet values, so the beat still differs by the stylesheet alone. */
+    --link-stroke-color: #6f5d82;
 
     /* Text */
     --title-text-color: #4a3b52;
@@ -36,7 +45,12 @@
     --step-badge-stroke-color: #c9a0ad;
 
     /* Accents & States */
-    --packet-stroke-color: #a3b8a0;
+    /* ⚠️ The packet must not share a colour with the STRUCTURE it crosses. The
+       previous #a3b8a0 was byte-identical to --service-node-stroke-color, so the
+       moving thing was the same colour as the boxes it passed. Terracotta is this
+       palette's accent family, it is darker than the link (5.12 against 4.62) so the
+       packet still wins, and it is nobody else's colour. */
+    --packet-stroke-color: #b34a35;
     /* Read by the store `note` annotation via css(). The note's TEXT colour is not
        here: it is authored on the `type: text` asset, which css() cannot reach. */
     --callout-fill-color: #f6d9c8;
@@ -50,7 +64,7 @@
     --gateway-stroke-width: 1.5;
     --service-node-stroke-width: 1.5;
     --step-badge-stroke-width: 1.25;
-    --link-stroke-width: 1.5;
+    --link-stroke-width: 2;
 
     /* Link dash pattern */
     --link-dash-pattern: 4 4;
@@ -88,7 +102,7 @@
     --service-node-stroke-color: #a3b8a0;
 
     /* Connections */
-    --link-stroke-color: #b9a7c4;
+    --link-stroke-color: #6f5d82;
 
     /* Text */
     --title-text-color: #4a3b52;
@@ -99,7 +113,7 @@
     --step-badge-stroke-color: #c9a0ad;
 
     /* Accents & States */
-    --packet-stroke-color: #a3b8a0;
+    --packet-stroke-color: #b34a35;
     /* Read by the store `note` annotation via css(). The note's TEXT colour is not
        here: it is authored on the `type: text` asset, which css() cannot reach. */
     --callout-fill-color: #f6d9c8;
@@ -113,7 +127,7 @@
     --gateway-stroke-width: 1.5;
     --service-node-stroke-width: 1.5;
     --step-badge-stroke-width: 1.25;
-    --link-stroke-width: 1.5;
+    --link-stroke-width: 2;
 
     /* Link dash pattern */
     --link-dash-pattern: 4 4;
