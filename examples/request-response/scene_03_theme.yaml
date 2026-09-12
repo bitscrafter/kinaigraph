@@ -81,12 +81,14 @@ defs:
             type: "scene"
             file: "./resource/scene/chevron_layer_bottom.svg"
 
-        # The mark appears ONCE, in the TOP cell. The logo is light: on pastel's cream
-        # ground it all but disappears, while on blueprint's navy it reads the way it
-        # does in beats 1 and 2.
-        brand:
+        # Each cell is its own compiled result, so each carries the mark. Two files
+        # rather than one, because two scene assets may not share a root <svg id>.
+        brand_top:
             type: "scene"
-            file: "./resource/scene/brand_layer_cell.svg"
+            file: "./resource/scene/brand_layer_cell_top.svg"
+        brand_bottom:
+            type: "scene"
+            file: "./resource/scene/brand_layer_cell_bottom.svg"
 
         # ── What moves ────────────────────────────────────────────────────────────
         # One packet per cell, riding its own cell's copy of the connectors.
@@ -127,9 +129,13 @@ defs:
             part_of: diagram_bottom
             id: link-gateway-user
 
-        brand_mark:
+        brand_mark_top:
             type: "actor"
-            part_of: brand
+            part_of: brand_top
+            id: brand-mark
+        brand_mark_bottom:
+            type: "actor"
+            part_of: brand_bottom
             id: brand-mark
 
         # ── The two stylesheets, which is the whole subject ───────────────────────
@@ -190,7 +196,8 @@ animation:
             - { asset: source_bottom, style: theme_pastel, cell: [1, 0] }
             - { asset: diagram_bottom, style: theme_pastel, cell: [1, 0] }
             - { asset: chevrons_bottom, style: theme_pastel, cell: [1, 0] }
-            - { asset: brand, cell: [0, 0] }
+            - { asset: brand_top, cell: [0, 0] }
+            - { asset: brand_bottom, cell: [1, 0] }
 
     timeline:
         0 @ setup_ts:
@@ -208,7 +215,10 @@ animation:
             - source_bottom:
                   - show:
                         opacity: 1
-            - brand_mark:
+            - brand_mark_top:
+                  - show:
+                        opacity: 1
+            - brand_mark_bottom:
                   - show:
                         opacity: 1
             - packet_top:
