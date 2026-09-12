@@ -29,6 +29,20 @@ defs:
             type: "scene"
             file: "./resource/scene/frame_layer.svg"
 
+        # Last of the scenes, so it draws above everything — the frame masks curves
+        # travelling out of the plot, and the mark must sit above even that. Its own
+        # scene because it carries ~60 KB of embedded PNG; inside the plot that payload
+        # would be four fifths of the file and bury the geometry. Authored in the same
+        # 1280 x 720 viewBox the other scenes use.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand-mark
+
         # ── The parameter tags ────────────────────────────────────────────────────
         # One text asset per value. A text asset's content is fixed at author time, so
         # a changing readout is three assets rather than one that is written into.
@@ -77,7 +91,7 @@ defs:
             style: style
         style:
             type: "style"
-            file: "./resource/style/theme_dark.css"
+            file: "./resource/style/theme_paper.css"
 
     const:
         VIDEO_MARGIN: 350
@@ -288,6 +302,11 @@ animation:
 
     timeline:
         0 @ setup_ts:
+            # Present from the first frame and never touched again — it is the
+            # publisher's mark, not part of the story.
+            - brand_mark:
+                  - show:
+                        opacity: 1
             - plot:
                   - show:
                         opacity: 1

@@ -1,1 +1,1 @@
-A sine wave. Up to a peak at ninety, back through one-eighty, down to a trough at two-seventy, and home again. One cycle.
+A sine wave. Up to a peak at ninety, back through one-eighty, down to a trough at two-seventy, and home again. One cycle. Nothing here was pre-drawn — Kinaigraph sampled the function and made the line.

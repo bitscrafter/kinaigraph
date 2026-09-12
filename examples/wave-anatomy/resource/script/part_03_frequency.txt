@@ -1,1 +1,1 @@
-Frequency is how many cycles fit. One, two, three — same window, same height, more wave.
+Frequency is how many cycles fit. One, two, three — same window, same height, more wave. The earlier two are still there, only held back in opacity.

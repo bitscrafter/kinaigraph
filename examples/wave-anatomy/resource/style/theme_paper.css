@@ -1,0 +1,77 @@
+/* Wave Anatomy — paper theme.
+ *
+ * A light ground, for a slide deck or a printed page. The same three tiers of visual
+ * weight as the dark theme, inverted:
+ *
+ *   grid   — scaffolding. Faint enough to read past, present enough to count against.
+ *   axes   — the thing measured against. Warm brown, and the only warm line on screen.
+ *   curves — the subject. Deep and saturated, so they never read as part of the surface.
+ *
+ * ⚠️ A LIGHT GROUND IS THE HARDER CASE, and the one where contrast has to be checked
+ * rather than assumed. MEASURED against this ground: curve 6.48, cosine 5.05, axis 4.32,
+ * rider 4.21, ticks 4.31, title 13.32. The grid sits at 1.28 deliberately — it is
+ * scaffolding and must stay under everything else. A stroke that looks fine on a dark
+ * field can wash out entirely on a pale one — request-response shipped a link at 1.95
+ * before anyone measured it.
+ *
+ * ⚠️ A GHOST IS THE SAME LINE AT LOWER OPACITY, not a second style. Beats 2 and 3 keep
+ * earlier values on screen by fading the curve that drew them — same hue, same width,
+ * `--curve-ghost-opacity` applied. There is deliberately no ghost colour or ghost width
+ * here: the ghost IS the live curve, a previous value of the same parameter rather than
+ * a second quantity, and a variable for a stroke nothing sets would describe a design
+ * this example does not have.
+ *
+ * ⛔ FOUR TEXT COLOURS ARE NOT HERE AND CANNOT BE. A note's text colour is authored on
+ * its `type: text` asset, which lives in `defs`, where no style is in scope — so css()
+ * cannot reach it. The legend, the parameter tags and the source box therefore carry
+ * literal `font_color` values in the beats. Their BOX fill and stroke are here, because
+ * those are set inside `animation` where css() resolves.
+ */
+
+:root {
+    /* Plot surface */
+    --scene-background-color: #fbf7ef;
+
+    /* Plot furniture — the two tiers that are not the subject */
+    --grid-line-color: #e3dccd;
+    --grid-line-width: 1;
+    --axis-line-color: #9a6b3f;
+    --axis-line-width: 2.5;
+    --tick-label-text-color: #7d7466;
+    --plot-title-text-color: #2f2a22;
+
+    /* The curve under discussion, and the opacity an earlier value is held at */
+    --curve-stroke-color: #1d5e8c;
+    --curve-stroke-width: 3.5;
+    --curve-ghost-opacity: 0.3;
+
+    /* A SECOND quantity, not a second value of the same one — used once, in beat 4,
+       for the cosine laid over the shifted sine. It gets its own hue precisely because
+       the claim being made is that two differently-named curves coincide; the same hue
+       would beg the question. */
+    --curve-cosine-stroke-color: #9a4f8f;
+    --curve-cosine-stroke-width: 3.5;
+
+    /* The travelling dot that marks position along the curve */
+    --rider-dot-fill-color: #c2553f;
+
+    /* The boxed labels: beat 1's source line, and beats 2-3's parameter tags. One fill
+       and one weight for both; the stroke is what tells them apart — green for the
+       quoted source, the curve's own blue for a tag naming that curve's parameter. */
+    --label-box-fill-color: #f2ebdd;
+    --label-box-stroke-width: 1.5;
+    --source-box-stroke-color: #3f7d4f;
+    --parameter-tag-stroke-color: #1d5e8c;
+
+    /* The capability legend. Deliberately desaturated and deliberately OFF the palette
+       the plot uses: it is commentary about the video, not part of the diagram, and a
+       viewer following the mathematics should be able to ignore it without effort. */
+    --legend-fill-color: #efe7d6;
+    --legend-stroke-color: #b9ae99;
+    --legend-stroke-width: 1;
+
+    /* Typography. The project's stack: every face named here is present in the render
+       container, which is why neither entry starts with a webfont. */
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+    --source-font-family: Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace;
+}
