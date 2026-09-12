@@ -15,7 +15,7 @@
        stay literal. -->
 
   <style>
-    .bubble { fill: var(--service-node-fill-color, #2e2e2e); stroke: var(--service-node-stroke-color, #555555); stroke-width: var(--service-node-stroke-width, 2); }
+    .bubble { fill: var(--speech-bubble-fill-color, #2c2c2c); stroke: var(--speech-bubble-stroke-color, #555555); stroke-width: var(--speech-bubble-stroke-width, 2); }
   </style>
 
   <defs>

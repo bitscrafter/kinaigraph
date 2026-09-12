@@ -1,7 +1,10 @@
 <svg id="pitch_text" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
-  
-
-  
+  <style>
+    .line-1 { fill: var(--title-text-color, #ffffff); font-family: var(--presenter-font-family, Arial, "Liberation Sans", Helvetica, sans-serif); font-size: 44px; font-weight: 800; letter-spacing: -0.01em; }
+    .line-2,
+    .line-3,
+    .line-4 { fill: var(--body-text-color, #a8a8a8); font-family: var(--presenter-font-family, Arial, "Liberation Sans", Helvetica, sans-serif); font-size: 27px; font-weight: 400; }
+  </style>
 
   <text id="line-1" class="line-1" opacity="0">
     <tspan x="72" y="176">Kinaigraph is a declarative language for</tspan>

@@ -273,7 +273,7 @@ animation:
 
     capture:
         video_animated_avatar_intro:
-            output: "./video/avatar_intro_animation.mp4"
+            output: "./resource/video/avatar_intro_animation.mp4"
             fps: 30
 
 composition:
@@ -291,5 +291,5 @@ composition:
 
     capture:
         video_composition_avatar_intro:
-            output: "./video/avatar_intro_composition.mp4"
+            output: "./kinaigraph_avatar.mp4"
             fps: 30

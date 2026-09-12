@@ -1,4 +1,18 @@
+<!--
+  Backdrop: the ground and the wordmark.
+
+  Theming: each element carries a class and the style block below maps it to a theme
+  variable. The STYLESHEET owns the values; THIS FILE owns the mapping. Every var()
+  carries a fallback holding theme_dark.css's value, so opening this file directly in a
+  browser renders the dark theme rather than an unstyled page.
+-->
 <svg id="backdrop" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+	<style>
+		.scene-bg      { fill: var(--scene-background-color, #1a1a1a); }
+		.wordmark-dot  { fill: var(--accent-color, #d9a62c); }
+		.wordmark text { fill: var(--title-text-color, #ffffff); font-family: var(--presenter-font-family, Arial, "Liberation Sans", Helvetica, sans-serif); font-size: 15px; font-weight: 700; letter-spacing: 0.18em; }
+	</style>
+
 	<rect class="scene-bg" width="1280" height="720"></rect>
 
 	<g id="wordmark" class="wordmark">

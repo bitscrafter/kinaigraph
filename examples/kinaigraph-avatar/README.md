@@ -10,7 +10,7 @@ of a 1280×720 scene.
 | ---- | ---- |
 | `resource/scene/avatar_layer.svg` | The rigged avatar layer — shared `0 0 1280 720` viewBox, actor groups: `presenter`, `eyes-open`, `eyes-closed`, `mouth-closed`, `mouth-mid`, `mouth-open`. Bubble themes via the `service-node-*` variables; character colors stay literal. |
 | `resource/template/main.html` | Common HTML container (copied from microservices-flow). |
-| `resource/style/theme_dark.css` | Dark theme (copied from microservices-flow). |
+| `resource/style/theme_dark.css` | Dark theme. VALUES only — each SVG owns its own class-to-variable mapping. |
 | `resource/script/part_01_intro.txt` | Narration script — the Kinaigraph pitch. |
 | `scene_00_tts_generation.yaml` | Generates `audio/avatar_intro.mp3` from the script. |
 | `scene_avatar_intro.yaml` | The scene: fade in → talk (mouth pulses, breathing, two blinks) → fade out. All timing derived from `audio_intro.duration`. |
@@ -37,6 +37,6 @@ from that scene's beats. The bubble sits at x 1036–1236, y 480–680.
 
 ## Caveat
 
-The YAML is drafted against the schema + examples but has not been compiled.
-Paste any compiler diagnostics back into the design session to get corrected
-source.
+The avatar layer was exported from a Claude Design session rather than authored
+by hand, unlike the artwork in the other examples. The YAML compiles and renders
+(it did not when that note was first written).
