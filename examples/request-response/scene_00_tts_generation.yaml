@@ -39,7 +39,13 @@ synthesis:
 
     tts:
         # Beat 1 — the flow. Establishes the system so the next two beats have
-        # something to change. Carries the thesis: the picture IS the source.
+        # something to change, and names what the author did NOT write: the heading,
+        # the lane, the six durations.
+        #
+        # ⚠️ ITS SIX CLAUSES ARE BALANCED AGAINST THE SIX LEGS, which are fixed
+        # fractions of the walk. Rewrite a clause and the voice stops tracking the
+        # packet — re-measure with ffmpeg `silencedetect` after regenerating. At the
+        # committed recording the worst boundary is 0.56 s out, 1.7% of the walk.
         audio_beat_01_flow:
             file: "./resource/script/part_01_flow.txt"
             export: "./resource/audio/part_01_flow.mp3"
@@ -50,8 +56,8 @@ synthesis:
             file: "./resource/script/part_02_store.txt"
             export: "./resource/audio/part_02_store.mp3"
 
-        # Beat 3 — compile-time theming. The same document re-rendered against a
-        # different stylesheet; the only authored difference is one asset's `file:`.
+        # Beat 3 — compile-time theming. One document, a 2x1 grid, and each half
+        # naming its own stylesheet. Free-form: nothing here is balanced against a leg.
         audio_beat_03_theme:
             file: "./resource/script/part_03_theme.txt"
             export: "./resource/audio/part_03_theme.mp3"
