@@ -1,6 +1,6 @@
-The client asks for a profile. The document says only: ride that link.
-It checks the token with authn, and nothing told the packet where to turn.
-Allowed, and here is who. One word puts the return trip in its own lane.
+A client asks for a profile. The animation document says: ride that link.
+The auth service checks the token. Kinaigraph tells the packet where to turn.
+Allowed, and here is who. One instruction puts the return in its own lane.
 Now the profile itself, fetched by that id from the user service alone.
 Back comes everything the service holds on Jane Doe, exactly as stored.
 And home, unchanged — not one of those six legs was ever timed by hand.
