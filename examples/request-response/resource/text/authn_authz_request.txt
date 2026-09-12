@@ -4,5 +4,5 @@ Authorization: Bearer gw_credentials
 Content-Type: application/json; charset=utf-8
 
 {
-	"access_token": "EnCd15LmKU"
+  "access_token": "EnCd15LmKU"
 }
