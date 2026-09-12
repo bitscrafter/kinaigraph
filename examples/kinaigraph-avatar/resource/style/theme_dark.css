@@ -2,18 +2,18 @@
 
 :root {
     /* Surfaces */
-    --kg-scene-bg: #1a1a1a;
-    --kg-bubble-bg: #2c2c2c;
+    --scene-background-color: #1a1a1a;
+    --speech-bubble-fill-color: #2c2c2c;
 
     /* Text */
-    --kg-text-title: #ffffff;
-    --kg-text-body: #a8a8a8;
+    --title-text-color: #ffffff;
+    --node-label-text-color: #a8a8a8;
 
     /* Brand accent (wordmark square) */
-    --kg-accent: #d9a62c;
+    --accent-color: #d9a62c;
 
     /* Typography */
-    --kg-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --diagram-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 /* ============================================================
@@ -23,21 +23,21 @@
    ============================================================ */
 
 .scene-bg {
-    fill: var(--kg-scene-bg);
+    fill: var(--scene-background-color);
 }
 
 /* Avatar bubble (the circle behind the presenter) */
 .bubble {
-    fill: var(--kg-bubble-bg);
+    fill: var(--speech-bubble-fill-color);
 }
 
 /* Wordmark (top-left) */
 .wordmark-dot {
-    fill: var(--kg-accent);
+    fill: var(--accent-color);
 }
 .wordmark text {
-    fill: var(--kg-text-title);
-    font-family: var(--kg-font-family);
+    fill: var(--title-text-color);
+    font-family: var(--diagram-font-family);
     font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.18em;
@@ -45,8 +45,8 @@
 
 /* Heading */
 .line-1 {
-    fill: var(--kg-text-title);
-    font-family: var(--kg-font-family);
+    fill: var(--title-text-color);
+    font-family: var(--diagram-font-family);
     font-size: 44px;
     font-weight: 800;
     letter-spacing: -0.01em;
@@ -56,8 +56,8 @@
 .line-2,
 .line-3,
 .line-4 {
-    fill: var(--kg-text-body);
-    font-family: var(--kg-font-family);
+    fill: var(--node-label-text-color);
+    font-family: var(--diagram-font-family);
     font-size: 27px;
     font-weight: 400;
 }

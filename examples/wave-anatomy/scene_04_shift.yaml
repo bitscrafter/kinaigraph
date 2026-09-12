@@ -145,7 +145,10 @@ defs:
         FADE_MS: "trunc(COS_MS / 3)"
 
         # ── The tag box ───────────────────────────────────────────────────────────
-        TAG_X: 980
+        # ⚠️ 900, NOT 980. At 980 the tag spans 980..1170 and beat 4's LAST move lifts
+        # the curve by D across the whole window — it then leaves the plot at the right
+        # margin through the tag's lower edge. Shifted 80 left the curve passes below it.
+        TAG_X: 900
         TAG_Y: 152
         TAG_WIDTH: 190
         TAG_HEIGHT: 56
@@ -223,8 +226,11 @@ animation:
                 x: TAG_X
                 y: TAG_Y
             origin: top_left
-            fill: "#161b22"
-            stroke: "#d2a8ff"
+            fill: 'css("label-box-fill-color")'
+            # The tag NAMES the cosine, so it wears the cosine's own colour. No separate
+            # variable: the curve's is the right one, and one value cannot drift from
+            # itself.
+            stroke: 'css("curve-cosine-stroke-color")'
             stroke_width: 1.5
         tag_offset:
             note:

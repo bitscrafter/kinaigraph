@@ -213,8 +213,8 @@ animation:
                   - pulse:
                         duration: PULSE_DURATION
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-arrive-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("arrival-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Tear-down: hold the final frame; tail VIDEO_MARGIN pad of quiet. ---
         store_step01_ts.end @ tear_down_ts:

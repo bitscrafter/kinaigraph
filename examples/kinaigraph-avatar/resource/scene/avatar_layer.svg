@@ -11,11 +11,11 @@
          mouth-open   — open vowels   (opacity 0 at rest; opaque backing plate)
 
        Mouth shapes nest (closed ⊂ mid ⊂ open) so phase-locked pulses never
-       leave lip edges exposed. Bubble themes via kg-node-*; character colors
+       leave lip edges exposed. Bubble themes via the service-node-* variables; character colors
        stay literal. -->
 
   <style>
-    .bubble { fill: var(--kg-node-bg, #2e2e2e); stroke: var(--kg-node-stroke, #555555); stroke-width: var(--kg-node-stroke-width, 2); }
+    .bubble { fill: var(--service-node-fill-color, #2e2e2e); stroke: var(--service-node-stroke-color, #555555); stroke-width: var(--service-node-stroke-width, 2); }
   </style>
 
   <defs>

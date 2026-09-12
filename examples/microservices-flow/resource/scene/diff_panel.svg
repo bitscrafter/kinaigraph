@@ -15,7 +15,7 @@
   line, green on the added line) so the viewer's eye lands on the exact change.
 -->
 <svg id="diff_panel" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1280" height="720" fill="var(--kg-scene-bg, #1a1a1a)" />
+  <rect width="1280" height="720" fill="var(--scene-background-color, #1a1a1a)" />
 
   <!-- Content authored on the original 800×600 grid, centered into the 1280×720 frame. -->
   <g transform="translate(240 60)">
@@ -49,6 +49,6 @@
   </g>
 
   <!-- Caption — fades in last -->
-  <text id="caption" x="400" y="555" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="500" fill="var(--kg-text-title, #ffffff)" opacity="0">One line. Re-themed.</text>
+  <text id="caption" x="400" y="555" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="500" fill="var(--title-text-color, #ffffff)" opacity="0">One line. Re-themed.</text>
   </g>
 </svg>

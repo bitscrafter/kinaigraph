@@ -8,7 +8,7 @@ of a 1280×720 scene.
 
 | Path | What |
 | ---- | ---- |
-| `resource/scene/avatar_layer.svg` | The rigged avatar layer — shared `0 0 1280 720` viewBox, actor groups: `presenter`, `eyes-open`, `eyes-closed`, `mouth-closed`, `mouth-mid`, `mouth-open`. Bubble themes via `kg-node-*`; character colors stay literal. |
+| `resource/scene/avatar_layer.svg` | The rigged avatar layer — shared `0 0 1280 720` viewBox, actor groups: `presenter`, `eyes-open`, `eyes-closed`, `mouth-closed`, `mouth-mid`, `mouth-open`. Bubble themes via the `service-node-*` variables; character colors stay literal. |
 | `resource/template/main.html` | Common HTML container (copied from microservices-flow). |
 | `resource/style/theme_dark.css` | Dark theme (copied from microservices-flow). |
 | `resource/script/part_01_intro.txt` | Narration script — the Kinaigraph pitch. |

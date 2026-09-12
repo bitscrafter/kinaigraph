@@ -18,7 +18,7 @@
     --marker-pulse-stroke-width: 3;
     /* Packet-arrival tint: the `to` colour the RECEIVING node's pulse brightens to
      as the packet lands, distinguishing "a request arrived here" from the neutral
-     step-00 "system alive" pulse (which uses --kg-pulse-stroke). */
+     step-00 "system alive" pulse, which brightens to --marker-pulse-stroke-color. */
     --marker-arrival-ring-stroke-color: #b5e48c;
 
     /* Stroke weights (per role) */

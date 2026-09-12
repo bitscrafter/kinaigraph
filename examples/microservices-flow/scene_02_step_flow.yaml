@@ -142,26 +142,26 @@ animation:
                   - pulse:
                         duration: "audio_shot_01_intro.duration"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
             - api-gateway:
                   - pulse:
                         duration: "audio_shot_01_intro.duration"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
             - auth-service:
                   - pulse:
                         duration: "audio_shot_01_intro.duration"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
             - user-service:
                   - pulse:
                         duration: "audio_shot_01_intro.duration"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-pulse-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("pulse-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 1: client -> api-gateway, over the client_to_gateway shot ---
         intro_ts.end @ step_01_ts:
@@ -197,8 +197,8 @@ animation:
                             before: "STEP_PADDING"
                         duration: "audio_shot_02_client_to_gateway.duration"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-arrive-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("arrival-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 2: api-gateway -> auth-service, first half of the auth shot ---
         step_01_ts.end @ step_02_ts:
@@ -234,8 +234,8 @@ animation:
                             before: "STEP_PADDING"
                         duration: "audio_shot_03_auth.duration / 2"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-arrive-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("arrival-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 3: auth-service -> api-gateway, second half of the auth shot ---
         step_02_ts.end @ step_03_ts:
@@ -274,8 +274,8 @@ animation:
                             before: "STEP_PADDING"
                         duration: "audio_shot_03_auth.duration / 2"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-arrive-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("arrival-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 4: api-gateway -> user-service, first half of the user shot ---
         step_03_ts.end @ step_04_ts:
@@ -313,8 +313,8 @@ animation:
                             before: "STEP_PADDING"
                         duration: "audio_shot_04_user.duration / 2"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-arrive-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("arrival-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 5: user-service -> api-gateway, second half of the user shot ---
         step_04_ts.end @ step_05_ts:
@@ -353,8 +353,8 @@ animation:
                             before: "STEP_PADDING"
                         duration: "audio_shot_04_user.duration / 2"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-arrive-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("arrival-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Leg 6: api-gateway -> client, over the response shot; chevron fades out ---
         step_05_ts.end @ step_06_ts:
@@ -395,8 +395,8 @@ animation:
                             before: "STEP_PADDING"
                         duration: "audio_shot_05_response.duration"
                         cycles: PULSE_CYCLES
-                        stroke: 'css("kg-arrive-stroke")'
-                        stroke_width: 'css("kg-pulse-stroke-width")'
+                        stroke: 'css("arrival-stroke-color")'
+                        stroke_width: 'css("pulse-stroke-width")'
 
         # --- Tear-down: diagram holds; tail VIDEO_MARGIN pad of quiet ---
         step_06_ts.end @ tear_down_ts:

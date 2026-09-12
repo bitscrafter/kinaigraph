@@ -5,43 +5,43 @@
        so the DSL move coordinates apply across layers.
 
        Theming: each element carries a class matching its id; the style block below
-       maps that class to the kg-* theme variables and the element's typography.
+       maps that class to the theme variables and the element's typography.
        Swap the attached theme CSS to retheme. -->
 
   <style>
-    .scene-bg { fill: var(--kg-scene-bg, #1a1a1a); }
+    .scene-bg { fill: var(--scene-background-color, #1a1a1a); }
 
-    .title    { fill: var(--kg-text-title, #ffffff); font-family: var(--kg-font-family, sans-serif); font-size: 26px; font-weight: 600; text-anchor: middle; }
+    .title    { fill: var(--title-text-color, #ffffff); font-family: var(--diagram-font-family, sans-serif); font-size: 26px; font-weight: 600; text-anchor: middle; }
 
     .link-client-gateway,
     .link-gateway-auth,
-    .link-gateway-user { stroke: var(--kg-link, #555555); stroke-width: var(--kg-link-width, 2); stroke-dasharray: var(--kg-link-dash, 6 4); }
+    .link-gateway-user { stroke: var(--link-stroke-color, #555555); stroke-width: var(--link-stroke-width, 2); stroke-dasharray: var(--link-dash-pattern, 6 4); }
 
     /* Every node carries its stroke on the GROUP (not the rect) so a stroke pulse
        on the actor — which targets the group element — reaches the rect via
        inheritance; the rect keeps only its own fill, and the text opts out of the
        stroke so the pulse highlights the border only. */
-    .client            { stroke: var(--kg-node-stroke, #555555); stroke-width: var(--kg-node-stroke-width, 2); }
-    .client rect       { fill: var(--kg-node-bg, #333333); }
-    .client text       { fill: var(--kg-text-body, #eeeeee); stroke: none; font-family: var(--kg-font-family, sans-serif); font-size: 14px; text-anchor: middle; }
+    .client            { stroke: var(--service-node-stroke-color, #555555); stroke-width: var(--service-node-stroke-width, 2); }
+    .client rect       { fill: var(--service-node-fill-color, #333333); }
+    .client text       { fill: var(--node-label-text-color, #eeeeee); stroke: none; font-family: var(--diagram-font-family, sans-serif); font-size: 14px; text-anchor: middle; }
 
-    .api-gateway       { stroke: var(--kg-group-stroke, #444444); stroke-width: var(--kg-group-stroke-width, 2); }
-    .api-gateway rect  { fill: var(--kg-group-bg, #222222); }
-    .api-gateway text  { fill: var(--kg-text-title, #cccccc); stroke: none; font-family: var(--kg-font-family, sans-serif); font-size: 16px; font-weight: bold; text-anchor: middle; }
+    .api-gateway       { stroke: var(--gateway-stroke-color, #444444); stroke-width: var(--gateway-stroke-width, 2); }
+    .api-gateway rect  { fill: var(--gateway-fill-color, #222222); }
+    .api-gateway text  { fill: var(--title-text-color, #cccccc); stroke: none; font-family: var(--diagram-font-family, sans-serif); font-size: 16px; font-weight: bold; text-anchor: middle; }
 
-    .auth-service      { stroke: var(--kg-node-stroke, #555555); stroke-width: var(--kg-node-stroke-width, 2); }
-    .auth-service rect { fill: var(--kg-node-bg, #333333); }
-    .auth-service text { fill: var(--kg-text-body, #eeeeee); stroke: none; font-family: var(--kg-font-family, sans-serif); font-size: 14px; text-anchor: middle; }
+    .auth-service      { stroke: var(--service-node-stroke-color, #555555); stroke-width: var(--service-node-stroke-width, 2); }
+    .auth-service rect { fill: var(--service-node-fill-color, #333333); }
+    .auth-service text { fill: var(--node-label-text-color, #eeeeee); stroke: none; font-family: var(--diagram-font-family, sans-serif); font-size: 14px; text-anchor: middle; }
 
-    .user-service      { stroke: var(--kg-node-stroke, #555555); stroke-width: var(--kg-node-stroke-width, 2); }
-    .user-service rect { fill: var(--kg-node-bg, #333333); }
-    .user-service text { fill: var(--kg-text-body, #eeeeee); stroke: none; font-family: var(--kg-font-family, sans-serif); font-size: 14px; text-anchor: middle; }
+    .user-service      { stroke: var(--service-node-stroke-color, #555555); stroke-width: var(--service-node-stroke-width, 2); }
+    .user-service rect { fill: var(--service-node-fill-color, #333333); }
+    .user-service text { fill: var(--node-label-text-color, #eeeeee); stroke: none; font-family: var(--diagram-font-family, sans-serif); font-size: 14px; text-anchor: middle; }
 
     .step-1-badge circle, .step-2-badge circle, .step-3-badge circle, .step-4-badge circle {
-      fill: var(--kg-step-bg, #444444); stroke: var(--kg-step-stroke, #888888); stroke-width: var(--kg-badge-stroke-width, 1.5);
+      fill: var(--step-badge-fill-color, #444444); stroke: var(--step-badge-stroke-color, #888888); stroke-width: var(--step-badge-stroke-width, 1.5);
     }
     .step-1-badge text, .step-2-badge text, .step-3-badge text, .step-4-badge text {
-      fill: var(--kg-text-title, #ffffff); font-family: var(--kg-font-family, sans-serif); font-size: 13px; font-weight: bold; text-anchor: middle;
+      fill: var(--title-text-color, #ffffff); font-family: var(--diagram-font-family, sans-serif); font-size: 13px; font-weight: bold; text-anchor: middle;
     }
   </style>
 

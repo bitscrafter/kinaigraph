@@ -3,19 +3,19 @@
        sequentially (each group starts opacity 0; the scene animates them).
 
        Theming: each element carries a class matching its id; the style block below
-       maps that class to the kg-* theme variables and the element's typography. -->
+       maps that class to the theme variables and the element's typography. -->
 
   <style>
-    .scene-bg    { fill: var(--kg-scene-bg, #1a1a1a); }
-    .recap-title { fill: var(--kg-text-title, #ffffff); font-family: var(--kg-font-family, sans-serif); font-size: 30px; font-weight: 700; text-anchor: middle; }
-    .divider     { stroke: var(--kg-link, #555555); stroke-width: 1; }
+    .scene-bg    { fill: var(--scene-background-color, #1a1a1a); }
+    .recap-title { fill: var(--title-text-color, #ffffff); font-family: var(--diagram-font-family, sans-serif); font-size: 30px; font-weight: 700; text-anchor: middle; }
+    .divider     { stroke: var(--link-stroke-color, #555555); stroke-width: 1; }
 
-    .bullet-1 circle, .bullet-2 circle, .bullet-3 circle, .bullet-4 circle { fill: var(--kg-bookmark-bg, #ffcc00); }
+    .bullet-1 circle, .bullet-2 circle, .bullet-3 circle, .bullet-4 circle { fill: var(--accent-color, #ffcc00); }
     .bullet-1 text, .bullet-2 text, .bullet-3 text, .bullet-4 text {
-      fill: var(--kg-text-body, #eeeeee); font-family: var(--kg-font-family, sans-serif); font-size: 22px; text-anchor: start;
+      fill: var(--node-label-text-color, #eeeeee); font-family: var(--diagram-font-family, sans-serif); font-size: 22px; text-anchor: start;
     }
 
-    .wordmark { fill: var(--kg-text-title, #ffffff); font-family: var(--kg-font-family, sans-serif); font-size: 20px; font-weight: 600; text-anchor: middle; }
+    .wordmark { fill: var(--title-text-color, #ffffff); font-family: var(--diagram-font-family, sans-serif); font-size: 20px; font-weight: 600; text-anchor: middle; }
   </style>
 
   <rect class="scene-bg" width="1280" height="720" />
