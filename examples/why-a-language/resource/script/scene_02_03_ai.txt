@@ -1,0 +1,4 @@
+Generative AI is remarkable, yet fundamentally unpredictable. You are often trapped in a cycle of trial and error.
+Precision and granular control are absent. There is no way to define exact timing, or coordinate positioning.
+Furthermore, operational costs escalate rapidly as production needs scale.
+There has to be a better way.

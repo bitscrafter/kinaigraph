@@ -1,0 +1,98 @@
+/* ------------------------------------------ */
+/* HTML Page Theme Support */
+/* ------------------------------------------ */
+@media (prefers-color-scheme: light) {
+    :root {
+        --page-bg: #E8E8E8;
+        --page-text: #101010;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --page-bg: #181818;
+        --page-text: #E0E0E0;
+    }
+}
+
+/* -------------------------------------------- */
+/* SVG Theme Support (inherits to embedded SVG) */
+/* -------------------------------------------- */
+
+/* Auto-mode: Follow system preference (when no class on html) */
+@media (prefers-color-scheme: light) {
+    html:not(.dark-mode):not(.light-mode) {
+        --canvas-bg: #F7F7F7;
+        --icon-fill: #FFFFFF;
+        --icon-stroke: #555555;
+        --icon-fill-medium: #AAAAAA;
+        --icon-fill-dark: #555555;
+        --text-primary: #000000;
+        --text-secondary: #333333;
+        --box-bg: #FFFFFF;
+        --box-stroke: #555555;
+        --box-text: #333333;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not(.dark-mode):not(.light-mode) {
+        --canvas-bg: #181818;
+        --icon-fill: #2A2A2A;
+        --icon-stroke: #AAAAAA;
+        --icon-fill-medium: #555555;
+        --icon-fill-dark: #AAAAAA;
+        --text-primary: #E0E0E0;
+        --text-secondary: #CCCCCC;
+        --box-bg: #2A2A2A;
+        --box-stroke: #AAAAAA;
+        --box-text: #CCCCCC;
+    }
+}
+
+/* Manual override: Light mode */
+html.light-mode {
+    --canvas-bg: #F7F7F7;
+    --icon-fill: #FFFFFF;
+    --icon-stroke: #555555;
+    --icon-fill-medium: #AAAAAA;
+    --icon-fill-dark: #555555;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --box-bg: #FFFFFF;
+    --box-stroke: #555555;
+    --box-text: #333333;
+}
+
+/* Manual override: Dark mode */
+html.dark-mode {
+    --canvas-bg: #181818;
+    --icon-fill: #2A2A2A;
+    --icon-stroke: #AAAAAA;
+    --icon-fill-medium: #555555;
+    --icon-fill-dark: #AAAAAA;
+    --text-primary: #E0E0E0;
+    --text-secondary: #CCCCCC;
+    --box-bg: #2A2A2A;
+    --box-stroke: #AAAAAA;
+    --box-text: #CCCCCC;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--page-bg, #202020);
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background: transparent;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: none;
+}

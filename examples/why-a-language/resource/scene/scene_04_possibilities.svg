@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="possibilities" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="1920" height="1080" class="canvas-bg"/>
+
+    <!-- Symbol definitions -->
+    <defs>
+        <style>
+            :root {
+                --global-opacity: 1.0;
+            }
+
+            @media (prefers-color-scheme: light) {
+                svg#possibilities:not(.dark-mode):not(.light-mode) {
+                    --canvas-bg: #F7F7F7;
+                    --icon-fill: #FFFFFF;
+                    --icon-fill-light: #E5E5E5;
+                    --icon-stroke: #555555;
+                    --icon-stroke-light: #888888;
+                    --icon-fill-medium: #AAAAAA;
+                    --icon-fill-dark: #555555;
+                    --circle-stroke: #555555;
+                    --text-primary: #000000;
+                    --text-secondary: #555555;
+                    --teaser-accent: #0066CC;
+                }
+            }
+
+            @media (prefers-color-scheme: dark) {
+                svg#possibilities:not(.dark-mode):not(.light-mode) {
+                    --canvas-bg: #181818;
+                    --icon-fill: #2A2A2A;
+                    --icon-fill-light: #1E1E1E;
+                    --icon-stroke: #AAAAAA;
+                    --icon-stroke-light: #777777;
+                    --icon-fill-medium: #555555;
+                    --icon-fill-dark: #AAAAAA;
+                    --circle-stroke: #AAAAAA;
+                    --text-primary: #E0E0E0;
+                    --text-secondary: #AAAAAA;
+                    --teaser-accent: #4D9FFF;
+                }
+            }
+
+            svg#possibilities.light-mode {
+                --canvas-bg: #F7F7F7;
+                --icon-fill: #FFFFFF;
+                --icon-fill-light: #E5E5E5;
+                --icon-stroke: #555555;
+                --icon-stroke-light: #888888;
+                --icon-fill-medium: #AAAAAA;
+                --icon-fill-dark: #555555;
+                --circle-stroke: #555555;
+                --text-primary: #000000;
+                --text-secondary: #555555;
+                --teaser-accent: #0066CC;
+            }
+
+            svg#possibilities.dark-mode {
+                --canvas-bg: #181818;
+                --icon-fill: #2A2A2A;
+                --icon-fill-light: #1E1E1E;
+                --icon-stroke: #AAAAAA;
+                --icon-stroke-light: #777777;
+                --icon-fill-medium: #555555;
+                --icon-fill-dark: #AAAAAA;
+                --circle-stroke: #AAAAAA;
+                --text-primary: #E0E0E0;
+                --text-secondary: #AAAAAA;
+                --teaser-accent: #4D9FFF;
+            }
+
+            .canvas-bg { fill: var(--canvas-bg); }
+            .icon-fill { fill: var(--icon-fill); }
+            .icon-fill-light { fill: var(--icon-fill-light); }
+            .icon-stroke { stroke: var(--icon-stroke); }
+            .icon-fill-medium { fill: var(--icon-fill-medium); }
+            .icon-fill-dark { fill: var(--icon-fill-dark); }
+            .text-primary { fill: var(--text-primary); }
+            .text-secondary { fill: var(--text-secondary); }
+            .teaser-accent { fill: var(--teaser-accent); }
+
+            .heading-text {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 72px;
+                font-weight: 700;
+                text-anchor: middle;
+            	opacity: var(--global-opacity);
+            }
+
+            .title-text {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 48px;
+                font-weight: 600;
+                text-anchor: middle;
+            	opacity: var(--global-opacity);
+            }
+
+            .subtitle-text {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 32px;
+                font-weight: 400;
+                text-anchor: middle;
+            	opacity: var(--global-opacity);
+            }
+
+            .teaser-heading {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 72px;
+                font-weight: 400;
+                text-anchor: middle;
+            	opacity: var(--global-opacity);
+            }
+
+            .teaser-title {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 84px;
+                font-weight: 800;
+                text-anchor: middle;
+            	opacity: var(--global-opacity);
+            }
+
+            .bouncing-circle {
+                fill: none;
+                stroke: var(--circle-stroke);
+                stroke-width: 3;
+            	opacity: var(--global-opacity);
+            }
+
+            .underline {
+                stroke: var(--text-primary);
+                stroke-width: 3;
+            	opacity: var(--global-opacity);
+            }
+        </style>
+
+        <symbol id="thumbs_up" viewBox="0 0 24 24">
+            <rect x="2" y="11" width="4" height="10" rx="1" class="icon-fill icon-stroke" stroke-width="1"/>
+            <path d="M 6,11 L 9,3 Q 10,2 11,3 L 12,4 Q 13,6 13,9 H 20 Q 22,9 21.5,12 L 19.5,20 Q 19,21 17,21 H 6 Z" class="icon-fill icon-stroke" stroke-width="1" stroke-linejoin="round"/>
+        </symbol>
+
+        <symbol id="document_interactive" viewBox="0 0 24 24">
+            <path d="M 6,3 L 15,3 L 18,6 L 18,13" class="icon-fill icon-stroke" stroke-width="1"/>
+            <path d="M 6,3 L 6,20 L 13,20" class="icon-fill icon-stroke" stroke-width="1"/>
+            <path d="M 15,3 L 15,6 L 18,6" class="icon-fill-light icon-stroke" stroke-width="1"/>
+            <line x1="8" y1="8" x2="13" y2="8" class="icon-stroke" stroke-width="0.5"/>
+            <line x1="8" y1="10" x2="15" y2="10" class="icon-stroke" stroke-width="0.5"/>
+            <line x1="8" y1="12" x2="13" y2="12" class="icon-stroke" stroke-width="0.5"/>
+            <line x1="8" y1="14" x2="12" y2="14" class="icon-stroke" stroke-width="0.5"/>
+            <line x1="8" y1="16" x2="11" y2="16" class="icon-stroke" stroke-width="0.5"/>
+            <circle cx="17.5" cy="17.5" r="4.5" class="icon-fill icon-stroke" stroke-width="1"/>
+            <path d="M 17,16.75 L 18,17.25 L 17,17.75 Z" class="icon-fill-dark"/>
+            <!-- <path d="M 16,15.5 L 20,17.5 L 16,19.5 Z" class="icon-fill-dark"/> -->
+        </symbol>
+
+        <symbol id="neural_network" viewBox="0 0 24 24">
+            <line x1="4" y1="12" x2="10" y2="5" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="4" y1="12" x2="12" y2="13" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="10" y1="5" x2="18" y2="4" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="10" y1="5" x2="12" y2="13" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="12" y1="13" x2="18" y2="4" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="12" y1="13" x2="20" y2="12" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="12" y1="13" x2="14" y2="20" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="12" y1="13" x2="7" y2="19" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="20" y1="12" x2="18" y2="4" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="20" y1="12" x2="14" y2="20" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="14" y1="20" x2="7" y2="19" class="icon-stroke" stroke-width="0.75"/>
+            <line x1="7" y1="19" x2="4" y2="12" class="icon-stroke" stroke-width="0.75"/>
+            <circle cx="4" cy="12" r="2" class="icon-fill icon-stroke" stroke-width="1"/>
+            <circle cx="10" cy="5" r="2" class="icon-fill icon-stroke" stroke-width="1"/>
+            <circle cx="18" cy="4" r="2" class="icon-fill icon-stroke" stroke-width="1"/>
+            <circle cx="12" cy="13" r="2.5" class="icon-fill icon-stroke" stroke-width="1"/>
+            <circle cx="20" cy="12" r="2" class="icon-fill icon-stroke" stroke-width="1"/>
+            <circle cx="14" cy="20" r="2" class="icon-fill icon-stroke" stroke-width="1"/>
+            <circle cx="7" cy="19" r="2" class="icon-fill icon-stroke" stroke-width="1"/>
+        </symbol>
+
+        <symbol id="bullseye" viewBox="0 0 24 24">
+            <circle cx="9" cy="15" r="8" class="icon-fill icon-stroke" stroke-width="1"/>
+            <circle cx="9" cy="15" r="5" class="icon-fill icon-stroke" stroke-width="1"/>
+            <circle cx="9" cy="15" r="2" class="icon-fill-dark"/>
+            <line x1="18" y1="4" x2="9" y2="15" class="icon-stroke" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M 17,1 L 18,4 L 21,5" fill="none" class="icon-stroke" stroke-width="1" stroke-linecap="round"/>
+            <path d="M 14,4.25 L 15,7 L 18,8" fill="none" class="icon-stroke" stroke-width="1" stroke-linecap="round"/>
+            <path d="M 17,1 L 14,4" fill="none" class="icon-stroke" stroke-width="1" stroke-linecap="round"/>
+            <path d="M 21,5 L 18,8" fill="none" class="icon-stroke" stroke-width="1" stroke-linecap="round"/>
+        </symbol>
+    </defs>
+
+    <!-- Main Heading -->
+    <g id="heading">
+        <text x="960" y="100" class="heading-text text-primary">The Potential</text>
+    </g>
+
+    <!-- Bouncing Circles (start positions, will move via animation) -->
+    <!-- Circle 1: Social Media (top-left quadrant: x 60-580, y 170-320) -->
+    <g id="circle_social">
+        <circle id="circle_social_shape" class="bouncing-circle" cx="120" cy="230" r="60"/>
+        <use class="bouncing-circle" href="#thumbs_up" x="80" y="190" width="80" height="80"/>
+    </g>
+
+    <!-- Circle 2: Documentation (top-right quadrant: x 1340-1860, y 170-320) -->
+    <g id="circle_docs">
+        <circle id="circle_docs_shape" class="bouncing-circle" cx="1800" cy="230" r="60"/>
+        <use class="bouncing-circle" href="#document_interactive" x="1760" y="190" width="80" height="80"/>
+    </g>
+
+    <!-- Circle 3: Education (bottom-left quadrant: x 60-580, y 740-1020) -->
+    <g id="circle_edu">
+        <circle id="circle_edu_shape" class="bouncing-circle" cx="120" cy="960" r="60"/>
+        <use class="bouncing-circle" href="#neural_network" x="80" y="920" width="80" height="80"/>
+    </g>
+
+    <!-- Circle 4: Business (bottom-right quadrant: x 1340-1860, y 740-1020) -->
+    <g id="circle_biz">
+        <circle id="circle_biz_shape" class="bouncing-circle" cx="1800" cy="960" r="60"/>
+        <use class="bouncing-circle" href="#bullseye" x="1760" y="920" width="80" height="80"/>
+    </g>
+
+    <!-- Centered Text Groups (one for each use case) -->
+    <g id="text_social">
+        <text x="960" y="500" class="title-text text-primary">Social Media &amp; Outreach</text>
+        <line x1="690" y1="515" x2="1230" y2="515" class="underline"/>
+        <text x="960" y="570" class="subtitle-text text-secondary">High-velocity technical storytelling</text>
+        <text x="960" y="620" class="subtitle-text text-secondary">for social media engagement.</text>
+    </g>
+
+    <g id="text_docs">
+        <text x="960" y="500" class="title-text text-primary">Knowledge Sharing</text>
+        <line x1="680" y1="515" x2="1240" y2="515" class="underline"/>
+        <text x="960" y="570" class="subtitle-text text-secondary">Interactive documentation that transforms</text>
+        <text x="960" y="620" class="subtitle-text text-secondary">abstract models into living explanations.</text>
+    </g>
+
+    <g id="text_edu">
+        <text x="960" y="500" class="title-text text-primary">Education &amp; Tutorials</text>
+        <line x1="720" y1="515" x2="1200" y2="515" class="underline"/>
+        <text x="960" y="570" class="subtitle-text text-secondary">Demystifying complex technical concepts</text>
+        <text x="960" y="620" class="subtitle-text text-secondary">through step-by-step visual walkthroughs.</text>
+    </g>
+
+    <g id="text_biz">
+        <text x="960" y="500" class="title-text text-primary">Business &amp; Strategy</text>
+        <line x1="735" y1="515" x2="1185" y2="515" class="underline"/>
+        <text x="960" y="570" class="subtitle-text text-secondary">Business narratives with the precision of code,</text>
+        <text x="960" y="620" class="subtitle-text text-secondary">transcending the limitations of static slides.</text>
+    </g>
+
+    <!-- Teaser Group -->
+    <g id="teaser">
+        <text x="960" y="400" class="teaser-heading text-secondary">Coming Up Next...</text>
+        <text x="960" y="620" class="teaser-heading text-primary">A Sneak Peek of the Core Syntax</text>
+    </g>
+</svg>

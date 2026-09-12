@@ -1,0 +1,397 @@
+# ------------------------------------------
+# Pain Points Episode - Scene 4: Infinite Possibilities (v2 - Simplified)
+# ------------------------------------------
+
+metadata:
+  title: "Infinite Possibilities - Scene 4 (Simplified)"
+  description: "Closing scene with circles moving diagonally toward center with text reveals"
+  version: "2.2"
+
+defs:
+  assets:
+    possibilities:
+      type: "diagram"
+      file: "./resource/scene_04_possibilities.svg"
+      roles: [primary]
+
+    animation_engine:
+      type: "engine"
+      file: "../../system/shared/dsl/bundle/animation-engine-bundle.js"
+
+    template_file:
+      type: "template"
+      file: "./resource/animation-template.html"
+
+    style_file:
+      type: "style"
+      file: "./resource/animation-theme.css"
+
+    # Audio Assets
+    audio-04-01-intro:
+      type: "audio"
+      file: "./audio/scene_04_01_intro.mp3"
+    audio-04-02-social:
+      type: "audio"
+      file: "./audio/scene_04_02_social.mp3"
+    audio-04-03-docs:
+      type: "audio"
+      file: "./audio/scene_04_03_docs.mp3"
+    audio-04-04-edu:
+      type: "audio"
+      file: "./audio/scene_04_04_edu.mp3"
+    audio-04-05-biz:
+      type: "audio"
+      file: "./audio/scene_04_05_biz.mp3"
+    audio-04-06-teaser:
+      type: "audio"
+      file: "./audio/scene_04_06_teaser.mp3"
+
+  const:
+    # Timing constants
+    delayMargin: 500
+    delayPad: 250
+    topicFadeIn: 400
+    topicFadeOut: 400
+    topicDim: 400
+    headingFadeIn: 700
+    teaserFadeIn: 700
+    teaserFadeOut: 700
+
+    # circleFadeIn: 400
+    # textFadeIn: 1000
+    # textFadeOut: 1000
+    # highlightDuration: 200
+    # dimDuration: 200
+    # moveDuration: 1500
+
+  groups:
+    all-circle-shape: [circle-social, circle-docs, circle-edu, circle-biz]
+    all-circle-text: [text-social, text-docs, text-edu, text-biz]
+    all-elements:
+      - heading
+      - teaser
+      - circle-social
+      - circle-docs
+      - circle-edu
+      - circle-biz
+      - text-social
+      - text-docs
+      - text-edu
+      - text-biz
+
+animation:
+  timeline:
+    # Initial state - everything invisible
+    0 @ start-entry:
+      - all-elements:
+          - show:
+              opacity: 0
+              hold: delayMargin
+
+    # ------------------------------------------
+    # Intro: Heading and circles appear
+    # ------------------------------------------
+
+    # Show heading
+    start-entry.end @ intro-fadein:
+      - heading:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: headingFadeIn
+              hold: delayPad
+
+    # Fade-in all circles with intro audio duration
+    intro-fadein.end @ audio-intro:
+      - all-circle-shape:
+          - show:
+              opacity-range:
+                from: 0
+                to: 0.5
+              duration: audio-04-01-intro.duration
+              hold: delayPad
+
+    # ------------------------------------------
+    # Circle 1: Social Media (top-left → center)
+    # Synced with audio-04-02-social
+    # ------------------------------------------
+
+    # Highlight social media
+    audio-intro.end @ social-fadein:
+      - text-social:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: topicFadeIn
+              hold: delayPad
+      - circle-social:
+          - show:
+              opacity-range:
+                from: 0.5
+                to: 1.0
+              duration: topicFadeIn
+              hold: delayPad
+
+    audio-intro.end @ audio-social:
+      - circle-social:
+          - move:
+              x: 500
+              y: 400
+              duration: audio-04-02-social.duration
+              hold: delayPad
+
+    audio-social.end - topicDim @ social-dim:
+      - circle-social:
+          - show:
+              opacity-range:
+                from: 1.0
+                to: 0.5
+              duration: topicDim
+              hold: delayPad
+
+    audio-social.end - topicFadeOut @ social-fadeout:
+      - text-social:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: topicFadeOut
+              hold: delayPad
+
+    # ------------------------------------------
+    # Circle 2: Documentation (top-right → center)
+    # Synced with audio-04-03-docs
+    # ------------------------------------------
+
+    social-fadeout.end @ docs-fadein:
+      - text-docs:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: topicFadeIn
+              hold: delayPad
+      - circle-docs:
+          - show:
+              opacity-range:
+                from: 0.5
+                to: 1.0
+              duration: topicFadeIn
+              hold: delayPad
+
+    social-fadeout.end @ audio-docs:
+      - circle-docs:
+          - move:
+              x: 1400
+              y: 400
+              duration: audio-04-03-docs.duration
+              hold: delayPad
+
+    audio-docs.end - topicDim @ docs-dim:
+      - circle-docs:
+          - show:
+              opacity-range:
+                from: 1.0
+                to: 0.5
+              duration: topicDim
+              hold: delayPad
+
+    audio-docs.end - topicFadeOut @ docs-fadeout:
+      - text-docs:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: topicFadeOut
+              hold: delayPad
+
+    # ------------------------------------------
+    # Circle 3: Education (bottom-left → center)
+    # Synced with audio-04-04-edu
+    # ------------------------------------------
+
+    docs-fadeout.end @ edu-fadein:
+      - text-edu:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: topicFadeIn
+              hold: delayPad
+      - circle-edu:
+          - show:
+              opacity-range:
+                from: 0.5
+                to: 1.0
+              duration: topicFadeIn
+              hold: delayPad
+
+    docs-fadeout.end @ audio-edu:
+      - circle-edu:
+          - move:
+              x: 500
+              y: 680
+              duration: audio-04-04-edu.duration
+              hold: delayPad
+
+    audio-edu.end - topicDim @ edu-dim:
+      - circle-edu:
+          - show:
+              opacity-range:
+                from: 1.0
+                to: 0.5
+              duration: topicDim
+              hold: delayPad
+
+    audio-edu.end - topicFadeOut @ edu-fadeout:
+      - text-edu:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: topicFadeOut
+              hold: delayPad
+
+    # ------------------------------------------
+    # Circle 4: Business (bottom-right → center)
+    # Synced with audio-04-05-biz
+    # ------------------------------------------
+
+    edu-fadeout.end @ biz-fadein:
+      - text-biz:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: topicFadeIn
+              hold: delayPad
+      - circle-biz:
+          - show:
+              opacity-range:
+                from: 0.5
+                to: 1.0
+              duration: topicFadeIn
+              hold: delayPad
+
+    edu-fadeout.end @ audio-biz:
+      - circle-biz:
+          - move:
+              x: 1400
+              y: 680
+              duration: audio-04-05-biz.duration
+              hold: delayPad
+
+    audio-biz.end - topicDim @ biz-dim:
+      - circle-biz:
+          - show:
+              opacity-range:
+                from: 1.0
+                to: 0.5
+              duration: topicDim
+              hold: delayPad
+
+    audio-biz.end - topicFadeOut @ biz-fadeout:
+      - text-biz:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: topicFadeOut
+              hold: delayPad
+      - all-circle-shape:
+          - show:
+              opacity-range:
+                from: 0.5
+                to: 0
+              duration: topicFadeOut
+              hold: delayPad
+
+    # ------------------------------------------
+    # Teaser Transition
+    # Synced with audio-04-06-teaser
+    # ------------------------------------------
+
+    biz-fadeout.end @ teaser-fadein:
+      - heading:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: teaserFadeIn
+              hold: delayMargin
+    #   - teaser:
+    #       - show:
+    #           opacity-range:
+    #             from: 0
+    #             to: 1
+    #           duration: teaserFadeIn
+    #           hold: delayPad
+
+    # biz-fadeout.end @ audio-teaser:
+    #   - teaser:
+    #       - move:
+    #           dx: 0
+    #           dy: 0
+    #           duration: audio-04-06-teaser.duration
+    #           hold: delayPad
+
+    # audio-teaser.end - teaserFadeOut @ end-entry:
+    #   - teaser:
+    #       - show:
+    #           opacity-range:
+    #             from: 1
+    #             to: 0
+    #           duration: teaserFadeOut
+    #           hold: delayMargin
+
+  capture:
+    video_animation_scene_04:
+      output: "./video/scene_04_possibilities.mp4"
+      fps: 30
+
+composition:
+  context:
+    status: active
+
+  timeline:
+    # Start video playback
+    0:
+      - video_animation_scene_04:
+          - play:
+
+    # Intro audio plays with heading and circles appearing
+    animation.timeline.audio-intro.start:
+      - audio-04-01-intro:
+          - play:
+
+    # Social audio plays with circle 1 sequence
+    animation.timeline.audio-social.start:
+      - audio-04-02-social:
+          - play:
+
+    # Docs audio plays with circle 2 sequence
+    animation.timeline.audio-docs.start:
+      - audio-04-03-docs:
+          - play:
+
+    # Edu audio plays with circle 3 sequence
+    animation.timeline.audio-edu.start:
+      - audio-04-04-edu:
+          - play:
+
+    # Biz audio plays with circle 4 sequence
+    animation.timeline.audio-biz.start:
+      - audio-04-05-biz:
+          - play:
+
+    # Teaser audio plays during transition
+    # animation.timeline.audio-teaser.start:
+    #   - audio-04-06-teaser:
+    #       - play:
+
+  capture:
+    video_composition_scene_04:
+      output: "./video/scene_04_possibilities_final.mp4"
+      fps: 30

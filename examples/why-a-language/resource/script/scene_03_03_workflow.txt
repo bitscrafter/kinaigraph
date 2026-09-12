@@ -1,0 +1,5 @@
+Your work becomes truly version-controllable, with diff-friendly text designed for Git.
+Iterations are instant. Simply edit the source and regenerate.
+The manual burden is gone. Your workflow scales organically.
+You can automate infinite variations without repetitive labor.
+And a rapid feedback loop makes refinement effortless.

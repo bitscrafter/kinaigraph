@@ -1,0 +1,376 @@
+# ------------------------------------------
+# Pain Points Episode - Scene 2: The Challenge
+# ------------------------------------------
+
+metadata:
+  title: "The Challenge - Scene 2"
+  description: "Showing pain points of traditional and AI video creation"
+  version: "1.0"
+
+defs:
+  assets:
+    challenge:
+      type: "diagram"
+      file: "./resource/scene_02_challenge.svg"
+      roles: [primary]
+
+    animation_engine:
+      type: "engine"
+      file: "../../system/shared/dsl/bundle/animation-engine-bundle.js"
+
+    template_file:
+      type: "template"
+      file: "./resource/animation-template.html"
+
+    # Style Assets
+    style_file:
+      type: "style"
+      file: "./resource/animation-theme.css"
+
+    # Audio Assets
+    audio_scene_02_01_intro:
+      type: "audio"
+      file: "./audio/scene_02_01_intro.mp3"
+    audio_scene_02_02_traditional:
+      type: "audio"
+      file: "./audio/scene_02_02_traditional.mp3"
+    audio_scene_02_03_ai:
+      type: "audio"
+      file: "./audio/scene_02_03_ai.mp3"
+
+  groups:
+    box-common:
+      - common-1
+      - common-2
+      - common-3
+      - common-4
+    box-traditional:
+      - trad-1
+      - trad-2
+      - trad-3
+    box-ai:
+      - ai-1
+      - ai-2
+      - ai-3
+
+  const:
+    # Timing constants
+    delayMargin: 500
+    delayPad: 250
+
+    headingFadeDuration: 450
+    fadeOutDuration: 450
+
+    pulseDuration: 250
+    pulseCycles: 3
+
+    # Initial positions
+    leftMargin: "75"
+    rightMargin: "1580"
+    bottomMargin: "800"
+
+animation:
+  timeline:
+    # Initial state - everything invisible and offset to starting positions
+    0 @ init_entry:
+      # Hide sections
+      - section-common:
+          - show:
+              opacity: 0
+      - section-traditional:
+          - show:
+              opacity: 0
+      - section-ai:
+          - show:
+              opacity: 0
+
+      # Hide common items and move them to initial coordinates
+      - box-common:
+          - show:
+              opacity: 0
+          - move:
+              y: bottomMargin
+              duration: 0
+      # - common-2:
+      #     - show:
+      #         opacity: 0
+      #     - move:
+      #         y: bottomMargin
+      #         duration: 0
+      # - common-3:
+      #     - show:
+      #         opacity: 0
+      #     - move:
+      #         y: bottomMargin
+      #         duration: 0
+      # - common-4:
+      #     - show:
+      #         opacity: 0
+      #     - move:
+      #         y: bottomMargin
+      #         duration: 0
+
+      # Hide traditional items and move them to initial coordinates
+      - box-traditional:
+          - show:
+              opacity: 0
+          - move:
+              x: rightMargin
+              duration: 0
+      # - trad-2:
+      #     - show:
+      #         opacity: 0
+      #     - move:
+      #         x: rightMargin
+      #         duration: 0
+      # - trad-3:
+      #     - show:
+      #         opacity: 0
+      #     - move:
+      #         x: rightMargin
+      #         duration: 0
+
+      # Hide AI items and move them to initial coordinates
+      - box-ai:
+          - show:
+              opacity: 0
+          - move:
+              x: leftMargin
+              duration: 0
+      # - ai-2:
+      #     - show:
+      #         opacity: 0
+      #     - move:
+      #         x: leftMargin
+      #         duration: 0
+      # - ai-3:
+      #     - show:
+      #         opacity: 0
+      #     - move:
+      #         x: leftMargin
+      #         duration: 0
+
+    # Sustains the initial state for some period of time using the hold property
+    init_entry.end @ start_entry:
+      - challenge:
+          - show:
+              hold: delayMargin
+
+    # Common section heading fades in
+    start_entry.end @ common_heading:
+      - section-common:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: headingFadeDuration
+              hold: delayPad
+
+    # Common problems slide in (distributed across the first audio duration)
+    common_heading.end @ common:
+      - common-1:
+          - show:
+              opacity: 1
+          - move:
+              x: "common-1:left"
+              y: "common-1:top"
+              duration: audio_scene_02_01_intro.duration
+      - common-1:
+          # Separate from previous so they run in parallel; otherwise they are sequential
+          - pulse:
+              duration: audio_scene_02_01_intro.duration
+              cycles: pulseCycles
+      - common-2:
+          - show:
+              opacity: 1
+          - move:
+              x: "common-2:left"
+              y: "common-2:top"
+              duration: audio_scene_02_01_intro.duration
+      - common-2:
+          - pulse:
+              duration: audio_scene_02_01_intro.duration
+              cycles: pulseCycles
+      - common-3:
+          - show:
+              opacity: 1
+          - move:
+              x: "common-3:left"
+              y: "common-3:top"
+              duration: audio_scene_02_01_intro.duration
+      - common-3:
+          - pulse:
+              duration: audio_scene_02_01_intro.duration
+              cycles: pulseCycles
+      - common-4:
+          - show:
+              opacity: 1
+          - move:
+              x: "common-4:left"
+              y: "common-4:top"
+              duration: audio_scene_02_01_intro.duration
+      - common-4:
+          - pulse:
+              duration: audio_scene_02_01_intro.duration
+              cycles: pulseCycles
+
+    # Traditional section heading fades in
+    common.end + delayPad @ traditional_heading:
+      - section-traditional:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: headingFadeDuration
+
+    # Traditional problems slide in (sequential, based on audio 2 duration)
+    traditional_heading.end + delayPad @ traditional:
+      - trad-1:
+          - show:
+              opacity: 1
+          - move:
+              x: "trad-1:left"
+              y: "trad-1:top"
+              duration: audio_scene_02_02_traditional.duration
+      - trad-1:
+          - pulse:
+              duration: audio_scene_02_02_traditional.duration
+              cycles: pulseCycles
+      - trad-2:
+          - show:
+              opacity: 1
+          - move:
+              x: "trad-2:left"
+              y: "trad-2:top"
+              duration: audio_scene_02_02_traditional.duration
+      - trad-2:
+          - pulse:
+              duration: audio_scene_02_02_traditional.duration
+              cycles: pulseCycles
+      - trad-3:
+          - show:
+              opacity: 1
+          - move:
+              x: "trad-3:left"
+              y: "trad-3:top"
+              duration: audio_scene_02_02_traditional.duration
+      - trad-3:
+          - pulse:
+              duration: audio_scene_02_02_traditional.duration
+              cycles: pulseCycles
+
+    # AI section heading fades in
+    traditional.end + delayPad @ ai_heading:
+      - section-ai:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: headingFadeDuration
+
+    # AI problems slide in (sequential, based on audio 3 duration)
+    ai_heading.end + delayPad @ ai:
+      - ai-1:
+          - show:
+              opacity: 1
+          - move:
+              x: "ai-1:left"
+              y: "ai-1:top"
+              duration: audio_scene_02_03_ai.duration
+      - ai-1:
+          - pulse:
+              duration: audio_scene_02_03_ai.duration
+              cycles: pulseCycles
+      - ai-2:
+          - show:
+              opacity: 1
+          - move:
+              x: "ai-2:left"
+              y: "ai-2:top"
+              duration: audio_scene_02_03_ai.duration
+      - ai-2:
+          - pulse:
+              duration: audio_scene_02_03_ai.duration
+              cycles: pulseCycles
+      - ai-3:
+          - show:
+              opacity: 1
+          - move:
+              x: "ai-3:left"
+              y: "ai-3:top"
+              duration: audio_scene_02_03_ai.duration
+      - ai-3:
+          - pulse:
+              duration: audio_scene_02_03_ai.duration
+              cycles: pulseCycles
+
+    # Fade out everything
+    ai.end + delayPad @ fadeOut:
+      - section-common:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: fadeOutDuration
+      - box-common:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: fadeOutDuration
+      - section-traditional:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: fadeOutDuration
+      - box-traditional:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: fadeOutDuration
+      - section-ai:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: fadeOutDuration
+      - box-ai:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: fadeOutDuration
+
+    fadeOut.end @ end_entry:
+      # Sustains the blank frame for some period of time using the hold property
+      - challenge:
+          - show:
+              hold: delayMargin
+
+  capture:
+    video_animated_scene_02:
+      output: "./video/scene_02_challenge.mp4"
+      fps: 30
+
+composition:
+  context:
+    status: active
+  timeline:
+    0:
+      - video_animated_scene_02:
+          - play: {}
+    animation.timeline.common.start:
+      - audio_scene_02_01_intro:
+          - play: {}
+    animation.timeline.traditional.start:
+      - audio_scene_02_02_traditional:
+          - play: {}
+    animation.timeline.ai.start:
+      - audio_scene_02_03_ai:
+          - play: {}
+  capture:
+    scene_02_final:
+      output: "./video/scene_02_challenge_final.mp4"
+      fps: 30

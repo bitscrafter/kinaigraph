@@ -1,0 +1,99 @@
+# ------------------------------------------
+# Pain Points Episode - Audio Generation
+# ------------------------------------------
+# Generates all TTS audio files for the pain points episode.
+# Run this once (or when scripts change) before generating animations.
+
+metadata:
+  title: "Pain Points - Audio Generation"
+  description: "Generate all TTS audio files for the pain points episode"
+  version: "1.0"
+
+defs:
+  assets:
+    elevenlabs_credentials:
+      type: "credentials"
+      env: "ELEVENLABS_API_KEY"
+
+  defaults:
+    tts:
+      provider: "elevenlabs"
+      credentials: "elevenlabs_credentials"
+      voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+generation:
+  context:
+    status: active
+
+  tts:
+    # ------------------------------------------
+    # Scene 1: Introduction
+    # ------------------------------------------
+
+    scene_01_01_intro:
+      file: "./script/scene_01_01_intro.txt"
+      output: "./audio/scene_01_01_intro.mp3"
+
+    # ------------------------------------------
+    # Scene 2: The Challenge (3 segments)
+    # ------------------------------------------
+
+    scene_02_01_intro:
+      file: "./script/scene_02_01_intro.txt"
+      output: "./audio/scene_02_01_intro.mp3"
+
+    scene_02_02_traditional:
+      file: "./script/scene_02_02_traditional.txt"
+      output: "./audio/scene_02_02_traditional.mp3"
+
+    scene_02_03_ai:
+      file: "./script/scene_02_03_ai.txt"
+      output: "./audio/scene_02_03_ai.mp3"
+
+    # ------------------------------------------
+    # Scene 3: The Benefits (4 segments)
+    # ------------------------------------------
+
+    scene_03_01_intro:
+      file: "./script/scene_03_01_intro.txt"
+      output: "./audio/scene_03_01_intro.mp3"
+
+    scene_03_02_production:
+      file: "./script/scene_03_02_production.txt"
+      output: "./audio/scene_03_02_production.mp3"
+
+    scene_03_03_workflow:
+      file: "./script/scene_03_03_workflow.txt"
+      output: "./audio/scene_03_03_workflow.mp3"
+
+    scene_03_04_closing:
+      file: "./script/scene_03_04_closing.txt"
+      output: "./audio/scene_03_04_closing.mp3"
+
+    # ------------------------------------------
+    # Scene 4: Infinite Possibilities (6 segments)
+    # ------------------------------------------
+
+    scene_04_01_intro:
+      file: "./script/scene_04_01_intro.txt"
+      output: "./audio/scene_04_01_intro.mp3"
+
+    scene_04_02_social:
+      file: "./script/scene_04_02_social.txt"
+      output: "./audio/scene_04_02_social.mp3"
+
+    scene_04_03_docs:
+      file: "./script/scene_04_03_docs.txt"
+      output: "./audio/scene_04_03_docs.mp3"
+
+    scene_04_04_edu:
+      file: "./script/scene_04_04_edu.txt"
+      output: "./audio/scene_04_04_edu.mp3"
+
+    scene_04_05_biz:
+      file: "./script/scene_04_05_biz.txt"
+      output: "./audio/scene_04_05_biz.mp3"
+
+    scene_04_06_teaser:
+      file: "./script/scene_04_06_teaser.txt"
+      output: "./audio/scene_04_06_teaser.mp3"

@@ -1,0 +1,5 @@
+The production of video explainers means constant friction, whether you use traditional tools or AI.
+Synchronizing motion with narration is a burdensome manual calibration.
+The workflow is defined by labor-intensive cycles and repetitive tasks.
+Automated variations are impossible. Every iteration requires bespoke construction.
+Visual assets exist in isolation, detached from version control, collaboration, and history.

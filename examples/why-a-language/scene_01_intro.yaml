@@ -1,0 +1,302 @@
+# ------------------------------------------
+# Pain Points Episode - Scene 1: Why Explainer Videos?
+# ------------------------------------------
+
+metadata:
+  title: "Why Explainer Videos - Scene 1"
+  description: "Introduction scene establishing the value of explainer videos"
+  version: "1.0"
+
+defs:
+  assets:
+    pain-points:
+      type: "diagram"
+      file: "./resource/scene_01_intro.svg"
+      roles: [primary]
+
+    animation_engine:
+      type: "engine"
+      file: "../../system/shared/dsl/bundle/animation-engine-bundle.js"
+
+    template_file:
+      type: "template"
+      file: "./resource/animation-template.html"
+
+    # Style Assets
+    style_file:
+      type: "style"
+      file: "./resource/animation-theme.css"
+
+    # Audio Assets
+    audio_scene_01_01_intro:
+      type: "audio"
+      file: "./audio/scene_01_01_intro.mp3"
+
+  groups:
+    all-icons:
+      - icon-source-code
+      - icon-lightning
+      - icon-version
+      - icon-puzzle
+      - icon-eye
+      - icon-pattern
+      - icon-adjustment
+      - icon-feedback-loop
+      - icon-user
+      - icon-sync
+      - icon-die
+      - icon-street-cone
+      - icon-robotic-arm
+      - icon-square-ruler
+      - icon-money-sack
+      - icon-qr-code
+      - icon-deterministic
+      - icon-gauge
+      - icon-stack
+      - icon-hub
+      - icon-spiderweb
+      - icon-aiagent
+      - icon-handshake
+      - icon-anchor
+
+  const:
+    delayMargin: 500
+    delayPad: 250
+
+    # Animation Durations
+    textFadeInDuration: 500
+    textFadeOutDuration: 500
+    #    subtitleFadeDuration: 800
+    iconFadeInDuration: 500
+    iconFadeOutDuration: 500
+
+    # Movement distances (short and slow drift - varied for visual interest)
+    driftDistance: 35
+    driftDistanceNeg: -45
+    driftSmall: 25
+    driftSmallNeg: -25
+    driftLarge: 45
+    driftLargeNeg: -45
+
+animation:
+  timeline:
+    # Initial state - everything invisible
+    0 @ start_entry:
+      - title:
+          - show:
+              opacity: 0
+              hold: delayMargin
+      - subtitle:
+          - show:
+              opacity: 0
+      - all-icons:
+          - show:
+              opacity: 0
+
+    # Title and subtitle fade in
+    start_entry.end @ title_in:
+      - title:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: textFadeInDuration
+              hold: delayPad
+      - subtitle:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: textFadeInDuration
+
+    # Icons fade in
+    title_in.end @ icons_in:
+      - all-icons:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: iconFadeInDuration
+              hold: delayPad
+
+    # Icons start drifting with random movements
+    icons_in.end@ audio_in:
+      - icon-source-code:
+          - move:
+              dx: driftSmallNeg
+              dy: driftLargeNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-lightning:
+          - move:
+              dx: driftLargeNeg
+              dy: driftSmall
+              duration: audio_scene_01_01_intro.duration
+      - icon-version:
+          - move:
+              dx: driftDistance
+              dy: driftLarge
+              duration: audio_scene_01_01_intro.duration
+      - icon-puzzle:
+          - move:
+              dx: driftSmallNeg
+              dy: driftDistanceNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-eye:
+          - move:
+              dx: driftLargeNeg
+              dy: driftDistance
+              duration: audio_scene_01_01_intro.duration
+      - icon-pattern:
+          - move:
+              dx: driftSmallNeg
+              dy: driftSmallNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-adjustment:
+          - move:
+              dx: driftLarge
+              dy: driftSmall
+              duration: audio_scene_01_01_intro.duration
+      - icon-feedback-loop:
+          - move:
+              dx: driftDistanceNeg
+              dy: driftDistance
+              duration: audio_scene_01_01_intro.duration
+      - icon-user:
+          - move:
+              dx: driftDistanceNeg
+              dy: driftLargeNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-sync:
+          - move:
+              dx: driftSmall
+              dy: driftDistanceNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-die:
+          - move:
+              dx: driftLargeNeg
+              dy: driftSmall
+              duration: audio_scene_01_01_intro.duration
+      - icon-street-cone:
+          - move:
+              dx: driftDistance
+              dy: driftLarge
+              duration: audio_scene_01_01_intro.duration
+      - icon-robotic-arm:
+          - move:
+              dx: driftSmallNeg
+              dy: driftDistance
+              duration: audio_scene_01_01_intro.duration
+      - icon-square-ruler:
+          - move:
+              dx: driftLarge
+              dy: driftSmallNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-money-sack:
+          - move:
+              dx: driftDistanceNeg
+              dy: driftLarge
+              duration: audio_scene_01_01_intro.duration
+      - icon-qr-code:
+          - move:
+              dx: driftDistance
+              dy: driftSmallNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-deterministic:
+          - move:
+              dx: driftSmall
+              dy: driftLargeNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-gauge:
+          - move:
+              dx: driftDistanceNeg
+              dy: driftSmallNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-stack:
+          - move:
+              dx: driftLarge
+              dy: driftDistanceNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-hub:
+          - move:
+              dx: driftSmallNeg
+              dy: driftLargeNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-spiderweb:
+          - move:
+              dx: driftDistanceNeg
+              dy: driftSmallNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-aiagent:
+          - move:
+              dx: driftLargeNeg
+              dy: driftDistanceNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-handshake:
+          - move:
+              dx: driftSmall
+              dy: driftLargeNeg
+              duration: audio_scene_01_01_intro.duration
+      - icon-anchor:
+          - move:
+              dx: driftDistanceNeg
+              dy: driftSmallNeg
+              duration: audio_scene_01_01_intro.duration
+
+    audio_in.end @ audio_out:
+      - pain-points:
+          - show:
+              hold: delayPad
+
+    # Icons fade out shortly before the end
+    audio_out.end @ icons_out:
+      - all-icons:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: iconFadeOutDuration
+              hold: delayPad
+
+    # Text fades out at the end
+    icons_out.end @ text_out:
+      - title:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: textFadeOutDuration
+      - subtitle:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: textFadeOutDuration
+
+    # Sustains the last frame for some period of time using the hold property
+    text_out.end @ end_entry:
+      - pain-points:
+          - show:
+              hold: delayMargin
+
+  capture:
+    scene_01_video:
+      output: "./video/scene_01_intro.mp4"
+      fps: 30
+
+composition:
+  context:
+    status: active
+
+  timeline:
+    0:
+      - scene_01_video:
+          - play: {}
+
+    animation.audio_in.start:
+      - audio_scene_01_01_intro:
+          - play: {}
+
+  capture:
+    scene_01_final:
+      output: "./video/scene_01_intro_final.mp4"
+      fps: 30

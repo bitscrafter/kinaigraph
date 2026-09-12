@@ -1,0 +1,3 @@
+There is indeed a better way, and it begins with a Domain Specific Language.
+Through declarative, deterministic code, we transform static visuals into storytelling in motion.
+You describe the 'what', not the 'how'. And because it is deterministic, the same source always produces the same result. Zero surprises.

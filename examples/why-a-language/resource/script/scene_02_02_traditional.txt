@@ -1,0 +1,3 @@
+Traditional editors lock you into manual timeline adjustments for every single change.
+Keyframe animation is painstaking and time-consuming.
+And managing assets manually adds a layer of friction that stifles the creative process.

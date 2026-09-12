@@ -1,0 +1,164 @@
+# ------------------------------------------
+# Pain Points Episode - Scene 3: The Benefits
+# ------------------------------------------
+
+metadata:
+  title: "The Benefits - Scene 3"
+  description: "Showing benefits of the Animation DSL with 4-2-4 layout"
+  version: "1.0"
+
+defs:
+  assets:
+    benefits:
+      type: "diagram"
+      file: "./resource/scene_03_benefits.svg"
+      roles: [primary]
+
+    animation_engine:
+      type: "engine"
+      file: "../../system/shared/dsl/bundle/animation-engine-bundle.js"
+
+    template_file:
+      type: "template"
+      file: "./resource/animation-template.html"
+
+    style_file:
+      type: "style"
+      file: "./resource/animation-theme.css"
+
+    # Audio Assets
+    audio_scene_03_01_intro:
+      type: "audio"
+      file: "./audio/scene_03_01_intro.mp3"
+    audio_scene_03_02_production:
+      type: "audio"
+      file: "./audio/scene_03_02_production.mp3"
+    audio_scene_03_03_workflow:
+      type: "audio"
+      file: "./audio/scene_03_03_workflow.mp3"
+    audio_scene_03_04_closing:
+      type: "audio"
+      file: "./audio/scene_03_04_closing.mp3"
+
+  const:
+    # Timing constants
+    delayMargin: 500
+    delayPad: 250
+
+    headingFadeDuration: 600
+    fadeOutDuration: 800
+
+  groups:
+    boxes-left: [left-1, left-2, left-3, left-4]
+    boxes-center: [center-1, center-2]
+    boxes-right: [right-1, right-2, right-3, right-4]
+    all-content:
+      - heading
+      - left-1
+      - left-2
+      - left-3
+      - left-4
+      - center-1
+      - center-2
+      - right-1
+      - right-2
+      - right-3
+      - right-4
+
+animation:
+  timeline:
+    # Initial state - everything invisible
+    0 @ start_entry:
+      - all-content:
+          - show:
+              opacity: 0
+
+    # Heading fades in (synced with intro audio)
+    start_entry.end + delayMargin @ headingFade:
+      - heading:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: headingFadeDuration
+
+    # Center items fade in (distributed across intro audio duration)
+    headingFade.end + delayPad @ centerSection:
+      - boxes-center:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: audio_scene_03_01_intro.duration
+
+    # Left column fades in (distributed across production audio duration)
+    centerSection.end + delayPad @ leftSection:
+      - boxes-left:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: audio_scene_03_02_production.duration
+
+    # Right column fades in (distributed across workflow audio duration)
+    leftSection.end + delayPad @ rightSection:
+      - boxes-right:
+          - show:
+              opacity-range:
+                from: 0
+                to: 1
+              duration: audio_scene_03_03_workflow.duration
+
+    # Fade out everything (synced with closing audio)
+    rightSection.end + delayPad @ fadeOut:
+      - all-content:
+          - show:
+              opacity-range:
+                from: 1
+                to: 0
+              duration: audio_scene_03_04_closing.duration
+
+    # Sustain the last frame for some time
+    fadeOut.end @ end_entry:
+      - benefits:
+          - show:
+              hold: delayMargin
+
+  capture:
+    video_animation_scene_03:
+      output: "./video/scene_03_benefits.mp4"
+      fps: 30
+
+composition:
+  context:
+    status: active
+  timeline:
+    # Start video playback
+    0:
+      - video_animation_scene_03:
+          - play: {}
+
+    # Intro audio plays with heading and center items
+    animation.timeline.centerSection.start:
+      - audio_scene_03_01_intro:
+          - play: {}
+
+    # Production audio plays with left column
+    animation.timeline.leftSection.start:
+      - audio_scene_03_02_production:
+          - play: {}
+
+    # Workflow audio plays with right column
+    animation.timeline.rightSection.start:
+      - audio_scene_03_03_workflow:
+          - play: {}
+
+    # Closing audio plays during fadeOut
+    animation.timeline.fadeOut.start:
+      - audio_scene_03_04_closing:
+          - play: {}
+
+  capture:
+    video_composition_scene_03:
+      output: "./video/scene_03_benefits_final.mp4"
+      fps: 30

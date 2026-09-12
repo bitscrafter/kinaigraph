@@ -1,0 +1,52 @@
+# ------------------------------------------
+# Showcase Episode Composition
+# ------------------------------------------
+#
+
+metadata:
+  title: "Pain Points Episode"
+  description: "Compose all the video scenes into an episode"
+  version: "1.0"
+
+defs:
+  assets:
+    # ------------------------------------------
+    # Scenes
+    # ------------------------------------------
+
+    video_scene_01_intro:
+      type: "video"
+      file: "./video/scene_01_intro_final.mp4"
+
+    video_scene_02_challenge:
+      type: "video"
+      file: "./video/scene_02_challenge_final.mp4"
+
+    video_scene_03_benefits:
+      type: "video"
+      file: "./video/scene_03_benefits_final.mp4"
+
+    video_scene_04_possibilities:
+      type: "video"
+      file: "./video/scene_04_possibilities_final.mp4"
+
+composition:
+  context:
+    status: active
+  timeline:
+    0 @ intro:
+      - video_scene_01_intro:
+          - play: {}
+    intro.end @ challenge:
+      - video_scene_02_challenge:
+          - play: {}
+    challenge.end @ benefits:
+      - video_scene_03_benefits:
+          - play: {}
+    benefits.end @ possibilities:
+      - video_scene_04_possibilities:
+          - play: {}
+  capture:
+    painpoints_episode:
+      output: "./video/differentiators.mp4"
+      fps: 30
