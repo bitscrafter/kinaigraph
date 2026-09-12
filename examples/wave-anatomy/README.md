@@ -36,7 +36,7 @@ tag text differ. Read side by side, the symmetry is the argument — amplitude c
 height and holds position, frequency changes position and holds height.
 
 `scene_00_tts_generation.yaml` is synthesis-only; it generates the narration under
-`audio/` from the scripts under `resource/script/`. `scene_stitch.yaml` concatenates the four
+`audio/` from the scripts under `resource/script/`. `scene_05_stitch.yaml` concatenates the four
 clips into the headline deliverable, mixing each beat's line onto its own clip.
 
 ## The narration names what drew it
@@ -164,7 +164,7 @@ kinaigraph scene_03_frequency.yaml
 kinaigraph scene_04_shift.yaml
 
 # 3. The stitch. Requires all four mp4s to exist so their durations can be probed.
-kinaigraph scene_stitch.yaml
+kinaigraph scene_05_stitch.yaml
 ```
 
 ## The geometry contract
