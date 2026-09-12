@@ -16,11 +16,13 @@
 # the provider, so it is deliberately a separate file from the scenes — re-rendering a
 # beat must not re-synthesise audio that did not change.
 #
-# ⚠️ The FOUR LINES TOGETHER are the budget: the stitched piece lands between 25 and 35
-# seconds, so the scripts total about 77 words. That is the reason every sentence here is
-# short and every list is bare — "A half. One. Two." is three parameter values in four
-# words, and the wave does the explaining. A line that runs long does not just cost its
-# own beat; it spends the whole piece, because the visuals stretch to the voice.
+# ⚠️ THE FOUR LINES TOGETHER ARE THE BUDGET, and it is no longer the short one. Each
+# line now teaches its parameter AND names the mechanism that drew it, which took the
+# scripts from 420 characters to 688 and the stitched piece from about 31 s to about
+# 51 s. The mathematics still stands alone if the closing clauses are ignored; what was
+# given up is the brevity the earlier design bought by putting the engine's story in an
+# on-screen legend instead. A line that runs long does not just cost its own beat; it
+# spends the whole piece, because the visuals stretch to the voice.
 
 metadata:
     title: "Wave Anatomy - Audio Generation"

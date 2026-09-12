@@ -56,12 +56,6 @@
     --source-box-stroke-color: #3fb950;
     --parameter-tag-stroke-color: #58a6ff;
 
-    /* The capability legend. Deliberately desaturated and deliberately OFF the palette
-       the plot uses: it is commentary about the video, not part of the diagram, and a
-       viewer following the mathematics should be able to ignore it without effort. */
-    --legend-fill-color: #16130f;
-    --legend-stroke-color: #57534e;
-    --legend-stroke-width: 1;
 
     /* Typography. The project's stack: every face named here is present in the render
        container, which is why neither entry starts with a webfont. */

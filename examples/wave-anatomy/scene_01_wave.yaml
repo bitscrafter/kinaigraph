@@ -7,7 +7,6 @@
 # is not a label for the curve — it is what produced every point of it.
 #
 # ⚠️ THE NARRATION NEVER SAYS ANY OF THAT, in this beat or in any other. Every spoken
-# line is trigonometry; the capability legend carries the Kinaigraph story on screen,
 # and the source box below is its proof. A viewer here to learn about waves is never
 # asked to care what rendered them, and a reader evaluating the language gets the whole
 # account from four small boxes without a word of it being narrated at them.
@@ -71,23 +70,6 @@ defs:
             font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
             font_size: 19
             font_color: "#7ee787"
-
-        # ── The capability legend ─────────────────────────────────────────────────
-        # Names, in Kinaigraph's own vocabulary, what the engine is doing in this beat.
-        # The NARRATION never mentions it — a viewer learning trigonometry follows the
-        # voice and can ignore this box entirely, while a reader evaluating the language
-        # gets the whole story from the four boxes alone. Two audiences, neither
-        # interrupted. The palette is deliberately off the plot's, because this is
-        # commentary about the video rather than part of the diagram.
-        chip_text:
-            type: "text"
-            content: |
-                Function drawing
-                a function, sampled into a curve
-            font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
-            font_size: 15
-            font_color: "#a8a29e"
-
         narration:
             type: "audio"
             file: "./resource/audio/part_01_wave.mp3"
@@ -145,42 +127,12 @@ defs:
         SOURCE_WIDTH: 470
         SOURCE_HEIGHT: 132
         SOURCE_PADDING: 14
-
-        # ── The capability legend ─────────────────────────────────────────────────
-        # Below the tick row, in the one band no curve can reach: the plot's own area
-        # ends at y = 620, and beat 2's ±2 amplitude fills it, so there is no in-plot
-        # corner that stays clear across all four beats.
-        CHIP_X: 120
-        CHIP_Y: 650
-        CHIP_WIDTH: 430
-        CHIP_HEIGHT: 58
-        CHIP_PADDING: 9
-
 animation:
     defaults:
         assets:
             scene: plot
 
     annotations:
-        # A note with NO pointer is just an author-sized box — the legend points at
-        # nothing because it is about the whole beat, not about one mark on it.
-        chip_capability:
-            note:
-                text: chip_text
-                shape:
-                    rect:
-                        width: CHIP_WIDTH
-                        height: CHIP_HEIGHT
-                padding: CHIP_PADDING
-                align: left
-            at:
-                x: CHIP_X
-                y: CHIP_Y
-            origin: top_left
-            fill: 'css("legend-fill-color")'
-            stroke: 'css("legend-stroke-color")'
-            stroke_width: 'css("legend-stroke-width")'
-
         # ⚠️ THE WAVE IS NOT DRAWN ANYWHERE. This declaration is the curve: an
         # expression, a domain, and the mapping from function space onto the plot.
         # `origin: zero` lands the function's own axes crossing on the surface's
@@ -233,9 +185,6 @@ animation:
                         hold:
                             after: "VIDEO_MARGIN"
             - frame_layer:
-                  - show:
-                        opacity: 1
-            - chip_capability:
                   - show:
                         opacity: 1
             - wave:

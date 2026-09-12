@@ -39,39 +39,42 @@ height and holds position, frequency changes position and holds height.
 `audio/` from the scripts under `resource/script/`. `scene_stitch.yaml` concatenates the four
 clips into the headline deliverable, mixing each beat's line onto its own clip.
 
-## Two layers, two audiences
+## The narration names what drew it
 
-**The narration is trigonometry and nothing else.** Not one spoken line mentions
-Kinaigraph, a function, or a capability. The engine's story is carried entirely by the
-capability legend in the bottom-left corner — one small box per beat, naming in
-Kinaigraph's own vocabulary what is being done:
+Every beat teaches its parameter and then, in one closing clause, names the mechanism
+that produced what you just watched:
 
-| Beat | Legend |
-| ---- | ------ |
-| 1 | **Function drawing** — a function, sampled into a curve |
-| 2 | **Constants in the function** — a number becomes geometry |
-| 3 | **Opacity** — earlier curves held on to compare |
-| 4 | **Move** — generated geometry translates |
+| Beat | The maths | The clause |
+| ---- | --------- | ---------- |
+| 1 | one cycle, peak to trough | *Nothing here was pre-drawn — Kinaigraph sampled the function and made the line.* |
+| 2 | **A** steps 0.5 → 1 → 2 | *Only the number changed. The shape came back from the formula.* |
+| 3 | **B** steps 1 → 2 → 3 | *The earlier two are still there, only held back in opacity.* |
+| 4 | **C** and **D** glide | *Both are just translation — a move, on geometry Kinaigraph drew.* |
 
-The four legends are not four *exclusive* capabilities — beats 2 and 3 lean on the same
-mechanism, and every beat is function drawing underneath. Each legend names something
-true of its own beat, chosen so the four together cover more of the language than
-repeating one would. A legend names the capability the beat is a good place to notice,
-not the only one it uses.
+Each clause is checkable against the source. Beat 2's three curves come from three
+expressions differing in one token — `A_LOW`, `A_MID`, `A_HIGH` times `sin(radians(x))`
+— so "only the number changed" is literally the diff. Beat 4 says *translation* rather
+than "one move" because `scene_04_shift.yaml` contains three `move` actions: `dx` on the
+sine for phase, then `dy` on the sine and `dy` on the cosine for offset. What is true of
+all three is that they translate, which is why a `move` expresses them and a `scale`
+could not.
 
-Each names a **property or an action**, never the action that merely carries a property:
-beat 3 is `opacity`, not "show and opacity", because a viewer sees the property and the
-action adds a word that buys nothing.
+Beat 1 says **pre-drawn**, not *drawn*. The grid, the axes and the tick labels are all
+drawn, in `plot.svg`; what was never drawn in advance is the curve.
 
-A viewer here to learn about waves follows the voice and never has to care what rendered
-them. A reader evaluating the language can read the four boxes and ignore the voice
-entirely, and still get the whole account. Neither audience is interrupted for the
-other's benefit, which is what makes it worth spending the screen space.
+⚠️ **This reverses an earlier design.** The narration used to be trigonometry and nothing
+else, with the engine's story carried by a capability legend in the bottom-left corner —
+one box per beat, so a viewer here for the waves never had to care what rendered them and
+a reader evaluating the language could read four boxes and ignore the voice. That
+separation was deliberate and it had a real argument behind it.
 
-The legend is deliberately **off the plot's palette** — desaturated warm grey against a
-cool diagram — because it is commentary about the video rather than part of it. Beat 1's
-larger green source box is the same idea at full volume: the legend *names* function
-drawing, and the box *shows* the line that did it.
+It was dropped because once the voice says "sampled the function", a box reading
+**Function drawing — a function, sampled into a curve** is the same sentence twice, four
+seconds apart. Whichever way this example goes it should do one of them, not both. The
+legend is gone, and with it three theme variables and a text asset per beat.
+
+The cost is length: **420 characters of narration became 688, and the piece runs about
+51 s rather than the 25–35 s the four short lines used to fit in.**
 
 **On the two words.** `expression` is a Kinaigraph FIELD name, and in mathematics it means
 something narrower than `function` — a formula, not the thing it defines. Since this piece
