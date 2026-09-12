@@ -51,19 +51,24 @@ defs:
             content: "A = 0.5"
             font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
             font_size: 26
-            font_color: "#e6edf3"
+            # ⛔ A LITERAL, AND IT DOES NOT FOLLOW THE THEME. A note's text colour is
+            # authored here, in `defs`, where no style is in scope — css() cannot reach
+            # it. Swapping the stylesheet moves every box and every line and leaves
+            # THIS behind: these were theme_dark's values and measured 1.00 against
+            # paper's label box, which is invisible. Re-check them on any new theme.
+            font_color: "#16496d"
         tag_mid_text:
             type: "text"
             content: "A = 1"
             font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
             font_size: 26
-            font_color: "#e6edf3"
+            font_color: "#16496d"
         tag_high_text:
             type: "text"
             content: "A = 2"
             font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
             font_size: 26
-            font_color: "#e6edf3"
+            font_color: "#16496d"
         narration:
             type: "audio"
             file: "./resource/audio/part_02_amplitude.mp3"
@@ -119,8 +124,15 @@ defs:
         # half-millisecond BEFORE the previous one finishes — which is a genuine
         # same-property overlap and is refused. Truncating first makes every boundary an
         # integer, so a window ends exactly where the next begins, which is allowed.
-        LEAD_FRACTION: 0.138 # the opening clause, before the first value is named
-        STEP_FRACTION: 0.100 # value to value, once the count starts
+        # ⚠️ THESE FRACTIONS ARE MEASURED, AND THEY EXPIRE. Each is the point in the
+        # body at which the voice resumes after the pause before that moment, taken
+        # with ffmpeg `silencedetect` against the COMMITTED recording. A fraction says
+        # how much of the line a span gets, never where the words fall inside it — so
+        # re-record and they are wrong again. The previous values were carried over
+        # from a recording that was never committed and put the first curve 1.35 s
+        # after the voice named it.
+        LEAD_FRACTION: 0.171 # the opening clause, before the first value is named
+        STEP_FRACTION: 0.080 # value to value, once the count starts
 
         FIXED_MS: "VIDEO_MARGIN * 2"
         BODY_MS: "narration.duration - FIXED_MS"

@@ -47,19 +47,24 @@ defs:
             content: "C = 90°"
             font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
             font_size: 26
-            font_color: "#e6edf3"
+            # ⛔ A LITERAL, AND IT DOES NOT FOLLOW THE THEME. A note's text colour is
+            # authored here, in `defs`, where no style is in scope — css() cannot reach
+            # it. Swapping the stylesheet moves every box and every line and leaves
+            # THIS behind: these were theme_dark's values and measured 1.00 against
+            # paper's label box, which is invisible. Re-check them on any new theme.
+            font_color: "#16496d"
         tag_cos_text:
             type: "text"
             content: "cos(x)"
             font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
             font_size: 26
-            font_color: "#d2a8ff"
+            font_color: "#7a3d72"
         tag_offset_text:
             type: "text"
             content: "D = 0.5"
             font_family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
             font_size: 26
-            font_color: "#e6edf3"
+            font_color: "#16496d"
         narration:
             type: "audio"
             file: "./resource/audio/part_04_shift.mp3"
@@ -116,8 +121,15 @@ defs:
         #
         # ⚠️ Tuned to the recorded line (clauses at 0.00 / 1.96 / 3.59 / 6.82 s).
         # Re-measure with ffmpeg `silencedetect` if the words change.
-        PHASE_FRACTION: 0.39 # the slide, landing on "Sideways is phase"
-        COS_FRACTION: 0.46 # the cosine drawing and holding, over its own sentence
+        # ⚠️ THESE FRACTIONS ARE MEASURED, AND THEY EXPIRE. Each is the point in the
+        # body at which the voice resumes after the pause before that moment, taken
+        # with ffmpeg `silencedetect` against the COMMITTED recording. A fraction says
+        # how much of the line a span gets, never where the words fall inside it — so
+        # re-record and they are wrong again. The previous values were carried over
+        # from a recording that was never committed and put the first curve 1.35 s
+        # after the voice named it.
+        PHASE_FRACTION: 0.375 # the slide, landing on "Sideways is phase"
+        COS_FRACTION: 0.375 # the cosine drawing and holding, over its own sentence
 
         FIXED_MS: "VIDEO_MARGIN * 2"
         BODY_MS: "narration.duration - FIXED_MS"
