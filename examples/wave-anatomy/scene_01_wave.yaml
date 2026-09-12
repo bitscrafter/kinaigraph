@@ -163,9 +163,9 @@ animation:
                 x: CHIP_X
                 y: CHIP_Y
             origin: top_left
-            fill: "#16130f"
-            stroke: "#57534e"
-            stroke_width: 1
+            fill: 'css("legend-fill-color")'
+            stroke: 'css("legend-stroke-color")'
+            stroke_width: 'css("legend-stroke-width")'
 
         # ⚠️ THE WAVE IS NOT DRAWN ANYWHERE. This declaration is the curve: an
         # expression, a domain, and the mapping from function space onto the plot.
@@ -186,8 +186,8 @@ animation:
             at:
                 x: PLOT_X0
                 y: PLOT_Y0
-            stroke: 'css("kg-wave-live")'
-            stroke_width: 'css("kg-wave-width")'
+            stroke: 'css("curve-stroke-color")'
+            stroke_width: 'css("curve-stroke-width")'
 
         source_note:
             note:
@@ -202,9 +202,9 @@ animation:
                 x: SOURCE_X
                 y: SOURCE_Y
             origin: top_left
-            fill: "#161b22"
-            stroke: "#3fb950"
-            stroke_width: 1.5
+            fill: 'css("label-box-fill-color")'
+            stroke: 'css("source-box-stroke-color")'
+            stroke_width: 'css("label-box-stroke-width")'
 
     timeline:
         0 @ setup_ts:
@@ -274,5 +274,5 @@ animation:
 
     capture:
         video_beat_01_wave:
-            output: "./video/beat_01_wave.mp4"
+            output: "./resource/video/beat_01_wave.mp4"
             fps: 30

@@ -173,9 +173,9 @@ animation:
                 x: CHIP_X
                 y: CHIP_Y
             origin: top_left
-            fill: "#16130f"
-            stroke: "#57534e"
-            stroke_width: 1
+            fill: 'css("legend-fill-color")'
+            stroke: 'css("legend-stroke-color")'
+            stroke_width: 'css("legend-stroke-width")'
 
         wave:
             curve:
@@ -192,8 +192,8 @@ animation:
             at:
                 x: PLOT_X0
                 y: PLOT_Y0
-            stroke: 'css("kg-wave-live")'
-            stroke_width: 'css("kg-wave-width")'
+            stroke: 'css("curve-stroke-color")'
+            stroke_width: 'css("curve-stroke-width")'
 
         # Its own equation, independently sampled. It is laid over the shifted sine
         # and must land on it exactly — which is the point being made.
@@ -212,8 +212,8 @@ animation:
             at:
                 x: PLOT_X0
                 y: PLOT_Y0
-            stroke: 'css("kg-wave-alt")'
-            stroke_width: 'css("kg-wave-alt-width")'
+            stroke: 'css("curve-cosine-stroke-color")'
+            stroke_width: 'css("curve-cosine-stroke-width")'
 
         tag_phase:
             note:
@@ -228,9 +228,9 @@ animation:
                 x: TAG_X
                 y: TAG_Y
             origin: top_left
-            fill: "#161b22"
-            stroke: "#58a6ff"
-            stroke_width: 1.5
+            fill: 'css("label-box-fill-color")'
+            stroke: 'css("parameter-tag-stroke-color")'
+            stroke_width: 'css("label-box-stroke-width")'
         tag_cos:
             note:
                 text: tag_cos_text
@@ -260,9 +260,9 @@ animation:
                 x: TAG_X
                 y: TAG_Y
             origin: top_left
-            fill: "#161b22"
-            stroke: "#58a6ff"
-            stroke_width: 1.5
+            fill: 'css("label-box-fill-color")'
+            stroke: 'css("parameter-tag-stroke-color")'
+            stroke_width: 'css("label-box-stroke-width")'
 
     timeline:
         0 @ setup_ts:
@@ -358,5 +358,5 @@ animation:
 
     capture:
         video_beat_04_shift:
-            output: "./video/beat_04_shift.mp4"
+            output: "./resource/video/beat_04_shift.mp4"
             fps: 30

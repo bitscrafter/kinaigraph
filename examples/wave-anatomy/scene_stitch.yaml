@@ -25,16 +25,16 @@ defs:
     assets:
         beat_01:
             type: video
-            file: "./out/video/beat_01_wave.mp4"
+            file: "./resource/video/beat_01_wave.mp4"
         beat_02:
             type: video
-            file: "./out/video/beat_02_amplitude.mp4"
+            file: "./resource/video/beat_02_amplitude.mp4"
         beat_03:
             type: video
-            file: "./out/video/beat_03_frequency.mp4"
+            file: "./resource/video/beat_03_frequency.mp4"
         beat_04:
             type: video
-            file: "./out/video/beat_04_shift.mp4"
+            file: "./resource/video/beat_04_shift.mp4"
 
         # Each beat already sized ITSELF to one of these lines, so mixing each onto its
         # own clip lands the voice against the pictures it describes with no authored
@@ -87,5 +87,5 @@ composition:
 
     capture:
         video_wave_anatomy:
-            output: "./video/wave_anatomy.mp4"
+            output: "./wave_anatomy.mp4"
             fps: 30

@@ -137,7 +137,6 @@ defs:
         # closing clause plays over them.
         TAIL_MS: "trunc(BODY_MS - LEAD_MS - (2 * STEP_MS) - FADE_MS)"
 
-        GHOST_OPACITY: 0.3
 
         # ── The tag box ───────────────────────────────────────────────────────────
         TAG_X: 980
@@ -177,9 +176,9 @@ animation:
                 x: CHIP_X
                 y: CHIP_Y
             origin: top_left
-            fill: "#16130f"
-            stroke: "#57534e"
-            stroke_width: 1
+            fill: 'css("legend-fill-color")'
+            stroke: 'css("legend-stroke-color")'
+            stroke_width: 'css("legend-stroke-width")'
 
         # Declaration order is render order. The densest curve is declared LAST so it
         # draws over the two it subdivides.
@@ -198,8 +197,8 @@ animation:
             at:
                 x: PLOT_X0
                 y: PLOT_Y0
-            stroke: 'css("kg-wave-live")'
-            stroke_width: 'css("kg-wave-width")'
+            stroke: 'css("curve-stroke-color")'
+            stroke_width: 'css("curve-stroke-width")'
 
         wave_mid:
             curve:
@@ -216,8 +215,8 @@ animation:
             at:
                 x: PLOT_X0
                 y: PLOT_Y0
-            stroke: 'css("kg-wave-live")'
-            stroke_width: 'css("kg-wave-width")'
+            stroke: 'css("curve-stroke-color")'
+            stroke_width: 'css("curve-stroke-width")'
 
         wave_high:
             curve:
@@ -234,8 +233,8 @@ animation:
             at:
                 x: PLOT_X0
                 y: PLOT_Y0
-            stroke: 'css("kg-wave-live")'
-            stroke_width: 'css("kg-wave-width")'
+            stroke: 'css("curve-stroke-color")'
+            stroke_width: 'css("curve-stroke-width")'
 
         tag_low:
             note:
@@ -250,9 +249,9 @@ animation:
                 x: TAG_X
                 y: TAG_Y
             origin: top_left
-            fill: "#161b22"
-            stroke: "#58a6ff"
-            stroke_width: 1.5
+            fill: 'css("label-box-fill-color")'
+            stroke: 'css("parameter-tag-stroke-color")'
+            stroke_width: 'css("label-box-stroke-width")'
         tag_mid:
             note:
                 text: tag_mid_text
@@ -266,9 +265,9 @@ animation:
                 x: TAG_X
                 y: TAG_Y
             origin: top_left
-            fill: "#161b22"
-            stroke: "#58a6ff"
-            stroke_width: 1.5
+            fill: 'css("label-box-fill-color")'
+            stroke: 'css("parameter-tag-stroke-color")'
+            stroke_width: 'css("label-box-stroke-width")'
         tag_high:
             note:
                 text: tag_high_text
@@ -282,9 +281,9 @@ animation:
                 x: TAG_X
                 y: TAG_Y
             origin: top_left
-            fill: "#161b22"
-            stroke: "#58a6ff"
-            stroke_width: 1.5
+            fill: 'css("label-box-fill-color")'
+            stroke: 'css("parameter-tag-stroke-color")'
+            stroke_width: 'css("label-box-stroke-width")'
 
     timeline:
         0 @ setup_ts:
@@ -349,7 +348,7 @@ animation:
                             after: "STEP_MS - FADE_MS"
             - wave_low:
                   - show:
-                        opacity: GHOST_OPACITY
+                        opacity: 'css("curve-ghost-opacity")'
                         duration: FADE_MS
             - tag_low:
                   - show:
@@ -375,7 +374,7 @@ animation:
                             after: "TAIL_MS + VIDEO_MARGIN"
             - wave_mid:
                   - show:
-                        opacity: GHOST_OPACITY
+                        opacity: 'css("curve-ghost-opacity")'
                         duration: FADE_MS
             - tag_mid:
                   - show:
@@ -388,5 +387,5 @@ animation:
 
     capture:
         video_beat_03_frequency:
-            output: "./video/beat_03_frequency.mp4"
+            output: "./resource/video/beat_03_frequency.mp4"
             fps: 30

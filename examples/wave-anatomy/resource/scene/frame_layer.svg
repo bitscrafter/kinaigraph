@@ -18,9 +18,9 @@
        and change it here. -->
 
   <style>
-    .matte  { fill: var(--kg-scene-bg, #0d1117); }
-    .tick   { fill: var(--kg-tick-text, #6e7681);
-              font-family: var(--kg-font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    .matte  { fill: var(--scene-background-color, #0d1117); }
+    .tick   { fill: var(--tick-label-text-color, #6e7681);
+              font-family: var(--source-font-family, Menlo, "Liberation Mono", "DejaVu Sans Mono", Consolas, monospace);
               font-size: 17px; }
     .tick-y { text-anchor: end; }
   </style>

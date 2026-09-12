@@ -9,8 +9,8 @@
        curve the equation produced, not a path copied alongside it. -->
 
   <style>
-    .rider      { fill: var(--kg-rider, #f0883e); }
-    .rider-halo { fill: var(--kg-rider, #f0883e); opacity: 0.22; }
+    .rider      { fill: var(--rider-dot-fill-color, #f0883e); }
+    .rider-halo { fill: var(--rider-dot-fill-color, #f0883e); opacity: 0.22; }
   </style>
 
   <g id="rider">

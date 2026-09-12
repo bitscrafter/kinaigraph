@@ -123,7 +123,14 @@ vertical slide 1.4 s before "Upward is offset", so the two curves separated whil
 viewer was being told they coincide.
 
 So the fractions are tuned to where the words actually land, measured with ffmpeg's
-`silencedetect` and recorded in each scene's comments. Each beat is shaped like its script:
+`silencedetect` and recorded in each scene's comments.
+
+⚠️ **Those measurements predate the narration this repository ships.** They were taken
+against a recording that was never committed, and `resource/audio/` is empty until you
+run `scene_00`. Treat the tuned fractions as a starting point, not as verified: after
+generating, re-measure with `silencedetect` and check each value still lands as it is
+spoken. The request-response example does exactly this, and a re-record there moved a
+clause boundary by 0.65 s on its own. Each beat is shaped like its script:
 an opening clause with the plot still empty, a quick count where each value lands as it is
 spoken, and a long tail holding the comparison while the closing clause plays. **These
 fractions survive re-recording the same words** — the proportions of a spoken sentence are
