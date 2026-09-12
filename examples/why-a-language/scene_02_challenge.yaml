@@ -1,376 +1,473 @@
 # ------------------------------------------
-# Pain Points Episode - Scene 2: The Challenge
+# why-a-language — Scene 2: the challenge
 # ------------------------------------------
+# Fifteen pain-point boxes in three sections: what BOTH ways of making a video
+# cost, then what the traditional way costs on top, then what the AI way costs on
+# top. The shared band is two rows because seven boxes do not fit across 1920 at
+# a width that leaves room for a label.
+# Each section is narrated by its own line and paced by that line alone, so a
+# re-recording moves one section and leaves the other two where they were.
+#
+# ⚡ NOT ONE BOX POSITION IS AUTHORED IN THIS FILE, and that is what makes the
+# scene cheap to change. Every box is drawn where it belongs in
+# `resource/scene/scene_02_challenge.svg`; this document pushes it OFF that spot
+# at t=0 and then hands it back with `restore`, which targets the SVG's own
+# initial values. Move a box in the drawing and the slide follows it — there is
+# no coordinate here to forget to update.
+#
+# ⚠️ THE PRECURSOR WROTE THE RETURN AS `x: "common-1:left"`, a coordinate naming
+# another element's edge. That form is gone; `restore` with no checkpoint is the
+# direct spelling of what it was reaching for, and it says "where you were drawn"
+# instead of "the left edge of yourself".
+#
+# ⛔ THE THREE SECTIONS LEAVE FROM THREE DIFFERENT EDGES — common from below,
+# traditional from the right, AI from the left. That is not variety for its own
+# sake: the two comparison columns enter from opposite sides so a viewer reads
+# them as a pair being set against each other, and the shared row enters from
+# underneath both.
 
 metadata:
-  title: "The Challenge - Scene 2"
-  description: "Showing pain points of traditional and AI video creation"
-  version: "1.0"
+    title: "Why a Language - Scene 2: the challenge"
+    description: "Fifteen pain points in three sections, each paced by its own narration line"
+    version: "1.0"
 
 defs:
-  assets:
-    challenge:
-      type: "diagram"
-      file: "./resource/scene_02_challenge.svg"
-      roles: [primary]
+    assets:
+        challenge:
+            type: "scene"
+            file: "./resource/scene/scene_02_challenge.svg"
 
-    animation_engine:
-      type: "engine"
-      file: "../../system/shared/dsl/bundle/animation-engine-bundle.js"
+        # ── The three sections, as groups ─────────────────────────────────────
+        # ⚠️ `traditional_N`, NOT `trad_N`. The drawing spells these ids out in
+        # full and the precursor's timeline abbreviated them — the one id here
+        # that is not a mechanical hyphen-to-underscore of the precursor's. Both
+        # spellings are legal identifiers, so carrying the abbreviation across
+        # would have compiled and animated nothing.
+        box_common:
+            type: "group"
+            members: [common_1, common_2, common_3, common_4, common_5, common_6, common_7]
+        box_traditional:
+            type: "group"
+            members: [traditional_1, traditional_2, traditional_3, traditional_4]
+        box_ai:
+            type: "group"
+            members: [ai_1, ai_2, ai_3, ai_4]
 
-    template_file:
-      type: "template"
-      file: "./resource/animation-template.html"
+        # ── The three lines ───────────────────────────────────────────────────
+        # Declared for their DURATIONS as much as their sound: each section's
+        # slide lasts exactly as long as the line that names it, and the
+        # composition at the foot of the file mixes all three onto the frames.
+        narration_intro:
+            type: "audio"
+            file: "./resource/audio/scene_02_01_intro.mp3"
+        narration_traditional:
+            type: "audio"
+            file: "./resource/audio/scene_02_02_traditional.mp3"
+        narration_ai:
+            type: "audio"
+            file: "./resource/audio/scene_02_03_ai.mp3"
 
-    # Style Assets
-    style_file:
-      type: "style"
-      file: "./resource/animation-theme.css"
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resource/style/theme_dark.css"
 
-    # Audio Assets
-    audio_scene_02_01_intro:
-      type: "audio"
-      file: "./audio/scene_02_01_intro.mp3"
-    audio_scene_02_02_traditional:
-      type: "audio"
-      file: "./audio/scene_02_02_traditional.mp3"
-    audio_scene_02_03_ai:
-      type: "audio"
-      file: "./audio/scene_02_03_ai.mp3"
+    const:
+        VIDEO_MARGIN: 500
+        BEAT_PAD: 250
 
-  groups:
-    box-common:
-      - common-1
-      - common-2
-      - common-3
-      - common-4
-    box-traditional:
-      - trad-1
-      - trad-2
-      - trad-3
-    box-ai:
-      - ai-1
-      - ai-2
-      - ai-3
+        HEADING_FADE_MS: 450
+        FADE_OUT_MS: 450
 
-  const:
-    # Timing constants
-    delayMargin: 500
-    delayPad: 250
+        # Each box breathes while it slides. `amplitude` rather than a target
+        # scale: it is an `add` contribution, so it composes with anything else
+        # touching the box instead of racing it, and it returns to exactly the
+        # size it started at.
+        PULSE_CYCLES: 3
+        PULSE_SWELL: 0.04
 
-    headingFadeDuration: 450
-    fadeOutDuration: 450
-
-    pulseDuration: 250
-    pulseCycles: 3
-
-    # Initial positions
-    leftMargin: "75"
-    rightMargin: "1580"
-    bottomMargin: "800"
+        # ⚠️ THESE THREE ARE THE ONLY COORDINATES IN THE FILE, and all three are
+        # OFF-SCREEN parking spots, not positions anything comes to rest at. The
+        # frame is 1920 x 1080, so 1580 and 75 sit a box-width outside the two
+        # side edges and 800 sits below the rows.
+        OFFSTAGE_RIGHT_X: 1580
+        OFFSTAGE_LEFT_X: 75
+        OFFSTAGE_BOTTOM_Y: 800
 
 animation:
-  timeline:
-    # Initial state - everything invisible and offset to starting positions
-    0 @ init_entry:
-      # Hide sections
-      - section-common:
-          - show:
-              opacity: 0
-      - section-traditional:
-          - show:
-              opacity: 0
-      - section-ai:
-          - show:
-              opacity: 0
+    defaults:
+        assets:
+            scene: challenge
 
-      # Hide common items and move them to initial coordinates
-      - box-common:
-          - show:
-              opacity: 0
-          - move:
-              y: bottomMargin
-              duration: 0
-      # - common-2:
-      #     - show:
-      #         opacity: 0
-      #     - move:
-      #         y: bottomMargin
-      #         duration: 0
-      # - common-3:
-      #     - show:
-      #         opacity: 0
-      #     - move:
-      #         y: bottomMargin
-      #         duration: 0
-      # - common-4:
-      #     - show:
-      #         opacity: 0
-      #     - move:
-      #         y: bottomMargin
-      #         duration: 0
+    timeline:
+        # ── Everything hidden and parked off its mark ─────────────────────────
+        # `duration: 0` makes each move an instant placement rather than an
+        # animation — the boxes are never SEEN travelling out, only back in.
+        0 @ init_entry:
+            - section_common:
+                  - show:
+                        opacity: 0
+            - section_traditional:
+                  - show:
+                        opacity: 0
+            - section_ai:
+                  - show:
+                        opacity: 0
 
-      # Hide traditional items and move them to initial coordinates
-      - box-traditional:
-          - show:
-              opacity: 0
-          - move:
-              x: rightMargin
-              duration: 0
-      # - trad-2:
-      #     - show:
-      #         opacity: 0
-      #     - move:
-      #         x: rightMargin
-      #         duration: 0
-      # - trad-3:
-      #     - show:
-      #         opacity: 0
-      #     - move:
-      #         x: rightMargin
-      #         duration: 0
+            - box_common:
+                  - show:
+                        opacity: 0
+                  - move:
+                        y: OFFSTAGE_BOTTOM_Y
+                        duration: 0
+            - box_traditional:
+                  - show:
+                        opacity: 0
+                  - move:
+                        x: OFFSTAGE_RIGHT_X
+                        duration: 0
+            - box_ai:
+                  - show:
+                        opacity: 0
+                  - move:
+                        x: OFFSTAGE_LEFT_X
+                        duration: 0
 
-      # Hide AI items and move them to initial coordinates
-      - box-ai:
-          - show:
-              opacity: 0
-          - move:
-              x: leftMargin
-              duration: 0
-      # - ai-2:
-      #     - show:
-      #         opacity: 0
-      #     - move:
-      #         x: leftMargin
-      #         duration: 0
-      # - ai-3:
-      #     - show:
-      #         opacity: 0
-      #     - move:
-      #         x: leftMargin
-      #         duration: 0
+        # ⚠️ `opacity: 1` IS CARRYING THE PAD — see scene_01's note. The scene is
+        # already fully opaque; restating it is what lets the hold ride on a
+        # `show` that the current language will accept.
+        init_entry.end @ start_entry:
+            - challenge:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: VIDEO_MARGIN
 
-    # Sustains the initial state for some period of time using the hold property
-    init_entry.end @ start_entry:
-      - challenge:
-          - show:
-              hold: delayMargin
+        # ── The shared cost ─────────────────────────────────────────────
+        # The heading first, then the boxes under it — a section names itself
+        # before it fills.
+        start_entry.end @ common_heading:
+            - section_common:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: HEADING_FADE_MS
 
-    # Common section heading fades in
-    start_entry.end @ common_heading:
-      - section-common:
-          - show:
-              opacity-range:
-                from: 0
-                to: 1
-              duration: headingFadeDuration
-              hold: delayPad
+        # ⚡ TWO ENTRIES FOR ONE BOX, ON PURPOSE. Actions inside a single entry
+        # run in sequence; a second entry for the same actor at the same
+        # timestamp runs alongside the first. The slide and the breath have to
+        # overlap, so they are written apart. They touch disjoint properties
+        # — x/y against scale — so nothing races.
+        #
+        # `restore` with no checkpoint targets the SVG's initial values, which
+        # is where the box was drawn. Its duration is the line's, so the four
+        # boxes are still arriving as the last clause names the last of them.
+        common_heading.end + BEAT_PAD @ common:
+            - common_1:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_intro.duration
+            - common_1:
+                  - pulse:
+                        duration: narration_intro.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - common_2:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_intro.duration
+            - common_2:
+                  - pulse:
+                        duration: narration_intro.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - common_3:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_intro.duration
+            - common_3:
+                  - pulse:
+                        duration: narration_intro.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - common_4:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_intro.duration
+            - common_4:
+                  - pulse:
+                        duration: narration_intro.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - common_5:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_intro.duration
+            - common_5:
+                  - pulse:
+                        duration: narration_intro.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - common_6:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_intro.duration
+            - common_6:
+                  - pulse:
+                        duration: narration_intro.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - common_7:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_intro.duration
+            - common_7:
+                  - pulse:
+                        duration: narration_intro.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
 
-    # Common problems slide in (distributed across the first audio duration)
-    common_heading.end @ common:
-      - common-1:
-          - show:
-              opacity: 1
-          - move:
-              x: "common-1:left"
-              y: "common-1:top"
-              duration: audio_scene_02_01_intro.duration
-      - common-1:
-          # Separate from previous so they run in parallel; otherwise they are sequential
-          - pulse:
-              duration: audio_scene_02_01_intro.duration
-              cycles: pulseCycles
-      - common-2:
-          - show:
-              opacity: 1
-          - move:
-              x: "common-2:left"
-              y: "common-2:top"
-              duration: audio_scene_02_01_intro.duration
-      - common-2:
-          - pulse:
-              duration: audio_scene_02_01_intro.duration
-              cycles: pulseCycles
-      - common-3:
-          - show:
-              opacity: 1
-          - move:
-              x: "common-3:left"
-              y: "common-3:top"
-              duration: audio_scene_02_01_intro.duration
-      - common-3:
-          - pulse:
-              duration: audio_scene_02_01_intro.duration
-              cycles: pulseCycles
-      - common-4:
-          - show:
-              opacity: 1
-          - move:
-              x: "common-4:left"
-              y: "common-4:top"
-              duration: audio_scene_02_01_intro.duration
-      - common-4:
-          - pulse:
-              duration: audio_scene_02_01_intro.duration
-              cycles: pulseCycles
+        # ── What the traditional way adds ─────────────────────────────────────────────
+        # The first of the two columns being compared. It enters from the right.
+        common.end + BEAT_PAD @ traditional_heading:
+            - section_traditional:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: HEADING_FADE_MS
 
-    # Traditional section heading fades in
-    common.end + delayPad @ traditional_heading:
-      - section-traditional:
-          - show:
-              opacity-range:
-                from: 0
-                to: 1
-              duration: headingFadeDuration
+        traditional_heading.end + BEAT_PAD @ traditional:
+            - traditional_1:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_traditional.duration
+            - traditional_1:
+                  - pulse:
+                        duration: narration_traditional.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - traditional_2:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_traditional.duration
+            - traditional_2:
+                  - pulse:
+                        duration: narration_traditional.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - traditional_3:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_traditional.duration
+            - traditional_3:
+                  - pulse:
+                        duration: narration_traditional.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - traditional_4:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_traditional.duration
+            - traditional_4:
+                  - pulse:
+                        duration: narration_traditional.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
 
-    # Traditional problems slide in (sequential, based on audio 2 duration)
-    traditional_heading.end + delayPad @ traditional:
-      - trad-1:
-          - show:
-              opacity: 1
-          - move:
-              x: "trad-1:left"
-              y: "trad-1:top"
-              duration: audio_scene_02_02_traditional.duration
-      - trad-1:
-          - pulse:
-              duration: audio_scene_02_02_traditional.duration
-              cycles: pulseCycles
-      - trad-2:
-          - show:
-              opacity: 1
-          - move:
-              x: "trad-2:left"
-              y: "trad-2:top"
-              duration: audio_scene_02_02_traditional.duration
-      - trad-2:
-          - pulse:
-              duration: audio_scene_02_02_traditional.duration
-              cycles: pulseCycles
-      - trad-3:
-          - show:
-              opacity: 1
-          - move:
-              x: "trad-3:left"
-              y: "trad-3:top"
-              duration: audio_scene_02_02_traditional.duration
-      - trad-3:
-          - pulse:
-              duration: audio_scene_02_02_traditional.duration
-              cycles: pulseCycles
+        # ── What the AI way adds ─────────────────────────────────────────────
+        # The second column, entering from the left — see the header on why the
+        # two come from opposite edges.
+        traditional.end + BEAT_PAD @ ai_heading:
+            - section_ai:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: HEADING_FADE_MS
 
-    # AI section heading fades in
-    traditional.end + delayPad @ ai_heading:
-      - section-ai:
-          - show:
-              opacity-range:
-                from: 0
-                to: 1
-              duration: headingFadeDuration
+        ai_heading.end + BEAT_PAD @ ai:
+            - ai_1:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_ai.duration
+            - ai_1:
+                  - pulse:
+                        duration: narration_ai.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - ai_2:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_ai.duration
+            - ai_2:
+                  - pulse:
+                        duration: narration_ai.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - ai_3:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_ai.duration
+            - ai_3:
+                  - pulse:
+                        duration: narration_ai.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - ai_4:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_ai.duration
+            - ai_4:
+                  - pulse:
+                        duration: narration_ai.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
 
-    # AI problems slide in (sequential, based on audio 3 duration)
-    ai_heading.end + delayPad @ ai:
-      - ai-1:
-          - show:
-              opacity: 1
-          - move:
-              x: "ai-1:left"
-              y: "ai-1:top"
-              duration: audio_scene_02_03_ai.duration
-      - ai-1:
-          - pulse:
-              duration: audio_scene_02_03_ai.duration
-              cycles: pulseCycles
-      - ai-2:
-          - show:
-              opacity: 1
-          - move:
-              x: "ai-2:left"
-              y: "ai-2:top"
-              duration: audio_scene_02_03_ai.duration
-      - ai-2:
-          - pulse:
-              duration: audio_scene_02_03_ai.duration
-              cycles: pulseCycles
-      - ai-3:
-          - show:
-              opacity: 1
-          - move:
-              x: "ai-3:left"
-              y: "ai-3:top"
-              duration: audio_scene_02_03_ai.duration
-      - ai-3:
-          - pulse:
-              duration: audio_scene_02_03_ai.duration
-              cycles: pulseCycles
+        # ── Clearing the frame ────────────────────────────────────────────────
+        # Headings and boxes together, section by section, all on one timestamp:
+        # the comparison is finished, and taking it apart in pieces would invite
+        # the viewer to keep reading it.
+        ai.end + BEAT_PAD @ fade_out:
+            - section_common:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - box_common:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - section_traditional:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - box_traditional:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - section_ai:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - box_ai:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
 
-    # Fade out everything
-    ai.end + delayPad @ fadeOut:
-      - section-common:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: fadeOutDuration
-      - box-common:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: fadeOutDuration
-      - section-traditional:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: fadeOutDuration
-      - box-traditional:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: fadeOutDuration
-      - section-ai:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: fadeOutDuration
-      - box-ai:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: fadeOutDuration
+        fade_out.end @ end_entry:
+            - challenge:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: VIDEO_MARGIN
 
-    fadeOut.end @ end_entry:
-      # Sustains the blank frame for some period of time using the hold property
-      - challenge:
-          - show:
-              hold: delayMargin
+    capture:
+        scene_02_challenge_silent:
+            output: "./resource/video/scene_02_challenge_silent.mp4"
+            fps: 30
 
-  capture:
-    video_animated_scene_02:
-      output: "./video/scene_02_challenge.mp4"
-      fps: 30
-
+# Three lines onto one clip, each at the bookmark its own section starts on.
 composition:
-  context:
-    status: active
-  timeline:
-    0:
-      - video_animated_scene_02:
-          - play: {}
-    animation.timeline.common.start:
-      - audio_scene_02_01_intro:
-          - play: {}
-    animation.timeline.traditional.start:
-      - audio_scene_02_02_traditional:
-          - play: {}
-    animation.timeline.ai.start:
-      - audio_scene_02_03_ai:
-          - play: {}
-  capture:
-    scene_02_final:
-      output: "./video/scene_02_challenge_final.mp4"
-      fps: 30
+    context:
+        status: active
+
+    timeline:
+        # ⚠️ EVERY MIX CARRIES AN EXPLICIT `span.from`. Without one, a mix at a
+        # non-zero timestamp hits a known defect that places the audio at output
+        # 0 — which here would stack all three lines on the first frame.
+        "0":
+            - scene_02_challenge_silent:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::common.start"
+                        asset: narration_intro
+                  - mix:
+                        span:
+                            from: "animation::traditional.start"
+                        asset: narration_traditional
+                  - mix:
+                        span:
+                            from: "animation::ai.start"
+                        asset: narration_ai
+
+    capture:
+        scene_02_challenge:
+            output: "./resource/video/scene_02_challenge.mp4"
+            fps: 30

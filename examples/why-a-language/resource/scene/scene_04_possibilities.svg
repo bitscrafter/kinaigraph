@@ -6,131 +6,73 @@
     <!-- Symbol definitions -->
     <defs>
         <style>
-            :root {
-                --global-opacity: 1.0;
+            /* ── Mapping only: class -> variable. The VALUES live in
+                  ../style/theme_dark.css and ../style/theme_light.css. ───────
+               Every var() carries the DARK value as its fallback, so this file
+               opened on its own shows the dark theme rather than unstyled
+               shapes. See scene_01_premise.svg for what this block replaced and
+               why none of it could be baked.
+ */
+
+            .canvas-bg {
+                fill: var(--scene-background-color, #181818);
             }
 
-            @media (prefers-color-scheme: light) {
-                svg#possibilities:not(.dark-mode):not(.light-mode) {
-                    --canvas-bg: #F7F7F7;
-                    --icon-fill: #FFFFFF;
-                    --icon-fill-light: #E5E5E5;
-                    --icon-stroke: #555555;
-                    --icon-stroke-light: #888888;
-                    --icon-fill-medium: #AAAAAA;
-                    --icon-fill-dark: #555555;
-                    --circle-stroke: #555555;
-                    --text-primary: #000000;
-                    --text-secondary: #555555;
-                    --teaser-accent: #0066CC;
-                }
+            /* The icon catalog's vocabulary. `icon-fill-medium` is deliberately
+               absent: no glyph in THIS scene carries it. */
+            .icon-fill {
+                fill: var(--icon-fill, #2a2a2a);
             }
 
-            @media (prefers-color-scheme: dark) {
-                svg#possibilities:not(.dark-mode):not(.light-mode) {
-                    --canvas-bg: #181818;
-                    --icon-fill: #2A2A2A;
-                    --icon-fill-light: #1E1E1E;
-                    --icon-stroke: #AAAAAA;
-                    --icon-stroke-light: #777777;
-                    --icon-fill-medium: #555555;
-                    --icon-fill-dark: #AAAAAA;
-                    --circle-stroke: #AAAAAA;
-                    --text-primary: #E0E0E0;
-                    --text-secondary: #AAAAAA;
-                    --teaser-accent: #4D9FFF;
-                }
+            .icon-fill-light {
+                fill: var(--icon-fill-light, #1e1e1e);
             }
 
-            svg#possibilities.light-mode {
-                --canvas-bg: #F7F7F7;
-                --icon-fill: #FFFFFF;
-                --icon-fill-light: #E5E5E5;
-                --icon-stroke: #555555;
-                --icon-stroke-light: #888888;
-                --icon-fill-medium: #AAAAAA;
-                --icon-fill-dark: #555555;
-                --circle-stroke: #555555;
-                --text-primary: #000000;
-                --text-secondary: #555555;
-                --teaser-accent: #0066CC;
+            .icon-fill-dark {
+                fill: var(--icon-fill-dark, #aaaaaa);
             }
 
-            svg#possibilities.dark-mode {
-                --canvas-bg: #181818;
-                --icon-fill: #2A2A2A;
-                --icon-fill-light: #1E1E1E;
-                --icon-stroke: #AAAAAA;
-                --icon-stroke-light: #777777;
-                --icon-fill-medium: #555555;
-                --icon-fill-dark: #AAAAAA;
-                --circle-stroke: #AAAAAA;
-                --text-primary: #E0E0E0;
-                --text-secondary: #AAAAAA;
-                --teaser-accent: #4D9FFF;
+            .icon-stroke {
+                stroke: var(--icon-stroke, #aaaaaa);
             }
-
-            .canvas-bg { fill: var(--canvas-bg); }
-            .icon-fill { fill: var(--icon-fill); }
-            .icon-fill-light { fill: var(--icon-fill-light); }
-            .icon-stroke { stroke: var(--icon-stroke); }
-            .icon-fill-medium { fill: var(--icon-fill-medium); }
-            .icon-fill-dark { fill: var(--icon-fill-dark); }
-            .text-primary { fill: var(--text-primary); }
-            .text-secondary { fill: var(--text-secondary); }
-            .teaser-accent { fill: var(--teaser-accent); }
 
             .heading-text {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                fill: var(--title-text-color, #e0e0e0);
+                font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 72px;
                 font-weight: 700;
                 text-anchor: middle;
-            	opacity: var(--global-opacity);
             }
 
             .title-text {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                fill: var(--title-text-color, #e0e0e0);
+                font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 48px;
                 font-weight: 600;
                 text-anchor: middle;
-            	opacity: var(--global-opacity);
             }
 
             .subtitle-text {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                fill: var(--detail-text-color, #aaaaaa);
+                font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 32px;
                 font-weight: 400;
                 text-anchor: middle;
-            	opacity: var(--global-opacity);
             }
 
-            .teaser-heading {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                font-size: 72px;
-                font-weight: 400;
-                text-anchor: middle;
-            	opacity: var(--global-opacity);
-            }
 
-            .teaser-title {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                font-size: 84px;
-                font-weight: 800;
-                text-anchor: middle;
-            	opacity: var(--global-opacity);
-            }
-
+            /* ── The four topic rings and the heading's rule ──────────────── */
+            /* Stroked and never filled: each ring surrounds a glyph, and a fill
+               would bury the thing it is drawing attention to. */
             .bouncing-circle {
                 fill: none;
-                stroke: var(--circle-stroke);
+                stroke: var(--topic-circle-stroke-color, #aaaaaa);
                 stroke-width: 3;
-            	opacity: var(--global-opacity);
             }
 
             .underline {
-                stroke: var(--text-primary);
+                stroke: var(--title-text-color, #e0e0e0);
                 stroke-width: 3;
-            	opacity: var(--global-opacity);
             }
         </style>
 
@@ -189,7 +131,7 @@
 
     <!-- Main Heading -->
     <g id="heading">
-        <text x="960" y="100" class="heading-text text-primary">The Potential</text>
+        <text x="960" y="100" class="heading-text">The Potential</text>
     </g>
 
     <!-- Bouncing Circles (start positions, will move via animation) -->
@@ -219,36 +161,32 @@
 
     <!-- Centered Text Groups (one for each use case) -->
     <g id="text_social">
-        <text x="960" y="500" class="title-text text-primary">Social Media &amp; Outreach</text>
+        <text x="960" y="500" class="title-text">Social Media &amp; Outreach</text>
         <line x1="690" y1="515" x2="1230" y2="515" class="underline"/>
-        <text x="960" y="570" class="subtitle-text text-secondary">High-velocity technical storytelling</text>
-        <text x="960" y="620" class="subtitle-text text-secondary">for social media engagement.</text>
+        <text x="960" y="570" class="subtitle-text">High-velocity technical storytelling</text>
+        <text x="960" y="620" class="subtitle-text">for social media engagement.</text>
     </g>
 
     <g id="text_docs">
-        <text x="960" y="500" class="title-text text-primary">Knowledge Sharing</text>
+        <text x="960" y="500" class="title-text">Knowledge Sharing</text>
         <line x1="680" y1="515" x2="1240" y2="515" class="underline"/>
-        <text x="960" y="570" class="subtitle-text text-secondary">Interactive documentation that transforms</text>
-        <text x="960" y="620" class="subtitle-text text-secondary">abstract models into living explanations.</text>
+        <text x="960" y="570" class="subtitle-text">Interactive documentation that transforms</text>
+        <text x="960" y="620" class="subtitle-text">abstract models into living explanations.</text>
     </g>
 
     <g id="text_edu">
-        <text x="960" y="500" class="title-text text-primary">Education &amp; Tutorials</text>
+        <text x="960" y="500" class="title-text">Education &amp; Tutorials</text>
         <line x1="720" y1="515" x2="1200" y2="515" class="underline"/>
-        <text x="960" y="570" class="subtitle-text text-secondary">Demystifying complex technical concepts</text>
-        <text x="960" y="620" class="subtitle-text text-secondary">through step-by-step visual walkthroughs.</text>
+        <text x="960" y="570" class="subtitle-text">Demystifying complex technical concepts</text>
+        <text x="960" y="620" class="subtitle-text">through step-by-step visual walkthroughs.</text>
     </g>
 
     <g id="text_biz">
-        <text x="960" y="500" class="title-text text-primary">Business &amp; Strategy</text>
+        <text x="960" y="500" class="title-text">Business &amp; Strategy</text>
         <line x1="735" y1="515" x2="1185" y2="515" class="underline"/>
-        <text x="960" y="570" class="subtitle-text text-secondary">Business narratives with the precision of code,</text>
-        <text x="960" y="620" class="subtitle-text text-secondary">transcending the limitations of static slides.</text>
+        <text x="960" y="570" class="subtitle-text">Business narratives with the precision of code,</text>
+        <text x="960" y="620" class="subtitle-text">transcending the limitations of static slides.</text>
     </g>
 
     <!-- Teaser Group -->
-    <g id="teaser">
-        <text x="960" y="400" class="teaser-heading text-secondary">Coming Up Next...</text>
-        <text x="960" y="620" class="teaser-heading text-primary">A Sneak Peek of the Core Syntax</text>
-    </g>
 </svg>

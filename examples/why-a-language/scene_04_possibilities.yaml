@@ -1,397 +1,429 @@
 # ------------------------------------------
-# Pain Points Episode - Scene 4: Infinite Possibilities (v2 - Simplified)
+# why-a-language — Scene 4: the possibilities
 # ------------------------------------------
+# The close. Four topic rings start in the four corners of the frame, and each
+# one in turn brightens, walks inward, names its use case, and dims back down —
+# so by the end the four of them are gathered around the middle of the screen
+# where the text has been appearing.
+#
+# ⚡ EACH TOPIC IS PACED BY ITS OWN LINE AND NOTHING ELSE. The ring's walk lasts
+# exactly as long as the sentence about it, so a viewer never watches a circle
+# arrive early and sit there, and re-recording one line moves one topic.
+#
+# ⚠️ THE PRECURSOR DIMMED THE LAST RING AND FADED IT OUT AT THE SAME INSTANT.
+# `biz_dim` wrote circle_biz 1.0 -> 0.5 starting at `audio-biz.end - topicDim`,
+# and `biz-fadeout` wrote the whole ring group 0.5 -> 0 starting at
+# `audio-biz.end - topicFadeOut` — the same moment, both constants being 400. Two
+# absolute writers of one property over one window is a `set`/`set` race the
+# current language rejects outright (§6.7.2), and it was never coherent anyway:
+# nothing can dim to half and vanish at once. There is no `biz_dim` below. The
+# final fade uses the `opacity: 0` shorthand instead, which runs each ring from
+# WHEREVER IT IS — the last one from full, the other three from half.
 
 metadata:
-  title: "Infinite Possibilities - Scene 4 (Simplified)"
-  description: "Closing scene with circles moving diagonally toward center with text reveals"
-  version: "2.2"
+    title: "Why a Language - Scene 4: the possibilities"
+    description: "Four topic rings walk in from the corners, each paced by its own line"
+    version: "2.2"
 
 defs:
-  assets:
-    possibilities:
-      type: "diagram"
-      file: "./resource/scene_04_possibilities.svg"
-      roles: [primary]
+    assets:
+        possibilities:
+            type: "scene"
+            file: "./resource/scene/scene_04_possibilities.svg"
 
-    animation_engine:
-      type: "engine"
-      file: "../../system/shared/dsl/bundle/animation-engine-bundle.js"
+        # The four rings, moved as one wherever they move together — they arrive
+        # at half brightness together and they leave together.
+        all_circle_shape:
+            type: "group"
+            members: [circle_social, circle_docs, circle_edu, circle_biz]
 
-    template_file:
-      type: "template"
-      file: "./resource/animation-template.html"
+        # Everything the scene ever shows, for the one moment that treats the
+        # frame as one thing: emptying it before the first frame.
+        all_elements:
+            type: "group"
+            members:
+                - heading
+                - circle_social
+                - circle_docs
+                - circle_edu
+                - circle_biz
+                - text_social
+                - text_docs
+                - text_edu
+                - text_biz
 
-    style_file:
-      type: "style"
-      file: "./resource/animation-theme.css"
+        # ── The five lines ────────────────────────────────────────────────────
+        narration_intro:
+            type: "audio"
+            file: "./resource/audio/scene_04_01_intro.mp3"
+        narration_social:
+            type: "audio"
+            file: "./resource/audio/scene_04_02_social.mp3"
+        narration_docs:
+            type: "audio"
+            file: "./resource/audio/scene_04_03_docs.mp3"
+        narration_edu:
+            type: "audio"
+            file: "./resource/audio/scene_04_04_edu.mp3"
+        narration_biz:
+            type: "audio"
+            file: "./resource/audio/scene_04_05_biz.mp3"
 
-    # Audio Assets
-    audio-04-01-intro:
-      type: "audio"
-      file: "./audio/scene_04_01_intro.mp3"
-    audio-04-02-social:
-      type: "audio"
-      file: "./audio/scene_04_02_social.mp3"
-    audio-04-03-docs:
-      type: "audio"
-      file: "./audio/scene_04_03_docs.mp3"
-    audio-04-04-edu:
-      type: "audio"
-      file: "./audio/scene_04_04_edu.mp3"
-    audio-04-05-biz:
-      type: "audio"
-      file: "./audio/scene_04_05_biz.mp3"
-    audio-04-06-teaser:
-      type: "audio"
-      file: "./audio/scene_04_06_teaser.mp3"
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resource/style/theme_dark.css"
 
-  const:
-    # Timing constants
-    delayMargin: 500
-    delayPad: 250
-    topicFadeIn: 400
-    topicFadeOut: 400
-    topicDim: 400
-    headingFadeIn: 700
-    teaserFadeIn: 700
-    teaserFadeOut: 700
+    const:
+        VIDEO_MARGIN: 500
+        BEAT_PAD: 250
 
-    # circleFadeIn: 400
-    # textFadeIn: 1000
-    # textFadeOut: 1000
-    # highlightDuration: 200
-    # dimDuration: 200
-    # moveDuration: 1500
+        HEADING_FADE_IN_MS: 700
+        HEADING_FADE_OUT_MS: 700
 
-  groups:
-    all-circle-shape: [circle-social, circle-docs, circle-edu, circle-biz]
-    all-circle-text: [text-social, text-docs, text-edu, text-biz]
-    all-elements:
-      - heading
-      - teaser
-      - circle-social
-      - circle-docs
-      - circle-edu
-      - circle-biz
-      - text-social
-      - text-docs
-      - text-edu
-      - text-biz
+        # A topic's three short moves: brightening as it is taken up, its text
+        # leaving as it is finished with, and the ring itself settling back.
+        TOPIC_FADE_IN_MS: 400
+        TOPIC_FADE_OUT_MS: 400
+        TOPIC_DIM_MS: 400
+
+        # ⚠️ HALF IS A STATE, NOT A TRANSITION. A ring at 0.5 is present but not
+        # being talked about; a ring at 1.0 is the subject. Every opacity in this
+        # scene is one of those two values or zero.
+        RING_RESTING: 0.5
+        RING_ACTIVE: 1.0
+
+        # ── Where the four rings gather ───────────────────────────────────────
+        # ⚠️ THESE NAME THE RING'S TOP-LEFT, not its centre: a coordinate
+        # authored for an SVG element addresses its top-left corner. Each ring is
+        # drawn 120 across, so a ring parked at (450, 400) occupies 450..570.
+        #
+        # The four destinations bracket the text block, which every topic anchors
+        # on x 960. The rings are drawn in the four CORNERS (120 and 1800 across,
+        # 230 and 960 down), so every walk is a diagonal inward.
+        #
+        # ⚡ THE PAIR IS CENTRED ON THE SCENE, WHICH IS THE ONLY RULE HERE: the
+        # left ring's left edge and the right ring's right edge are equidistant
+        # from x 960, so 450 and 1350 follow from each other and from nothing
+        # else. Widen the gap and both move by the same amount.
+        #
+        # ⚠️ MEASURED, because eyeballing it is what got it wrong. The precursor
+        # parked them at 500 and 1400, which centres the PAIR on 1010 — fifty
+        # right of the text. Sampling all four topics in the render, the gap
+        # between a ring and the nearest text came out 12..100 px on the left
+        # against 114..202 px on the right; the longest line (business, 632..1286)
+        # left twelve pixels of air on one side and a hundred and fourteen on the
+        # other. At 450 and 1350 that worst case is 62 against 64.
+        GATHER_LEFT_X: 450
+        GATHER_RIGHT_X: 1350
+        GATHER_TOP_Y: 400
+        GATHER_BOTTOM_Y: 680
 
 animation:
-  timeline:
-    # Initial state - everything invisible
-    0 @ start-entry:
-      - all-elements:
-          - show:
-              opacity: 0
-              hold: delayMargin
+    defaults:
+        assets:
+            scene: possibilities
 
-    # ------------------------------------------
-    # Intro: Heading and circles appear
-    # ------------------------------------------
+    timeline:
+        # ── An empty frame ───────────────────────────────────────────────────
+        0 @ start_entry:
+            - all_elements:
+                  - show:
+                        opacity: 0
+                        hold:
+                            after: VIDEO_MARGIN
 
-    # Show heading
-    start-entry.end @ intro-fadein:
-      - heading:
-          - show:
-              opacity-range:
-                from: 0
-                to: 1
-              duration: headingFadeIn
-              hold: delayPad
+        # ── The heading, alone ───────────────────────────────────────────────
+        start_entry.end @ intro_fade_in:
+            - heading:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: HEADING_FADE_IN_MS
+                        hold:
+                            after: BEAT_PAD
 
-    # Fade-in all circles with intro audio duration
-    intro-fadein.end @ audio-intro:
-      - all-circle-shape:
-          - show:
-              opacity-range:
-                from: 0
-                to: 0.5
-              duration: audio-04-01-intro.duration
-              hold: delayPad
+        # ── All four rings, at resting brightness ────────────────────────────
+        # They arrive together and at HALF, so the frame shows the whole set
+        # before any one of them is the subject. The fade takes the opening
+        # line's length, so the four are still appearing while it is spoken.
+        intro_fade_in.end @ audio_intro:
+            - all_circle_shape:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: RING_RESTING
+                        duration: narration_intro.duration
+                        hold:
+                            after: BEAT_PAD
 
-    # ------------------------------------------
-    # Circle 1: Social Media (top-left → center)
-    # Synced with audio-04-02-social
-    # ------------------------------------------
+        # ── Social media, from the top-left corner ─────────────────────────────────────
+        # Two entries on one timestamp: the ring brightens and its text arrives
+        # while the ring is ALSO walking. Opacity and position are disjoint
+        # properties, so the two writers compose rather than race.
+        audio_intro.end @ social_fade_in:
+            - text_social:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: TOPIC_FADE_IN_MS
+                        hold:
+                            after: BEAT_PAD
+            - circle_social:
+                  - show:
+                        opacity:
+                            from: RING_RESTING
+                            to: RING_ACTIVE
+                        duration: TOPIC_FADE_IN_MS
+                        hold:
+                            after: BEAT_PAD
 
-    # Highlight social media
-    audio-intro.end @ social-fadein:
-      - text-social:
-          - show:
-              opacity-range:
-                from: 0
-                to: 1
-              duration: topicFadeIn
-              hold: delayPad
-      - circle-social:
-          - show:
-              opacity-range:
-                from: 0.5
-                to: 1.0
-              duration: topicFadeIn
-              hold: delayPad
+        audio_intro.end @ social_walk:
+            - circle_social:
+                  - move:
+                        x: GATHER_LEFT_X
+                        y: GATHER_TOP_Y
+                        duration: narration_social.duration
+                        hold:
+                            after: BEAT_PAD
 
-    audio-intro.end @ audio-social:
-      - circle-social:
-          - move:
-              x: 500
-              y: 400
-              duration: audio-04-02-social.duration
-              hold: delayPad
+        # The ring settles back to resting as its sentence runs out — it stays on
+        # screen, it just stops being the one being talked about.
+        social_walk.end - TOPIC_DIM_MS @ social_dim:
+            - circle_social:
+                  - show:
+                        opacity:
+                            from: RING_ACTIVE
+                            to: RING_RESTING
+                        duration: TOPIC_DIM_MS
+                        hold:
+                            after: BEAT_PAD
 
-    audio-social.end - topicDim @ social-dim:
-      - circle-social:
-          - show:
-              opacity-range:
-                from: 1.0
-                to: 0.5
-              duration: topicDim
-              hold: delayPad
+        social_walk.end - TOPIC_FADE_OUT_MS @ social_fade_out:
+            - text_social:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: TOPIC_FADE_OUT_MS
+                        hold:
+                            after: BEAT_PAD
 
-    audio-social.end - topicFadeOut @ social-fadeout:
-      - text-social:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: topicFadeOut
-              hold: delayPad
+        # ── Documentation, from the top-right corner ─────────────────────────────────────
+        # Two entries on one timestamp: the ring brightens and its text arrives
+        # while the ring is ALSO walking. Opacity and position are disjoint
+        # properties, so the two writers compose rather than race.
+        social_fade_out.end @ docs_fade_in:
+            - text_docs:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: TOPIC_FADE_IN_MS
+                        hold:
+                            after: BEAT_PAD
+            - circle_docs:
+                  - show:
+                        opacity:
+                            from: RING_RESTING
+                            to: RING_ACTIVE
+                        duration: TOPIC_FADE_IN_MS
+                        hold:
+                            after: BEAT_PAD
 
-    # ------------------------------------------
-    # Circle 2: Documentation (top-right → center)
-    # Synced with audio-04-03-docs
-    # ------------------------------------------
+        social_fade_out.end @ docs_walk:
+            - circle_docs:
+                  - move:
+                        x: GATHER_RIGHT_X
+                        y: GATHER_TOP_Y
+                        duration: narration_docs.duration
+                        hold:
+                            after: BEAT_PAD
 
-    social-fadeout.end @ docs-fadein:
-      - text-docs:
-          - show:
-              opacity-range:
-                from: 0
-                to: 1
-              duration: topicFadeIn
-              hold: delayPad
-      - circle-docs:
-          - show:
-              opacity-range:
-                from: 0.5
-                to: 1.0
-              duration: topicFadeIn
-              hold: delayPad
+        # The ring settles back to resting as its sentence runs out — it stays on
+        # screen, it just stops being the one being talked about.
+        docs_walk.end - TOPIC_DIM_MS @ docs_dim:
+            - circle_docs:
+                  - show:
+                        opacity:
+                            from: RING_ACTIVE
+                            to: RING_RESTING
+                        duration: TOPIC_DIM_MS
+                        hold:
+                            after: BEAT_PAD
 
-    social-fadeout.end @ audio-docs:
-      - circle-docs:
-          - move:
-              x: 1400
-              y: 400
-              duration: audio-04-03-docs.duration
-              hold: delayPad
+        docs_walk.end - TOPIC_FADE_OUT_MS @ docs_fade_out:
+            - text_docs:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: TOPIC_FADE_OUT_MS
+                        hold:
+                            after: BEAT_PAD
 
-    audio-docs.end - topicDim @ docs-dim:
-      - circle-docs:
-          - show:
-              opacity-range:
-                from: 1.0
-                to: 0.5
-              duration: topicDim
-              hold: delayPad
+        # ── Education, from the bottom-left corner ─────────────────────────────────────
+        # Two entries on one timestamp: the ring brightens and its text arrives
+        # while the ring is ALSO walking. Opacity and position are disjoint
+        # properties, so the two writers compose rather than race.
+        docs_fade_out.end @ edu_fade_in:
+            - text_edu:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: TOPIC_FADE_IN_MS
+                        hold:
+                            after: BEAT_PAD
+            - circle_edu:
+                  - show:
+                        opacity:
+                            from: RING_RESTING
+                            to: RING_ACTIVE
+                        duration: TOPIC_FADE_IN_MS
+                        hold:
+                            after: BEAT_PAD
 
-    audio-docs.end - topicFadeOut @ docs-fadeout:
-      - text-docs:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: topicFadeOut
-              hold: delayPad
+        docs_fade_out.end @ edu_walk:
+            - circle_edu:
+                  - move:
+                        x: GATHER_LEFT_X
+                        y: GATHER_BOTTOM_Y
+                        duration: narration_edu.duration
+                        hold:
+                            after: BEAT_PAD
 
-    # ------------------------------------------
-    # Circle 3: Education (bottom-left → center)
-    # Synced with audio-04-04-edu
-    # ------------------------------------------
+        # The ring settles back to resting as its sentence runs out — it stays on
+        # screen, it just stops being the one being talked about.
+        edu_walk.end - TOPIC_DIM_MS @ edu_dim:
+            - circle_edu:
+                  - show:
+                        opacity:
+                            from: RING_ACTIVE
+                            to: RING_RESTING
+                        duration: TOPIC_DIM_MS
+                        hold:
+                            after: BEAT_PAD
 
-    docs-fadeout.end @ edu-fadein:
-      - text-edu:
-          - show:
-              opacity-range:
-                from: 0
-                to: 1
-              duration: topicFadeIn
-              hold: delayPad
-      - circle-edu:
-          - show:
-              opacity-range:
-                from: 0.5
-                to: 1.0
-              duration: topicFadeIn
-              hold: delayPad
+        edu_walk.end - TOPIC_FADE_OUT_MS @ edu_fade_out:
+            - text_edu:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: TOPIC_FADE_OUT_MS
+                        hold:
+                            after: BEAT_PAD
 
-    docs-fadeout.end @ audio-edu:
-      - circle-edu:
-          - move:
-              x: 500
-              y: 680
-              duration: audio-04-04-edu.duration
-              hold: delayPad
+        # ── Business, from the bottom-right corner ─────────────────────────────────────
+        # Two entries on one timestamp: the ring brightens and its text arrives
+        # while the ring is ALSO walking. Opacity and position are disjoint
+        # properties, so the two writers compose rather than race.
+        edu_fade_out.end @ biz_fade_in:
+            - text_biz:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: TOPIC_FADE_IN_MS
+                        hold:
+                            after: BEAT_PAD
+            - circle_biz:
+                  - show:
+                        opacity:
+                            from: RING_RESTING
+                            to: RING_ACTIVE
+                        duration: TOPIC_FADE_IN_MS
+                        hold:
+                            after: BEAT_PAD
 
-    audio-edu.end - topicDim @ edu-dim:
-      - circle-edu:
-          - show:
-              opacity-range:
-                from: 1.0
-                to: 0.5
-              duration: topicDim
-              hold: delayPad
+        edu_fade_out.end @ biz_walk:
+            - circle_biz:
+                  - move:
+                        x: GATHER_RIGHT_X
+                        y: GATHER_BOTTOM_Y
+                        duration: narration_biz.duration
+                        hold:
+                            after: BEAT_PAD
 
-    audio-edu.end - topicFadeOut @ edu-fadeout:
-      - text-edu:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: topicFadeOut
-              hold: delayPad
+        # ── The last text leaves, and the rings with it ──────────────────────
+        # ⚠️ `opacity: 0` WITHOUT A `from` IS LOAD-BEARING HERE. The shorthand
+        # runs each ring from its CURRENT value: circle_biz is at full because
+        # this is its moment, the other three are at resting. One entry, four
+        # different starting points, and no `biz_dim` to race it — see the
+        # header.
+        biz_walk.end - TOPIC_FADE_OUT_MS @ biz_fade_out:
+            - text_biz:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: TOPIC_FADE_OUT_MS
+                        hold:
+                            after: BEAT_PAD
+            - all_circle_shape:
+                  - show:
+                        opacity: 0
+                        duration: TOPIC_FADE_OUT_MS
+                        hold:
+                            after: BEAT_PAD
 
-    # ------------------------------------------
-    # Circle 4: Business (bottom-right → center)
-    # Synced with audio-04-05-biz
-    # ------------------------------------------
+        # ── The heading last ─────────────────────────────────────────────────
+        # The frame empties in the order it filled, so the last thing on screen
+        # is the first thing that was said.
+        biz_fade_out.end @ end_entry:
+            - heading:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: HEADING_FADE_OUT_MS
+                        hold:
+                            after: VIDEO_MARGIN
 
-    edu-fadeout.end @ biz-fadein:
-      - text-biz:
-          - show:
-              opacity-range:
-                from: 0
-                to: 1
-              duration: topicFadeIn
-              hold: delayPad
-      - circle-biz:
-          - show:
-              opacity-range:
-                from: 0.5
-                to: 1.0
-              duration: topicFadeIn
-              hold: delayPad
+    capture:
+        scene_04_possibilities_silent:
+            output: "./resource/video/scene_04_possibilities_silent.mp4"
+            fps: 30
 
-    edu-fadeout.end @ audio-biz:
-      - circle-biz:
-          - move:
-              x: 1400
-              y: 680
-              duration: audio-04-05-biz.duration
-              hold: delayPad
-
-    audio-biz.end - topicDim @ biz-dim:
-      - circle-biz:
-          - show:
-              opacity-range:
-                from: 1.0
-                to: 0.5
-              duration: topicDim
-              hold: delayPad
-
-    audio-biz.end - topicFadeOut @ biz-fadeout:
-      - text-biz:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: topicFadeOut
-              hold: delayPad
-      - all-circle-shape:
-          - show:
-              opacity-range:
-                from: 0.5
-                to: 0
-              duration: topicFadeOut
-              hold: delayPad
-
-    # ------------------------------------------
-    # Teaser Transition
-    # Synced with audio-04-06-teaser
-    # ------------------------------------------
-
-    biz-fadeout.end @ teaser-fadein:
-      - heading:
-          - show:
-              opacity-range:
-                from: 1
-                to: 0
-              duration: teaserFadeIn
-              hold: delayMargin
-    #   - teaser:
-    #       - show:
-    #           opacity-range:
-    #             from: 0
-    #             to: 1
-    #           duration: teaserFadeIn
-    #           hold: delayPad
-
-    # biz-fadeout.end @ audio-teaser:
-    #   - teaser:
-    #       - move:
-    #           dx: 0
-    #           dy: 0
-    #           duration: audio-04-06-teaser.duration
-    #           hold: delayPad
-
-    # audio-teaser.end - teaserFadeOut @ end-entry:
-    #   - teaser:
-    #       - show:
-    #           opacity-range:
-    #             from: 1
-    #             to: 0
-    #           duration: teaserFadeOut
-    #           hold: delayMargin
-
-  capture:
-    video_animation_scene_04:
-      output: "./video/scene_04_possibilities.mp4"
-      fps: 30
-
+# Five lines onto one clip, each at the bookmark its own topic starts on.
 composition:
-  context:
-    status: active
+    context:
+        status: active
 
-  timeline:
-    # Start video playback
-    0:
-      - video_animation_scene_04:
-          - play:
+    timeline:
+        # ⚠️ EVERY MIX CARRIES AN EXPLICIT `span.from` — see scene_02's note on
+        # the defect a spanless mix at a non-zero timestamp hits.
+        "0":
+            - scene_04_possibilities_silent:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::audio_intro.start"
+                        asset: narration_intro
+                  - mix:
+                        span:
+                            from: "animation::social_walk.start"
+                        asset: narration_social
+                  - mix:
+                        span:
+                            from: "animation::docs_walk.start"
+                        asset: narration_docs
+                  - mix:
+                        span:
+                            from: "animation::edu_walk.start"
+                        asset: narration_edu
+                  - mix:
+                        span:
+                            from: "animation::biz_walk.start"
+                        asset: narration_biz
 
-    # Intro audio plays with heading and circles appearing
-    animation.timeline.audio-intro.start:
-      - audio-04-01-intro:
-          - play:
-
-    # Social audio plays with circle 1 sequence
-    animation.timeline.audio-social.start:
-      - audio-04-02-social:
-          - play:
-
-    # Docs audio plays with circle 2 sequence
-    animation.timeline.audio-docs.start:
-      - audio-04-03-docs:
-          - play:
-
-    # Edu audio plays with circle 3 sequence
-    animation.timeline.audio-edu.start:
-      - audio-04-04-edu:
-          - play:
-
-    # Biz audio plays with circle 4 sequence
-    animation.timeline.audio-biz.start:
-      - audio-04-05-biz:
-          - play:
-
-    # Teaser audio plays during transition
-    # animation.timeline.audio-teaser.start:
-    #   - audio-04-06-teaser:
-    #       - play:
-
-  capture:
-    video_composition_scene_04:
-      output: "./video/scene_04_possibilities_final.mp4"
-      fps: 30
+    capture:
+        scene_04_possibilities:
+            output: "./resource/video/scene_04_possibilities.mp4"
+            fps: 30

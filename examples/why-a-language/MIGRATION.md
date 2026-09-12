@@ -1,7 +1,12 @@
-# Migrating `differentiators` from the precursor DSL
+# Migrating `differentiators` from the precursor DSL — DONE
 
 Source: `/Users/luis/_Dev/project/animation-dsl/examples/differentiators`
-(4 scenes + TTS + composition, 1390 lines, 1920x1080, 192.33 s rendered)
+(4 scenes + TTS + composition, 1920x1080).
+
+✅ **Complete.** All six documents compile, all four scenes render, and
+`scene_05_stitch.yaml` writes `./why_a_language.mp4`. What the example *is* lives
+in [`README.md`](README.md); this file is the record of how it got here and what
+the translation cost.
 
 ## The translation table — derived by compiling, not by reading
 
@@ -13,55 +18,104 @@ Source: `/Users/luis/_Dev/project/animation-dsl/examples/differentiators`
 | `defs.groups:` | `defs.assets.<n>: { type: "group", members: [...] }` | both block-list and inline-list forms appear in the source |
 | `opacity-range: {from, to}` | `opacity: {from, to}` | the range moved onto the property it ranges |
 | `play: {}` on a video | `roll:` | |
-| `play: {}` on an audio | `mix: { asset: { name: … } }` | ⚠️ a mix RIDES a roll — it is a sibling action on the video entry, not an entry of its own |
-| `animation.<bk>.<prop>` | `animation::<bk>.<prop>` | cross-section bookmarks take the `::` qualifier |
-| `a-hyphenated-name` | `a_hyphenated_name` | hyphens are not legal in identifiers: asset names, group names, bookmark labels, timeline keys |
+| `play: {}` on an audio | `mix: { span: { from: … }, asset: … }` | ⚠️ a mix RIDES a roll — a sibling action on the video entry, not an entry of its own |
+| `animation.timeline.<bk>.start:` *as a timestamp key* | `span.from: "animation::<bk>.start"` *on the mix* | the three-segment form the first pass's `::` rewrite never matched |
+| `a-hyphenated-name` | `a_hyphenated_name` | asset names, group names, bookmark labels, timeline keys |
+| `generation:` | `synthesis:` | |
+| `output:` *on a tts entry* | `export:` | |
+| `hold: N` | `hold: { after: N }` | |
+| `x: "<id>:left"` | `restore:` *(no checkpoint)* | the precursor's way of saying "back where you were drawn"; baseline restore says it directly |
+| `show: { hold: N }` | `show: { opacity: 1, hold: { after: N } }` | a `show` must now say what it shows; each of these was a pure pad, so it restates the value it is already at |
+| `pulse: { duration, cycles }` | `pulse: { …, scale: { amplitude: N } }` | same rule on `pulse`. `amplitude` is an `add` contribution, so it composes with the `restore` running beside it instead of racing it |
 
-## Two more classes the first pass did not reach
+## Two classes the first pass did not reach
 
-| | |
+|     |     |
 | --- | --- |
-| **The template predates the current tokens** | the precursor's `animation-template.html` lacks `KINAI_STYLE::PLACEHOLDER`, `KINAI_BYTECODE::PLACEHOLDER` and the rest. Use the suite's `main.html` — already copied in. |
-| **SVG element ids vs identifiers** | ids MAY carry hyphens; asset names, group names, bookmark labels and timeline keys MAY NOT. The precursor referenced ids bare from the timeline, so the two collide. ✅ **RESOLVED HERE**: 145 ids across the four SVGs are converted to underscores, so bare references stay legal and ~100 bridging actor declarations are avoided. |
+| **The template predates the current tokens** | the precursor's `animation-template.html` lacks `KINAI_STYLE::PLACEHOLDER`, `KINAI_BYTECODE::PLACEHOLDER` and the rest. The suite's `main.html` is used instead. |
+| **SVG element ids vs identifiers** | ids MAY carry hyphens; asset names, group names, bookmark labels and timeline keys MAY NOT. The precursor referenced ids bare from the timeline, so the two collide. ✅ **RESOLVED**: every hyphenated id in the four drawings — 86 occurrences, 76 distinct — is an underscore, so bare references stay legal and a bridging actor declaration per element is avoided. |
 
-## ⚠️ The YAML in this directory is the UNMODIFIED SOURCE
+⚠️ **Scene 2's `trad-N` became `traditional_N`, not `trad_N`** — the one id in the
+four drawings that is not a mechanical hyphen-to-underscore of the precursor's.
+In the precursor, drawing and timeline agreed on `trad-1`; here the drawing spells
+it out, so the timeline had to follow. Diffing the two id sets is what surfaced
+it, and nothing else would have: the abbreviation is legal, so a translation that
+carried `trad_1` across would have compiled and simply animated nothing.
 
-Translate it fresh. My own regex pass was restored away after it did three kinds of
-damage, each silent until the compiler or a line count caught it:
+## What the migration had to decide, not translate
 
-- a `play:` → `roll:` substitution collapsed the newline, producing
-  `- video_x:          - roll:` on one line;
-- a timeline rebuild anchored on `timeline:` matched the ANIMATION section in
-  `scene_04` and replaced 300 lines of it;
-- the hyphen sweep was applied to SVG id references as well as identifiers.
+- **The narration offset.** ✅ Each scene keeps its own `composition` and mixes its
+  own lines at the bookmarks inside its own clip, each with an explicit
+  `span.from`. See README — the short version is that `request-response`'s
+  offset-free idiom needs one line per clip and three of these four scenes carry
+  several.
+- **The property-less `show` and `pulse`.** ✅ Counted in the source: 5 `show`s and
+  10 `pulse`s. The five were pure pads and are now `opacity: 1` carrying a
+  `hold.after` — the value the element is already at, restated so the hold has
+  something to ride. The ten are scene 2's box pulses, which had a duration and a
+  cycle count and nothing to oscillate; they now swell `scale` by an amplitude.
+- **`biz_dim` versus the final fade.** ✅ Deleted. The precursor wrote circle_biz
+  `1.0 -> 0.5` and the ring group `0.5 -> 0` from the same instant, which the
+  current language rejects as a `set`/`set` race (§6.7.2) and which nothing could
+  have rendered coherently. The fade now uses `opacity: 0` with no `from`.
+- **The teaser.** ✅ Removed. The precursor had already commented its sequence
+  out; the artwork, the script and the recording are gone too, since it promised
+  a next episode that does not exist. Its removal also collapsed scene 4's
+  colour/metrics class split, which existed only to give the teaser's two lines
+  one size in two colours.
+- **Standards.** ✅ Theme rework done: values moved out of the four SVGs into
+  `theme_dark.css` / `theme_light.css`, mapping left behind with fallbacks, no
+  prefixes, no dead variables, no `@media`-only definitions, Arial stack.
 
-`scene_03` lost 43 lines and `scene_04` its whole animation section before the line
-counts exposed it. **Translate with a parser, or by hand per file with the table above —
-not with regexes over whole documents.**
+## Dead weight removed on the way through
 
-## What was open at 22 errors in 5 classes
+- `--utilities-opacity` — declared in scene 2, read nowhere.
+- `--global-opacity` and the four group-opacity rules that read it — the timeline
+  owns opacity, and in three of the four scenes the variable was `1.0` anyway.
+- `--teaser-accent` and the `.teaser-accent` / `.teaser-title` / `.benefit-group`
+  rules — no element carried any of them.
+- `pulseDuration` (scene 2), `fadeOutDuration` (scene 3), `teaserFadeOut` and six
+  commented-out consts (scene 4) — declared, never referenced.
+- `all-circle-text` (scene 4) — a group declared and never used.
+- The `body` and `.container` rules in the stylesheet — page layout is the
+  compiler's, and no other example's theme sets it.
 
-1. **14 × `show`/`pulse` with no visual property.** The precursor allowed
-   `show: { hold: N }` as a pure delay; the current language requires one of
-   `opacity` / `scale` / `rotation` / `reveal` / `fill` / `stroke` / `stroke_width`.
-   Each site needs a decision: carry the previous value explicitly, or fold the hold
-   into the neighbouring action's `hold.after`.
-2. **2 × groups landed in `const:`.** My inline-list rewrite matched `const` entries in
-   `scene_04`. Scope the rewrite to the `assets:` block.
-3. **1 × YAML shape** in `scene_03_benefits` around line 139.
-4. **5 × `animation.timeline.<bk>.start` keys** in `scene_04` — a three-segment form the
-   `::` rewrite did not match.
-5. **1 × unrecognised action** — the last `play:` not covered by the video/audio patterns.
+## After the migration — the content refresh
 
-## Decisions still owed
+✅ The migration landed the precursor's argument unchanged. A separate pass then
+revised it, because the ideas were written against the previous language and had
+stopped describing this one:
 
-- ~~The name~~ **DECIDED: `why-a-language`.**
-- ~~Length~~ **DECIDED: migrate as-is. This is the FULL version**; a shorter cut may
-  follow once it renders, and would be a second deliverable rather than a replacement.
-- **The narration offset.** The precursor started each line at an `animation::audio_in`
-  bookmark *inside* the clip. The current stitch idiom mixes at offset zero because each
-  beat sizes itself to its own line. Reconciling these is a design choice, not a
-  translation: either give the mix a `span.from`, or re-shape each scene to its line the
-  way request-response and wave-anatomy do.
-- **Standards.** The precursor's theme has not been audited yet — expect the same
-  findings as elsewhere (prefix, dead variables, class rules in the stylesheet, fonts).
+- **Absolutes softened.** Claims about other people's technology are what ages;
+  claims about Kinaigraph are not. "Automated variations are impossible" became
+  "hard to come by", "fundamentally unpredictable" became "today its output is
+  hard to predict", and `Trial-Error Due to Unpredictable` became
+  `Trial & Error / Uncertain Output`. The determinism claim was deliberately left
+  sharp — it is a guarantee the language makes by design.
+- **Five challenges and three benefits added**, chosen by one rule: every
+  challenge on screen must have an answer on screen. Two of the precursor's
+  challenges had none (syncing, usage costs) and one benefit answered nothing
+  anyone had named (consistent styling).
+- **AI reframed from rival to input.** `Binary Output / No Source` against
+  `AI-Authorable / LLM Writes the Source` — a generated video is a terminal
+  artefact; a Kinaigraph document is source a model can write and a human can
+  review.
+- **Scene 1 renamed** from `intro` to `premise`, and its heading from
+  *Why Explainer Videos?* to *Why Kinaigraph?*
+- Seven of the thirteen lines were re-recorded for the above. The run was scoped
+  to those seven by a temporary synthesis document, since
+  `synthesis.context.status` is section-wide and a plain re-run bills all
+  thirteen.
+
+## The warning that earned this file
+
+⛔ **The YAML was translated by hand, file by file, against the table above.** An
+earlier pass used regexes over whole documents and did three kinds of damage, each
+silent until the compiler or a line count caught it: a `play:` → `roll:`
+substitution collapsed a newline; a timeline rebuild anchored on `timeline:`
+matched the ANIMATION section in scene 4 and replaced 300 lines of it; and the
+hyphen sweep hit SVG id references as well as identifiers. Scene 3 lost 43 lines
+and scene 4 its whole animation section before line counts exposed it.
+
+That pass was restored away, and this migration started again from the untouched
+source.

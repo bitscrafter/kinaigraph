@@ -1,0 +1,38 @@
+/* why-a-language — light theme.
+ *
+ * ⚠️ VALUES ONLY, and the SAME NAMES theme_dark.css declares — every one of
+ * them, and no others. See that file's header for why the mapping lives in
+ * the scenes and not here. The two files are swapped by pointing the
+ * document's `style` asset at one or the other; nothing else changes.
+ *
+ * ⚠️ THE SCENES' var() FALLBACKS ARE THE DARK VALUES, NOT THESE. A fallback is
+ * what a scene shows with no stylesheet in scope, and there is only one such
+ * presentation — the dark one, because that is what the deliverable is rendered
+ * in. Selecting this theme puts the stylesheet in scope, so the fallbacks never
+ * come into play and no drift is possible.
+ *
+ * The palette is the dark one reflected, not re-invented: every tier keeps its
+ * distance from the surface rather than its absolute lightness. The icon fills
+ * go pale so a glyph still reads as outline-on-surface, and the strokes go dark
+ * so they still carry the drawing.
+ */
+
+:root {
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+
+    --scene-background-color: #f7f7f7;
+
+    --title-text-color: #000000;
+    --detail-text-color: #555555;
+
+    --box-fill-color: #ffffff;
+    --box-stroke-color: #555555;
+    --box-text-color: #333333;
+
+    --topic-circle-stroke-color: #555555;
+
+    --icon-fill: #ffffff;
+    --icon-fill-light: #e5e5e5;
+    --icon-fill-dark: #555555;
+    --icon-stroke: #555555;
+}

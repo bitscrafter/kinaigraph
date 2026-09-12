@@ -1,98 +1,65 @@
-/* ------------------------------------------ */
-/* HTML Page Theme Support */
-/* ------------------------------------------ */
-@media (prefers-color-scheme: light) {
-    :root {
-        --page-bg: #E8E8E8;
-        --page-text: #101010;
-    }
-}
+/* why-a-language — dark theme. The one the deliverable is rendered in.
+ *
+ * ⚠️ THIS FILE HOLDS VALUES ONLY. Which class takes which property lives in each
+ * scene's own <style> block. The split is what lets a scene render on its own:
+ * every var() there carries THIS file's value as its fallback, so opening
+ * scene_02_challenge.svg in a browser, an editor or a GitHub preview shows the
+ * dark theme rather than unstyled shapes. Whenever the stylesheet is in scope,
+ * the stylesheet wins.
+ *
+ * ⛔ THE FOUR SCENES USED TO CARRY THEIR OWN COPIES OF THESE VALUES, in
+ * @media (prefers-color-scheme) blocks plus html.dark-mode / html.light-mode
+ * overrides. That arrangement cannot be baked: a variable defined only under a
+ * media query has no determinable cascade at compile time, so css() reading it
+ * fails with CssFunctionFailed{ VariableNotFound } (language spec §1b). The
+ * per-scene copies had also already drifted — scene_01 alone put its secondary
+ * text at #333333 / #CCCCCC where scenes 03 and 04 both said #555555 / #AAAAAA.
+ * One owner for a value is what stops that.
+ *
+ * ⚠️ theme_light.css declares EXACTLY THESE NAMES AND NO OTHERS. A variable
+ * added here without being added there renders one theme unstyled in a way
+ * nothing reports.
+ *
+ * Fonts: Arial and its metric-compatible twins ONLY. Nothing here may name a
+ * font that is not installed by default on Windows, macOS and Linux — an example
+ * that renders differently depending on who clones it is a broken example.
+ * Liberation Sans (the Linux default) has identical advance widths to Arial, so
+ * a fallback shifts no layout. The precursor asked for 'Segoe UI' first, which
+ * is a Windows font: on macOS and Linux that silently resolved to Tahoma or a
+ * generic sans and every heading came out at a different width.
+ */
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --page-bg: #181818;
-        --page-text: #E0E0E0;
-    }
-}
+:root {
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
 
-/* -------------------------------------------- */
-/* SVG Theme Support (inherits to embedded SVG) */
-/* -------------------------------------------- */
+    /* The surface everything is drawn on. */
+    --scene-background-color: #181818;
 
-/* Auto-mode: Follow system preference (when no class on html) */
-@media (prefers-color-scheme: light) {
-    html:not(.dark-mode):not(.light-mode) {
-        --canvas-bg: #F7F7F7;
-        --icon-fill: #FFFFFF;
-        --icon-stroke: #555555;
-        --icon-fill-medium: #AAAAAA;
-        --icon-fill-dark: #555555;
-        --text-primary: #000000;
-        --text-secondary: #333333;
-        --box-bg: #FFFFFF;
-        --box-stroke: #555555;
-        --box-text: #333333;
-    }
-}
+    /* Two tiers of text weight: what the scene is about, and what supports it. */
+    --title-text-color: #e0e0e0;
+    --detail-text-color: #aaaaaa;
 
-@media (prefers-color-scheme: dark) {
-    html:not(.dark-mode):not(.light-mode) {
-        --canvas-bg: #181818;
-        --icon-fill: #2A2A2A;
-        --icon-stroke: #AAAAAA;
-        --icon-fill-medium: #555555;
-        --icon-fill-dark: #AAAAAA;
-        --text-primary: #E0E0E0;
-        --text-secondary: #CCCCCC;
-        --box-bg: #2A2A2A;
-        --box-stroke: #AAAAAA;
-        --box-text: #CCCCCC;
-    }
-}
+    /* The pain-point and benefit boxes — scenes 02 and 03. The box's own text is
+       a third tier, held between the two above: it is neither the section
+       heading nor a caption under one. */
+    --box-fill-color: #2a2a2a;
+    --box-stroke-color: #aaaaaa;
+    --box-text-color: #cccccc;
 
-/* Manual override: Light mode */
-html.light-mode {
-    --canvas-bg: #F7F7F7;
-    --icon-fill: #FFFFFF;
-    --icon-stroke: #555555;
-    --icon-fill-medium: #AAAAAA;
-    --icon-fill-dark: #555555;
-    --text-primary: #000000;
-    --text-secondary: #333333;
-    --box-bg: #FFFFFF;
-    --box-stroke: #555555;
-    --box-text: #333333;
-}
+    /* Scene 04's four topic circles. Stroked, never filled — they are rings the
+       icons sit inside, so a fill would bury the glyph it surrounds. */
+    --topic-circle-stroke-color: #aaaaaa;
 
-/* Manual override: Dark mode */
-html.dark-mode {
-    --canvas-bg: #181818;
-    --icon-fill: #2A2A2A;
-    --icon-stroke: #AAAAAA;
-    --icon-fill-medium: #555555;
-    --icon-fill-dark: #AAAAAA;
-    --text-primary: #E0E0E0;
-    --text-secondary: #CCCCCC;
-    --box-bg: #2A2A2A;
-    --box-stroke: #AAAAAA;
-    --box-text: #CCCCCC;
-}
-
-body {
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: var(--page-bg, #202020);
-    font-family: Arial, sans-serif;
-}
-
-.container {
-    background: transparent;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: none;
+    /* The icon catalog's vocabulary, shared with the other examples that use it.
+       Solid areas take a colour near the background so a filled glyph reads as
+       outline-on-surface rather than as a blot; the strokes carry the drawing.
+       ⚠️ ONLY THE TIERS THIS EXAMPLE'S GLYPHS ACTUALLY CARRY. `--icon-fill-medium`
+       and `--icon-stroke-light` were here until the icon set changed and nothing
+       read them any more. Import a glyph that needs one and
+       resource/temp/make_scenes.py refuses to build until it is declared again —
+       which is the loud failure, not a silent fallback. */
+    --icon-fill: #2a2a2a;
+    --icon-fill-light: #1e1e1e;
+    --icon-fill-dark: #aaaaaa;
+    --icon-stroke: #aaaaaa;
 }

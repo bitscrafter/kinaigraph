@@ -1,139 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="pain_points" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+<svg id="premise" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
     <!-- Symbol definitions from icons.svg -->
     <defs>
         <!-- Styles -->
         <style>
-            :root {
-                --global-opacity: 0.0;
-            }
+            /* ── Mapping only: class -> variable. The VALUES live in
+                  ../style/theme_dark.css and ../style/theme_light.css. ───────
+               Every var() carries the DARK value as its fallback, so this file
+               opened on its own — in a browser, an editor, a GitHub preview —
+               shows the dark theme rather than unstyled shapes. Whenever a
+               stylesheet is in scope, the stylesheet wins.
 
-            /* ------------------------------------------ */
-            /* SVG THEME SYSTEM */
-            /* Priority: 1) SVG's own class, 2) Parent HTML context, 3) System preference */
-            /* ------------------------------------------ */
+               ⛔ DO NOT PUT A VALUE BACK IN HERE. This block used to carry four
+               copies of the whole palette (two @media tiers plus two explicit
+               overrides), and all four selected `svg#premise` — an id this
+               file no longer has, since the identifiers were converted to
+               underscores for the current language. So every one of them had
+               stopped matching, and because these var() calls had no fallbacks
+               either, the scene rendered with no fill at all. */
 
-            /* TIER 3 (Lowest): AUTO MODE - System preference fallback */
-            /* Uses OS dark/light mode setting via media queries */
-            /* Only applies when SVG has no class AND parent has no theme class */
-            @media (prefers-color-scheme: light) {
-                svg#pain-points:not(.dark-mode):not(.light-mode) {
-                    --canvas-bg: #F7F7F7;
-                    --icon-fill: #FFFFFF;
-                    --icon-fill-light: #E5E5E5;
-                    --icon-stroke: #555555;
-                    --icon-fill-medium: #AAAAAA;
-                    --icon-fill-dark: #555555;
-                    --text-primary: #000000;
-                    --text-secondary: #333333;
-                }
-            }
-
-            @media (prefers-color-scheme: dark) {
-                svg#pain-points:not(.dark-mode):not(.light-mode) {
-                    --canvas-bg: #181818;
-                    --icon-fill: #2A2A2A;
-                    --icon-fill-light: #1E1E1E;
-                    --icon-stroke: #AAAAAA;
-                    --icon-fill-medium: #555555;
-                    --icon-fill-dark: #AAAAAA;
-                    --text-primary: #E0E0E0;
-                    --text-secondary: #CCCCCC;
-                }
-            }
-
-            /* TIER 2 (Middle): PARENT CONTEXT - Inherited theme from HTML container */
-            /* When SVG is embedded in HTML with class="dark-mode" or class="light-mode", */
-            /* CSS variables inherit automatically via CSS cascade */
-            /* Example: &lt;div class="dark-mode"&gt;&lt;svg&gt;...&lt;/svg&gt;&lt;/div&gt; */
-            /* Note: SVG's own class (Tier 1) will override this if present */
-
-            /* TIER 1 (Highest): SVG-LEVEL EXPLICIT OVERRIDE */
-            /* Add class="light-mode" or class="dark-mode" directly to svg element */
-            /* This is the most explicit intent and overrides everything else */
-            /* Example: &lt;svg id="pain_points" class="dark-mode"&gt; */
-            svg#pain-points.light-mode {
-                --canvas-bg: #F7F7F7;
-                --icon-fill: #FFFFFF;
-                --icon-fill-light: #E5E5E5;
-                --icon-stroke: #555555;
-                --icon-fill-medium: #AAAAAA;
-                --icon-fill-dark: #555555;
-                --text-primary: #000000;
-                --text-secondary: #333333;
-            }
-
-            svg#pain-points.dark-mode {
-                --canvas-bg: #181818;
-                --icon-fill: #2A2A2A;
-                --icon-fill-light: #1E1E1E;
-                --icon-stroke: #AAAAAA;
-                --icon-fill-medium: #555555;
-                --icon-fill-dark: #AAAAAA;
-                --text-primary: #E0E0E0;
-                --text-secondary: #CCCCCC;
-            }
-
-            /* ------------------------------------------ */
-            /* Apply CSS variables to elements */
-            /* ------------------------------------------ */
             .canvas-bg {
-                fill: var(--canvas-bg);
+                fill: var(--scene-background-color, #181818);
             }
 
+            /* The icon catalog's vocabulary. `icon-fill-medium` is deliberately
+               absent: no glyph in THIS scene carries it. */
             .icon-fill {
-                fill: var(--icon-fill);
+                fill: var(--icon-fill, #2a2a2a);
             }
 
             .icon-fill-light {
-                fill: var(--icon-fill-light);
-            }
-
-            .icon-stroke {
-                stroke: var(--icon-stroke);
-            }
-
-            .icon-fill-medium {
-                fill: var(--icon-fill-medium);
+                fill: var(--icon-fill-light, #1e1e1e);
             }
 
             .icon-fill-dark {
-                fill: var(--icon-fill-dark);
+                fill: var(--icon-fill-dark, #aaaaaa);
             }
 
+            .icon-stroke {
+                stroke: var(--icon-stroke, #aaaaaa);
+            }
+
+            /* Carried by the glyphs drawn as text inside the icon symbols.
+               Their size stays on the element: a glyph inside a 24-unit symbol
+               is 8, which is nothing to do with the headings below. */
             .text-primary {
-                fill: var(--text-primary);
-            }
-
-            .text-secondary {
-                fill: var(--text-secondary);
+                fill: var(--title-text-color, #e0e0e0);
+                font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
             }
 
             .heading-text {
-                fill: var(--text-primary);
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                fill: var(--title-text-color, #e0e0e0);
+                font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 72px;
                 font-weight: 700;
                 text-anchor: middle;
             }
 
             .subtitle-text {
-                fill: var(--text-secondary);
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                fill: var(--detail-text-color, #aaaaaa);
+                font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 36px;
                 font-weight: 400;
                 text-anchor: middle;
-            }
-
-            /* ------------------------------------------ */
-            /* Group Opacity Control */
-            /* ------------------------------------------ */
-            .icon-group {
-                opacity: var(--global-opacity);
-            }
-
-            .text-group {
-                opacity: var(--global-opacity);
             }
         </style>
 
@@ -256,7 +185,7 @@
             <line x1="15" y1="10.5" x2="17.5" y2="6" class="icon-stroke" stroke-width="1"/>
             <path d="M 6.5,6 Q 9,4 12,5" class="icon-fill icon-stroke" stroke-width="1"/>
             <path d="M 12,5 Q 15,4 17.5,6" class="icon-fill icon-stroke" stroke-width="1"/>
-            <text x="12" y="19" font-family="Arial, sans-serif" font-size="8" font-weight="normal" class="text-primary" text-anchor="middle">$</text>
+            <text x="12" y="19" font-size="8" font-weight="normal" class="text-primary" text-anchor="middle">$</text>
         </symbol>
 
         <symbol id="qr_code" viewBox="0 0 24 24">
@@ -370,105 +299,105 @@
 
     <!-- Icons distributed uniformly across canvas (avoiding center title area) -->
     <!-- Top row (y ~100-200) -->
-    <g id="icon_qr_code" class="icon-group" opacity="0">
+    <g id="icon_qr_code">
         <use href="#qr_code" x="120" y="120" width="75" height="75"/>
     </g>
 
-    <g id="icon_source_code" class="icon-group" opacity="0">
+    <g id="icon_source_code">
         <use href="#source_code" x="360" y="140" width="80" height="80"/>
     </g>
 
-    <g id="icon_user" class="icon-group" opacity="0">
+    <g id="icon_user">
         <use href="#user" x="600" y="130" width="75" height="75"/>
     </g>
 
-    <g id="icon_lightning" class="icon-group" opacity="0">
+    <g id="icon_lightning">
         <use href="#lightning" x="1320" y="150" width="75" height="75"/>
     </g>
 
-    <g id="icon_version" class="icon-group" opacity="0">
+    <g id="icon_version">
         <use href="#version" x="1560" y="130" width="75" height="75"/>
     </g>
 
-    <g id="icon_puzzle" class="icon-group" opacity="0">
+    <g id="icon_puzzle">
         <use href="#puzzle" x="1800" y="120" width="80" height="80"/>
     </g>
 
     <!-- Upper-middle row (y ~300-400) -->
-    <g id="icon_square_ruler" class="icon-group" opacity="0">
+    <g id="icon_square_ruler">
         <use href="#square_ruler" x="150" y="320" width="70" height="70"/>
     </g>
 
-    <g id="icon_deterministic" class="icon-group" opacity="0">
+    <g id="icon_deterministic">
         <use href="#deterministic" x="400" y="340" width="75" height="75"/>
     </g>
 
-    <g id="icon_robotic_arm" class="icon-group" opacity="0">
+    <g id="icon_robotic_arm">
         <use href="#robotic_arm" x="1520" y="320" width="80" height="80"/>
     </g>
 
-    <g id="icon_adjustment" class="icon-group" opacity="0">
+    <g id="icon_adjustment">
         <use href="#adjustment" x="1750" y="290" width="75" height="75"/>
     </g>
 
     <!-- Middle row -->
-    <g id="icon_feedback_loop" class="icon-group" opacity="0">
+    <g id="icon_feedback_loop">
         <use href="#feedback_loop" x="140" y="500" width="75" height="75"/>
     </g>
 
-    <g id="icon_hub" class="icon-group" opacity="0">
+    <g id="icon_hub">
         <use href="#hub" x="1530" y="520" width="75" height="75"/>
     </g>
 
-    <g id="icon_gauge" class="icon-group" opacity="0">
+    <g id="icon_gauge">
         <use href="#gauge" x="380" y="560" width="75" height="75"/>
     </g>
 
-    <g id="icon_spiderweb" class="icon-group" opacity="0">
+    <g id="icon_spiderweb">
         <use href="#spiderweb" x="1760" y="460" width="75" height="75"/>
     </g>
 
 
 
     <!-- Lower-middle row (y ~680-780) -->
-    <g id="icon_street_cone" class="icon-group" opacity="0">
+    <g id="icon_street_cone">
         <use href="#street_cone" x="140" y="700" width="75" height="75"/>
     </g>
 
-    <g id="icon_eye" class="icon-group" opacity="0">
+    <g id="icon_eye">
         <use href="#eye" x="380" y="720" width="80" height="80"/>
     </g>
 
-    <g id="icon_die" class="icon-group" opacity="0">
+    <g id="icon_die">
         <use href="#die" x="1520" y="690" width="75" height="75"/>
     </g>
 
-    <g id="icon_pattern" class="icon-group" opacity="0">
+    <g id="icon_pattern">
         <use href="#pattern" x="1760" y="720" width="75" height="75"/>
     </g>
 
     <!-- Bottom row (y ~880-920) -->
-    <g id="icon_sync" class="icon-group" opacity="0">
+    <g id="icon_sync">
         <use href="#sync" x="120" y="880" width="75" height="75"/>
     </g>
 
-    <g id="icon_money_sack" class="icon-group" opacity="0">
+    <g id="icon_money_sack">
         <use href="#money_sack" x="360" y="900" width="75" height="75"/>
     </g>
 
-    <g id="icon_stack" class="icon-group" opacity="0">
+    <g id="icon_stack">
         <use href="#stack" x="600" y="890" width="75" height="75"/>
     </g>
 
-    <g id="icon_aiagent" class="icon-group" opacity="0">
+    <g id="icon_aiagent">
         <use href="#aiagent" x="1320" y="890" width="75" height="75"/>
     </g>
 
-    <g id="icon_handshake" class="icon-group" opacity="0">
+    <g id="icon_handshake">
         <use href="#handshake" x="1560" y="890" width="75" height="75"/>
     </g>
 
-    <g id="icon_anchor" class="icon-group" opacity="0">
+    <g id="icon_anchor">
         <use href="#anchor" x="1800" y="890" width="75" height="75"/>
     </g>
 
@@ -476,17 +405,17 @@
     <text id="title"
           x="960"
           y="480"
-          class="heading-text text-group"
+          class="heading-text"
           dominant-baseline="middle"
-          opacity="0">Why Explainer Videos?
+         >Why Kinaigraph?
     </text>
 
     <!-- Subtitle text -->
     <text id="subtitle"
           x="960"
           y="560"
-          class="subtitle-text text-group"
+          class="subtitle-text"
           dominant-baseline="middle"
-          opacity="0">Bringing ideas to life with motion and narrative
+         >Explainer videos are worth making. Making them is the problem.
     </text>
 </svg>

@@ -1,5 +1,6 @@
 This architecture unlocks everything else.
-You achieve consistent styling with unified visuals across your entire library.
-You gain absolute control over temporal precision and spatial positioning.
-You leverage pattern reuse directly from your source code, eliminating redundant construction.
-And you build with composable assets, ready to be assembled for any narrative.
+You get consistent styling, with unified visuals across everything you make.
+You get direct control over timing and positioning, down to the frame and the pixel.
+The animation is paced by the narration itself. Re-record a line, and the scene re-fits around it.
+You reuse patterns straight from your source, instead of building the same thing twice.
+And you compose from assets, ready to be assembled for any narrative.
