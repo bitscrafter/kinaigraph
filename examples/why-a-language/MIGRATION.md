@@ -3,10 +3,10 @@
 Source: `/Users/luis/_Dev/project/animation-dsl/examples/differentiators`
 (4 scenes + TTS + composition, 1920x1080).
 
-✅ **Complete.** All six documents compile, all four scenes render, and
-`scene_05_stitch.yaml` writes `./why_a_language.mp4`. What the example *is* lives
-in [`README.md`](README.md); this file is the record of how it got here and what
-the translation cost.
+✅ **Complete.** Every document compiles, every scene renders, and the two stitch
+documents write `./why_a_language_brief.mp4` and `./why_a_language_full.mp4`.
+What the example *is* lives in [`README.md`](README.md); this file is the record
+of how it got here and what the translation cost.
 
 ## The translation table — derived by compiling, not by reading
 
@@ -106,6 +106,28 @@ stopped describing this one:
   to those seven by a temporary synthesis document, since
   `synthesis.context.status` is section-wide and a plain re-run bills all
   thirteen.
+
+## Then it was cut twice
+
+✅ The revised argument turned out to run 3:57, and the enumerating scenes were
+1:37 and 1:35 of it. Measured, **the animation was not the problem**: 237.7 s of
+video held 221.8 s of speech, so every margin, pad, fade and hold in four scenes
+came to 15.9 s — under 7%. Only the script could give the time back.
+
+So the example now ships **two cuts**: the **full** one, which names every box
+aloud, and a **brief** one at 2:28, whose voice names a CATEGORY and lets the
+boxes enumerate it. Same drawings, same theme, same timeline shapes. Scenes 1
+and 4 are identical in both and rendered once.
+
+Two defects surfaced while building the category waves, both of which had been
+shipping in the full cut:
+
+- ⛔ **The shared band parked all seven boxes at one offstage y**, where the two
+  rows overlap by 120 px each — so row B sat on top of row A's labels for the
+  whole slide. The rows now park 160 apart, the same gap they keep on screen.
+- ⛔ **`Variations Resist` and `Re-Author` overlapped by 120 px and travelled
+  together.** The fix was not to swap two boxes — computed, that makes it worse —
+  but to order the band so no category spans both rows.
 
 ## The warning that earned this file
 

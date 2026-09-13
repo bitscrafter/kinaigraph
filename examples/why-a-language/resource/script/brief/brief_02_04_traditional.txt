@@ -1,0 +1,1 @@
+In a traditional editor all of that lands in the timeline. Keyframes by hand, assets by hand, and a project file only one vendor can open.

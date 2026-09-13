@@ -46,6 +46,17 @@ defs:
         box_common:
             type: "group"
             members: [common_1, common_2, common_3, common_4, common_5, common_6, common_7]
+
+        # ⚠️ THE BAND PARKS IN TWO ROWS, NOT ONE. Both rows used to wait at the
+        # same y, where they overlapped by 120 px each and row B covered row A's
+        # labels for the whole slide. They are only ever named here, to be sent
+        # to two different offstage bands; everything else moves `box_common`.
+        band_row_a:
+            type: "group"
+            members: [common_1, common_2, common_3, common_4]
+        band_row_b:
+            type: "group"
+            members: [common_5, common_6, common_7]
         box_traditional:
             type: "group"
             members: [traditional_1, traditional_2, traditional_3, traditional_4]
@@ -59,13 +70,13 @@ defs:
         # composition at the foot of the file mixes all three onto the frames.
         narration_intro:
             type: "audio"
-            file: "./resource/audio/scene_02_01_intro.mp3"
+            file: "./resource/audio/full/scene_02_01_intro.mp3"
         narration_traditional:
             type: "audio"
-            file: "./resource/audio/scene_02_02_traditional.mp3"
+            file: "./resource/audio/full/scene_02_02_traditional.mp3"
         narration_ai:
             type: "audio"
-            file: "./resource/audio/scene_02_03_ai.mp3"
+            file: "./resource/audio/full/scene_02_03_ai.mp3"
 
         template:
             type: "template"
@@ -95,7 +106,12 @@ defs:
         # side edges and 800 sits below the rows.
         OFFSTAGE_RIGHT_X: 1580
         OFFSTAGE_LEFT_X: 75
+        # ⚠️ TWO BOTTOM BANDS, 160 APART — the same gap the two rows keep on
+        # screen. One band for both rows put every box of row B on top of a box
+        # of row A for the whole slide, because the rows are offset 200 under
+        # 320-wide boxes.
         OFFSTAGE_BOTTOM_Y: 800
+        OFFSTAGE_BOTTOM_ROW_B_Y: 960
 
 animation:
     defaults:
@@ -120,8 +136,13 @@ animation:
             - box_common:
                   - show:
                         opacity: 0
+            - band_row_a:
                   - move:
                         y: OFFSTAGE_BOTTOM_Y
+                        duration: 0
+            - band_row_b:
+                  - move:
+                        y: OFFSTAGE_BOTTOM_ROW_B_Y
                         duration: 0
             - box_traditional:
                   - show:
@@ -438,8 +459,8 @@ animation:
                             after: VIDEO_MARGIN
 
     capture:
-        scene_02_challenge_silent:
-            output: "./resource/video/scene_02_challenge_silent.mp4"
+        scene_02_challenge_full_silent:
+            output: "./resource/video/scene_02_challenge_full_silent.mp4"
             fps: 30
 
 # Three lines onto one clip, each at the bookmark its own section starts on.
@@ -452,7 +473,7 @@ composition:
         # non-zero timestamp hits a known defect that places the audio at output
         # 0 — which here would stack all three lines on the first frame.
         "0":
-            - scene_02_challenge_silent:
+            - scene_02_challenge_full_silent:
                   - roll:
                   - mix:
                         span:
@@ -468,6 +489,6 @@ composition:
                         asset: narration_ai
 
     capture:
-        scene_02_challenge:
-            output: "./resource/video/scene_02_challenge.mp4"
+        scene_02_challenge_full:
+            output: "./resource/video/scene_02_challenge_full.mp4"
             fps: 30

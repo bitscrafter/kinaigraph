@@ -1,6 +1,9 @@
 # ------------------------------------------
-# why-a-language — Scene 3: the benefits
+# why-a-language — Scene 3: the benefits (BRIEF cut)
 # ------------------------------------------
+# ⚡ THE CHOREOGRAPHY IS THE FULL CUT'S, UNCHANGED. Only the lines are shorter:
+# each names what its group of boxes IS rather than reading the boxes out. The
+# thirteen boxes still say which thirteen — faster than a voice can.
 # Scene 2 laid out what making a video costs. This one answers it, in a 5-3-5
 # layout: three boxes down the middle for what the language IS, five on the left
 # for what it gives production, five on the right for what it gives the workflow.
@@ -23,7 +26,7 @@
 # and motion under text is what stops people reading it.
 
 metadata:
-    title: "Why a Language - Scene 3: the benefits"
+    title: "Why a Language - Scene 3: the benefits (brief)"
     description: "A 5-3-5 layout of benefits, each group revealed by its own narration line"
     version: "1.0"
 
@@ -68,13 +71,13 @@ defs:
         # ── The four lines ────────────────────────────────────────────────────
         narration_intro:
             type: "audio"
-            file: "./resource/audio/scene_03_01_intro.mp3"
+            file: "./resource/audio/brief/brief_03_01_what_it_is.mp3"
         narration_production:
             type: "audio"
-            file: "./resource/audio/scene_03_02_production.mp3"
+            file: "./resource/audio/brief/brief_03_02_production.mp3"
         narration_workflow:
             type: "audio"
-            file: "./resource/audio/scene_03_03_workflow.mp3"
+            file: "./resource/audio/brief/brief_03_03_workflow.mp3"
         narration_closing:
             type: "audio"
             file: "./resource/audio/scene_03_04_closing.mp3"
@@ -169,8 +172,8 @@ animation:
                             after: VIDEO_MARGIN
 
     capture:
-        scene_03_benefits_silent:
-            output: "./resource/video/scene_03_benefits_silent.mp4"
+        scene_03_benefits_brief_silent:
+            output: "./resource/video/scene_03_benefits_brief_silent.mp4"
             fps: 30
 
 # Four lines onto one clip, each at the bookmark its own group appears on.
@@ -182,7 +185,7 @@ composition:
         # ⚠️ EVERY MIX CARRIES AN EXPLICIT `span.from` — see scene_02's note on
         # the defect a spanless mix at a non-zero timestamp hits.
         "0":
-            - scene_03_benefits_silent:
+            - scene_03_benefits_brief_silent:
                   - roll:
                   - mix:
                         span:
@@ -202,6 +205,6 @@ composition:
                         asset: narration_closing
 
     capture:
-        scene_03_benefits:
-            output: "./resource/video/scene_03_benefits.mp4"
+        scene_03_benefits_brief:
+            output: "./resource/video/scene_03_benefits_brief.mp4"
             fps: 30

@@ -1,5 +1,5 @@
 # ------------------------------------------
-# why-a-language — the stitch
+# why-a-language — the FULL cut, stitched
 # ------------------------------------------
 # The four scenes in order, captured as the example's headline deliverable.
 #
@@ -20,12 +20,13 @@
 #
 # ⚠️ IT ROLLS WHAT THE SCENES WROTE, so all four must have been rendered first:
 #
-#     kinaigraph scene_00_tts_generation.yaml --outdir .   # once, and it costs credits
+#     kinaigraph scene_00_tts_shared.yaml     # once — the lines both cuts use
+#     kinaigraph scene_00_tts_full.yaml       # once — the lines only this cut uses
 #     kinaigraph scene_01_premise.yaml
-#     kinaigraph scene_02_challenge.yaml
-#     kinaigraph scene_03_benefits.yaml
+#     kinaigraph scene_02_challenge_full.yaml
+#     kinaigraph scene_03_benefits_full.yaml
 #     kinaigraph scene_04_possibilities.yaml
-#     kinaigraph scene_05_stitch.yaml
+#     kinaigraph scene_05_stitch_full.yaml
 #
 # ⛔ NEVER SWEEP THIS DIRECTORY WITH `for y in scene_*.yaml` — that pulls in
 # scene_00 and re-records the narration, which costs credits and silently moves
@@ -37,7 +38,7 @@
 # file to watch.
 
 metadata:
-    title: "Why a Language - the stitch"
+    title: "Why a Language - the full cut, stitched"
     description: "The four scenes in order, each already carrying its own narration"
     version: "1.0"
 
@@ -51,10 +52,10 @@ defs:
             file: "./resource/video/scene_01_premise.mp4"
         challenge:
             type: video
-            file: "./resource/video/scene_02_challenge.mp4"
+            file: "./resource/video/scene_02_challenge_full.mp4"
         benefits:
             type: video
-            file: "./resource/video/scene_03_benefits.mp4"
+            file: "./resource/video/scene_03_benefits_full.mp4"
         possibilities:
             type: video
             file: "./resource/video/scene_04_possibilities.mp4"
@@ -83,5 +84,5 @@ composition:
 
     capture:
         why_a_language_full:
-            output: "./why_a_language.mp4"
+            output: "./why_a_language_full.mp4"
             fps: 30

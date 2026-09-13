@@ -91,14 +91,22 @@ C_ROW_A_Y, C_ROW_B_Y = 95, 245
 K_TOP_Y, K_PITCH = 480, 148
 TRAD_X, AI_X = 400, 1200
 
+# ⚠️ THE ORDER IS THE CATEGORY ORDER, and it is load-bearing. Row A holds two
+# categories side by side and row B holds the third whole, so NO CATEGORY SPANS
+# BOTH ROWS. That matters because the rows are offset 200 under 320-wide boxes,
+# so every adjacent row-A/row-B pair overlaps by 120 px — two boxes that overlap
+# AND travel together cross each other on the way in. Measured: the original
+# order put `Variations Resist` and `Re-Author` in one category, 120 px apart.
 COMMON = [
-    # (icon, line 1, line 2)
+    # (icon, line 1, line 2)                          — row A left: all hand work
     ("sync",         "Syncing",            "Animation & Audio"),
     ("street-cone",  "Labor Intensive",    "Repetitive Work"),
-    ("robotic-arm",  "Variations Resist",  "Automation"),
+    #                                                 — row A right: never becomes software
     ("version",      "Hard to Version",    "Control"),
-    ("clock",        "Stale Content",      "Heavy Re-work"),
     ("pen2",         "Styling Drifts",     "Video to Video"),
+    #                                                 — row B: does not survive change
+    ("robotic-arm",  "Variations Resist",  "Automation"),
+    ("clock",        "Stale Content",      "Heavy Re-work"),
     ("language",     "Re-Author",          "Every Language"),
 ]
 TRADITIONAL = [

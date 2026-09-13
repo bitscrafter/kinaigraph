@@ -1,0 +1,207 @@
+# ------------------------------------------
+# why-a-language — Scene 3: the benefits
+# ------------------------------------------
+# Scene 2 laid out what making a video costs. This one answers it, in a 5-3-5
+# layout: three boxes down the middle for what the language IS, five on the left
+# for what it gives production, five on the right for what it gives the workflow.
+#
+# ⚡ EVERY CHALLENGE SCENE 2 NAMES HAS AN ANSWER HERE. That is the only rule
+# governing what earns a box: syncing is answered by Narration-Paced, usage costs
+# by Renders Locally, styling drift by Consistent Styling, re-authoring per
+# language by Localization, and a binary output by AI-Authorable.
+#
+# ⚡ THE READING ORDER IS THE NARRATION ORDER, and neither is the layout order.
+# The middle pair arrives first even though it sits between the columns, because
+# the columns are consequences of it — there is nothing to say about production
+# or workflow until the thing itself has been named. Each group then fades in
+# across exactly the line that describes it, so a viewer reading left to right is
+# reading the same clause they are hearing.
+#
+# ⚠️ NOTHING MOVES IN THIS SCENE. Scene 2 slid its boxes in and scene 4 walks
+# them across the frame; here ten boxes fade in where they were drawn and nothing
+# else happens. That is deliberate — this is the scene a viewer is meant to READ,
+# and motion under text is what stops people reading it.
+
+metadata:
+    title: "Why a Language - Scene 3: the benefits"
+    description: "A 5-3-5 layout of benefits, each group revealed by its own narration line"
+    version: "1.0"
+
+defs:
+    assets:
+        benefits:
+            type: "scene"
+            file: "./resource/scene/scene_03_benefits.svg"
+
+        # ── The three groups, in the order they are spoken about ──────────────
+        boxes_center:
+            type: "group"
+            members: [center_1, center_2, center_3]
+        boxes_left:
+            type: "group"
+            members: [left_1, left_2, left_3, left_4, left_5]
+        boxes_right:
+            type: "group"
+            members: [right_1, right_2, right_3, right_4, right_5]
+
+        # Everything the scene ever shows, for the two moments that treat the
+        # frame as one thing: hiding it at the start and clearing it at the end.
+        # `heading` is the <g> holding both the title and the line under it.
+        all_content:
+            type: "group"
+            members:
+                - heading
+                - center_1
+                - center_2
+                - center_3
+                - left_1
+                - left_2
+                - left_3
+                - left_4
+                - left_5
+                - right_1
+                - right_2
+                - right_3
+                - right_4
+                - right_5
+
+        # ── The four lines ────────────────────────────────────────────────────
+        narration_intro:
+            type: "audio"
+            file: "./resource/audio/full/scene_03_01_intro.mp3"
+        narration_production:
+            type: "audio"
+            file: "./resource/audio/full/scene_03_02_production.mp3"
+        narration_workflow:
+            type: "audio"
+            file: "./resource/audio/full/scene_03_03_workflow.mp3"
+        narration_closing:
+            type: "audio"
+            file: "./resource/audio/scene_03_04_closing.mp3"
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resource/style/theme_dark.css"
+
+    const:
+        VIDEO_MARGIN: 500
+        BEAT_PAD: 250
+
+        # The only authored duration in the scene. Every other span below is a
+        # line's own length.
+        HEADING_FADE_MS: 600
+
+animation:
+    defaults:
+        assets:
+            scene: benefits
+
+    timeline:
+        # ── An empty frame ───────────────────────────────────────────────────
+        0 @ start_entry:
+            - all_content:
+                  - show:
+                        opacity: 0
+
+        # ── What this is ─────────────────────────────────────────────────────
+        # The heading comes in on its own short fade, ahead of the first line,
+        # so the voice arrives to a frame that already says what it is about.
+        start_entry.end + VIDEO_MARGIN @ heading_fade:
+            - heading:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: HEADING_FADE_MS
+
+        # ── The middle three, across the opening line ────────────────────────
+        # A fade that lasts a whole spoken line is slow enough to read as the
+        # text arriving WITH the sentence rather than as a transition.
+        heading_fade.end + BEAT_PAD @ center_section:
+            - boxes_center:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: narration_intro.duration
+
+        # ── The left column, across the production line ──────────────────────
+        center_section.end + BEAT_PAD @ left_section:
+            - boxes_left:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: narration_production.duration
+
+        # ── The right column, across the workflow line ───────────────────────
+        left_section.end + BEAT_PAD @ right_section:
+            - boxes_right:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: narration_workflow.duration
+
+        # ── Clearing it, across the closing line ─────────────────────────────
+        # ⚠️ THE CLOSING LINE IS THE SHORTEST OF THE FOUR, and the fade is tied
+        # to it, so this is by far the fastest thing that happens in the scene.
+        # That is the intent: the three reveals are read, and the exit is not.
+        right_section.end + BEAT_PAD @ fade_out:
+            - all_content:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: narration_closing.duration
+
+        # ⚠️ `opacity: 1` IS CARRYING THE PAD — see scene_01's note. The scene
+        # asset is opaque throughout; only its contents faded.
+        fade_out.end @ end_entry:
+            - benefits:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: VIDEO_MARGIN
+
+    capture:
+        scene_03_benefits_full_silent:
+            output: "./resource/video/scene_03_benefits_full_silent.mp4"
+            fps: 30
+
+# Four lines onto one clip, each at the bookmark its own group appears on.
+composition:
+    context:
+        status: active
+
+    timeline:
+        # ⚠️ EVERY MIX CARRIES AN EXPLICIT `span.from` — see scene_02's note on
+        # the defect a spanless mix at a non-zero timestamp hits.
+        "0":
+            - scene_03_benefits_full_silent:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::center_section.start"
+                        asset: narration_intro
+                  - mix:
+                        span:
+                            from: "animation::left_section.start"
+                        asset: narration_production
+                  - mix:
+                        span:
+                            from: "animation::right_section.start"
+                        asset: narration_workflow
+                  - mix:
+                        span:
+                            from: "animation::fade_out.start"
+                        asset: narration_closing
+
+    capture:
+        scene_03_benefits_full:
+            output: "./resource/video/scene_03_benefits_full.mp4"
+            fps: 30

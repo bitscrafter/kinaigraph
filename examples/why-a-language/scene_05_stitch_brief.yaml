@@ -1,0 +1,92 @@
+# ------------------------------------------
+# why-a-language — the BRIEF cut, stitched
+# ------------------------------------------
+# The four scenes in order, captured as the example's headline deliverable.
+#
+# ⚡ THERE IS NOT ONE AUTHORED OFFSET IN THIS FILE. Each scene already mixed its
+# own lines onto its own frames, at the bookmarks those lines belong to, so what
+# is left here is concatenation and nothing else. The timestamps chain by
+# BOOKMARK — `premise_bk.end`, `challenge_bk.end` — rather than by number, so every
+# offset is read from the clips' own probed durations. Re-record a line,
+# re-render that scene, and everything after it moves by itself.
+#
+# ⚡ THE TWO CUTS SHARE SCENES 1 AND 4 BY ROLLING THE SAME CLIPS. Those two are
+# word-for-word identical in both, so they are rendered once and rolled twice;
+# only the two enumerating scenes have a cut of their own.
+#
+# ⚠️ THIS EXAMPLE NARRATES PER SCENE, NOT PER CLIP, and that is the one place it
+# parts company with request-response. There, each beat carries exactly one line,
+# so a beat can size ITSELF to its line and the stitch mixes at offset zero.
+# Here scenes 2, 3 and 4 carry three, four and six lines against sections of one
+# picture; a line belongs to a moment inside its scene, not to the whole of it.
+# So the mix rides a `span.from` at that moment, in the document that owns the
+# bookmark — the same shape milestone-ladder uses.
+#
+# ⚠️ IT ROLLS WHAT THE SCENES WROTE, so all four must have been rendered first:
+#
+#     kinaigraph scene_00_tts_shared.yaml     # once — the lines both cuts use
+#     kinaigraph scene_00_tts_brief.yaml      # once — the lines only this cut uses
+#     kinaigraph scene_01_premise.yaml
+#     kinaigraph scene_02_challenge_brief.yaml
+#     kinaigraph scene_03_benefits_brief.yaml
+#     kinaigraph scene_04_possibilities.yaml
+#     kinaigraph scene_05_stitch_brief.yaml
+#
+# ⛔ NEVER SWEEP THIS DIRECTORY WITH `for y in scene_*.yaml` — that pulls in
+# scene_00 and re-records the narration, which costs credits and silently moves
+# every timing the four scenes measured against the committed take. Use
+# `ls scene_*.yaml | grep -v scene_00`.
+#
+# The scenes capture INTERMEDIATES into `resource/video/`; this document is the
+# only one that writes beside the document, and `./why_a_language.mp4` is the
+# file to watch.
+
+metadata:
+    title: "Why a Language - the brief cut, stitched"
+    description: "The four scenes in order, each already carrying its own narration"
+    version: "1.0"
+
+defs:
+    assets:
+        # The four narrated scenes, exactly where scenes 01-04 write them.
+        # ⚠️ NOT the `_silent` siblings beside them: those are each scene's
+        # animation capture, before its own composition mixed the voice on.
+        premise:
+            type: video
+            file: "./resource/video/scene_01_premise.mp4"
+        challenge:
+            type: video
+            file: "./resource/video/scene_02_challenge_brief.mp4"
+        benefits:
+            type: video
+            file: "./resource/video/scene_03_benefits_brief.mp4"
+        possibilities:
+            type: video
+            file: "./resource/video/scene_04_possibilities.mp4"
+
+composition:
+    context:
+        status: active
+
+    # Story order, and each scene is the one that could not have been told before
+    # it: why a video at all, then what a video costs, then what a language does
+    # about that cost, then what it opens up. Reorder these and the argument
+    # stops being an argument.
+    timeline:
+        "0 @ premise_bk":
+            - premise:
+                  - roll:
+        "premise_bk.end @ challenge_bk":
+            - challenge:
+                  - roll:
+        "challenge_bk.end @ benefits_bk":
+            - benefits:
+                  - roll:
+        "benefits_bk.end @ possibilities_bk":
+            - possibilities:
+                  - roll:
+
+    capture:
+        why_a_language_brief:
+            output: "./why_a_language_brief.mp4"
+            fps: 30

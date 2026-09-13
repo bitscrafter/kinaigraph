@@ -1,51 +1,97 @@
 # Why a Language — the case, in four scenes
 
 The pitch: why explainer videos are worth making, what making them costs today,
-what a language does about that cost, and what it opens up. Just under four
-minutes, 1920x1080, and not one second of it is a length anyone chose — every
-scene is as long as the lines spoken over it.
+what a language does about that cost, and what it opens up. 1920x1080, and not
+one second of either cut is a length anyone chose — every scene is as long as the
+lines spoken over it.
 
-This is the FULL cut. A shorter one may follow; it would be a second deliverable
-rather than a replacement.
+**Two cuts of the same argument, from the same drawings.**
+
+| cut | length | how the voice works |
+| --- | --- | --- |
+| **brief** | 2:28 | names a CATEGORY and lets the boxes enumerate it |
+| **full** | 3:57 | names every box out loud |
+
+⚡ **The difference is entirely in the narration.** Same artwork, same theme, same
+timeline shapes — the brief's scenes 2 and 3 just take shorter lines, and scene 2
+splits its shared band into three category waves. Scenes 1 and 4 are word-for-word
+identical, so they are rendered **once** and rolled by both stitches.
 
 ## Running it
 
 ```sh
-kinaigraph scene_00_tts_generation.yaml   # once — needs ELEVENLABS_API_KEY, costs credits
+kinaigraph scene_00_tts_shared.yaml       # once — the seven lines both cuts use
 kinaigraph scene_01_premise.yaml
-kinaigraph scene_02_challenge.yaml
-kinaigraph scene_03_benefits.yaml
 kinaigraph scene_04_possibilities.yaml
-kinaigraph scene_05_stitch.yaml
-open ./why_a_language.mp4
+
+# the brief cut
+kinaigraph scene_00_tts_brief.yaml        # once — its eight category lines
+kinaigraph scene_02_challenge_brief.yaml
+kinaigraph scene_03_benefits_brief.yaml
+kinaigraph scene_05_stitch_brief.yaml
+open ./why_a_language_brief.mp4
+
+# the full cut
+kinaigraph scene_00_tts_full.yaml         # once — its six long lines
+kinaigraph scene_02_challenge_full.yaml
+kinaigraph scene_03_benefits_full.yaml
+kinaigraph scene_05_stitch_full.yaml
+open ./why_a_language_full.mp4
 ```
+
+⛔ **Three synthesis documents, and each bills only what it owns.**
+`synthesis.context.status` is section-wide, so one document listing everything
+would re-record everything.
 
 The narration has to exist before any scene will render: every phase derives its
 length from a clip's probed `.duration`, so without the audio there is nothing
 for the timeline to measure.
 
-⛔ **Never sweep this folder with `for y in scene_*.yaml`.** That pulls in
-`scene_00`, which re-records all thirteen lines — it bills credits, and every new
-length silently moves the timings the four scenes measured against the committed
-take. Use `ls scene_*.yaml | grep -v scene_00`.
+⛔ **Never sweep this folder with `for y in scene_*.yaml`.** That pulls in all
+three `scene_00` documents and re-records everything — it bills credits, and
+every new length silently moves the timings the scenes measured against the
+committed take. Use `ls scene_*.yaml | grep -v scene_00`.
 
 | File | What it is |
 | ---- | ---------- |
-| `scene_00_tts_generation.yaml` | Synthesis only. Turns thirteen scripts into thirteen clips. |
-| `scene_01_premise.yaml` … `scene_04_possibilities.yaml` | The four scenes. Each is an animation plus the composition that mixes its own lines onto it. |
-| `scene_05_stitch.yaml` | The four in order. The only document that writes beside the document. |
-| `resource/scene/scene_0N_*.svg` | The artwork, one file per scene. Scenes 2 and 3 are **generated** — see *Editing it*. |
+| `scene_00_tts_shared.yaml` | Synthesis. The seven lines both cuts use. |
+| `scene_00_tts_<cut>.yaml` | Synthesis. That cut's own lines — six long ones, or eight category ones. |
+| `scene_01_premise.yaml` · `scene_04_possibilities.yaml` | The two scenes both cuts share. Rendered once. |
+| `scene_02_challenge_<cut>.yaml` · `scene_03_benefits_<cut>.yaml` | The two enumerating scenes, one document per cut. |
+| `scene_05_stitch_<cut>.yaml` | That cut in order. The only documents that write beside the document. |
+| `resource/scene/scene_0N_*.svg` | The artwork, shared by both cuts. Scenes 2 and 3 are **generated** — see *Editing it*. |
 | `resource/style/theme_dark.css` · `theme_light.css` | The palette and type. Values only. |
-| `resource/script/scene_NN_MM_*.txt` | The narration, one file per line. |
-| `resource/audio/scene_NN_MM_*.mp3` | The recordings, once generated. |
-| `resource/video/` | Intermediates. Each scene writes a silent capture and a narrated one here; gitignored. |
+| `resource/script/*.txt` · `resource/audio/*.mp3` | The lines both cuts use. |
+| `resource/script/<cut>/` · `resource/audio/<cut>/` | The lines only that cut uses. |
+| `resource/video/` | Intermediates. Gitignored. |
 
 ## What this example is a good place to notice
+
+**The brief cut names categories; the full cut names boxes.** Narration that
+reads the screen aloud competes with the reader, who is faster — so the brief
+says *"none of it is software"* and lets two boxes arrive saying which two. Scene
+2's shared band comes in as three waves, one per category, and the difference in
+runtime is 89 seconds.
+
+Two rules make that work, and the compiler enforces the first:
+
+- **The categories are a partition** — every box in exactly one. Two categories
+  sharing a box and both writing its opacity over one window is rejected, naming
+  the actor and both windows (§6.7.2).
+- **No category spans both rows.** The band's rows are offset 200 under 320-wide
+  boxes, so every adjacent row-A/row-B pair overlaps by 120 px — and two boxes
+  that overlap *and travel together* cross each other on the way in. The box order
+  in the generator is what keeps each wave inside one row.
+
+**One clip per category, never fractions of one clip.** Each wave takes its length
+from its own line, so re-recording one sentence moves one wave. Splitting a single
+clip by thirds would tie the picture to where the sentences happen to fall in one
+take — the trap `request-response` records against its six legs.
 
 **It narrates per SCENE, not per clip — and that is the one place it parts company
 with `request-response`.** There, each beat carries exactly one line, so a beat
 can size ITSELF to its line and the stitch mixes at offset zero with no authored
-offsets anywhere. Here scenes 2, 3 and 4 carry three, four and five lines against
+offsets anywhere. Here every scene but the first carries several lines against
 sections of one picture: a line belongs to a *moment inside* its scene, not to the
 whole of it. So each scene keeps its own `composition`, and each mix rides a
 `span.from: "animation::<bookmark>.start"` — the bookmark of the moment it
@@ -141,7 +187,7 @@ which runs each ring from wherever it actually is: the last one from full, the
 other three from half.
 
 ⚠️ **`synthesis.context.status` is section-wide.** Re-running the TTS document
-regenerates all thirteen clips and bills for all thirteen, even if you edited one
-line.
+regenerates every line that document lists and bills for all of them, even if you
+edited one. That is why there are three of them rather than one.
 
 `resource/temp/` is not published. It holds authoring scratch.

@@ -1,0 +1,53 @@
+# ------------------------------------------
+# why-a-language — Audio Generation: the FULL cut's own lines
+# ------------------------------------------
+# Six lines, and they are what makes this cut the long one: each names every box
+# in its section out loud. The brief cut replaces them with ten shorter lines
+# that name CATEGORIES instead, and leaves the picture to enumerate.
+#
+#     kinaigraph scene_00_tts_shared.yaml   # once, for the lines both cuts use
+#     kinaigraph scene_00_tts_full.yaml     # these six
+#
+# Needs ELEVENLABS_API_KEY. Every run costs credits, and re-running this
+# re-records all six — `synthesis.context.status` is section-wide.
+
+metadata:
+    title: "Why a Language - Audio Generation (full cut)"
+    description: "The long lines only the full cut uses"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        scene_02_01_intro:
+            file: "./resource/script/full/scene_02_01_intro.txt"
+            export: "./resource/audio/full/scene_02_01_intro.mp3"
+        scene_02_02_traditional:
+            file: "./resource/script/full/scene_02_02_traditional.txt"
+            export: "./resource/audio/full/scene_02_02_traditional.mp3"
+        scene_02_03_ai:
+            file: "./resource/script/full/scene_02_03_ai.txt"
+            export: "./resource/audio/full/scene_02_03_ai.mp3"
+        scene_03_01_intro:
+            file: "./resource/script/full/scene_03_01_intro.txt"
+            export: "./resource/audio/full/scene_03_01_intro.mp3"
+        scene_03_02_production:
+            file: "./resource/script/full/scene_03_02_production.txt"
+            export: "./resource/audio/full/scene_03_02_production.mp3"
+        scene_03_03_workflow:
+            file: "./resource/script/full/scene_03_03_workflow.txt"
+            export: "./resource/audio/full/scene_03_03_workflow.mp3"

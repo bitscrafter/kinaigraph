@@ -1,0 +1,491 @@
+# ------------------------------------------
+# why-a-language — Scene 2: the challenge (BRIEF cut)
+# ------------------------------------------
+# ⚡ THE VOICE NAMES CATEGORIES; THE PICTURE ENUMERATES. That is the whole
+# difference between this cut and the full one, and it is worth stating as a
+# rule: narration that reads the screen aloud competes with the reader, who is
+# faster. Here the shared band arrives in THREE WAVES, each wave a category and
+# each sized to its own sentence, and the seven boxes say which seven.
+#
+# ⚠️ THE CATEGORIES ARE A PARTITION — every box in exactly one. Two categories
+# sharing a box and both writing its opacity over one window is rejected
+# outright; the compiler names the actor and both windows (§6.7.2).
+#
+# ⚠️ AND NO CATEGORY SPANS BOTH ROWS. The rows are offset 200 under 320-wide
+# boxes, so every adjacent row-A/row-B pair overlaps by 120 px — two boxes that
+# overlap AND travel together cross each other on the way in. The drawing's box
+# order is what keeps each wave inside one row; see resource/temp/make_scenes.py.
+# Fifteen pain-point boxes in three sections: what BOTH ways of making a video
+# cost, then what the traditional way costs on top, then what the AI way costs on
+# top. The shared band is two rows because seven boxes do not fit across 1920 at
+# a width that leaves room for a label.
+# Each section is narrated by its own line and paced by that line alone, so a
+# re-recording moves one section and leaves the other two where they were.
+#
+# ⚡ NOT ONE BOX POSITION IS AUTHORED IN THIS FILE, and that is what makes the
+# scene cheap to change. Every box is drawn where it belongs in
+# `resource/scene/scene_02_challenge.svg`; this document pushes it OFF that spot
+# at t=0 and then hands it back with `restore`, which targets the SVG's own
+# initial values. Move a box in the drawing and the slide follows it — there is
+# no coordinate here to forget to update.
+#
+# ⚠️ THE PRECURSOR WROTE THE RETURN AS `x: "common-1:left"`, a coordinate naming
+# another element's edge. That form is gone; `restore` with no checkpoint is the
+# direct spelling of what it was reaching for, and it says "where you were drawn"
+# instead of "the left edge of yourself".
+#
+# ⛔ THE THREE SECTIONS LEAVE FROM THREE DIFFERENT EDGES — common from below,
+# traditional from the right, AI from the left. That is not variety for its own
+# sake: the two comparison columns enter from opposite sides so a viewer reads
+# them as a pair being set against each other, and the shared row enters from
+# underneath both.
+
+metadata:
+    title: "Why a Language - Scene 2: the challenge (brief)"
+    description: "Fifteen pain points in five categories, each arriving on its own line"
+    version: "1.0"
+
+defs:
+    assets:
+        challenge:
+            type: "scene"
+            file: "./resource/scene/scene_02_challenge.svg"
+
+        # ── The three sections, as groups ─────────────────────────────────────
+        # ⚠️ `traditional_N`, NOT `trad_N`. The drawing spells these ids out in
+        # full and the precursor's timeline abbreviated them — the one id here
+        # that is not a mechanical hyphen-to-underscore of the precursor's. Both
+        # spellings are legal identifiers, so carrying the abbreviation across
+        # would have compiled and animated nothing.
+        box_common:
+            type: "group"
+            members: [common_1, common_2, common_3, common_4, common_5, common_6, common_7]
+
+        # ⚠️ THE BAND PARKS IN TWO ROWS, NOT ONE. Both rows used to wait at the
+        # same y, where they overlapped by 120 px each and row B covered row A's
+        # labels for the whole slide. They are only ever named here, to be sent
+        # to two different offstage bands; everything else moves `box_common`.
+        band_row_a:
+            type: "group"
+            members: [common_1, common_2, common_3, common_4]
+        band_row_b:
+            type: "group"
+            members: [common_5, common_6, common_7]
+
+        # ── The three categories the voice names ──────────────────────────────
+        # A PARTITION of the seven, and each one is a contiguous run inside a
+        # single row — which is what the drawing's box order exists to arrange.
+        cat_hand_work:
+            type: "group"
+            members: [common_1, common_2]
+        cat_not_software:
+            type: "group"
+            members: [common_3, common_4]
+        cat_survives_change:
+            type: "group"
+            members: [common_5, common_6, common_7]
+        box_traditional:
+            type: "group"
+            members: [traditional_1, traditional_2, traditional_3, traditional_4]
+        box_ai:
+            type: "group"
+            members: [ai_1, ai_2, ai_3, ai_4]
+
+        # ── The three lines ───────────────────────────────────────────────────
+        # Declared for their DURATIONS as much as their sound: each section's
+        # slide lasts exactly as long as the line that names it, and the
+        # composition at the foot of the file mixes all three onto the frames.
+        narration_hand_work:
+            type: "audio"
+            file: "./resource/audio/brief/brief_02_01_hand_work.mp3"
+        narration_not_software:
+            type: "audio"
+            file: "./resource/audio/brief/brief_02_02_not_software.mp3"
+        narration_survives_change:
+            type: "audio"
+            file: "./resource/audio/brief/brief_02_03_survives_change.mp3"
+        narration_traditional:
+            type: "audio"
+            file: "./resource/audio/brief/brief_02_04_traditional.mp3"
+        narration_ai:
+            type: "audio"
+            file: "./resource/audio/brief/brief_02_05_ai.mp3"
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resource/style/theme_dark.css"
+
+    const:
+        VIDEO_MARGIN: 500
+        BEAT_PAD: 250
+
+        HEADING_FADE_MS: 450
+        FADE_OUT_MS: 450
+
+        # Each box breathes while it slides. `amplitude` rather than a target
+        # scale: it is an `add` contribution, so it composes with anything else
+        # touching the box instead of racing it, and it returns to exactly the
+        # size it started at.
+        PULSE_CYCLES: 3
+        PULSE_SWELL: 0.04
+
+        # ⚠️ THESE THREE ARE THE ONLY COORDINATES IN THE FILE, and all three are
+        # OFF-SCREEN parking spots, not positions anything comes to rest at. The
+        # frame is 1920 x 1080, so 1580 and 75 sit a box-width outside the two
+        # side edges and 800 sits below the rows.
+        OFFSTAGE_RIGHT_X: 1580
+        OFFSTAGE_LEFT_X: 75
+        # ⚠️ TWO BOTTOM BANDS, 160 APART — the same gap the two rows keep on
+        # screen. One band for both rows put every box of row B on top of a box
+        # of row A for the whole slide, because the rows are offset 200 under
+        # 320-wide boxes.
+        OFFSTAGE_BOTTOM_Y: 800
+        OFFSTAGE_BOTTOM_ROW_B_Y: 960
+
+animation:
+    defaults:
+        assets:
+            scene: challenge
+
+    timeline:
+        # ── Everything hidden and parked off its mark ─────────────────────────
+        # `duration: 0` makes each move an instant placement rather than an
+        # animation — the boxes are never SEEN travelling out, only back in.
+        0 @ init_entry:
+            - section_common:
+                  - show:
+                        opacity: 0
+            - section_traditional:
+                  - show:
+                        opacity: 0
+            - section_ai:
+                  - show:
+                        opacity: 0
+
+            - box_common:
+                  - show:
+                        opacity: 0
+            - band_row_a:
+                  - move:
+                        y: OFFSTAGE_BOTTOM_Y
+                        duration: 0
+            - band_row_b:
+                  - move:
+                        y: OFFSTAGE_BOTTOM_ROW_B_Y
+                        duration: 0
+            - box_traditional:
+                  - show:
+                        opacity: 0
+                  - move:
+                        x: OFFSTAGE_RIGHT_X
+                        duration: 0
+            - box_ai:
+                  - show:
+                        opacity: 0
+                  - move:
+                        x: OFFSTAGE_LEFT_X
+                        duration: 0
+
+        # ⚠️ `opacity: 1` IS CARRYING THE PAD — see scene_01's note. The scene is
+        # already fully opaque; restating it is what lets the hold ride on a
+        # `show` that the current language will accept.
+        init_entry.end @ start_entry:
+            - challenge:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: VIDEO_MARGIN
+
+        # ── The shared cost ─────────────────────────────────────────────
+        # The heading first, then the boxes under it — a section names itself
+        # before it fills.
+        start_entry.end @ common_heading:
+            - section_common:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: HEADING_FADE_MS
+
+        # ⚡ TWO ENTRIES FOR ONE BOX, ON PURPOSE. Actions inside a single entry
+        # run in sequence; a second entry for the same actor at the same
+        # timestamp runs alongside the first. The slide and the breath have to
+        # overlap, so they are written apart. They touch disjoint properties
+        # — x/y against scale — so nothing races.
+        #
+        # `restore` with no checkpoint targets the SVG's initial values, which
+        # is where the box was drawn. Its duration is the line's, so the four
+        # boxes are still arriving as the last clause names the last of them.
+        common_heading.end + BEAT_PAD @ common:
+            - cat_hand_work:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_hand_work.duration
+            - cat_hand_work:
+                  - pulse:
+                        duration: narration_hand_work.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+
+        # The second category, the other half of the top row.
+        common.end @ common_software:
+            - cat_not_software:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_not_software.duration
+            - cat_not_software:
+                  - pulse:
+                        duration: narration_not_software.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+
+        # The third, the whole of the second row — and the consequence of the
+        # first two, which is why it lands last.
+        common_software.end @ common_change:
+            - cat_survives_change:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_survives_change.duration
+            - cat_survives_change:
+                  - pulse:
+                        duration: narration_survives_change.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+
+
+        # ── What the traditional way adds ─────────────────────────────────────────────
+        # The first of the two columns being compared. It enters from the right.
+        common_change.end + BEAT_PAD @ traditional_heading:
+            - section_traditional:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: HEADING_FADE_MS
+
+        traditional_heading.end + BEAT_PAD @ traditional:
+            - traditional_1:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_traditional.duration
+            - traditional_1:
+                  - pulse:
+                        duration: narration_traditional.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - traditional_2:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_traditional.duration
+            - traditional_2:
+                  - pulse:
+                        duration: narration_traditional.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - traditional_3:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_traditional.duration
+            - traditional_3:
+                  - pulse:
+                        duration: narration_traditional.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - traditional_4:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_traditional.duration
+            - traditional_4:
+                  - pulse:
+                        duration: narration_traditional.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+
+        # ── What the AI way adds ─────────────────────────────────────────────
+        # The second column, entering from the left — see the header on why the
+        # two come from opposite edges.
+        traditional.end + BEAT_PAD @ ai_heading:
+            - section_ai:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: HEADING_FADE_MS
+
+        ai_heading.end + BEAT_PAD @ ai:
+            - ai_1:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_ai.duration
+            - ai_1:
+                  - pulse:
+                        duration: narration_ai.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - ai_2:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_ai.duration
+            - ai_2:
+                  - pulse:
+                        duration: narration_ai.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - ai_3:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_ai.duration
+            - ai_3:
+                  - pulse:
+                        duration: narration_ai.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+            - ai_4:
+                  - show:
+                        opacity: 1
+                  - restore:
+                        apply: [x, y]
+                        duration: narration_ai.duration
+            - ai_4:
+                  - pulse:
+                        duration: narration_ai.duration
+                        cycles: PULSE_CYCLES
+                        scale:
+                            amplitude: PULSE_SWELL
+                        pivot: center
+
+        # ── Clearing the frame ────────────────────────────────────────────────
+        # Headings and boxes together, section by section, all on one timestamp:
+        # the comparison is finished, and taking it apart in pieces would invite
+        # the viewer to keep reading it.
+        ai.end + BEAT_PAD @ fade_out:
+            - section_common:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - box_common:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - section_traditional:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - box_traditional:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - section_ai:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+            - box_ai:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: FADE_OUT_MS
+
+        fade_out.end @ end_entry:
+            - challenge:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: VIDEO_MARGIN
+
+    capture:
+        scene_02_challenge_brief_silent:
+            output: "./resource/video/scene_02_challenge_brief_silent.mp4"
+            fps: 30
+
+# Five lines onto one clip, each at the bookmark its own category starts on.
+composition:
+    context:
+        status: active
+
+    timeline:
+        # ⚠️ EVERY MIX CARRIES AN EXPLICIT `span.from`. Without one, a mix at a
+        # non-zero timestamp hits a known defect that places the audio at output
+        # 0 — which here would stack all three lines on the first frame.
+        "0":
+            - scene_02_challenge_brief_silent:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::common.start"
+                        asset: narration_hand_work
+                  - mix:
+                        span:
+                            from: "animation::common_software.start"
+                        asset: narration_not_software
+                  - mix:
+                        span:
+                            from: "animation::common_change.start"
+                        asset: narration_survives_change
+                  - mix:
+                        span:
+                            from: "animation::traditional.start"
+                        asset: narration_traditional
+                  - mix:
+                        span:
+                            from: "animation::ai.start"
+                        asset: narration_ai
+
+    capture:
+        scene_02_challenge_brief:
+            output: "./resource/video/scene_02_challenge_brief.mp4"
+            fps: 30

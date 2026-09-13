@@ -1,0 +1,65 @@
+# ------------------------------------------
+# why-a-language — Audio Generation: the BRIEF cut's own lines
+# ------------------------------------------
+# Eight lines, and they are what makes this cut the short one: each names a
+# CATEGORY of boxes rather than reading the boxes out. The five for scene 2 are
+# the three waves of the shared band plus one per column; the three for scene 3
+# are its three groups.
+#
+# ⚠️ ONE CLIP PER CATEGORY, NOT FRACTIONS OF ONE CLIP. Each wave takes its
+# length from its own line, so re-recording one sentence moves one wave and
+# nothing else. Splitting a single clip by thirds would tie the picture to where
+# the sentences happen to fall in THIS take.
+#
+#     kinaigraph scene_00_tts_shared.yaml   # once, for the lines both cuts use
+#     kinaigraph scene_00_tts_brief.yaml    # these eight
+#
+# Needs ELEVENLABS_API_KEY. Every run costs credits, and re-running this
+# re-records all six — `synthesis.context.status` is section-wide.
+
+metadata:
+    title: "Why a Language - Audio Generation (brief cut)"
+    description: "The category lines only the brief cut uses"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        brief_02_01_hand_work:
+            file: "./resource/script/brief/brief_02_01_hand_work.txt"
+            export: "./resource/audio/brief/brief_02_01_hand_work.mp3"
+        brief_02_02_not_software:
+            file: "./resource/script/brief/brief_02_02_not_software.txt"
+            export: "./resource/audio/brief/brief_02_02_not_software.mp3"
+        brief_02_03_survives_change:
+            file: "./resource/script/brief/brief_02_03_survives_change.txt"
+            export: "./resource/audio/brief/brief_02_03_survives_change.mp3"
+        brief_02_04_traditional:
+            file: "./resource/script/brief/brief_02_04_traditional.txt"
+            export: "./resource/audio/brief/brief_02_04_traditional.mp3"
+        brief_02_05_ai:
+            file: "./resource/script/brief/brief_02_05_ai.txt"
+            export: "./resource/audio/brief/brief_02_05_ai.mp3"
+        brief_03_01_what_it_is:
+            file: "./resource/script/brief/brief_03_01_what_it_is.txt"
+            export: "./resource/audio/brief/brief_03_01_what_it_is.mp3"
+        brief_03_02_production:
+            file: "./resource/script/brief/brief_03_02_production.txt"
+            export: "./resource/audio/brief/brief_03_02_production.mp3"
+        brief_03_03_workflow:
+            file: "./resource/script/brief/brief_03_03_workflow.txt"
+            export: "./resource/audio/brief/brief_03_03_workflow.mp3"

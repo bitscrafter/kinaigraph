@@ -128,6 +128,46 @@
 				stroke-linecap="round"
 			/>
         </symbol>
+<symbol id="version" viewBox="0 0 24 24">
+            <!-- Main branch line (vertical) -->
+            <line
+				x1="8"
+				y1="6"
+				x2="8"
+				y2="18"
+				class="icon-stroke"
+				stroke-width="1.25"
+				stroke-linecap="round"
+			/>
+            <!-- Side branch rounded elbow connection (starting from top node) -->
+            <path
+				d="M 8,6 Q 16,6 16,14"
+				fill="none"
+				class="icon-stroke"
+				stroke-width="1.25"
+				stroke-linecap="round"
+			/>
+
+            <!-- Nodes (circles) -->
+            <!-- Main branch nodes -->
+            <circle cx="8" cy="6" r="2" class="icon-fill icon-stroke" stroke-width="1.5" />
+            <circle cx="8" cy="18" r="2" class="icon-fill icon-stroke" stroke-width="1.5" />
+            <!-- Side branch node (moved down) -->
+            <circle cx="16" cy="14" r="2" class="icon-fill icon-stroke" stroke-width="1.5" />
+        </symbol>
+<symbol id="pen2" viewBox="0 0 24 24">
+            <!-- Pen body (rectangular with rounded cap) -->
+            <polygon
+				points="9,5 6,15 9,16 12,6 9,5"
+				class="icon-fill icon-stroke"
+				stroke-width="1"
+			/>
+            <!-- Pen cap -->
+            <path d="M 12,6 C 13.5,3 11,0 9,5" fill="none" class="icon-stroke" stroke-width="1" />
+            <!-- Pen tip -->
+            <polygon points="6,15 6.5,19 9,16" class="icon-fill icon-stroke" stroke-width="1" />
+
+        </symbol>
 <symbol id="robotic_arm" viewBox="0 0 24 24">
             <!-- Base -->
             <rect
@@ -166,33 +206,6 @@
 				stroke-linejoin="round"
 			/>
         </symbol>
-<symbol id="version" viewBox="0 0 24 24">
-            <!-- Main branch line (vertical) -->
-            <line
-				x1="8"
-				y1="6"
-				x2="8"
-				y2="18"
-				class="icon-stroke"
-				stroke-width="1.25"
-				stroke-linecap="round"
-			/>
-            <!-- Side branch rounded elbow connection (starting from top node) -->
-            <path
-				d="M 8,6 Q 16,6 16,14"
-				fill="none"
-				class="icon-stroke"
-				stroke-width="1.25"
-				stroke-linecap="round"
-			/>
-
-            <!-- Nodes (circles) -->
-            <!-- Main branch nodes -->
-            <circle cx="8" cy="6" r="2" class="icon-fill icon-stroke" stroke-width="1.5" />
-            <circle cx="8" cy="18" r="2" class="icon-fill icon-stroke" stroke-width="1.5" />
-            <!-- Side branch node (moved down) -->
-            <circle cx="16" cy="14" r="2" class="icon-fill icon-stroke" stroke-width="1.5" />
-        </symbol>
 <symbol id="clock" viewBox="0 0 24 24">
             <!-- Face -->
             <circle cx="12" cy="12" r="9" class="icon-fill icon-stroke" stroke-width="1" />
@@ -213,19 +226,6 @@
 			/>
             <!-- Centre pin -->
             <circle cx="12" cy="12" r="0.9" class="icon-fill-dark" />
-        </symbol>
-<symbol id="pen2" viewBox="0 0 24 24">
-            <!-- Pen body (rectangular with rounded cap) -->
-            <polygon
-				points="9,5 6,15 9,16 12,6 9,5"
-				class="icon-fill icon-stroke"
-				stroke-width="1"
-			/>
-            <!-- Pen cap -->
-            <path d="M 12,6 C 13.5,3 11,0 9,5" fill="none" class="icon-stroke" stroke-width="1" />
-            <!-- Pen tip -->
-            <polygon points="6,15 6.5,19 9,16" class="icon-fill icon-stroke" stroke-width="1" />
-
         </symbol>
 <symbol id="language" viewBox="0 0 24 24">
           <!-- Top Character: 'A' -->
@@ -568,27 +568,27 @@
         </g>
         <g id="common_3">
             <rect x="1000" y="95" width="320" height="130" rx="8" class="box-bg box-stroke" stroke-width="2"/>
-            <use href="#robotic_arm" x="1020" y="132" width="55" height="55"/>
-            <text x="1195" y="156" class="box-text">Variations Resist</text>
-            <text x="1195" y="184" class="box-text">Automation</text>
+            <use href="#version" x="1020" y="132" width="55" height="55"/>
+            <text x="1195" y="156" class="box-text">Hard to Version</text>
+            <text x="1195" y="184" class="box-text">Control</text>
         </g>
         <g id="common_4">
             <rect x="1400" y="95" width="320" height="130" rx="8" class="box-bg box-stroke" stroke-width="2"/>
-            <use href="#version" x="1420" y="132" width="55" height="55"/>
-            <text x="1595" y="156" class="box-text">Hard to Version</text>
-            <text x="1595" y="184" class="box-text">Control</text>
+            <use href="#pen2" x="1420" y="132" width="55" height="55"/>
+            <text x="1595" y="156" class="box-text">Styling Drifts</text>
+            <text x="1595" y="184" class="box-text">Video to Video</text>
         </g>
         <g id="common_5">
             <rect x="400" y="245" width="320" height="130" rx="8" class="box-bg box-stroke" stroke-width="2"/>
-            <use href="#clock" x="420" y="282" width="55" height="55"/>
-            <text x="595" y="306" class="box-text">Stale Content</text>
-            <text x="595" y="334" class="box-text">Heavy Re-work</text>
+            <use href="#robotic_arm" x="420" y="282" width="55" height="55"/>
+            <text x="595" y="306" class="box-text">Variations Resist</text>
+            <text x="595" y="334" class="box-text">Automation</text>
         </g>
         <g id="common_6">
             <rect x="800" y="245" width="320" height="130" rx="8" class="box-bg box-stroke" stroke-width="2"/>
-            <use href="#pen2" x="820" y="282" width="55" height="55"/>
-            <text x="995" y="306" class="box-text">Styling Drifts</text>
-            <text x="995" y="334" class="box-text">Video to Video</text>
+            <use href="#clock" x="820" y="282" width="55" height="55"/>
+            <text x="995" y="306" class="box-text">Stale Content</text>
+            <text x="995" y="334" class="box-text">Heavy Re-work</text>
         </g>
         <g id="common_7">
             <rect x="1200" y="245" width="320" height="130" rx="8" class="box-bg box-stroke" stroke-width="2"/>
