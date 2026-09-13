@@ -1,0 +1,348 @@
+# ------------------------------------------
+# why-a-language — Scene 1: the premise
+# ------------------------------------------
+# The opener. A title, a subtitle, and twenty-four icons that drift for exactly
+# as long as the line that narrates them — the scene has no authored length of
+# its own, only margins around `narration_intro.duration`.
+#
+# ⚡ THE DRIFT IS THE POINT OF THE SCENE, not decoration. Every icon is given a
+# small offset in a different direction, so the field reads as alive without any
+# one glyph pulling the eye. Nothing here is a path, a physics model, or a loop:
+# twenty-four `move` actions, each with its own dx/dy, all sharing one duration.
+#
+# ⚠️ THE THREE DRIFT DISTANCES ARE THE WHOLE VOCABULARY. The precursor had six
+# constants for them and two pairs disagreed with their own names — `driftDistance`
+# was 35 but `driftDistanceNeg` was -45, so a "negative distance" was really a
+# negative LARGE. The three below carry the same rendered values with the trap
+# removed: a negative is written `"-DRIFT_FAR"` at the site that wants one.
+
+metadata:
+    title: "Why a Language (brief) - Scene 1: the premise"
+    description: "The premise, over a drifting field of icons, sized to its narration"
+    version: "1.0"
+
+defs:
+    assets:
+        premise:
+            type: "scene"
+            file: "./resource/scene/scene_01_premise.svg"
+
+        # Every icon in the field, moved as one wherever they move together —
+        # they appear together and they leave together, and only the drift in
+        # between treats them one at a time.
+        all_icons:
+            type: "group"
+            members:
+                - icon_source_code
+                - icon_lightning
+                - icon_version
+                - icon_puzzle
+                - icon_eye
+                - icon_pattern
+                - icon_adjustment
+                - icon_feedback_loop
+                - icon_user
+                - icon_sync
+                - icon_die
+                - icon_street_cone
+                - icon_robotic_arm
+                - icon_square_ruler
+                - icon_money_sack
+                - icon_qr_code
+                - icon_deterministic
+                - icon_gauge
+                - icon_stack
+                - icon_hub
+                - icon_spiderweb
+                - icon_aiagent
+                - icon_handshake
+                - icon_anchor
+
+        # Declared for its DURATION as much as for its sound: the drift below is
+        # exactly this long, and the composition at the foot of the file mixes
+        # the same clip onto the rendered frames.
+        narration_intro:
+            type: "audio"
+            file: "./resource/audio/brief/scene_01_01_premise.mp3"
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resource/style/theme_dark.css"
+
+    const:
+        # Silence at each end of the clip, so the stitch never butts a voice
+        # against a cut.
+        VIDEO_MARGIN: 500
+        # The gap between two moves that should read as consecutive rather than
+        # simultaneous.
+        BEAT_PAD: 250
+
+        TEXT_FADE_MS: 500
+        ICON_FADE_MS: 500
+
+        # Three distances, used with either sign. Short enough that no glyph
+        # leaves the space it was drawn in — this is a drift, not a journey.
+        DRIFT_NEAR: 25
+        DRIFT_MID: 35
+        DRIFT_FAR: 45
+
+animation:
+    defaults:
+        assets:
+            scene: premise
+
+    timeline:
+        # ── Nothing on screen yet ─────────────────────────────────────────────
+        # ⚡ THE TIMELINE OWNS THE OPENING STATE, and the drawing owns none of it.
+        # `scene_01_premise.svg` used to carry `opacity="0"` on all twenty-six of
+        # these elements, which meant opening it on its own — in a browser, an
+        # editor, a GitHub preview — showed an empty frame. The attributes are
+        # gone; the drawing now shows what it draws, and this entry is what makes
+        # the video start empty. Frame 1 is written from here either way.
+        #
+        # ⚠️ The group has to cover EVERY element the scene hides. Twenty-four
+        # icons plus the title and the subtitle — miss one and it is simply on
+        # screen from the first frame, with nothing to report it.
+        0 @ start_entry:
+            - title:
+                  - show:
+                        opacity: 0
+                        hold:
+                            after: VIDEO_MARGIN
+            - subtitle:
+                  - show:
+                        opacity: 0
+            - all_icons:
+                  - show:
+                        opacity: 0
+
+        # ── The claim arrives before its evidence ─────────────────────────────
+        start_entry.end @ title_in:
+            - title:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: TEXT_FADE_MS
+                        hold:
+                            after: BEAT_PAD
+            - subtitle:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: TEXT_FADE_MS
+
+        # ── Then the field it is a claim about ────────────────────────────────
+        title_in.end @ icons_in:
+            - all_icons:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: ICON_FADE_MS
+                        hold:
+                            after: BEAT_PAD
+
+        # ── The drift, for the length of the line ─────────────────────────────
+        # `audio_in` is the bookmark the narration is mixed at, at the foot of
+        # this file — so the voice starts on the first frame of the movement and
+        # ends on its last. Re-record the line and both follow it.
+        icons_in.end @ audio_in:
+            - icon_source_code:
+                  - move:
+                        dx: "-DRIFT_NEAR"
+                        dy: "-DRIFT_FAR"
+                        duration: narration_intro.duration
+            - icon_lightning:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: DRIFT_NEAR
+                        duration: narration_intro.duration
+            - icon_version:
+                  - move:
+                        dx: DRIFT_MID
+                        dy: DRIFT_FAR
+                        duration: narration_intro.duration
+            - icon_puzzle:
+                  - move:
+                        dx: "-DRIFT_NEAR"
+                        dy: "-DRIFT_FAR"
+                        duration: narration_intro.duration
+            - icon_eye:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: DRIFT_MID
+                        duration: narration_intro.duration
+            - icon_pattern:
+                  - move:
+                        dx: "-DRIFT_NEAR"
+                        dy: "-DRIFT_NEAR"
+                        duration: narration_intro.duration
+            - icon_adjustment:
+                  - move:
+                        dx: DRIFT_FAR
+                        dy: DRIFT_NEAR
+                        duration: narration_intro.duration
+            - icon_feedback_loop:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: DRIFT_MID
+                        duration: narration_intro.duration
+            - icon_user:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: "-DRIFT_FAR"
+                        duration: narration_intro.duration
+            - icon_sync:
+                  - move:
+                        dx: DRIFT_NEAR
+                        dy: "-DRIFT_FAR"
+                        duration: narration_intro.duration
+            - icon_die:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: DRIFT_NEAR
+                        duration: narration_intro.duration
+            - icon_street_cone:
+                  - move:
+                        dx: DRIFT_MID
+                        dy: DRIFT_FAR
+                        duration: narration_intro.duration
+            - icon_robotic_arm:
+                  - move:
+                        dx: "-DRIFT_NEAR"
+                        dy: DRIFT_MID
+                        duration: narration_intro.duration
+            - icon_square_ruler:
+                  - move:
+                        dx: DRIFT_FAR
+                        dy: "-DRIFT_NEAR"
+                        duration: narration_intro.duration
+            - icon_money_sack:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: DRIFT_FAR
+                        duration: narration_intro.duration
+            - icon_qr_code:
+                  - move:
+                        dx: DRIFT_MID
+                        dy: "-DRIFT_NEAR"
+                        duration: narration_intro.duration
+            - icon_deterministic:
+                  - move:
+                        dx: DRIFT_NEAR
+                        dy: "-DRIFT_FAR"
+                        duration: narration_intro.duration
+            - icon_gauge:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: "-DRIFT_NEAR"
+                        duration: narration_intro.duration
+            - icon_stack:
+                  - move:
+                        dx: DRIFT_FAR
+                        dy: "-DRIFT_FAR"
+                        duration: narration_intro.duration
+            - icon_hub:
+                  - move:
+                        dx: "-DRIFT_NEAR"
+                        dy: "-DRIFT_FAR"
+                        duration: narration_intro.duration
+            - icon_spiderweb:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: "-DRIFT_NEAR"
+                        duration: narration_intro.duration
+            - icon_aiagent:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: "-DRIFT_FAR"
+                        duration: narration_intro.duration
+            - icon_handshake:
+                  - move:
+                        dx: DRIFT_NEAR
+                        dy: "-DRIFT_FAR"
+                        duration: narration_intro.duration
+            - icon_anchor:
+                  - move:
+                        dx: "-DRIFT_FAR"
+                        dy: "-DRIFT_NEAR"
+                        duration: narration_intro.duration
+
+        # ── A held breath after the line ──────────────────────────────────────
+        # ⚠️ `opacity: 1` IS CARRYING THE PAD. The precursor wrote `show: { hold }`
+        # with no property at all; the current language requires a `show` to say
+        # what it shows, so the scene restates the opacity it is already at and
+        # the hold rides on it. Every pure pad in these four documents is spelled
+        # this way.
+        audio_in.end @ audio_out:
+            - premise:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: BEAT_PAD
+
+        # ── Clearing the frame, evidence first ────────────────────────────────
+        audio_out.end @ icons_out:
+            - all_icons:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: ICON_FADE_MS
+                        hold:
+                            after: BEAT_PAD
+
+        icons_out.end @ text_out:
+            - title:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: TEXT_FADE_MS
+            - subtitle:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: TEXT_FADE_MS
+
+        # ⛔ NO TAIL HOLD. Every scene used to end on a held blank frame, and the
+        # next one opened on another — measured, the three cuts between scenes
+        # carried 1.7 s, 1.1 s and 2.8 s of nothing. The fades stay; the frames
+        # after them do not.
+
+    capture:
+        scene_01_premise_brief_silent:
+            output: "./resource/video/scene_01_premise_brief_silent.mp4"
+            fps: 30
+
+# The same document mixes its own line onto its own frames. Scene 1 carries one
+# line; scenes 2, 3 and 4 carry three, four and six, which is why this example
+# narrates per scene rather than per clip the way request-response does.
+composition:
+    context:
+        status: active
+
+    timeline:
+        # ⚠️ THE MIX CARRIES AN EXPLICIT `span.from`. The voice belongs at the
+        # bookmark the drift starts on, not at the head of the clip — there are
+        # two title fades before it. A spanless mix at a non-zero timestamp also
+        # hits a known defect that places the audio at output 0.
+        "0":
+            - scene_01_premise_brief_silent:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::audio_in.start"
+                        asset: narration_intro
+
+    capture:
+        scene_01_premise_brief:
+            output: "./resource/video/scene_01_premise_brief.mp4"
+            fps: 30

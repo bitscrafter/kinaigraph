@@ -1,0 +1,1 @@
+AI moves fast, but you steer by trial and error, the fine control is missing, and what returns is a video, not a source.

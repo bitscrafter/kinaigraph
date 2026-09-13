@@ -1,1 +1,0 @@
-And in the workflow it behaves like code: diffable, quick to change, automatable. One source serves many languages, and it all renders on your own machine with no model in the loop.

@@ -97,19 +97,19 @@ defs:
         # composition at the foot of the file mixes all three onto the frames.
         narration_hand_work:
             type: "audio"
-            file: "./resource/audio/brief/brief_02_01_hand_work.mp3"
+            file: "./resource/audio/brief/scene_02_01_hand_work.mp3"
         narration_not_software:
             type: "audio"
-            file: "./resource/audio/brief/brief_02_02_not_software.mp3"
+            file: "./resource/audio/brief/scene_02_02_not_software.mp3"
         narration_survives_change:
             type: "audio"
-            file: "./resource/audio/brief/brief_02_03_survives_change.mp3"
+            file: "./resource/audio/brief/scene_02_03_survives_change.mp3"
         narration_traditional:
             type: "audio"
-            file: "./resource/audio/brief/brief_02_04_traditional.mp3"
+            file: "./resource/audio/brief/scene_02_04_traditional.mp3"
         narration_ai:
             type: "audio"
-            file: "./resource/audio/brief/brief_02_05_ai.mp3"
+            file: "./resource/audio/brief/scene_02_05_ai.mp3"
 
         template:
             type: "template"
@@ -120,7 +120,6 @@ defs:
             file: "./resource/style/theme_dark.css"
 
     const:
-        VIDEO_MARGIN: 500
         BEAT_PAD: 250
 
         HEADING_FADE_MS: 450
@@ -193,17 +192,10 @@ animation:
         # ⚠️ `opacity: 1` IS CARRYING THE PAD — see scene_01's note. The scene is
         # already fully opaque; restating it is what lets the hold ride on a
         # `show` that the current language will accept.
-        init_entry.end @ start_entry:
-            - challenge:
-                  - show:
-                        opacity: 1
-                        hold:
-                            after: VIDEO_MARGIN
-
         # ── The shared cost ─────────────────────────────────────────────
         # The heading first, then the boxes under it — a section names itself
         # before it fills.
-        start_entry.end @ common_heading:
+        init_entry.end @ common_heading:
             - section_common:
                   - show:
                         opacity:
@@ -440,12 +432,10 @@ animation:
                             to: 0
                         duration: FADE_OUT_MS
 
-        fade_out.end @ end_entry:
-            - challenge:
-                  - show:
-                        opacity: 1
-                        hold:
-                            after: VIDEO_MARGIN
+        # ⛔ NO TAIL HOLD. Every scene used to end on a held blank frame, and the
+        # next one opened on another — measured, the three cuts between scenes
+        # carried 1.7 s, 1.1 s and 2.8 s of nothing. The fades stay; the frames
+        # after them do not.
 
     capture:
         scene_02_challenge_brief_silent:

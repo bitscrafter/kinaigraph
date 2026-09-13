@@ -256,7 +256,7 @@ themes, and narration scripts. Kinaigraph compiles a scene and renders it to an 
 
 | Example | What it shows |
 | --- | --- |
-| [`why-a-language`](examples/why-a-language/) | The pitch, in four scenes: why explainer videos are worth making, what making them costs today, what a language does about that cost, and what it opens up. Shipped as **two cuts from one set of drawings** — a 2:28 whose voice names a category and lets the picture enumerate it, and a 3:57 that names every box aloud. **Not one duration in either is a number anyone chose.** |
+| [`why-a-language`](examples/why-a-language/) | The pitch, in four scenes: why explainer videos are worth making, what making them costs today, what a language does about that cost, and what it opens up. Shipped as **two cuts from one set of drawings** — a 1:44 whose voice names a category and lets the picture enumerate it, and a 3:54 that names every box aloud. **Not one duration in either is a number anyone chose.** |
 | [`microservices-flow`](examples/microservices-flow/) | A narrated walkthrough of a request moving through a microservices architecture — animation paced to narration, animated diagrams, and compile-time theming (the same scene re-rendered in light and dark). |
 | [`request-response`](examples/request-response/) | The same request, authored **twice** — once with hand-measured timings, once with action bookmarks and `pace_by: distance`. The two disagree, and the shorter one is the correct one. |
 | [`wave-anatomy`](examples/wave-anatomy/) | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is drawn anywhere** — every curve is generated from its own equation and sampled by the compiler. |

@@ -21,7 +21,7 @@
 # WHEREVER IT IS — the last one from full, the other three from half.
 
 metadata:
-    title: "Why a Language - Scene 4: the possibilities"
+    title: "Why a Language (full) - Scene 4: the possibilities"
     description: "Four topic rings walk in from the corners, each paced by its own line"
     version: "2.2"
 
@@ -55,19 +55,19 @@ defs:
         # ── The five lines ────────────────────────────────────────────────────
         narration_intro:
             type: "audio"
-            file: "./resource/audio/scene_04_01_intro.mp3"
+            file: "./resource/audio/full/scene_04_01_intro.mp3"
         narration_social:
             type: "audio"
-            file: "./resource/audio/scene_04_02_social.mp3"
+            file: "./resource/audio/full/scene_04_02_social.mp3"
         narration_docs:
             type: "audio"
-            file: "./resource/audio/scene_04_03_docs.mp3"
+            file: "./resource/audio/full/scene_04_03_docs.mp3"
         narration_edu:
             type: "audio"
-            file: "./resource/audio/scene_04_04_edu.mp3"
+            file: "./resource/audio/full/scene_04_04_edu.mp3"
         narration_biz:
             type: "audio"
-            file: "./resource/audio/scene_04_05_biz.mp3"
+            file: "./resource/audio/full/scene_04_05_biz.mp3"
 
         template:
             type: "template"
@@ -78,7 +78,6 @@ defs:
             file: "./resource/style/theme_dark.css"
 
     const:
-        VIDEO_MARGIN: 500
         BEAT_PAD: 250
 
         HEADING_FADE_IN_MS: 700
@@ -133,8 +132,6 @@ animation:
             - all_elements:
                   - show:
                         opacity: 0
-                        hold:
-                            after: VIDEO_MARGIN
 
         # ── The heading, alone ───────────────────────────────────────────────
         start_entry.end @ intro_fade_in:
@@ -165,7 +162,14 @@ animation:
         # Two entries on one timestamp: the ring brightens and its text arrives
         # while the ring is ALSO walking. Opacity and position are disjoint
         # properties, so the two writers compose rather than race.
-        audio_intro.end @ social_fade_in:
+        # ⚠️ `+ BEAT_PAD`, AND IT IS LOAD-BEARING. Starting exactly on
+        # `audio_intro.end` put this write 0.043 ms inside the previous one and
+        # the compile was refused: the earlier window's end is computed from a
+        # ROUNDED duration while the bookmark carries the unrounded value, so
+        # two spans that should touch exactly can overlap by microseconds. A pad
+        # sidesteps it, and a beat between "all four appear" and "the first one
+        # brightens" is worth having anyway.
+        audio_intro.end + BEAT_PAD @ social_fade_in:
             - text_social:
                   - show:
                         opacity:
@@ -183,7 +187,7 @@ animation:
                         hold:
                             after: BEAT_PAD
 
-        audio_intro.end @ social_walk:
+        audio_intro.end + BEAT_PAD @ social_walk:
             - circle_social:
                   - move:
                         x: GATHER_LEFT_X
@@ -383,12 +387,10 @@ animation:
                             from: 1
                             to: 0
                         duration: HEADING_FADE_OUT_MS
-                        hold:
-                            after: VIDEO_MARGIN
 
     capture:
-        scene_04_possibilities_silent:
-            output: "./resource/video/scene_04_possibilities_silent.mp4"
+        scene_04_possibilities_full_silent:
+            output: "./resource/video/scene_04_possibilities_full_silent.mp4"
             fps: 30
 
 # Five lines onto one clip, each at the bookmark its own topic starts on.
@@ -400,7 +402,7 @@ composition:
         # ⚠️ EVERY MIX CARRIES AN EXPLICIT `span.from` — see scene_02's note on
         # the defect a spanless mix at a non-zero timestamp hits.
         "0":
-            - scene_04_possibilities_silent:
+            - scene_04_possibilities_full_silent:
                   - roll:
                   - mix:
                         span:
@@ -424,6 +426,6 @@ composition:
                         asset: narration_biz
 
     capture:
-        scene_04_possibilities:
-            output: "./resource/video/scene_04_possibilities.mp4"
+        scene_04_possibilities_full:
+            output: "./resource/video/scene_04_possibilities_full.mp4"
             fps: 30

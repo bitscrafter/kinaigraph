@@ -10,9 +10,11 @@
 # offset is read from the clips' own probed durations. Re-record a line,
 # re-render that scene, and everything after it moves by itself.
 #
-# ⚡ THE TWO CUTS SHARE SCENES 1 AND 4 BY ROLLING THE SAME CLIPS. Those two are
-# word-for-word identical in both, so they are rendered once and rolled twice;
-# only the two enumerating scenes have a cut of their own.
+# ⚡ EACH CUT IS SELF-SUFFICIENT. Every line it speaks lives in its own script
+# and audio folder, every scene it rolls is its own document, and its synthesis
+# document lists everything it needs. Two lines happen to be word-for-word
+# identical across the cuts and are still stored twice — a cut you can read and
+# rebuild without cross-referencing the other one is worth the duplication.
 #
 # ⚠️ THIS EXAMPLE NARRATES PER SCENE, NOT PER CLIP, and that is the one place it
 # parts company with request-response. There, each beat carries exactly one line,
@@ -25,11 +27,11 @@
 # ⚠️ IT ROLLS WHAT THE SCENES WROTE, so all four must have been rendered first:
 #
 #     kinaigraph scene_00_tts_shared.yaml     # once — the lines both cuts use
-#     kinaigraph scene_00_tts_brief.yaml      # once — the lines only this cut uses
-#     kinaigraph scene_01_premise.yaml
+#     kinaigraph scene_00_tts_brief.yaml     # once, and it costs credits
+#     kinaigraph scene_01_premise_brief.yaml
 #     kinaigraph scene_02_challenge_brief.yaml
 #     kinaigraph scene_03_benefits_brief.yaml
-#     kinaigraph scene_04_possibilities.yaml
+#     kinaigraph scene_04_possibilities_brief.yaml
 #     kinaigraph scene_05_stitch_brief.yaml
 #
 # ⛔ NEVER SWEEP THIS DIRECTORY WITH `for y in scene_*.yaml` — that pulls in
@@ -53,7 +55,7 @@ defs:
         # animation capture, before its own composition mixed the voice on.
         premise:
             type: video
-            file: "./resource/video/scene_01_premise.mp4"
+            file: "./resource/video/scene_01_premise_brief.mp4"
         challenge:
             type: video
             file: "./resource/video/scene_02_challenge_brief.mp4"
@@ -62,7 +64,7 @@ defs:
             file: "./resource/video/scene_03_benefits_brief.mp4"
         possibilities:
             type: video
-            file: "./resource/video/scene_04_possibilities.mp4"
+            file: "./resource/video/scene_04_possibilities_brief.mp4"
 
 composition:
     context:

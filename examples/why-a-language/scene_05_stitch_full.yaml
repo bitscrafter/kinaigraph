@@ -20,12 +20,11 @@
 #
 # ⚠️ IT ROLLS WHAT THE SCENES WROTE, so all four must have been rendered first:
 #
-#     kinaigraph scene_00_tts_shared.yaml     # once — the lines both cuts use
-#     kinaigraph scene_00_tts_full.yaml       # once — the lines only this cut uses
-#     kinaigraph scene_01_premise.yaml
+#     kinaigraph scene_00_tts_full.yaml     # once, and it costs credits
+#     kinaigraph scene_01_premise_full.yaml
 #     kinaigraph scene_02_challenge_full.yaml
 #     kinaigraph scene_03_benefits_full.yaml
-#     kinaigraph scene_04_possibilities.yaml
+#     kinaigraph scene_04_possibilities_full.yaml
 #     kinaigraph scene_05_stitch_full.yaml
 #
 # ⛔ NEVER SWEEP THIS DIRECTORY WITH `for y in scene_*.yaml` — that pulls in
@@ -49,7 +48,7 @@ defs:
         # animation capture, before its own composition mixed the voice on.
         premise:
             type: video
-            file: "./resource/video/scene_01_premise.mp4"
+            file: "./resource/video/scene_01_premise_full.mp4"
         challenge:
             type: video
             file: "./resource/video/scene_02_challenge_full.mp4"
@@ -58,7 +57,7 @@ defs:
             file: "./resource/video/scene_03_benefits_full.mp4"
         possibilities:
             type: video
-            file: "./resource/video/scene_04_possibilities.mp4"
+            file: "./resource/video/scene_04_possibilities_full.mp4"
 
 composition:
     context:

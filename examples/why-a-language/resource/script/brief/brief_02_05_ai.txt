@@ -1,1 +1,0 @@
-Generative AI moves fast, but you steer it by trial and error, the fine control is not there, costs climb with every run, and what comes back is a video, not a source.

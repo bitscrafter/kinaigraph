@@ -71,16 +71,16 @@ defs:
         # ── The four lines ────────────────────────────────────────────────────
         narration_intro:
             type: "audio"
-            file: "./resource/audio/brief/brief_03_01_what_it_is.mp3"
+            file: "./resource/audio/brief/scene_03_01_what_it_is.mp3"
         narration_production:
             type: "audio"
-            file: "./resource/audio/brief/brief_03_02_production.mp3"
+            file: "./resource/audio/brief/scene_03_02_production.mp3"
         narration_workflow:
             type: "audio"
-            file: "./resource/audio/brief/brief_03_03_workflow.mp3"
+            file: "./resource/audio/brief/scene_03_03_workflow.mp3"
         narration_closing:
             type: "audio"
-            file: "./resource/audio/scene_03_04_closing.mp3"
+            file: "./resource/audio/brief/scene_03_04_closing.mp3"
 
         template:
             type: "template"
@@ -91,7 +91,6 @@ defs:
             file: "./resource/style/theme_dark.css"
 
     const:
-        VIDEO_MARGIN: 500
         BEAT_PAD: 250
 
         # The only authored duration in the scene. Every other span below is a
@@ -113,7 +112,7 @@ animation:
         # ── What this is ─────────────────────────────────────────────────────
         # The heading comes in on its own short fade, ahead of the first line,
         # so the voice arrives to a frame that already says what it is about.
-        start_entry.end + VIDEO_MARGIN @ heading_fade:
+        start_entry.end @ heading_fade:
             - heading:
                   - show:
                         opacity:
@@ -164,12 +163,10 @@ animation:
 
         # ⚠️ `opacity: 1` IS CARRYING THE PAD — see scene_01's note. The scene
         # asset is opaque throughout; only its contents faded.
-        fade_out.end @ end_entry:
-            - benefits:
-                  - show:
-                        opacity: 1
-                        hold:
-                            after: VIDEO_MARGIN
+        # ⛔ NO TAIL HOLD. Every scene used to end on a held blank frame, and the
+        # next one opened on another — measured, the three cuts between scenes
+        # carried 1.7 s, 1.1 s and 2.8 s of nothing. The fades stay; the frames
+        # after them do not.
 
     capture:
         scene_03_benefits_brief_silent:

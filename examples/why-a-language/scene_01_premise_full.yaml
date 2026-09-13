@@ -17,7 +17,7 @@
 # removed: a negative is written `"-DRIFT_FAR"` at the site that wants one.
 
 metadata:
-    title: "Why a Language - Scene 1: the premise"
+    title: "Why a Language (full) - Scene 1: the premise"
     description: "The premise, over a drifting field of icons, sized to its narration"
     version: "1.0"
 
@@ -63,7 +63,7 @@ defs:
         # the same clip onto the rendered frames.
         narration_intro:
             type: "audio"
-            file: "./resource/audio/scene_01_01_premise.mp3"
+            file: "./resource/audio/full/scene_01_01_premise.mp3"
 
         template:
             type: "template"
@@ -312,16 +312,14 @@ animation:
                             to: 0
                         duration: TEXT_FADE_MS
 
-        text_out.end @ end_entry:
-            - premise:
-                  - show:
-                        opacity: 1
-                        hold:
-                            after: VIDEO_MARGIN
+        # ⛔ NO TAIL HOLD. Every scene used to end on a held blank frame, and the
+        # next one opened on another — measured, the three cuts between scenes
+        # carried 1.7 s, 1.1 s and 2.8 s of nothing. The fades stay; the frames
+        # after them do not.
 
     capture:
-        scene_01_premise_silent:
-            output: "./resource/video/scene_01_premise_silent.mp4"
+        scene_01_premise_full_silent:
+            output: "./resource/video/scene_01_premise_full_silent.mp4"
             fps: 30
 
 # The same document mixes its own line onto its own frames. Scene 1 carries one
@@ -337,7 +335,7 @@ composition:
         # two title fades before it. A spanless mix at a non-zero timestamp also
         # hits a known defect that places the audio at output 0.
         "0":
-            - scene_01_premise_silent:
+            - scene_01_premise_full_silent:
                   - roll:
                   - mix:
                         span:
@@ -345,6 +343,6 @@ composition:
                         asset: narration_intro
 
     capture:
-        scene_01_premise:
-            output: "./resource/video/scene_01_premise.mp4"
+        scene_01_premise_full:
+            output: "./resource/video/scene_01_premise_full.mp4"
             fps: 30

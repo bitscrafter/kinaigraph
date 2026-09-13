@@ -1,25 +1,32 @@
 # ------------------------------------------
-# why-a-language — Audio Generation: the BRIEF cut's own lines
+# why-a-language — Audio Generation: the BRIEF cut
 # ------------------------------------------
-# Eight lines, and they are what makes this cut the short one: each names a
-# CATEGORY of boxes rather than reading the boxes out. The five for scene 2 are
-# the three waves of the shared band plus one per column; the three for scene 3
-# are its three groups.
+# Fifteen lines, and they are what makes this the short cut: the voice names a
+# CATEGORY and lets the boxes enumerate it. Scene 2's shared band is three of
+# them, one per wave.
 #
 # ⚠️ ONE CLIP PER CATEGORY, NOT FRACTIONS OF ONE CLIP. Each wave takes its
 # length from its own line, so re-recording one sentence moves one wave and
-# nothing else. Splitting a single clip by thirds would tie the picture to where
-# the sentences happen to fall in THIS take.
+# nothing else.
 #
-#     kinaigraph scene_00_tts_shared.yaml   # once, for the lines both cuts use
-#     kinaigraph scene_00_tts_brief.yaml    # these eight
+# ⚡ EACH CUT OWNS ITS WHOLE SCRIPT. This document lists every line the brief cut
+# speaks — nothing is borrowed from the other cut, and two lines that happen to
+# be word-for-word identical across the two are stored twice on purpose. A cut
+# you can read and rebuild without cross-referencing the other one is worth the
+# duplication.
+#
+#     kinaigraph scene_00_tts_brief.yaml
 #
 # Needs ELEVENLABS_API_KEY. Every run costs credits, and re-running this
-# re-records all six — `synthesis.context.status` is section-wide.
+# re-records EVERY line listed — `synthesis.context.status` is section-wide.
+#
+# ⛔ NEVER SWEEP THIS FOLDER with `for y in scene_*.yaml` — that pulls in both
+# synthesis documents and re-records the whole example. Use
+# `ls scene_*.yaml | grep -v scene_00`.
 
 metadata:
     title: "Why a Language - Audio Generation (brief cut)"
-    description: "The category lines only the brief cut uses"
+    description: "Every line the brief cut speaks"
     version: "1.0"
 
 defs:
@@ -39,27 +46,48 @@ synthesis:
         status: active
 
     tts:
-        brief_02_01_hand_work:
-            file: "./resource/script/brief/brief_02_01_hand_work.txt"
-            export: "./resource/audio/brief/brief_02_01_hand_work.mp3"
-        brief_02_02_not_software:
-            file: "./resource/script/brief/brief_02_02_not_software.txt"
-            export: "./resource/audio/brief/brief_02_02_not_software.mp3"
-        brief_02_03_survives_change:
-            file: "./resource/script/brief/brief_02_03_survives_change.txt"
-            export: "./resource/audio/brief/brief_02_03_survives_change.mp3"
-        brief_02_04_traditional:
-            file: "./resource/script/brief/brief_02_04_traditional.txt"
-            export: "./resource/audio/brief/brief_02_04_traditional.mp3"
-        brief_02_05_ai:
-            file: "./resource/script/brief/brief_02_05_ai.txt"
-            export: "./resource/audio/brief/brief_02_05_ai.mp3"
-        brief_03_01_what_it_is:
-            file: "./resource/script/brief/brief_03_01_what_it_is.txt"
-            export: "./resource/audio/brief/brief_03_01_what_it_is.mp3"
-        brief_03_02_production:
-            file: "./resource/script/brief/brief_03_02_production.txt"
-            export: "./resource/audio/brief/brief_03_02_production.mp3"
-        brief_03_03_workflow:
-            file: "./resource/script/brief/brief_03_03_workflow.txt"
-            export: "./resource/audio/brief/brief_03_03_workflow.mp3"
+        scene_01_01_premise:
+            file: "./resource/script/brief/scene_01_01_premise.txt"
+            export: "./resource/audio/brief/scene_01_01_premise.mp3"
+        scene_02_01_hand_work:
+            file: "./resource/script/brief/scene_02_01_hand_work.txt"
+            export: "./resource/audio/brief/scene_02_01_hand_work.mp3"
+        scene_02_02_not_software:
+            file: "./resource/script/brief/scene_02_02_not_software.txt"
+            export: "./resource/audio/brief/scene_02_02_not_software.mp3"
+        scene_02_03_survives_change:
+            file: "./resource/script/brief/scene_02_03_survives_change.txt"
+            export: "./resource/audio/brief/scene_02_03_survives_change.mp3"
+        scene_02_04_traditional:
+            file: "./resource/script/brief/scene_02_04_traditional.txt"
+            export: "./resource/audio/brief/scene_02_04_traditional.mp3"
+        scene_02_05_ai:
+            file: "./resource/script/brief/scene_02_05_ai.txt"
+            export: "./resource/audio/brief/scene_02_05_ai.mp3"
+        scene_03_01_what_it_is:
+            file: "./resource/script/brief/scene_03_01_what_it_is.txt"
+            export: "./resource/audio/brief/scene_03_01_what_it_is.mp3"
+        scene_03_02_production:
+            file: "./resource/script/brief/scene_03_02_production.txt"
+            export: "./resource/audio/brief/scene_03_02_production.mp3"
+        scene_03_03_workflow:
+            file: "./resource/script/brief/scene_03_03_workflow.txt"
+            export: "./resource/audio/brief/scene_03_03_workflow.mp3"
+        scene_03_04_closing:
+            file: "./resource/script/brief/scene_03_04_closing.txt"
+            export: "./resource/audio/brief/scene_03_04_closing.mp3"
+        scene_04_01_intro:
+            file: "./resource/script/brief/scene_04_01_intro.txt"
+            export: "./resource/audio/brief/scene_04_01_intro.mp3"
+        scene_04_02_social:
+            file: "./resource/script/brief/scene_04_02_social.txt"
+            export: "./resource/audio/brief/scene_04_02_social.mp3"
+        scene_04_03_docs:
+            file: "./resource/script/brief/scene_04_03_docs.txt"
+            export: "./resource/audio/brief/scene_04_03_docs.mp3"
+        scene_04_04_edu:
+            file: "./resource/script/brief/scene_04_04_edu.txt"
+            export: "./resource/audio/brief/scene_04_04_edu.mp3"
+        scene_04_05_biz:
+            file: "./resource/script/brief/scene_04_05_biz.txt"
+            export: "./resource/audio/brief/scene_04_05_biz.mp3"

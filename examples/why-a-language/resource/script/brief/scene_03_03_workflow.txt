@@ -1,0 +1,1 @@
+And authoring it is like working on code: you see what changed, you change it fast, one source serves many languages, and it renders on your own machine.

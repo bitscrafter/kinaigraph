@@ -9,39 +9,39 @@ lines spoken over it.
 
 | cut | length | how the voice works |
 | --- | --- | --- |
-| **brief** | 2:28 | names a CATEGORY and lets the boxes enumerate it |
-| **full** | 3:57 | names every box out loud |
+| **brief** | 1:44 | names a CATEGORY and lets the boxes enumerate it |
+| **full** | 3:54 | names every box out loud |
 
 ⚡ **The difference is entirely in the narration.** Same artwork, same theme, same
-timeline shapes — the brief's scenes 2 and 3 just take shorter lines, and scene 2
-splits its shared band into three category waves. Scenes 1 and 4 are word-for-word
-identical, so they are rendered **once** and rolled by both stitches.
+timeline shapes — the brief's lines are shorter, and its scene 2 splits the shared
+band into three category waves.
+
+⚡ **EACH CUT IS SELF-SUFFICIENT.** Every line it speaks lives in its own script
+and audio folder; every scene it rolls is its own document; its synthesis
+document lists everything it needs. Two lines are word-for-word identical across
+the cuts and are stored twice anyway — **a cut you can read and rebuild without
+cross-referencing the other one is worth the duplication.** Only the drawings,
+the themes and the template are shared, because those are not narration.
 
 ## Running it
 
+Pick a cut; the five documents are the same shape either way.
+
 ```sh
-kinaigraph scene_00_tts_shared.yaml       # once — the seven lines both cuts use
-kinaigraph scene_01_premise.yaml
-kinaigraph scene_04_possibilities.yaml
+CUT=brief          # or: CUT=full
 
-# the brief cut
-kinaigraph scene_00_tts_brief.yaml        # once — its eight category lines
-kinaigraph scene_02_challenge_brief.yaml
-kinaigraph scene_03_benefits_brief.yaml
-kinaigraph scene_05_stitch_brief.yaml
-open ./why_a_language_brief.mp4
-
-# the full cut
-kinaigraph scene_00_tts_full.yaml         # once — its six long lines
-kinaigraph scene_02_challenge_full.yaml
-kinaigraph scene_03_benefits_full.yaml
-kinaigraph scene_05_stitch_full.yaml
-open ./why_a_language_full.mp4
+kinaigraph scene_00_tts_$CUT.yaml         # once — needs ELEVENLABS_API_KEY, costs credits
+kinaigraph scene_01_premise_$CUT.yaml
+kinaigraph scene_02_challenge_$CUT.yaml
+kinaigraph scene_03_benefits_$CUT.yaml
+kinaigraph scene_04_possibilities_$CUT.yaml
+kinaigraph scene_05_stitch_$CUT.yaml
+open ./why_a_language_$CUT.mp4
 ```
 
-⛔ **Three synthesis documents, and each bills only what it owns.**
-`synthesis.context.status` is section-wide, so one document listing everything
-would re-record everything.
+⛔ **One synthesis document per cut, and it re-records everything it lists.**
+`synthesis.context.status` is section-wide — there is no way to regenerate one
+line without regenerating its neighbours in the same document.
 
 The narration has to exist before any scene will render: every phase derives its
 length from a clip's probed `.duration`, so without the audio there is nothing
@@ -54,15 +54,12 @@ committed take. Use `ls scene_*.yaml | grep -v scene_00`.
 
 | File | What it is |
 | ---- | ---------- |
-| `scene_00_tts_shared.yaml` | Synthesis. The seven lines both cuts use. |
-| `scene_00_tts_<cut>.yaml` | Synthesis. That cut's own lines — six long ones, or eight category ones. |
-| `scene_01_premise.yaml` · `scene_04_possibilities.yaml` | The two scenes both cuts share. Rendered once. |
-| `scene_02_challenge_<cut>.yaml` · `scene_03_benefits_<cut>.yaml` | The two enumerating scenes, one document per cut. |
+| `scene_00_tts_<cut>.yaml` | Synthesis. Every line that cut speaks. |
+| `scene_0N_*_<cut>.yaml` | That cut's four scenes. |
 | `scene_05_stitch_<cut>.yaml` | That cut in order. The only documents that write beside the document. |
+| `resource/script/<cut>/` · `resource/audio/<cut>/` | That cut's lines and recordings. Nothing is shared. |
 | `resource/scene/scene_0N_*.svg` | The artwork, shared by both cuts. Scenes 2 and 3 are **generated** — see *Editing it*. |
 | `resource/style/theme_dark.css` · `theme_light.css` | The palette and type. Values only. |
-| `resource/script/*.txt` · `resource/audio/*.mp3` | The lines both cuts use. |
-| `resource/script/<cut>/` · `resource/audio/<cut>/` | The lines only that cut uses. |
 | `resource/video/` | Intermediates. Gitignored. |
 
 ## What this example is a good place to notice
@@ -119,9 +116,15 @@ sections leave from three different edges, and that is an argument rather than
 variety: the two columns being compared enter from opposite sides, and the row
 they share enters from underneath both.
 
-**Every duration in the four scenes is either a margin or a line.** Search them
-for a number and you will find video margins, beat pads, and fade lengths under a
-second — nothing that paces a section. Re-record one line and exactly one section
+**Every duration in the four scenes is either a pad or a line.** Search them for
+a number and you will find beat pads and fade lengths under a second — nothing
+that paces a section.
+
+⛔ **AND NO SCENE ENDS ON A HELD BLANK FRAME.** Every scene used to close on one
+and the next opened on another; measured, the three cuts between scenes carried
+1.7 s, 1.1 s and 2.8 s of nothing, and the brief spent 7.7 s on blank frames
+altogether. The fades stay — cutting hard between them is jarring — but the held
+frames after them are gone, which took the blank down to 3.7 s. Re-record one line and exactly one section
 of one scene moves; everything after it slides by itself, because the stitch
 chains by bookmark rather than by number.
 

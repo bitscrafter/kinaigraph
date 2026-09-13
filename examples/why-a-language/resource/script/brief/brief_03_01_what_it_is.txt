@@ -1,1 +1,0 @@
-The better way begins with a language. You describe what, not how; the same source always gives the same result; and because it is plain text, a model can write it and you can review what it wrote.
