@@ -363,8 +363,9 @@ Render `scene_01_flow_with_orient_at_parent_action.yaml` too if you want to see 
 difference the table above describes.
 
 Paths inside a scene resolve against the scene file's own folder — which is this
-directory — so `file:` values need no `../`. Outputs resolve against whatever you pass as
-`--outdir`.
+directory — so `file:` values need no `../`. **Outputs resolve against the document's own
+folder too, unless you pass `--outdir`** — and this example relies on that default, which
+is what keeps a beat's capture and the stitch's reading of it the same path.
 
 Synthesis calls a text-to-speech provider and needs `ELEVENLABS_API_KEY` in the
 environment. Every run costs credits, which is why it is a separate file: re-rendering a
