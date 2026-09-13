@@ -113,10 +113,17 @@ attribute either. The force of "one node, one link" is that everything else held
 
 ### The payloads are callouts, and their pointers move
 
-Beat 1 shows the actual HTTP exchange. The request appears while the packet carries it
-out — leg 1, client → gateway — and the response appears while the packet carries the
-answer home on leg 6. Each is up for **exactly its own leg** and never shares the screen
-with the other.
+Beat 1 shows the actual HTTP exchange — **five callouts over six legs**, each up while the
+packet carries the bytes it quotes. The client request rides out on leg 1, the authz
+exchange occupies legs 2 and 3, the gateway's own request to the user service leg 4, and
+the profile body comes home across legs 5 and 6.
+
+Four of the five are up for **exactly their own leg** and never share the screen. The
+fifth is the exception, and it is the one worth watching: the body the user service
+returns and the body the gateway hands the client are the same bytes, so **one box is held
+across both legs** rather than drawn twice. The pointer swings from the user link to the
+client link while the content never changes — which SHOWS the gateway not touching it,
+where a second box could only have asserted it.
 
 What makes them worth reading is that the box and the pointer are bound at **different
 times**:
@@ -175,11 +182,15 @@ fade into leg 2. Only `scene_01_flow.yaml` carries the callouts: naming the wind
 `scene_01_flow_with_orient_at_parent_action.yaml` would have to spend another
 hand-measured constant on it.
 
-⚠️ **The payload text is inlined as `content:`, not read from `resource/text/`.** The same
-two payloads are committed at `resource/text/get_user_profile_request.txt` and
-`…_response.txt`, and a `type: text` asset does accept a `file:` — but no layer reads it,
-so a note sourced from a file renders an **empty box**. Until that is fixed the `.txt`
-files are the authority and the inlined copies must be kept in agreement with them.
+**The payload text is read from `resource/text/`, not inlined.** Each callout's
+`type: text` asset names its payload with `file:`; the compiler reads the file at Pass 3
+and inlines the contents, so the `.txt` is the single authority and there is no second
+copy to keep in agreement with it. A file it cannot read — absent, unreadable, not
+UTF-8 — is a compilation error rather than a silently empty box.
+
+⚠️ **The payloads are indented with spaces, not tabs**, and that is a rendering
+constraint rather than a style choice: a tab inside SVG text has no defined advance
+width, so the browser would set the JSON's shape at its own discretion.
 
 ### The store callout is a `note` annotation, not artwork
 
@@ -265,7 +276,7 @@ text colour is a literal on its `type: text` asset, tracking `theme_blueprint.cs
   on the opposite side of the line from the outbound pass. One keyword; no per-leg
   bookkeeping.
 - **A fixed box with a moving pointer.** `binding: live` on a callout's `pointer.target`
-  re-resolves the apex every frame, so the two payload callouts keep aiming at the packet
+  re-resolves the apex every frame, so each payload callout keeps aiming at the packet
   as it travels while their boxes stay put and stay readable.
 - **Why six entries rather than one `move` with six sub-actions:** a sub-action was not
   addressable from the timeline when `scene_01_flow_with_orient_at_parent_action.yaml`
@@ -310,7 +321,7 @@ resource/
   script/                                          the three narration lines
   style/theme_*.css                                four skins (dark, light, pastel, blueprint)
   template/main.html                               the page the scene is composed into
-  text/                                            the two HTTP payloads beat 1 quotes
+  text/                                            the five HTTP payloads beat 1 quotes
 ```
 
 ## Rendering it
