@@ -330,22 +330,28 @@ You need Kinaigraph installed — see the [install instructions](../../README.md
 Run from this directory:
 
 ```sh
-kinaigraph scene_00_tts_generation.yaml --outdir ./out    # once, to synthesize narration
-kinaigraph scene_01_flow.yaml --outdir ./out
-kinaigraph scene_02_store.yaml --outdir ./out
-kinaigraph scene_03_theme.yaml --outdir ./out
-kinaigraph scene_04_stitch.yaml --outdir ./out
+kinaigraph scene_00_tts_generation.yaml    # once, to synthesize narration
+kinaigraph scene_01_flow.yaml
+kinaigraph scene_02_store.yaml
+kinaigraph scene_03_theme.yaml
+kinaigraph scene_04_stitch.yaml
 ```
+
+⛔ **Do not pass `--outdir` here.** The beats declare their capture as
+`./resource/video/scene_0N.mp4` and the stitch reads those same paths, but `--outdir`
+rebases only the OUTPUT — the beats' clips land under it while the stitch still resolves
+its inputs beside the document. The stitch then refuses with `no file at …`, naming three
+paths that were just written somewhere else.
 
 The beats capture **intermediates** into `resource/video/`; `scene_04_stitch.yaml` is the
 only document that writes beside the document, and `request_response.mp4` is the file to
-watch. The finished piece runs about **63 s**.
+watch. The finished piece runs about **69 s**.
 
 ### The stitch carries no authored offset
 
 Every beat sizes *itself* to its own line — each spends `narration.duration` minus its
 margins on the walk — so a rendered clip comes out **exactly as long as the line that
-narrates it**. Measured across the three: 29.93 / 29.93, 17.13 / 17.10, 15.80 / 15.79.
+narrates it**. Measured across the three: 34.67 / 34.64, 17.30 / 17.28, 16.60 / 16.58.
 
 Mixing each line onto its own clip at offset zero therefore lands the voice against the
 pictures it describes, with nothing to keep in step by hand. The timestamps chain by
