@@ -20,37 +20,37 @@
                either, the scene rendered with no fill at all. */
 
             .canvas-bg {
-                fill: var(--scene-background-color, #181818);
+                fill: var(--scene-background-color, #f2eee5);
             }
 
             /* The icon catalog's vocabulary. `icon-fill-medium` is deliberately
                absent: no glyph in THIS scene carries it. */
             .icon-fill {
-                fill: var(--icon-fill, #2a2a2a);
+                fill: var(--icon-fill, #ffffff);
             }
 
             .icon-fill-light {
-                fill: var(--icon-fill-light, #1e1e1e);
+                fill: var(--icon-fill-light, #ece7dc);
             }
 
             .icon-fill-dark {
-                fill: var(--icon-fill-dark, #aaaaaa);
+                fill: var(--icon-fill-dark, #4a4540);
             }
 
             .icon-stroke {
-                stroke: var(--icon-stroke, #aaaaaa);
+                stroke: var(--icon-stroke, #6b635a);
             }
 
             /* Carried by the glyphs drawn as text inside the icon symbols.
                Their size stays on the element: a glyph inside a 24-unit symbol
                is 8, which is nothing to do with the headings below. */
             .text-primary {
-                fill: var(--title-text-color, #e0e0e0);
+                fill: var(--title-text-color, #1a1714);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
             }
 
             .heading-text {
-                fill: var(--title-text-color, #e0e0e0);
+                fill: var(--title-text-color, #1a1714);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 72px;
                 font-weight: 700;
@@ -58,7 +58,7 @@
             }
 
             .subtitle-text {
-                fill: var(--detail-text-color, #aaaaaa);
+                fill: var(--detail-text-color, #6b635a);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 36px;
                 font-weight: 400;

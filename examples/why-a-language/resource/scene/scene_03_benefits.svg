@@ -7,37 +7,37 @@
         <style>
             /* ── Mapping only: class -> variable. The VALUES live in
                   ../style/theme_dark.css and ../style/theme_light.css. ───────
-               Every var() carries the DARK value as its fallback. ⚠️ GENERATED
+               Every var() carries the PAPER value as its fallback. ⚠️ GENERATED
                — see resource/temp/make_scenes.py. */
 
             .canvas-bg {
-                fill: var(--scene-background-color, #181818);
+                fill: var(--scene-background-color, #f2eee5);
             }
 
             /* The icon catalog's vocabulary — only the classes this scene's
                own glyphs carry. */
             .icon-fill {
-                fill: var(--icon-fill, #2a2a2a);
+                fill: var(--icon-fill, #ffffff);
             }
 
             .icon-fill-light {
-                fill: var(--icon-fill-light, #1e1e1e);
+                fill: var(--icon-fill-light, #ece7dc);
             }
 
             .icon-fill-dark {
-                fill: var(--icon-fill-dark, #aaaaaa);
+                fill: var(--icon-fill-dark, #4a4540);
             }
 
             .icon-stroke {
-                stroke: var(--icon-stroke, #aaaaaa);
+                stroke: var(--icon-stroke, #6b635a);
             }
 
             /* The thirteen benefit boxes. Unlike scene 02's pain-point boxes
                these take fill and stroke from ONE class, because no icon here
                reuses either half. */
             .benefit-box {
-                fill: var(--box-fill-color, #2a2a2a);
-                stroke: var(--box-stroke-color, #aaaaaa);
+                fill: var(--box-fill-color, #ffffff);
+                stroke: var(--box-stroke-color, #4a4540);
                 stroke-width: 2;
                 rx: 8;
             }
@@ -45,7 +45,7 @@
             /* Three ranks of text: the scene heading, the line under it, and
                each box's own title over its supporting line. */
             .heading-text {
-                fill: var(--title-text-color, #e0e0e0);
+                fill: var(--title-text-color, #1a1714);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 72px;
                 font-weight: 700;
@@ -53,7 +53,7 @@
             }
 
             .subheading-text {
-                fill: var(--title-text-color, #e0e0e0);
+                fill: var(--title-text-color, #1a1714);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 48px;
                 font-weight: 500;
@@ -61,7 +61,7 @@
             }
 
             .title-text {
-                fill: var(--title-text-color, #e0e0e0);
+                fill: var(--title-text-color, #1a1714);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 36px;
                 font-weight: 600;
@@ -69,7 +69,7 @@
             }
 
             .subtitle-text {
-                fill: var(--detail-text-color, #aaaaaa);
+                fill: var(--detail-text-color, #6b635a);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 26px;
                 font-weight: 400;

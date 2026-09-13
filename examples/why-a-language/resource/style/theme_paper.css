@@ -1,0 +1,41 @@
+/* why-a-language — paper.
+ *
+ * A light ground, and a WARM one — the piece stops looking like it came out of a
+ * developer's dark editor. Ink on off-white, boxes lifted by being whiter than
+ * the page rather than darker than it, and a terracotta accent on the topic
+ * rings. It reads as a printed argument, which suits a piece that is making one.
+ *
+ * ⚠️ THE ACCENT IS THE WEAKEST FIGURE IN THIS THEME. Terracotta on off-white
+ * measures 4.4:1 against the canvas — the lowest number of any theme here, and
+ * the rings are scene 4's focal object. It passes as a large shape and it is
+ * deliberately not louder than that, but darken it before using this theme
+ * anywhere the rings have to carry more.
+ *
+ * ⚠️ IT OVERLAPS WITH theme_light.css. That one is a neutral inversion of
+ * `dark`; this one has a temperature and an accent of its own. Two light themes
+ * is one more than this example needs — if `paper` is adopted, `light` should go.
+ *
+ * ⚠️ Every theme here declares EXACTLY THE SAME NAMES. A variable added to one
+ * and not the others renders that theme unstyled in a way nothing reports.
+ */
+
+:root {
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+
+    --scene-background-color: #f2eee5;
+
+    --title-text-color: #1a1714;
+    --detail-text-color: #6b635a;
+
+    /* The box is WHITER than the page — it lifts rather than recedes. */
+    --box-fill-color: #ffffff;
+    --box-stroke-color: #4a4540;
+    --box-text-color: #2e2a26;
+
+    --topic-circle-stroke-color: #b5502a;
+
+    --icon-fill: #ffffff;
+    --icon-fill-light: #ece7dc;
+    --icon-fill-dark: #4a4540;
+    --icon-stroke: #6b635a;
+}

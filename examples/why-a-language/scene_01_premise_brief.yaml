@@ -71,24 +71,26 @@ defs:
             style: style
         style:
             type: "style"
-            file: "./resource/style/theme_dark.css"
+            file: "./resource/style/theme_paper.css"
 
     const:
         # Silence at each end of the clip, so the stitch never butts a voice
         # against a cut.
-        VIDEO_MARGIN: 500
+        VIDEO_MARGIN: 200
         # The gap between two moves that should read as consecutive rather than
         # simultaneous.
-        BEAT_PAD: 250
+        SCENE_PAD: 150
 
-        TEXT_FADE_MS: 500
-        ICON_FADE_MS: 500
+        TEXT_FADE_MS: 250
+        ICON_FADE_MS: 250
 
         # Three distances, used with either sign. Short enough that no glyph
         # leaves the space it was drawn in — this is a drift, not a journey.
         DRIFT_NEAR: 25
         DRIFT_MID: 35
         DRIFT_FAR: 45
+
+        NARRATION_DURATION: "narration_intro.duration"
 
 animation:
     defaults:
@@ -129,7 +131,7 @@ animation:
                             to: 1
                         duration: TEXT_FADE_MS
                         hold:
-                            after: BEAT_PAD
+                            after: SCENE_PAD
             - subtitle:
                   - show:
                         opacity:
@@ -146,7 +148,7 @@ animation:
                             to: 1
                         duration: ICON_FADE_MS
                         hold:
-                            after: BEAT_PAD
+                            after: SCENE_PAD
 
         # ── The drift, for the length of the line ─────────────────────────────
         # `audio_in` is the bookmark the narration is mixed at, at the foot of
@@ -157,122 +159,122 @@ animation:
                   - move:
                         dx: "-DRIFT_NEAR"
                         dy: "-DRIFT_FAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_lightning:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: DRIFT_NEAR
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_version:
                   - move:
                         dx: DRIFT_MID
                         dy: DRIFT_FAR
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_puzzle:
                   - move:
                         dx: "-DRIFT_NEAR"
                         dy: "-DRIFT_FAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_eye:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: DRIFT_MID
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_pattern:
                   - move:
                         dx: "-DRIFT_NEAR"
                         dy: "-DRIFT_NEAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_adjustment:
                   - move:
                         dx: DRIFT_FAR
                         dy: DRIFT_NEAR
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_feedback_loop:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: DRIFT_MID
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_user:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: "-DRIFT_FAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_sync:
                   - move:
                         dx: DRIFT_NEAR
                         dy: "-DRIFT_FAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_die:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: DRIFT_NEAR
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_street_cone:
                   - move:
                         dx: DRIFT_MID
                         dy: DRIFT_FAR
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_robotic_arm:
                   - move:
                         dx: "-DRIFT_NEAR"
                         dy: DRIFT_MID
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_square_ruler:
                   - move:
                         dx: DRIFT_FAR
                         dy: "-DRIFT_NEAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_money_sack:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: DRIFT_FAR
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_qr_code:
                   - move:
                         dx: DRIFT_MID
                         dy: "-DRIFT_NEAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_deterministic:
                   - move:
                         dx: DRIFT_NEAR
                         dy: "-DRIFT_FAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_gauge:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: "-DRIFT_NEAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_stack:
                   - move:
                         dx: DRIFT_FAR
                         dy: "-DRIFT_FAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_hub:
                   - move:
                         dx: "-DRIFT_NEAR"
                         dy: "-DRIFT_FAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_spiderweb:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: "-DRIFT_NEAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_aiagent:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: "-DRIFT_FAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_handshake:
                   - move:
                         dx: DRIFT_NEAR
                         dy: "-DRIFT_FAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
             - icon_anchor:
                   - move:
                         dx: "-DRIFT_FAR"
                         dy: "-DRIFT_NEAR"
-                        duration: narration_intro.duration
+                        duration: "NARRATION_DURATION"
 
         # ── A held breath after the line ──────────────────────────────────────
         # ⚠️ `opacity: 1` IS CARRYING THE PAD. The precursor wrote `show: { hold }`
@@ -285,32 +287,32 @@ animation:
                   - show:
                         opacity: 1
                         hold:
-                            after: BEAT_PAD
+                            after: SCENE_PAD
 
-        # ── Clearing the frame, evidence first ────────────────────────────────
-        audio_out.end @ icons_out:
-            - all_icons:
-                  - show:
-                        opacity:
-                            from: 1
-                            to: 0
-                        duration: ICON_FADE_MS
-                        hold:
-                            after: BEAT_PAD
+        # # ── Clearing the frame, evidence first ────────────────────────────────
+        # audio_out.end @ icons_out:
+        #     - all_icons:
+        #           - show:
+        #                 opacity:
+        #                     from: 1
+        #                     to: 0
+        #                 duration: ICON_FADE_MS
+        #                 hold:
+        #                     after: SCENE_PAD
 
-        icons_out.end @ text_out:
-            - title:
-                  - show:
-                        opacity:
-                            from: 1
-                            to: 0
-                        duration: TEXT_FADE_MS
-            - subtitle:
-                  - show:
-                        opacity:
-                            from: 1
-                            to: 0
-                        duration: TEXT_FADE_MS
+        # icons_out.end @ text_out:
+        #     - title:
+        #           - show:
+        #                 opacity:
+        #                     from: 1
+        #                     to: 0
+        #                 duration: TEXT_FADE_MS
+        #     - subtitle:
+        #           - show:
+        #                 opacity:
+        #                     from: 1
+        #                     to: 0
+        #                 duration: TEXT_FADE_MS
 
         # ⛔ NO TAIL HOLD. Every scene used to end on a held blank frame, and the
         # next one opened on another — measured, the three cuts between scenes

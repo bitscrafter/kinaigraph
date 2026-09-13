@@ -117,13 +117,13 @@ defs:
             style: style
         style:
             type: "style"
-            file: "./resource/style/theme_dark.css"
+            file: "./resource/style/theme_paper.css"
 
     const:
-        BEAT_PAD: 250
+        SCENE_PAD: 150
 
-        HEADING_FADE_MS: 450
-        FADE_OUT_MS: 450
+        HEADING_FADE_MS: 250
+        FADE_OUT_MS: 250
 
         # Each box breathes while it slides. `amplitude` rather than a target
         # scale: it is an `add` contribution, so it composes with anything else
@@ -171,23 +171,19 @@ animation:
             - band_row_a:
                   - move:
                         y: OFFSTAGE_BOTTOM_Y
-                        duration: 0
             - band_row_b:
                   - move:
                         y: OFFSTAGE_BOTTOM_ROW_B_Y
-                        duration: 0
             - box_traditional:
                   - show:
                         opacity: 0
                   - move:
                         x: OFFSTAGE_RIGHT_X
-                        duration: 0
             - box_ai:
                   - show:
                         opacity: 0
                   - move:
                         x: OFFSTAGE_LEFT_X
-                        duration: 0
 
         # ⚠️ `opacity: 1` IS CARRYING THE PAD — see scene_01's note. The scene is
         # already fully opaque; restating it is what lets the hold ride on a
@@ -212,7 +208,7 @@ animation:
         # `restore` with no checkpoint targets the SVG's initial values, which
         # is where the box was drawn. Its duration is the line's, so the four
         # boxes are still arriving as the last clause names the last of them.
-        common_heading.end + BEAT_PAD @ common:
+        common_heading.end + SCENE_PAD @ common:
             - cat_hand_work:
                   - show:
                         opacity: 1
@@ -260,10 +256,9 @@ animation:
                             amplitude: PULSE_SWELL
                         pivot: center
 
-
         # ── What the traditional way adds ─────────────────────────────────────────────
         # The first of the two columns being compared. It enters from the right.
-        common_change.end + BEAT_PAD @ traditional_heading:
+        common_change.end + SCENE_PAD @ traditional_heading:
             - section_traditional:
                   - show:
                         opacity:
@@ -271,7 +266,7 @@ animation:
                             to: 1
                         duration: HEADING_FADE_MS
 
-        traditional_heading.end + BEAT_PAD @ traditional:
+        traditional_heading.end + SCENE_PAD @ traditional:
             - traditional_1:
                   - show:
                         opacity: 1
@@ -328,7 +323,7 @@ animation:
         # ── What the AI way adds ─────────────────────────────────────────────
         # The second column, entering from the left — see the header on why the
         # two come from opposite edges.
-        traditional.end + BEAT_PAD @ ai_heading:
+        traditional.end + SCENE_PAD @ ai_heading:
             - section_ai:
                   - show:
                         opacity:
@@ -336,7 +331,7 @@ animation:
                             to: 1
                         duration: HEADING_FADE_MS
 
-        ai_heading.end + BEAT_PAD @ ai:
+        ai_heading.end + SCENE_PAD @ ai:
             - ai_1:
                   - show:
                         opacity: 1
@@ -394,7 +389,7 @@ animation:
         # Headings and boxes together, section by section, all on one timestamp:
         # the comparison is finished, and taking it apart in pieces would invite
         # the viewer to keep reading it.
-        ai.end + BEAT_PAD @ fade_out:
+        ai.end + SCENE_PAD @ fade_out:
             - section_common:
                   - show:
                         opacity:

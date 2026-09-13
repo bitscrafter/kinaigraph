@@ -59,7 +59,7 @@ committed take. Use `ls scene_*.yaml | grep -v scene_00`.
 | `scene_05_stitch_<cut>.yaml` | That cut in order. The only documents that write beside the document. |
 | `resource/script/<cut>/` · `resource/audio/<cut>/` | That cut's lines and recordings. Nothing is shared. |
 | `resource/scene/scene_0N_*.svg` | The artwork, shared by both cuts. Scenes 2 and 3 are **generated** — see *Editing it*. |
-| `resource/style/theme_dark.css` · `theme_light.css` | The palette and type. Values only. |
+| `resource/style/theme_*.css` | Four themes — `paper` (the brief's), `depth`, `light`, `dark` (the full cut's). Values only. |
 | `resource/video/` | Intermediates. Gitignored. |
 
 ## What this example is a good place to notice
@@ -130,11 +130,19 @@ chains by bookmark rather than by number.
 
 **A scene opens on its own.** Each `<style>` block holds the MAPPING — which class
 takes which property from which variable — while the two stylesheets hold the
-VALUES. Every `var()` carries `theme_dark.css`'s value as its fallback, so opening
-a scene SVG in a browser, an editor or a GitHub preview shows the dark theme
+VALUES. Every `var()` carries `theme_paper.css`'s value as its fallback, so
+opening a scene SVG in a browser, an editor or a GitHub preview shows paper
 rather than unstyled shapes; whenever a stylesheet is in scope, it wins.
 
-The two themes declare an identical set of names, and every name is read by at
+⚠️ **THE DRAWINGS ARE SHARED BY BOTH CUTS AND THE CUTS SELECT DIFFERENT THEMES**,
+so a fallback can only mirror ONE of them. It mirrors the brief's, because the
+brief is the deliverable. That costs nothing at render time — a fallback is only
+reached when NO stylesheet is in scope, and one always is — it decides only what
+a scene file looks like opened on its own. Verified rather than assumed: the same
+scene rendered under `dark` before and after repointing the fallbacks is
+pixel-identical.
+
+All four themes declare an identical set of names, and every name is read by at
 least one scene. Swapping them is a one-line edit to each document's `style`
 asset.
 
@@ -166,7 +174,7 @@ python3 resource/temp/make_scenes.py   # rewrites scene_02_challenge.svg AND sce
 
 It mirrors its icons from the shared catalog in the engine repo
 (`tech-docs/internal/design/diagram/icon-catalog.svg`) — an icon edit belongs
-upstream first — and it reads `theme_dark.css` to emit each `var()`'s fallback, so
+upstream first — and it reads `theme_paper.css` to emit each `var()`'s fallback, so
 the fallbacks cannot drift from the theme. It also emits **only** the icon classes
 its own glyphs carry, so a scene never defines a rule nothing in it reads.
 

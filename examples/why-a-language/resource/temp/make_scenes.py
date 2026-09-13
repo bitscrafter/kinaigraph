@@ -28,11 +28,11 @@ FONT = 'Arial, "Liberation Sans", Helvetica, sans-serif'
 
 # ── the dark theme is the source of every fallback ───────────────────────────
 DARK = dict(re.findall(r'^\s*(--[a-z-]+):\s*(.+?);',
-                       (HERE / "resource/style/theme_dark.css").read_text(), re.M))
+                       (HERE / "resource/style/theme_paper.css").read_text(), re.M))
 
 def v(name):
     """A var() call carrying the theme's own value as its fallback."""
-    assert name in DARK, f"{name} is not declared in theme_dark.css"
+    assert name in DARK, f"{name} is not declared in theme_paper.css"
     return f"var({name}, {DARK[name]})"
 
 # ── symbols ──────────────────────────────────────────────────────────────────
@@ -126,9 +126,8 @@ def scene2_style(used):
     return f"""        <style>
             /* ── Mapping only: class -> variable. The VALUES live in
                   ../style/theme_dark.css and ../style/theme_light.css. ───────
-               Every var() carries the DARK value as its fallback, so this file
-               opened on its own shows the dark theme rather than unstyled
-               shapes. ⚠️ GENERATED — see resource/temp/make_scenes.py. */
+               Every var() carries the PAPER value as its fallback, so this
+               file opened on its own shows paper rather than unstyled shapes. ⚠️ GENERATED — see resource/temp/make_scenes.py. */
 
             .canvas-bg {{
                 fill: {v('--scene-background-color')};
@@ -244,7 +243,7 @@ def scene3_style(used):
     return f"""        <style>
             /* ── Mapping only: class -> variable. The VALUES live in
                   ../style/theme_dark.css and ../style/theme_light.css. ───────
-               Every var() carries the DARK value as its fallback. ⚠️ GENERATED
+               Every var() carries the PAPER value as its fallback. ⚠️ GENERATED
                — see resource/temp/make_scenes.py. */
 
             .canvas-bg {{

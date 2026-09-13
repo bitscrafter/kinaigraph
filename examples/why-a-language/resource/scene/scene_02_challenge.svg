@@ -7,43 +7,42 @@
         <style>
             /* ── Mapping only: class -> variable. The VALUES live in
                   ../style/theme_dark.css and ../style/theme_light.css. ───────
-               Every var() carries the DARK value as its fallback, so this file
-               opened on its own shows the dark theme rather than unstyled
-               shapes. ⚠️ GENERATED — see resource/temp/make_scenes.py. */
+               Every var() carries the PAPER value as its fallback, so this
+               file opened on its own shows paper rather than unstyled shapes. ⚠️ GENERATED — see resource/temp/make_scenes.py. */
 
             .canvas-bg {
-                fill: var(--scene-background-color, #181818);
+                fill: var(--scene-background-color, #f2eee5);
             }
 
             /* The icon catalog's vocabulary — only the classes this scene's
                own glyphs carry. */
             .icon-fill {
-                fill: var(--icon-fill, #2a2a2a);
+                fill: var(--icon-fill, #ffffff);
             }
 
             .icon-fill-dark {
-                fill: var(--icon-fill-dark, #aaaaaa);
+                fill: var(--icon-fill-dark, #4a4540);
             }
 
             .icon-stroke {
-                stroke: var(--icon-stroke, #aaaaaa);
+                stroke: var(--icon-stroke, #6b635a);
             }
 
             /* The fifteen pain-point boxes. Fill and stroke are split across two
                classes because the same rect takes both and the icons reuse
                neither — `class="box-bg box-stroke"` is the whole mapping. */
             .box-bg {
-                fill: var(--box-fill-color, #2a2a2a);
+                fill: var(--box-fill-color, #ffffff);
             }
 
             .box-stroke {
-                stroke: var(--box-stroke-color, #aaaaaa);
+                stroke: var(--box-stroke-color, #4a4540);
             }
 
             /* A box's own two lines. Size and weight are authored here rather
                than per element: every one is the same label at the same rank. */
             .box-text {
-                fill: var(--box-text-color, #cccccc);
+                fill: var(--box-text-color, #2e2a26);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 22px;
                 font-weight: bold;
@@ -53,7 +52,7 @@
             /* The band heading and the two section headings. Size stays on the
                elements — 48 for the band, 42 for a section. */
             .text-primary {
-                fill: var(--title-text-color, #e0e0e0);
+                fill: var(--title-text-color, #1a1714);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
             }
         </style>

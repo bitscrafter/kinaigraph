@@ -88,14 +88,14 @@ defs:
             style: style
         style:
             type: "style"
-            file: "./resource/style/theme_dark.css"
+            file: "./resource/style/theme_paper.css"
 
     const:
-        BEAT_PAD: 250
+        SCENE_PAD: 150
 
         # The only authored duration in the scene. Every other span below is a
         # line's own length.
-        HEADING_FADE_MS: 600
+        HEADING_FADE_MS: 250
 
 animation:
     defaults:
@@ -123,7 +123,7 @@ animation:
         # ── The middle three, across the opening line ────────────────────────
         # A fade that lasts a whole spoken line is slow enough to read as the
         # text arriving WITH the sentence rather than as a transition.
-        heading_fade.end + BEAT_PAD @ center_section:
+        heading_fade.end + SCENE_PAD @ center_section:
             - boxes_center:
                   - show:
                         opacity:
@@ -132,7 +132,7 @@ animation:
                         duration: narration_intro.duration
 
         # ── The left column, across the production line ──────────────────────
-        center_section.end + BEAT_PAD @ left_section:
+        center_section.end + SCENE_PAD @ left_section:
             - boxes_left:
                   - show:
                         opacity:
@@ -141,7 +141,7 @@ animation:
                         duration: narration_production.duration
 
         # ── The right column, across the workflow line ───────────────────────
-        left_section.end + BEAT_PAD @ right_section:
+        left_section.end + SCENE_PAD @ right_section:
             - boxes_right:
                   - show:
                         opacity:
@@ -153,7 +153,7 @@ animation:
         # ⚠️ THE CLOSING LINE IS THE SHORTEST OF THE FOUR, and the fade is tied
         # to it, so this is by far the fastest thing that happens in the scene.
         # That is the intent: the three reveals are read, and the exit is not.
-        right_section.end + BEAT_PAD @ fade_out:
+        right_section.end + SCENE_PAD @ fade_out:
             - all_content:
                   - show:
                         opacity:

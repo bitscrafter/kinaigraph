@@ -1,0 +1,46 @@
+/* why-a-language — depth.
+ *
+ * Ported from the structural-layers documentation video. It is not really a
+ * palette, it is three rules: a near-black COOL ground, structure held well back
+ * in muted blue-greys, and exactly ONE cold accent marking whatever the eye is
+ * meant to land on.
+ *
+ * ⚠️ THE ACCENT IS SPENT ONCE, ON THE TOPIC RINGS. `--icon-fill-dark` is the
+ * catalog's solid-area tier and it is deliberately NEUTRAL here: setting it to
+ * the accent tints every filled glyph — 27 of them in scene 2, 17 in scene 1 —
+ * which out-shouts the nine rings that are supposed to be the focus. Spend the
+ * accent twice and the depth collapses.
+ *
+ * ⚠️ THE BOX OUTLINES ARE FAINT BY DESIGN, and that is the real difference from
+ * `dark`. Measured against the canvas they run 3.47:1 where dark's run 7.64:1 —
+ * structure receding is the whole point, but with fifteen boxes on screen in
+ * scene 2 it is the change you notice first. Everything else gains: headings
+ * 17.4:1 against dark's 13.5, box labels 12.0 against 8.9.
+ *
+ * ⚠️ theme_dark.css and theme_light.css declare EXACTLY THESE NAMES. A variable
+ * added to one and not the others renders a theme unstyled in a way nothing
+ * reports.
+ */
+
+:root {
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+
+    /* Cooler and darker than `dark` — #0e1116 against #181818. */
+    --scene-background-color: #0e1116;
+
+    --title-text-color: #f0f6fc;
+    --detail-text-color: #8494a3;
+
+    /* The box barely lifts off the ground; the outline does the work. */
+    --box-fill-color: #12161c;
+    --box-stroke-color: #5d6b7a;
+    --box-text-color: #c9d3dd;
+
+    /* The one accent. */
+    --topic-circle-stroke-color: #a2d2ff;
+
+    --icon-fill: #12161c;
+    --icon-fill-light: #161b22;
+    --icon-fill-dark: #c9d3dd;
+    --icon-stroke: #7b8b9c;
+}
