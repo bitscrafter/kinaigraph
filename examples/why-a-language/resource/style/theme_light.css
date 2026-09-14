@@ -23,6 +23,8 @@
     --scene-background-color: #f7f7f7;
 
     --title-text-color: #000000;
+
+    --box-title-text-color: #000000;
     --detail-text-color: #555555;
 
     --box-fill-color: #ffffff;
@@ -35,4 +37,11 @@
     --icon-fill-light: #e5e5e5;
     --icon-fill-dark: #555555;
     --icon-stroke: #555555;
+
+    /* The brand mark. A light ground: invert the mark and hold it back.
+       ⚠️ ONE ASSET SERVES BOTH: the logo is light-on-transparent, drawn for a
+       dark canvas, so a light theme inverts it rather than shipping a second
+       file. The SVG maps these onto `.brand-mark`; it decides nothing. */
+    --brand-mark-filter: invert(1);
+    --brand-mark-opacity: 0.45;
 }

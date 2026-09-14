@@ -60,8 +60,11 @@
                 text-anchor: middle;
             }
 
+            /* ⚠️ The BOX titles, not the scene heading — they read from their own
+               variable so a theme can keep its headings loud and its thirteen
+               box titles quiet. */
             .title-text {
-                fill: var(--title-text-color, #1a1714);
+                fill: var(--box-title-text-color, #1a1714);
                 font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
                 font-size: 36px;
                 font-weight: 600;
@@ -407,8 +410,20 @@
 				class="icon-fill icon-stroke"
 				stroke-width="1"
 			/>
-	        <path d="M19.5 7h.01" fill="none" class="icon-stroke" stroke-width="1" stroke-linecap="round" />
-	        <path d="M19.5 10h.01" fill="none" class="icon-stroke" stroke-width="1" stroke-linecap="round" />
+	        <path
+				d="M19.5 7h.01"
+				fill="none"
+				class="icon-stroke"
+				stroke-width="1"
+				stroke-linecap="round"
+			/>
+	        <path
+				d="M19.5 10h.01"
+				fill="none"
+				class="icon-stroke"
+				stroke-width="1"
+				stroke-linecap="round"
+			/>
 	        <path d="M18.5 16h2" fill="none" class="icon-stroke" stroke-width="1" />
         </symbol>
     </defs>

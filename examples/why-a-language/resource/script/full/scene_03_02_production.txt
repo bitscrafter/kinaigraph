@@ -1,6 +1,6 @@
-This architecture unlocks everything else.
-You get consistent styling, with unified visuals across everything you make.
-You get direct control over timing and positioning, down to the frame and the pixel.
-The animation is paced by the narration itself. Re-record a line, and the scene re-fits around it.
-You reuse patterns straight from your source, instead of building the same thing twice.
-And you compose from assets, ready to be assembled for any narrative.
+That architecture unlocks the rest.
+Consistent styling, across everything you make.
+Direct control over timing and position, down to the frame and the pixel.
+An animation paced by the narration itself: re-record a line and the scene re-fits.
+Patterns reused straight from your source.
+And assets that compose into any narrative.

@@ -1,5 +1,5 @@
-Generative AI is remarkable, and it moves fast. But today its output is hard to predict, so you often end up in a cycle of trial and error.
-Fine-grained control is still limited. Defining exact timing, or coordinate positioning, is not what these tools are built for.
-Operational costs climb as production scales.
-And what comes back is a finished video, not a source you can edit.
+Generative AI moves fast, but today its output is hard to predict, so you work by trial and error.
+Fine-grained control is still limited.
+Costs climb with every run.
+And what comes back is a finished video, not a source.
 There has to be a better way.

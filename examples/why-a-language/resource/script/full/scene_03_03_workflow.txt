@@ -1,5 +1,6 @@
-Your work becomes version-controllable, with diff-friendly text made for Git.
-Iterations are fast. Edit the source and regenerate.
-The workflow scales, and you can automate variations without repetitive labor.
-One source serves many languages, so a localization is a translation and not a rebuild.
-And it all renders on your own machine, with no model in the loop when the video is made.
+And the workflow behaves like code.
+Version control, with text made for Git.
+Iterations are fast: edit the source and regenerate.
+It scales, automating variations without repetitive labor.
+One source serves many languages.
+And it renders on your own machine, with no model in the loop.

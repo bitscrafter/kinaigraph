@@ -64,6 +64,7 @@
                 font-weight: 400;
                 text-anchor: middle;
             }
+
         </style>
 
         <!-- Icons from scene 3 -->
@@ -418,4 +419,5 @@
           dominant-baseline="middle"
          >Explainer videos are worth making. Making them is the problem.
     </text>
+
 </svg>

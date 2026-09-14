@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The cover. Scene 1 opens on it and scene 4 closes on it, and those two
+     frames are the only ones it appears in.
+
+     ⚠️ IT IS ITS OWN SCENE BECAUSE IT BELONGS TO NEITHER BEAT. It was authored
+     inside scene 1's and scene 4's drawings, which meant the same wordmark
+     existed twice and could drift. One file, declared by the two documents that
+     need it.
+
+     ⚠️ NO BACKGROUND RECT. It is stacked OVER a content scene, which paints the
+     ground; a rect here would hide the scene underneath and there would be
+     nothing to fade back to.
+
+     ⚠️ A PLAYER PARKS ON FRAME 0 AND ON THE LAST FRAME, so this is what the
+     piece looks like before anyone presses play and after it ends. That is why
+     the timeline writes it at full opacity AT t=0 rather than fading it in. -->
+<svg id="cover" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style>
+            /* Mapping only — the VALUES live in ../style/theme_*.css. The
+               fallback is the brief cut's theme, because the brief is the
+               deliverable. */
+            .wordmark-text {
+                fill: var(--title-text-color, #1a1714);
+                font-family: var(--diagram-font-family, Arial, "Liberation Sans", Helvetica, sans-serif);
+                font-size: 144px;
+                font-weight: 700;
+                text-anchor: middle;
+            }
+        </style>
+    </defs>
+
+    <!-- Centred; the baseline sits below the midline so the cap height
+         straddles it. 144px is twice the scene headings — it is the only thing
+         on screen when it shows. -->
+    <g id="wordmark">
+        <text x="960" y="590" class="wordmark-text">Kinaigraph</text>
+    </g>
+</svg>

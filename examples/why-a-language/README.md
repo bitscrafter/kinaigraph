@@ -9,12 +9,13 @@ lines spoken over it.
 
 | cut | length | how the voice works |
 | --- | --- | --- |
-| **brief** | 1:44 | names a CATEGORY and lets the boxes enumerate it |
-| **full** | 3:54 | names every box out loud |
+| **brief** | 1:39 | names a CATEGORY and lets the boxes enumerate it · theme `paper` |
+| **full** | 2:52 | names every box out loud · theme `depth` |
 
-⚡ **The difference is entirely in the narration.** Same artwork, same theme, same
-timeline shapes — the brief's lines are shorter, and its scene 2 splits the shared
-band into three category waves.
+⚡ **They differ in the narration and in the theme, and in nothing else.** Same
+artwork, same timeline shapes — the brief's lines are shorter and its scene 2
+splits the shared band into three category waves; the full names every box and
+takes `depth` rather than `paper`.
 
 ⚡ **EACH CUT IS SELF-SUFFICIENT.** Every line it speaks lives in its own script
 and audio folder; every scene it rolls is its own document; its synthesis
@@ -59,7 +60,10 @@ committed take. Use `ls scene_*.yaml | grep -v scene_00`.
 | `scene_05_stitch_<cut>.yaml` | That cut in order. The only documents that write beside the document. |
 | `resource/script/<cut>/` · `resource/audio/<cut>/` | That cut's lines and recordings. Nothing is shared. |
 | `resource/scene/scene_0N_*.svg` | The artwork, shared by both cuts. Scenes 2 and 3 are **generated** — see *Editing it*. |
-| `resource/style/theme_*.css` | Four themes — `paper` (the brief's), `depth`, `light`, `dark` (the full cut's). Values only. |
+| `resource/style/theme_*.css` | Four themes — `paper` (the brief's), `depth` (the full's), `light`, `dark`. Values only, and all four declare an identical set of names. |
+| `resource/scene/scene_00_cover.svg` | The wordmark. The first and last frame of both cuts, and nothing else. |
+| `resource/scene/brand_layer.svg` | The brand mark, embedded as data. **Generated** — see *Editing it*. |
+| `resource/image/bitscrafter_logo.png` | Source of truth for the mark. |
 | `resource/video/` | Intermediates. Gitignored. |
 
 ## What this example is a good place to notice
@@ -163,6 +167,24 @@ different size. The two mathematical `ƒ` glyphs inside the icons keep a serif
 face, spelled out the same way — Times New Roman with Liberation Serif behind it.
 
 ## Editing it
+
+**The brand mark is generated too.** `resource/scene/brand_layer.svg` embeds the
+PNG as base64, because a scene SVG is inlined into the compiled page and a
+relative `href` would resolve against wherever that page lands:
+
+```sh
+python3 resource/temp/make_brand_svg.py
+```
+
+⚠️ **The mark sits bottom CENTRE here, where every other example puts it bottom
+right.** Measured against every drawn element, the bottom-right slot collides in
+three of the four scenes — an icon in scene 1, the `Renders Locally` box in scene
+3, and scene 4's bullseye ring. Bottom centre is clear of all of them.
+
+⚠️ **One asset serves every theme.** The logo is light-on-transparent, drawn for
+a dark canvas, so the light themes invert it (`--brand-mark-filter: invert(1)`)
+rather than shipping a second file — the same treatment the architecture video
+uses.
 
 **Scenes 2 and 3 are generated; do not hand-edit them.** Both are regular grids,
 and hand-editing a coordinate in a grid is how a grid stops being one. The box

@@ -5,11 +5,10 @@
  * the page rather than darker than it, and a terracotta accent on the topic
  * rings. It reads as a printed argument, which suits a piece that is making one.
  *
- * ⚠️ THE ACCENT IS THE WEAKEST FIGURE IN THIS THEME. Terracotta on off-white
- * measures 4.4:1 against the canvas — the lowest number of any theme here, and
- * the rings are scene 4's focal object. It passes as a large shape and it is
- * deliberately not louder than that, but darken it before using this theme
- * anywhere the rings have to carry more.
+ * ⚠️ THIS THEME HAS NO ACCENT, DELIBERATELY. It carried a terracotta on the
+ * topic rings and that was the only saturated colour anywhere in the piece —
+ * one hue, in the last scene, after eighty seconds of neutrals. The rings now
+ * take the same line colour as every box.
  *
  * ⚠️ IT OVERLAPS WITH theme_light.css. That one is a neutral inversion of
  * `dark`; this one has a temperature and an accent of its own. Two light themes
@@ -25,6 +24,8 @@
     --scene-background-color: #f2eee5;
 
     --title-text-color: #1a1714;
+
+    --box-title-text-color: #1a1714;
     --detail-text-color: #6b635a;
 
     /* The box is WHITER than the page — it lifts rather than recedes. */
@@ -32,10 +33,23 @@
     --box-stroke-color: #4a4540;
     --box-text-color: #2e2a26;
 
-    --topic-circle-stroke-color: #b5502a;
+    /* ⚠️ THE RINGS TAKE THE STRUCTURAL LINE, NOT AN ACCENT OF THEIR OWN.
+       This theme used a terracotta here, and it was the only saturated colour
+       in the whole piece — measured, scenes 1-3 render zero non-neutral pixels,
+       so nine rings in the last scene were introducing a hue the viewer had not
+       seen for eighty seconds. Matching `--box-stroke-color` keeps them reading
+       as the same family of line as the twenty-eight boxes before them. */
+    --topic-circle-stroke-color: #4a4540;
 
     --icon-fill: #ffffff;
     --icon-fill-light: #ece7dc;
     --icon-fill-dark: #4a4540;
     --icon-stroke: #6b635a;
+
+    /* The brand mark. A light ground: invert the mark and hold it back.
+       ⚠️ ONE ASSET SERVES BOTH: the logo is light-on-transparent, drawn for a
+       dark canvas, so a light theme inverts it rather than shipping a second
+       file. The SVG maps these onto `.brand-mark`; it decides nothing. */
+    --brand-mark-filter: invert(1);
+    --brand-mark-opacity: 0.45;
 }

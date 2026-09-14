@@ -37,6 +37,8 @@
 
     /* Two tiers of text weight: what the scene is about, and what supports it. */
     --title-text-color: #e0e0e0;
+
+    --box-title-text-color: #e0e0e0;
     --detail-text-color: #aaaaaa;
 
     /* The pain-point and benefit boxes — scenes 02 and 03. The box's own text is
@@ -62,4 +64,11 @@
     --icon-fill-light: #1e1e1e;
     --icon-fill-dark: #aaaaaa;
     --icon-stroke: #aaaaaa;
+
+    /* The brand mark. A dark ground: the artwork is already right.
+       ⚠️ ONE ASSET SERVES BOTH: the logo is light-on-transparent, drawn for a
+       dark canvas, so a light theme inverts it rather than shipping a second
+       file. The SVG maps these onto `.brand-mark`; it decides nothing. */
+    --brand-mark-filter: none;
+    --brand-mark-opacity: 1;
 }

@@ -20,9 +20,22 @@ its own shows the dark theme rather than unstyled shapes.
 import re, pathlib, sys
 
 HERE = pathlib.Path(__file__).resolve().parent.parent.parent      # the example root
-CATALOG = pathlib.Path(
-    "/Volumes/Samsung SSD 9100 PRO/_Dev/project/kinaigraph-suite/"
-    ".worktrees/core-icon-catalog/tech-docs/internal/design/diagram/icon-catalog.svg")
+def _find_catalog():
+    """The shared catalog lives in the ENGINE repo, a sibling of this one.
+
+    ⚠️ NOT AN ABSOLUTE PATH. This once pointed into a throwaway worktree and
+    broke the moment that worktree was removed. Walk up until a sibling
+    `kinaigraph-core` appears, so the generator works from the main checkout or
+    from any worktree.
+    """
+    rel = "tech-docs/internal/design/diagram/icon-catalog.svg"
+    for parent in pathlib.Path(__file__).resolve().parents:
+        cand = parent / "kinaigraph-core" / rel
+        if cand.is_file():
+            return cand
+    raise SystemExit("cannot find kinaigraph-core's icon-catalog.svg from " + str(pathlib.Path(__file__).resolve()))
+
+CATALOG = _find_catalog()
 
 FONT = 'Arial, "Liberation Sans", Helvetica, sans-serif'
 
@@ -282,8 +295,11 @@ def scene3_style(used):
                 text-anchor: middle;
             }}
 
+            /* ⚠️ The BOX titles, not the scene heading — they read from their own
+               variable so a theme can keep its headings loud and its thirteen
+               box titles quiet. */
             .title-text {{
-                fill: {v('--title-text-color')};
+                fill: {v('--box-title-text-color')};
                 font-family: {v('--diagram-font-family')};
                 font-size: 36px;
                 font-weight: 600;

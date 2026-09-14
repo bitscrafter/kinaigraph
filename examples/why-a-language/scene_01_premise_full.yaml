@@ -65,18 +65,48 @@ defs:
             type: "audio"
             file: "./resource/audio/full/scene_01_01_premise.mp3"
 
+        # Last, so it draws above everything. Its own scene because it carries
+        # ~60 KB of embedded PNG — inside a content scene that payload would be
+        # most of the file and bury the geometry.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand_mark
+
+        # The cover — the first and last frame of the piece. Declared after the
+        # content scene so it paints over it, and after `brand` so the wordmark
+        # is the topmost thing on those two frames.
+        cover:
+            type: "scene"
+            file: "./resource/scene/scene_00_cover.svg"
+
+        wordmark:
+            type: "actor"
+            part_of: cover
+            id: wordmark
+
         template:
             type: "template"
             file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resource/style/theme_dark.css"
+            file: "./resource/style/theme_depth.css"
 
     const:
         # Silence at each end of the clip, so the stitch never butts a voice
         # against a cut.
-        VIDEO_MARGIN: 500
+        # ⚠️ THE OPENING FRAME IS THE WORDMARK, NOT A BLANK. A player parks on
+        # frame 0 before anyone presses play, so that frame is the piece's
+        # cover. It is written at full opacity AT t=0 — not faded in — so
+        # there is no frame before it.
+        WORDMARK_HOLD_MS: 500
+        WORDMARK_FADE_MS: 250
+
         # The gap between two moves that should read as consecutive rather than
         # simultaneous.
         BEAT_PAD: 250
@@ -108,11 +138,18 @@ animation:
         # icons plus the title and the subtitle — miss one and it is simply on
         # screen from the first frame, with nothing to report it.
         0 @ start_entry:
+            # Present from the first frame and never touched again.
+            - brand_mark:
+                  - show:
+                        opacity: 1
+            - wordmark:
+                  - show:
+                        opacity: 1
+                        hold:
+                            after: WORDMARK_HOLD_MS
             - title:
                   - show:
                         opacity: 0
-                        hold:
-                            after: VIDEO_MARGIN
             - subtitle:
                   - show:
                         opacity: 0
@@ -121,7 +158,16 @@ animation:
                         opacity: 0
 
         # ── The claim arrives before its evidence ─────────────────────────────
-        start_entry.end @ title_in:
+        # The cover clears, and the piece begins.
+        start_entry.end @ wordmark_out:
+            - wordmark:
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: WORDMARK_FADE_MS
+
+        wordmark_out.end @ title_in:
             - title:
                   - show:
                         opacity:

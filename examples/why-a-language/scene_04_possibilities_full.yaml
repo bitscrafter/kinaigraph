@@ -69,16 +69,46 @@ defs:
             type: "audio"
             file: "./resource/audio/full/scene_04_05_biz.mp3"
 
+        # Last, so it draws above everything. Its own scene because it carries
+        # ~60 KB of embedded PNG — inside a content scene that payload would be
+        # most of the file and bury the geometry.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand_mark
+
+        # The cover — the first and last frame of the piece. Declared after the
+        # content scene so it paints over it, and after `brand` so the wordmark
+        # is the topmost thing on those two frames.
+        cover:
+            type: "scene"
+            file: "./resource/scene/scene_00_cover.svg"
+
+        wordmark:
+            type: "actor"
+            part_of: cover
+            id: wordmark
+
         template:
             type: "template"
             file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resource/style/theme_dark.css"
+            file: "./resource/style/theme_depth.css"
 
     const:
         BEAT_PAD: 250
+
+        # ⚠️ AND THE CLOSING FRAME IS THE WORDMARK TOO — a player holds the last
+        # frame after the video ends, so it is the cover a second time. The hold
+        # below is what puts frames behind it.
+        WORDMARK_HOLD_MS: 500
+        WORDMARK_FADE_MS: 250
 
         HEADING_FADE_IN_MS: 700
         HEADING_FADE_OUT_MS: 700
@@ -129,7 +159,16 @@ animation:
     timeline:
         # ── An empty frame ───────────────────────────────────────────────────
         0 @ start_entry:
+            # Present from the first frame and never touched again.
+            - brand_mark:
+                  - show:
+                        opacity: 1
             - all_elements:
+                  - show:
+                        opacity: 0
+            # The cover is its own scene now, so it is hidden by name rather
+            # than by membership of this scene's catch-all group.
+            - wordmark:
                   - show:
                         opacity: 0
 
@@ -387,6 +426,17 @@ animation:
                             from: 1
                             to: 0
                         duration: HEADING_FADE_OUT_MS
+
+        # The cover returns, and the clip ends on it.
+        end_entry.end @ wordmark_in:
+            - wordmark:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: WORDMARK_FADE_MS
+                        hold:
+                            after: WORDMARK_HOLD_MS
 
     capture:
         scene_04_possibilities_full_silent:

@@ -1,8 +1,8 @@
-Making a video explainer means friction, whether you reach for traditional tools or for AI.
-Synchronizing motion with narration is a calibration you do by hand.
-The work is defined by labor-intensive cycles and repetitive tasks.
-Automated variations are hard to come by, and most iterations mean building it again.
-Visual assets sit outside version control, detached from collaboration and history.
-The source changes, the video goes stale, and fixing it means heavy re-work.
+Making a video explainer means friction, whichever tools you reach for.
+Motion is synced to narration by hand.
+The work is labor-intensive and repetitive.
+Nothing sits under version control, so you cannot see what changed.
 Styling drifts from one video to the next.
-And every language means authoring the whole thing again.
+Variations resist automation, and each one is built again.
+The source moves, the video goes stale, and fixing it is heavy re-work.
+And every language means authoring the whole thing over.

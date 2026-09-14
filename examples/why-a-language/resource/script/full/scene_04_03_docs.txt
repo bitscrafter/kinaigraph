@@ -1,1 +1,1 @@
-Interactive documentation that transforms abstract models into living explanations.
+Documentation that turns models into living explanations.

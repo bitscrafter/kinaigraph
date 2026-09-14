@@ -78,13 +78,25 @@ defs:
             type: "audio"
             file: "./resource/audio/full/scene_02_03_ai.mp3"
 
+        # Last, so it draws above everything. Its own scene because it carries
+        # ~60 KB of embedded PNG — inside a content scene that payload would be
+        # most of the file and bury the geometry.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand_mark
+
         template:
             type: "template"
             file: "./resource/template/main.html"
             style: style
         style:
             type: "style"
-            file: "./resource/style/theme_dark.css"
+            file: "./resource/style/theme_depth.css"
 
     const:
         BEAT_PAD: 250
@@ -122,6 +134,10 @@ animation:
         # `duration: 0` makes each move an instant placement rather than an
         # animation — the boxes are never SEEN travelling out, only back in.
         0 @ init_entry:
+            # Present from the first frame and never touched again.
+            - brand_mark:
+                  - show:
+                        opacity: 1
             - section_common:
                   - show:
                         opacity: 0

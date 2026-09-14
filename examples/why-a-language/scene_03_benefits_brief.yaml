@@ -82,6 +82,18 @@ defs:
             type: "audio"
             file: "./resource/audio/brief/scene_03_04_closing.mp3"
 
+        # Last, so it draws above everything. Its own scene because it carries
+        # ~60 KB of embedded PNG — inside a content scene that payload would be
+        # most of the file and bury the geometry.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand_mark
+
         template:
             type: "template"
             file: "./resource/template/main.html"
@@ -105,6 +117,10 @@ animation:
     timeline:
         # ── An empty frame ───────────────────────────────────────────────────
         0 @ start_entry:
+            # Present from the first frame and never touched again.
+            - brand_mark:
+                  - show:
+                        opacity: 1
             - all_content:
                   - show:
                         opacity: 0

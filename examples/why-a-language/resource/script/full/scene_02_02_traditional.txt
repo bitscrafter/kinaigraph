@@ -1,4 +1,4 @@
-Traditional editors put you back in the timeline for every single change.
+Traditional editors put you back in the timeline for every change.
 Keyframe animation is painstaking and slow.
-Managing assets by hand adds a layer of friction that stifles the work.
-And the project itself is a proprietary file, locked to one vendor's tools.
+Assets are managed by hand.
+And the project itself is a proprietary file, locked to one vendor.
