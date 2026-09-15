@@ -126,8 +126,10 @@ defs:
         UPPER_POINT_Y: 986
         MESOSPHERE_POINT_X: 852
         MESOSPHERE_POINT_Y: 1204
-        STRATOSPHERE_POINT_X: 790
-        STRATOSPHERE_POINT_Y: 1672
+        # The chip's left EDGE, not its middle: the apex lands on the target, and a
+        # point inside the chip puts the leader across its own label.
+        STRATOSPHERE_POINT_X: 690
+        STRATOSPHERE_POINT_Y: 1683
         TROPOSPHERE_POINT_X: 744
         TROPOSPHERE_POINT_Y: 2334
 
