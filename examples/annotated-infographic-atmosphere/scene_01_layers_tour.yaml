@@ -1,0 +1,448 @@
+# An annotated video built from a picture the author already had.
+#
+# `resource/image/atmosphere.png` is the input — a 1100 x 2700 raster. Nothing in
+# it is an actor, nothing in it moves, and this document never edits it. What the
+# document adds is a CAMERA and a set of CALLOUTS.
+#
+# THE CAMERA. The language has no camera primitive, so the picture moves instead:
+# `camera_pan` translates and `camera_zoom` scales about its own top-left. A
+# picture point p therefore lands on screen at  PAN + ZOOM × p  — one expression,
+# used below for every stop and every pointer.
+#
+# THE CALLOUTS. Each note's BOX is parked in the 1920 x 1080 frame, so it stays
+# the same size wherever the camera is, while its POINTER aims at a point written
+# in the IMAGE's own pixels — the coordinates you read off the PNG. That split is
+# what makes them annotations of the picture rather than parts of it.
+#
+#   establish   the whole poster, fitted to the frame's height
+#   push_in     zoom onto the title, and say what the source is
+#   upper … troposphere   pan down one band at a time, one callout each
+#   pull_out    back to the whole poster
+metadata:
+    title: "The Air Above You — annotated layers tour"
+    description: "a camera and callouts over a pre-existing PNG infographic"
+    version: "1.0"
+
+defs:
+    assets:
+        frame:
+            type: "scene"
+            file: "./resource/scene/atmosphere_frame.svg"
+        camera_pan:
+            type: "actor"
+            part_of: frame
+        camera_zoom:
+            type: "actor"
+            part_of: frame
+            pivot: top_left
+
+        # ── Callout texts ────────────────────────────────────────────────────────
+        # Each one says something the poster does not say for itself. A callout that
+        # repeats the caption under it has cost a viewer a read and told them nothing.
+        source_text:
+            type: "text"
+            content: |
+                A 1100 × 2700 PNG, untouched.
+                The camera moves over the picture.
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 30
+            font_color: "#16232f"
+        upper_text:
+            type: "text"
+            content: |
+                The trace leaves the panel on purpose:
+                1,500 °C will not fit a 116-pixel ruler.
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 30
+            font_color: "#16232f"
+        mesosphere_text:
+            type: "text"
+            content: |
+                Colder than anywhere on the ground —
+                and it is the meteors that mark it out.
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 30
+            font_color: "#16232f"
+        stratosphere_text:
+            type: "text"
+            content: |
+                The one layer that warms with height,
+                because ozone is absorbing ultraviolet.
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 30
+            font_color: "#16232f"
+        troposphere_text:
+            type: "text"
+            content: |
+                Everest fits inside this bottom band,
+                which holds three quarters of the air.
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 30
+            font_color: "#16232f"
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resource/style/theme_dark.css"
+
+    const:
+        FRAME_W: 1920
+        FRAME_H: 1080
+        # The input image's size. make_frame_svg.py prints it.
+        IMAGE_W: 1100
+        IMAGE_H: 2700
+
+        # Overview: the full height fits the frame, centred horizontally.
+        OVERVIEW_ZOOM: "FRAME_H / IMAGE_H"
+        OVERVIEW_PAN_X: "FRAME_W / 2 - OVERVIEW_ZOOM * IMAGE_W / 2"
+
+        # Detail: 1180 image px across the frame — the poster's width plus a margin.
+        DETAIL_W: 1180
+        DETAIL_ZOOM: "FRAME_W / DETAIL_W"
+        DETAIL_PAN_X: "FRAME_W / 2 - DETAIL_ZOOM * IMAGE_W / 2"
+
+        # The vertical centre of each stop, in image px.
+        TITLE_Y: 340
+        UPPER_Y: 870
+        MESOSPHERE_Y: 1290
+        STRATOSPHERE_Y: 1730
+        TROPOSPHERE_Y: 2260
+        TITLE_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * TITLE_Y"
+        UPPER_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * UPPER_Y"
+        MESOSPHERE_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * MESOSPHERE_Y"
+        STRATOSPHERE_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * STRATOSPHERE_Y"
+        TROPOSPHERE_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * TROPOSPHERE_Y"
+
+        # ── What each pointer aims at, in IMAGE px ───────────────────────────────
+        # Read off the PNG. The stop's own pan is what carries them to the screen,
+        # so a point and its stop must agree — check the pair, never one alone.
+        UPPER_POINT_X: 1016
+        UPPER_POINT_Y: 986
+        MESOSPHERE_POINT_X: 852
+        MESOSPHERE_POINT_Y: 1204
+        STRATOSPHERE_POINT_X: 790
+        STRATOSPHERE_POINT_Y: 1672
+        TROPOSPHERE_POINT_X: 744
+        TROPOSPHERE_POINT_Y: 2334
+
+        # ── The callout boxes, in SCREEN px ──────────────────────────────────────
+        # Sized by measuring the render — nothing measures the text for us, and
+        # overflow is silent. Re-check after any wording or font change.
+        #
+        # ⚠️ THE TYPE IS SIZED AGAINST THE PICTURE, NOT THE FRAME. The detail stops
+        # magnify the poster by DETAIL_ZOOM, so its own 20px captions arrive on
+        # screen at 32.5px. A callout set at 20px would read as fine print beside
+        # them; 30px is the same apparent size as the thing it annotates.
+        # Measured off the render: the longest line is the upper callout's second,
+        # and these are the smallest box that keeps NOTE_PAD clear on every side.
+        NOTE_W: 570
+        NOTE_H: 112
+        NOTE_PAD: 22
+
+        ZOOM_MS: 2500
+        PAN_MS: 2000
+        DWELL_MS: 3500
+        FADE_MS: 400
+        # Two fades are spent inside the dwell; the hold is what is left.
+        NOTE_HOLD_MS: "DWELL_MS - FADE_MS * 2"
+        ESTABLISH_MS: 2500
+        END_MS: 2000
+
+animation:
+    defaults:
+        assets:
+            scene: frame
+
+    annotations:
+        # The boxes are parked where that stop leaves empty frame; the pointers are
+        # written in image px and converted by the stop's own pan and zoom.
+        note_source:
+            note:
+                text: source_text
+                shape:
+                    rect:
+                        width: NOTE_W
+                        height: NOTE_H
+                padding: NOTE_PAD
+                align: left
+            # No pointer: it names the whole picture, not a place in it. Parked in
+            # the masthead's empty right half — the title text ends well left of it.
+            at:
+                x: 1180
+                y: 200
+            origin: top_left
+            fill: "#fdf6ec"
+            stroke: "#b76364"
+            stroke_width: 2
+
+        note_upper:
+            note:
+                text: upper_text
+                shape:
+                    rect:
+                        width: NOTE_W
+                        height: NOTE_H
+                padding: NOTE_PAD
+                align: left
+                pointer:
+                    target:
+                        x: "DETAIL_PAN_X + DETAIL_ZOOM * UPPER_POINT_X"
+                        y: "UPPER_PAN_Y + DETAIL_ZOOM * UPPER_POINT_Y"
+            # Right edge stops at the temperature panel's left rule, and the bottom
+            # clears the MESOSPHERE heading the stop already has on screen.
+            at:
+                x: 800
+                y: 780
+            origin: top_left
+            fill: "#fdf6ec"
+            stroke: "#b76364"
+            stroke_width: 2
+
+        note_mesosphere:
+            note:
+                text: mesosphere_text
+                shape:
+                    rect:
+                        width: NOTE_W
+                        height: NOTE_H
+                padding: NOTE_PAD
+                align: left
+                pointer:
+                    target:
+                        x: "DETAIL_PAN_X + DETAIL_ZOOM * MESOSPHERE_POINT_X"
+                        y: "MESOSPHERE_PAN_Y + DETAIL_ZOOM * MESOSPHERE_POINT_Y"
+            # Below the poster's own fact box, clear of "Meteors burn up here".
+            at:
+                x: 430
+                y: 600
+            origin: top_left
+            fill: "#fdf6ec"
+            stroke: "#b76364"
+            stroke_width: 2
+
+        note_stratosphere:
+            note:
+                text: stratosphere_text
+                shape:
+                    rect:
+                        width: NOTE_W
+                        height: NOTE_H
+                padding: NOTE_PAD
+                align: left
+                pointer:
+                    target:
+                        x: "DETAIL_PAN_X + DETAIL_ZOOM * STRATOSPHERE_POINT_X"
+                        y: "STRATOSPHERE_PAN_Y + DETAIL_ZOOM * STRATOSPHERE_POINT_Y"
+            at:
+                x: 390
+                y: 660
+            origin: top_left
+            fill: "#fdf6ec"
+            stroke: "#b76364"
+            stroke_width: 2
+
+        note_troposphere:
+            note:
+                text: troposphere_text
+                shape:
+                    rect:
+                        width: NOTE_W
+                        height: NOTE_H
+                padding: NOTE_PAD
+                align: left
+                pointer:
+                    target:
+                        x: "DETAIL_PAN_X + DETAIL_ZOOM * TROPOSPHERE_POINT_X"
+                        y: "TROPOSPHERE_PAN_Y + DETAIL_ZOOM * TROPOSPHERE_POINT_Y"
+            at:
+                x: 200
+                y: 760
+            origin: top_left
+            fill: "#fdf6ec"
+            stroke: "#b76364"
+            stroke_width: 2
+
+    timeline:
+        0 @ establish:
+            - camera_pan:
+                  - move:
+                        dx: "OVERVIEW_PAN_X"
+                        duration: 0
+            - camera_zoom:
+                  - show:
+                        opacity: 1
+                        scale:
+                            from: "OVERVIEW_ZOOM"
+                            to: "OVERVIEW_ZOOM"
+                        duration: 0
+                        hold:
+                            after: "ESTABLISH_MS"
+            # Every callout starts hidden; each stop is what brings its own up.
+            - note_source:
+                  - show:
+                        opacity: 0
+                        duration: 0
+            - note_upper:
+                  - show:
+                        opacity: 0
+                        duration: 0
+            - note_mesosphere:
+                  - show:
+                        opacity: 0
+                        duration: 0
+            - note_stratosphere:
+                  - show:
+                        opacity: 0
+                        duration: 0
+            - note_troposphere:
+                  - show:
+                        opacity: 0
+                        duration: 0
+
+        # Pan and zoom are different actors, so both entries run together.
+        establish.end @ push_in:
+            - camera_pan:
+                  - move:
+                        dx: "DETAIL_PAN_X - OVERVIEW_PAN_X"
+                        dy: "TITLE_PAN_Y"
+                        duration: "ZOOM_MS"
+                        easing: ease_in_out_quad
+            - camera_zoom:
+                  - show:
+                        scale:
+                            from: "OVERVIEW_ZOOM"
+                            to: "DETAIL_ZOOM"
+                        duration: "ZOOM_MS"
+                        easing: ease_in_out_quad
+
+        # A dwell bookmark holds no camera action at all: the picture is still, and
+        # the callout's own fade in, hold and fade out are what fill the window.
+        push_in.end @ title:
+            - note_source:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: "FADE_MS"
+                        hold:
+                            after: "NOTE_HOLD_MS"
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: "FADE_MS"
+
+        title.end @ pan_upper:
+            - camera_pan:
+                  - move:
+                        dy: "UPPER_PAN_Y - TITLE_PAN_Y"
+                        duration: "PAN_MS"
+                        easing: ease_in_out_quad
+
+        pan_upper.end @ upper:
+            - note_upper:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: "FADE_MS"
+                        hold:
+                            after: "NOTE_HOLD_MS"
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: "FADE_MS"
+
+        upper.end @ pan_mesosphere:
+            - camera_pan:
+                  - move:
+                        dy: "MESOSPHERE_PAN_Y - UPPER_PAN_Y"
+                        duration: "PAN_MS"
+                        easing: ease_in_out_quad
+
+        pan_mesosphere.end @ mesosphere:
+            - note_mesosphere:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: "FADE_MS"
+                        hold:
+                            after: "NOTE_HOLD_MS"
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: "FADE_MS"
+
+        mesosphere.end @ pan_stratosphere:
+            - camera_pan:
+                  - move:
+                        dy: "STRATOSPHERE_PAN_Y - MESOSPHERE_PAN_Y"
+                        duration: "PAN_MS"
+                        easing: ease_in_out_quad
+
+        pan_stratosphere.end @ stratosphere:
+            - note_stratosphere:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: "FADE_MS"
+                        hold:
+                            after: "NOTE_HOLD_MS"
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: "FADE_MS"
+
+        stratosphere.end @ pan_troposphere:
+            - camera_pan:
+                  - move:
+                        dy: "TROPOSPHERE_PAN_Y - STRATOSPHERE_PAN_Y"
+                        duration: "PAN_MS"
+                        easing: ease_in_out_quad
+
+        pan_troposphere.end @ troposphere:
+            - note_troposphere:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: "FADE_MS"
+                        hold:
+                            after: "NOTE_HOLD_MS"
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: "FADE_MS"
+
+        troposphere.end @ pull_out:
+            - camera_pan:
+                  - move:
+                        dx: "OVERVIEW_PAN_X - DETAIL_PAN_X"
+                        dy: "-TROPOSPHERE_PAN_Y"
+                        duration: "ZOOM_MS"
+                        easing: ease_in_out_quad
+                        hold:
+                            after: "END_MS"
+            - camera_zoom:
+                  - show:
+                        scale:
+                            from: "DETAIL_ZOOM"
+                            to: "OVERVIEW_ZOOM"
+                        duration: "ZOOM_MS"
+                        easing: ease_in_out_quad
+                        hold:
+                            after: "END_MS"
+
+    capture:
+        out:
+            output: "./scene_01_layers_tour.mp4"
+            fps: 30
