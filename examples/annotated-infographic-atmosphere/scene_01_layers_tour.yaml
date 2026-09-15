@@ -4,10 +4,11 @@
 # it is an actor, nothing in it moves, and this document never edits it. What the
 # document adds is a CAMERA and a set of CALLOUTS.
 #
-# THE CAMERA. The language has no camera primitive, so the picture moves instead:
-# `camera_pan` translates and `camera_zoom` scales about its own top-left. A
-# picture point p therefore lands on screen at  PAN + ZOOM × p  — one expression,
-# used below for every stop and every pointer.
+# THE CAMERA. The language has no camera primitive, so the picture moves instead.
+# There is no rig to build: the <image> element IS the actor, it takes the move
+# and the scale itself, and `pivot: top_left` keeps the picture's own origin
+# still under the zoom. A picture point p therefore lands on screen at
+# PAN + ZOOM × p — one expression, used below for every stop and every pointer.
 #
 # THE CALLOUTS. Each note's BOX is parked in the 1920 x 1080 frame, so it stays
 # the same size wherever the camera is, while its POINTER aims at a point written
@@ -28,10 +29,12 @@ defs:
         frame:
             type: "scene"
             file: "./resource/scene/atmosphere_frame.svg"
-        camera_pan:
-            type: "actor"
-            part_of: frame
-        camera_zoom:
+        # The picture itself. `pivot: top_left` — the default is `center`, which
+        # scales about the actor's own middle: fine for a shape, wrong for a
+        # camera, because the fixed point then moves as the picture does. With the
+        # image drawn at (0, 0), the zoom leaves the origin alone and the pan alone
+        # decides what is on screen.
+        atmosphere_infographic:
             type: "actor"
             part_of: frame
             pivot: top_left
@@ -267,11 +270,11 @@ animation:
 
     timeline:
         0 @ establish:
-            - camera_pan:
+            - atmosphere_infographic:
                   - move:
                         dx: "OVERVIEW_PAN_X"
                         duration: 0
-            - camera_zoom:
+            - atmosphere_infographic:
                   - show:
                         opacity: 1
                         scale:
@@ -302,15 +305,18 @@ animation:
                         opacity: 0
                         duration: 0
 
-        # Pan and zoom are different actors, so both entries run together.
+        # TWO ENTRIES, ONE ACTOR, ONE BOOKMARK. `move` writes position and `show`
+        # writes scale — different properties, so they run together, which is what
+        # a push-in is. Sub-actions inside a SINGLE entry would run in sequence
+        # instead: a dolly, then a zoom.
         establish.end @ push_in:
-            - camera_pan:
+            - atmosphere_infographic:
                   - move:
                         dx: "DETAIL_PAN_X - OVERVIEW_PAN_X"
                         dy: "TITLE_PAN_Y"
                         duration: "ZOOM_MS"
                         easing: ease_in_out_quad
-            - camera_zoom:
+            - atmosphere_infographic:
                   - show:
                         scale:
                             from: "OVERVIEW_ZOOM"
@@ -336,7 +342,7 @@ animation:
                         duration: "FADE_MS"
 
         title.end @ pan_upper:
-            - camera_pan:
+            - atmosphere_infographic:
                   - move:
                         dy: "UPPER_PAN_Y - TITLE_PAN_Y"
                         duration: "PAN_MS"
@@ -358,7 +364,7 @@ animation:
                         duration: "FADE_MS"
 
         upper.end @ pan_mesosphere:
-            - camera_pan:
+            - atmosphere_infographic:
                   - move:
                         dy: "MESOSPHERE_PAN_Y - UPPER_PAN_Y"
                         duration: "PAN_MS"
@@ -380,7 +386,7 @@ animation:
                         duration: "FADE_MS"
 
         mesosphere.end @ pan_stratosphere:
-            - camera_pan:
+            - atmosphere_infographic:
                   - move:
                         dy: "STRATOSPHERE_PAN_Y - MESOSPHERE_PAN_Y"
                         duration: "PAN_MS"
@@ -402,7 +408,7 @@ animation:
                         duration: "FADE_MS"
 
         stratosphere.end @ pan_troposphere:
-            - camera_pan:
+            - atmosphere_infographic:
                   - move:
                         dy: "TROPOSPHERE_PAN_Y - STRATOSPHERE_PAN_Y"
                         duration: "PAN_MS"
@@ -424,7 +430,7 @@ animation:
                         duration: "FADE_MS"
 
         troposphere.end @ pull_out:
-            - camera_pan:
+            - atmosphere_infographic:
                   - move:
                         dx: "OVERVIEW_PAN_X - DETAIL_PAN_X"
                         dy: "-TROPOSPHERE_PAN_Y"
@@ -432,7 +438,7 @@ animation:
                         easing: ease_in_out_quad
                         hold:
                             after: "END_MS"
-            - camera_zoom:
+            - atmosphere_infographic:
                   - show:
                         scale:
                             from: "DETAIL_ZOOM"

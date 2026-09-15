@@ -1,42 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
 <svg width="1100" height="2700" viewBox="0 0 1100 2700" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#04060e" />
-      <stop offset="0.10" stop-color="#070c22" />
-      <stop offset="0.23" stop-color="#0d1440" />
-      <stop offset="0.38" stop-color="#16265f" />
-      <stop offset="0.52" stop-color="#22417f" />
-      <stop offset="0.65" stop-color="#3164a4" />
-      <stop offset="0.76" stop-color="#4b8cc6" />
-      <stop offset="0.85" stop-color="#6fadd9" />
-      <stop offset="0.93" stop-color="#9ccdea" />
-      <stop offset="1" stop-color="#cfe8f6" />
+      <stop offset="0" stop-color="#04060e"/>
+      <stop offset="0.1" stop-color="#070c22"/>
+      <stop offset="0.23" stop-color="#0d1440"/>
+      <stop offset="0.38" stop-color="#16265f"/>
+      <stop offset="0.52" stop-color="#22417f"/>
+      <stop offset="0.65" stop-color="#3164a4"/>
+      <stop offset="0.76" stop-color="#4b8cc6"/>
+      <stop offset="0.85" stop-color="#6fadd9"/>
+      <stop offset="0.93" stop-color="#9ccdea"/>
+      <stop offset="1" stop-color="#cfe8f6"/>
     </linearGradient>
     <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2f7a55" /><stop offset="1" stop-color="#123227" />
+      <stop offset="0" stop-color="#2f7a55"/>
+      <stop offset="1" stop-color="#123227"/>
     </linearGradient>
     <radialGradient id="aurora" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#57f5b0" stop-opacity="0.5" />
-      <stop offset="1" stop-color="#57f5b0" stop-opacity="0" />
+      <stop offset="0" stop-color="#57f5b0" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#57f5b0" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="prof" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0" stop-color="#ffd166" />
-      <stop offset="0.336" stop-color="#7ec8ff" />
-      <stop offset="0.440" stop-color="#7ec8ff" />
-      <stop offset="0.549" stop-color="#9ad4ff" />
-      <stop offset="0.685" stop-color="#ffd166" />
-      <stop offset="0.720" stop-color="#ffd166" />
-      <stop offset="0.885" stop-color="#7ec8ff" />
-      <stop offset="1" stop-color="#4f96dd" />
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="0.336" stop-color="#7ec8ff"/>
+      <stop offset="0.44" stop-color="#7ec8ff"/>
+      <stop offset="0.549" stop-color="#9ad4ff"/>
+      <stop offset="0.685" stop-color="#ffd166"/>
+      <stop offset="0.72" stop-color="#ffd166"/>
+      <stop offset="0.885" stop-color="#7ec8ff"/>
+      <stop offset="1" stop-color="#4f96dd"/>
     </linearGradient>
     <linearGradient id="profhot" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0" stop-color="#4f96dd" />
-      <stop offset="0.28" stop-color="#7ec8ff" />
-      <stop offset="0.58" stop-color="#ffd166" />
-      <stop offset="1" stop-color="#ff7a59" />
+      <stop offset="0" stop-color="#4f96dd"/>
+      <stop offset="0.28" stop-color="#7ec8ff"/>
+      <stop offset="0.58" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#ff7a59"/>
     </linearGradient>
     <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="8" />
+      <feGaussianBlur stdDeviation="8"/>
     </filter>
     <style>
       text { font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; fill:#eef5fb; }
@@ -57,374 +59,163 @@
       .tempnum { font-size:18px; font-weight:700; }
     </style>
   </defs>
-
-  <rect width="1100" height="2700" fill="#050a14" />
-  <rect y="640" width="1100" height="1920" fill="url(#sky)" />
-  <rect y="2490" width="1100" height="70" fill="url(#ground)" />
-
+  <rect width="1100" height="2700" fill="#050a14"/>
+  <rect y="640" width="1100" height="1920" fill="url(#sky)"/>
+  <rect y="2490" width="1100" height="70" fill="url(#ground)"/>
   <g fill="#ffffff">
-    <circle cx="150" cy="760" r="1.5" opacity=".7" /><circle
-            cx="420"
-            cy="700"
-            r="1.1"
-            opacity=".5"
-        />
-    <circle cx="700" cy="820" r="1.7" opacity=".8" /><circle
-            cx="960"
-            cy="710"
-            r="1.2"
-            opacity=".55"
-        />
-    <circle cx="300" cy="900" r="1.3" opacity=".5" /><circle
-            cx="820"
-            cy="960"
-            r="1.4"
-            opacity=".6"
-        />
-    <circle cx="1040" cy="860" r="1.2" opacity=".5" /><circle
-            cx="560"
-            cy="1010"
-            r="1.1"
-            opacity=".45"
-        />
+    <circle cx="150" cy="760" r="1.5" opacity=".7"/>
+    <circle cx="420" cy="700" r="1.1" opacity=".5"/>
+    <circle cx="700" cy="820" r="1.7" opacity=".8"/>
+    <circle cx="960" cy="710" r="1.2" opacity=".55"/>
+    <circle cx="300" cy="900" r="1.3" opacity=".5"/>
+    <circle cx="820" cy="960" r="1.4" opacity=".6"/>
+    <circle cx="1040" cy="860" r="1.2" opacity=".5"/>
+    <circle cx="560" cy="1010" r="1.1" opacity=".45"/>
   </g>
-
-  <!-- ════ MASTHEAD ════ -->
-  <text class="kicker" x="70" y="112">EARTH SCIENCE · SAMPLE INFOGRAPHIC</text>
-  <text class="title" x="70" y="200">The Air</text>
-  <text class="title" x="70" y="283">Above You</text>
-  <text class="sub" x="70" y="338">Five layers, no outer edge, and a temperature that</text>
-  <text class="sub" x="70" y="372">reverses direction three times on the way up.</text>
-  <rect x="70" y="404" width="132" height="4" fill="#ffd166" />
-
-  <!-- ════ WHAT IT IS ════ -->
+  <text class="kicker" x="70" y="112" style="white-space: pre;">EARTH SCIENCE · THE ATMOSPHERE</text>
+  <text class="title" x="70" y="200" style="white-space: pre;">The Air</text>
+  <text class="title" x="70" y="283" style="white-space: pre;">Above You</text>
+  <text class="sub" x="70" y="338" style="white-space: pre;">Five layers, no outer edge, and a temperature that</text>
+  <text class="sub" x="70" y="372" style="white-space: pre;">reverses direction three times on the way up.</text>
+  <rect x="70" y="404" width="132" height="4" fill="#ffd166"/>
   <g>
-    <rect
-            x="70"
-            y="446"
-            width="960"
-            height="166"
-            rx="14"
-            fill="#0c1730"
-            stroke="#7ec8ff"
-            stroke-opacity=".3"
-        />
-    <text class="facthd" x="98" y="488" style="fill:#7ec8ff">THE ATMOSPHERE</text>
-    <text
-            class="lede"
-            x="98"
-            y="528"
-        >The whole envelope of gas held to Earth by gravity — 78%</text>
-    <text
-            class="lede"
-            x="98"
-            y="562"
-        >nitrogen, 21% oxygen. It is divided into FIVE LAYERS, one above</text>
-    <text
-            class="lede"
-            x="98"
-            y="596"
-        >the next — and nothing lies beyond the outermost. It just thins away.</text>
+    <rect x="70" y="446" width="960" height="176" rx="14" fill="#0c1730" stroke="#7ec8ff" stroke-opacity=".3"/>
+    <text class="facthd" x="98" y="488" style="fill: rgb(126, 200, 255); white-space: pre;">WHAT IT IS</text>
+    <text class="lede" x="98" y="528" style="white-space: pre;">The whole envelope of gas held to Earth by gravity: 78% nitrogen,</text>
+    <text class="lede" x="98" y="562" style="white-space: pre;">21% oxygen. It is divided into FIVE LAYERS, one above the next,</text>
+    <text class="lede" x="98" y="596" style="white-space: pre;">and nothing lies beyond the outermost — it just thins away.</text>
   </g>
-
-  <!-- ════ ALTITUDE AXIS ════ -->
-  <line
-        x1="150"
-        y1="700"
-        x2="150"
-        y2="2490"
-        stroke="#ffffff"
-        stroke-opacity=".3"
-        stroke-width="2"
-    />
+  <line x1="150" y1="700" x2="150" y2="2490" stroke="#ffffff" stroke-opacity=".3" stroke-width="2"/>
   <g>
-    <g><line
-                x1="140"
-                y1="2490"
-                x2="162"
-                y2="2490"
-                stroke="#fff"
-                stroke-opacity=".6"
-                stroke-width="2"
-            />
-       <rect x="40" y="2474" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85" />
-       <text class="axis" x="126" y="2495" text-anchor="end">0 km</text></g>
-    <g><line
-                x1="140"
-                y1="1980"
-                x2="162"
-                y2="1980"
-                stroke="#fff"
-                stroke-opacity=".6"
-                stroke-width="2"
-            />
-       <rect x="40" y="1964" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85" />
-       <text class="axis" x="126" y="1985" text-anchor="end">12 km</text></g>
-    <g><line
-                x1="140"
-                y1="1500"
-                x2="162"
-                y2="1500"
-                stroke="#fff"
-                stroke-opacity=".6"
-                stroke-width="2"
-            />
-       <rect x="40" y="1484" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85" />
-       <text class="axis" x="126" y="1505" text-anchor="end">50 km</text></g>
-    <g><line
-                x1="140"
-                y1="1100"
-                x2="162"
-                y2="1100"
-                stroke="#fff"
-                stroke-opacity=".6"
-                stroke-width="2"
-            />
-       <rect x="40" y="1084" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85" />
-       <text class="axis" x="126" y="1105" text-anchor="end">85 km</text></g>
-    <g><line
-                x1="140"
-                y1="800"
-                x2="162"
-                y2="800"
-                stroke="#fff"
-                stroke-opacity=".6"
-                stroke-width="2"
-            />
-       <rect x="40" y="784" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85" />
-       <text class="axis" x="126" y="805" text-anchor="end">600 km</text></g>
-  </g>
-  <g stroke="#ffffff" stroke-opacity=".22" stroke-dasharray="9 9" stroke-width="1.6">
-    <line x1="150" y1="1980" x2="1030" y2="1980" />
-    <line x1="150" y1="1500" x2="1030" y2="1500" />
-    <line x1="150" y1="1100" x2="1030" y2="1100" />
-    <line x1="150" y1="800" x2="1030" y2="800" />
-  </g>
-
-  <!-- ════ EXOSPHERE ════ -->
-  <text class="layer" x="200" y="702">EXOSPHERE</text>
-  <text class="alt" x="200" y="733">600 km outward · thins away; no boundary with space</text>
-
-  <!-- ════ THERMOSPHERE ════ -->
-  <ellipse cx="800" cy="880" rx="220" ry="58" fill="url(#aurora)" />
-  <text class="layer" x="200" y="838">THERMOSPHERE</text>
-  <text class="alt" x="200" y="869">85 – 600 km</text>
-  <g>
-    <rect
-            x="200"
-            y="895"
-            width="420"
-            height="138"
-            rx="12"
-            fill="#081334"
-            fill-opacity=".82"
-            stroke="#7ec8ff"
-            stroke-opacity=".35"
-        />
-    <text class="facthd" x="224" y="927" style="fill:#7ec8ff">TEMPERATURE WITHOUT HEAT</text>
-    <text class="fact" x="224" y="959">Molecules move fast enough to register</text>
-    <text class="fact" x="224" y="985">1,500 °C — but they are so sparse that a</text>
-    <text class="fact" x="224" y="1011">thermometer would read far below zero.</text>
-  </g>
-  <g>
-    <circle cx="700" cy="860" r="6" fill="#57f5b0" />
-    <text class="obj" x="716" y="866" style="fill:#a9f7d6">Aurora · 100–300 km</text>
-    <g transform="translate(700,930)">
-      <rect x="-5" y="-9" width="10" height="18" rx="2" fill="#eef5fb" />
-      <rect x="-30" y="-3" width="22" height="6" rx="1.5" fill="#ffd166" />
-      <rect x="8" y="-3" width="22" height="6" rx="1.5" fill="#ffd166" />
+    <g>
+      <line x1="140" y1="2490" x2="162" y2="2490" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+      <rect x="40" y="2474" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85"/>
+      <text class="axis" x="126" y="2495" text-anchor="end" style="white-space: pre;">0 km</text>
     </g>
-    <text class="obj" x="742" y="936">ISS · 400 km</text>
+    <g>
+      <line x1="140" y1="1980" x2="162" y2="1980" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+      <rect x="40" y="1964" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85"/>
+      <text class="axis" x="126" y="1985" text-anchor="end" style="white-space: pre;">12 km</text>
+    </g>
+    <g>
+      <line x1="140" y1="1500" x2="162" y2="1500" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+      <rect x="40" y="1484" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85"/>
+      <text class="axis" x="126" y="1505" text-anchor="end" style="white-space: pre;">50 km</text>
+    </g>
+    <g>
+      <line x1="140" y1="1100" x2="162" y2="1100" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+      <rect x="40" y="1084" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85"/>
+      <text class="axis" x="126" y="1105" text-anchor="end" style="white-space: pre;">85 km</text>
+    </g>
+    <g>
+      <line x1="140" y1="800" x2="162" y2="800" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+      <rect x="40" y="784" width="94" height="30" rx="8" fill="#06101d" fill-opacity=".85"/>
+      <text class="axis" x="126" y="805" text-anchor="end" style="white-space: pre;">600 km</text>
+    </g>
   </g>
-
-  <!-- ════ MESOSPHERE ════ -->
-  <text class="layer" x="200" y="1140">MESOSPHERE</text>
-  <text class="alt" x="200" y="1171">50 – 85 km</text>
+  <text class="caxis" x="126" y="676" text-anchor="end" style="fill: rgb(207, 226, 242); font-weight: 700; letter-spacing: 2px; white-space: pre;">ALTITUDE</text>
+  <g stroke="#ffffff" stroke-opacity=".22" stroke-dasharray="9 9" stroke-width="1.6">
+    <line x1="150" y1="1980" x2="1030" y2="1980"/>
+    <line x1="150" y1="1500" x2="1030" y2="1500"/>
+    <line x1="150" y1="1100" x2="1030" y2="1100"/>
+    <line x1="150" y1="800" x2="1030" y2="800"/>
+  </g>
+  <text class="layer" x="200" y="702" style="white-space: pre;">EXOSPHERE</text>
+  <text class="alt" x="200" y="733" style="white-space: pre;">600 km outward · thins away; no boundary with space</text>
+  <ellipse cx="781" cy="872" rx="220" ry="58" fill="url(#aurora)"/>
+  <text class="layer" x="200" y="838" style="white-space: pre;">THERMOSPHERE</text>
+  <text class="alt" x="200" y="869" style="white-space: pre;">85 – 600 km</text>
   <g>
-    <rect
-            x="200"
-            y="1197"
-            width="445"
-            height="112"
-            rx="12"
-            fill="#0b1741"
-            fill-opacity=".82"
-            stroke="#7ec8ff"
-            stroke-opacity=".35"
-        />
-    <text class="facthd" x="224" y="1229" style="fill:#7ec8ff">EARTH’S COLDEST AIR</text>
-    <text class="fact" x="224" y="1261">Its top averages about −85 °C — the coldest</text>
-    <text class="fact" x="224" y="1287">place anywhere in the Earth system.</text>
+    <rect x="200" y="895" width="420" height="138" rx="12" fill="#081334" fill-opacity=".82" stroke="#7ec8ff" stroke-opacity=".35"/>
+    <text class="facthd" x="224" y="927" style="fill: rgb(126, 200, 255); white-space: pre;">TEMPERATURE WITHOUT HEAT</text>
+    <text class="fact" x="224" y="959" style="white-space: pre;">Molecules move fast enough to register</text>
+    <text class="fact" x="224" y="985" style="white-space: pre;">1,500 °C — but they are so sparse that a</text>
+    <text class="fact" x="224" y="1011" style="white-space: pre;">thermometer would read far below zero.</text>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, -19, -8)">
+    <circle cx="700" cy="860" r="6" fill="#57f5b0"/>
+    <text class="obj" x="716" y="866" style="fill: rgb(169, 247, 214); white-space: pre;">Aurora · 100–300 km</text>
+    <g transform="translate(700,930)">
+      <rect x="-5" y="-9" width="10" height="18" rx="2" fill="#eef5fb"/>
+      <rect x="-30" y="-3" width="22" height="6" rx="1.5" fill="#ffd166"/>
+      <rect x="8" y="-3" width="22" height="6" rx="1.5" fill="#ffd166"/>
+    </g>
+    <text class="obj" x="742" y="936" style="white-space: pre;">ISS · 400 km</text>
+  </g>
+  <text class="layer" x="200" y="1140" style="white-space: pre;">MESOSPHERE</text>
+  <text class="alt" x="200" y="1171" style="white-space: pre;">50 – 85 km</text>
+  <g>
+    <rect x="200" y="1197" width="445" height="112" rx="12" fill="#0b1741" fill-opacity=".82" stroke="#7ec8ff" stroke-opacity=".35"/>
+    <text class="facthd" x="224" y="1229" style="fill: rgb(126, 200, 255); white-space: pre;">EARTH’S COLDEST AIR</text>
+    <text class="fact" x="224" y="1261" style="white-space: pre;">Its top averages about −85 °C — the coldest</text>
+    <text class="fact" x="224" y="1287" style="white-space: pre;">place anywhere in the Earth system.</text>
   </g>
   <g stroke="#ffd166" stroke-width="3" stroke-linecap="round" opacity=".95">
-    <line x1="730" y1="1150" x2="800" y2="1214" />
-    <line x1="850" y1="1190" x2="906" y2="1242" />
-    <line x1="690" y1="1280" x2="742" y2="1328" />
+    <line x1="730" y1="1150" x2="800" y2="1214"/>
+    <line x1="850" y1="1190" x2="906" y2="1242"/>
+    <line x1="690" y1="1280" x2="742" y2="1328"/>
   </g>
-  <text class="obj" x="690" y="1380" style="fill:#ffd166">Meteors burn up here</text>
-
-  <!-- ════ STRATOSPHERE ════ -->
-  <text class="layer" x="200" y="1540">STRATOSPHERE</text>
-  <text class="alt" x="200" y="1571">12 – 50 km</text>
+  <text class="obj" x="690" y="1380" style="fill: rgb(255, 209, 102); white-space: pre;">Meteors burn up here</text>
+  <text class="layer" x="200" y="1540" style="white-space: pre;">STRATOSPHERE</text>
+  <text class="alt" x="200" y="1571" style="white-space: pre;">12 – 50 km</text>
   <g>
-    <rect
-            x="200"
-            y="1597"
-            width="485"
-            height="140"
-            rx="12"
-            fill="#10255a"
-            fill-opacity=".82"
-            stroke="#7ec8ff"
-            stroke-opacity=".35"
-        />
-    <text class="facthd" x="224" y="1629" style="fill:#7ec8ff">THE OZONE LAYER</text>
-    <text class="fact" x="224" y="1661">Between 20 and 30 km, ozone absorbs the Sun's</text>
-    <text class="fact" x="224" y="1687">ultraviolet light. That is why temperature RISES</text>
-    <text class="fact" x="224" y="1713">with height here — the only layer that warms.</text>
+    <rect x="200" y="1597" width="485" height="140" rx="12" fill="#10255a" fill-opacity=".82" stroke="#7ec8ff" stroke-opacity=".35"/>
+    <text class="facthd" x="224" y="1629" style="fill: rgb(126, 200, 255); white-space: pre;">THE OZONE LAYER</text>
+    <text class="fact" x="224" y="1661" style="white-space: pre;">Between 20 and 30 km, ozone absorbs the Sun's</text>
+    <text class="fact" x="224" y="1687" style="white-space: pre;">ultraviolet light. That is why temperature RISES</text>
+    <text class="fact" x="224" y="1713" style="white-space: pre;">with height here — the only layer that warms.</text>
   </g>
-  <rect x="701" y="1640" width="200" height="86" rx="8" fill="#7ec8ff" fill-opacity=".16" />
-  <text class="obj" x="716" y="1690" style="fill:#cfe7f7">Ozone · 20 – 30 km</text>
+  <rect x="693" y="1640" width="200" height="86" rx="8" fill="#7ec8ff" fill-opacity=".16"/>
+  <text class="obj" x="708" y="1690" style="fill: rgb(207, 231, 247); white-space: pre; font-size: 19px;">Ozone · 20 – 30 km</text>
   <g>
-    <ellipse cx="880" cy="1522" rx="17" ry="22" fill="#eef5fb" opacity=".95" />
-    <line x1="880" y1="1544" x2="880" y2="1566" stroke="#eef5fb" stroke-width="1.6" />
-    <rect x="872" y="1566" width="16" height="11" rx="2" fill="#ffd166" />
-    <text class="obj" x="700" y="1478">Weather balloon · 35 km</text>
+    <ellipse cx="880" cy="1522" rx="17" ry="22" fill="#eef5fb" opacity=".95"/>
+    <line x1="880" y1="1544" x2="880" y2="1566" stroke="#eef5fb" stroke-width="1.6"/>
+    <rect x="872" y="1566" width="16" height="11" rx="2" fill="#ffd166"/>
+    <text class="obj" x="700" y="1478" style="white-space: pre;">Weather balloon · 35 km</text>
   </g>
-
-  <!-- ════ TROPOSPHERE ════ -->
-  <text class="layer" x="200" y="2020">TROPOSPHERE</text>
-  <text class="alt" x="200" y="2051">0 – 12 km</text>
+  <text class="layer" x="200" y="2020" style="white-space: pre;">TROPOSPHERE</text>
+  <text class="alt" x="200" y="2051" style="white-space: pre;">0 – 12 km</text>
   <g>
-    <rect
-            x="200"
-            y="2077"
-            width="470"
-            height="140"
-            rx="12"
-            fill="#ffffff"
-            fill-opacity=".95"
-            stroke="#0f4a6b"
-            stroke-opacity=".5"
-        />
-    <text class="facthd" x="224" y="2109" style="fill:#0d5182">WHERE WEATHER LIVES</text>
-    <text
-            class="fact"
-            x="224"
-            y="2141"
-            style="fill:#0d2c3f"
-        >Holds about three quarters of the atmosphere's</text>
-    <text
-            class="fact"
-            x="224"
-            y="2167"
-            style="fill:#0d2c3f"
-        >mass and nearly all of its water vapour.</text>
-    <text
-            class="fact"
-            x="224"
-            y="2193"
-            style="fill:#0d2c3f"
-        >Every cloud you have ever seen is in here.</text>
+    <rect x="200" y="2077" width="470" height="140" rx="12" fill="#ffffff" fill-opacity=".95" stroke="#0f4a6b" stroke-opacity=".5"/>
+    <text class="facthd" x="224" y="2109" style="fill: rgb(13, 81, 130); white-space: pre;">WHERE WEATHER LIVES</text>
+    <text class="fact" x="224" y="2141" style="fill: rgb(13, 44, 63); white-space: pre;">Holds about three quarters of the atmosphere's</text>
+    <text class="fact" x="224" y="2167" style="fill: rgb(13, 44, 63); white-space: pre;">mass and nearly all of its water vapour.</text>
+    <text class="fact" x="224" y="2193" style="fill: rgb(13, 44, 63); white-space: pre;">Every cloud you have ever seen is in here.</text>
   </g>
   <g fill="#ffffff" opacity=".9">
-    <ellipse cx="760" cy="2250" rx="60" ry="24" /><ellipse cx="806" cy="2238" rx="42" ry="28" />
-    <ellipse cx="560" cy="2334" rx="48" ry="20" /><ellipse cx="526" cy="2326" rx="34" ry="24" />
+    <ellipse cx="760" cy="2250" rx="60" ry="24"/>
+    <ellipse cx="806" cy="2238" rx="42" ry="28"/>
+    <ellipse cx="560" cy="2334" rx="48" ry="20"/>
+    <ellipse cx="526" cy="2326" rx="34" ry="24"/>
   </g>
   <g>
     <g transform="translate(790,1995)">
-      <path
-                d="M -52 0 L -14 -6 L 6 -30 L 18 -30 L 12 -7 L 40 -9 L 50 -22 L 58 -22 L 54 0
-               L 58 22 L 50 22 L 40 9 L 12 7 L 18 30 L 6 30 L -14 6 Z"
-                fill="#f4f9fd"
-            />
+      <path d="M -52 0 L -14 -6 L 6 -30 L 18 -30 L 12 -7 L 40 -9 L 50 -22 L 58 -22 L 54 0 L 58 22 L 50 22 L 40 9 L 12 7 L 18 30 L 6 30 L -14 6 Z" fill="#f4f9fd"/>
     </g>
-    <text class="obj" x="700" y="1948">Airliner · 11 km</text>
-    <path d="M 640 2490 l 104 -158 l 44 70 l 32 -50 l 100 138 z" fill="#f2f7fb" opacity=".96" />
-    <path d="M 684 2424 l 44 -66 l 24 38 l -20 28 z" fill="#ffffff" />
-    <text class="obj" x="700" y="2452" style="fill:#0b2436">Everest · 8.8 km</text>
+    <text class="obj" x="700" y="1948" style="white-space: pre;">Airliner · 11 km</text>
+    <path d="M 640 2490 l 104 -158 l 44 70 l 32 -50 l 100 138 z" fill="#f2f7fb" opacity=".96"/>
+    <path d="M 684 2424 l 44 -66 l 24 38 l -20 28 z" fill="#ffffff"/>
+    <text class="obj" x="700" y="2452" style="fill: rgb(11, 36, 54); white-space: pre;">Everest · 8.8 km</text>
   </g>
-
-  <!-- ════ THE TEMPERATURE PROFILE, COMPACT ════
-       104px wide, x 936..1040, sharing the poster's own altitude axis. Deliberately
-       under-labelled: the video zooms here and BUILDS the °C and km axes around it
-       as overlay annotations, which is the point of the example. ══════════════ -->
-  <rect x="894" y="690" width="116" height="1810" rx="10" fill="#7ec8ff" fill-opacity=".06" />
-  <text
-        class="caxis"
-        x="952"
-        y="676"
-        text-anchor="middle"
-        style="fill:#cfe2f2; font-weight:700; letter-spacing:2px"
-    >TEMP</text>
+  <rect x="894" y="690" width="116" height="1810" rx="10" fill="#7ec8ff" fill-opacity=".06"/>
+  <text class="caxis" x="952" y="676" text-anchor="middle" style="fill: rgb(207, 226, 242); font-weight: 700; letter-spacing: 2px; white-space: pre;">TEMP</text>
   <g stroke="#ffffff" stroke-opacity=".22" stroke-width="1.2">
-    <line x1="900" y1="2500" x2="900" y2="690" />
-    <line x1="1004" y1="2500" x2="1004" y2="690" />
+    <line x1="900" y1="2500" x2="900" y2="690"/>
+    <line x1="1004" y1="2500" x2="1004" y2="690"/>
   </g>
-  <text class="caxis" x="900" y="2528" text-anchor="middle" style="font-size:14px">−100 °C</text>
-  <text class="caxis" x="1004" y="2528" text-anchor="middle" style="font-size:14px">+60 °C</text>
-
-  <path
-        d="M 975 2490 L 928 2023 L 928 1879 L 936 1727 L 963 1538 L 963 1489 L 927 1260 L 909 1100"
-        fill="none"
-        stroke="url(#prof)"
-        stroke-width="8"
-        stroke-linejoin="round"
-        stroke-linecap="round"
-        filter="url(#soft)"
-        opacity=".75"
-    />
-  <path
-        d="M 975 2490 L 928 2023 L 928 1879 L 936 1727 L 963 1538 L 963 1489 L 927 1260 L 909 1100"
-        fill="none"
-        stroke="url(#prof)"
-        stroke-width="4"
-        stroke-linejoin="round"
-        stroke-linecap="round"
-    />
-
-  <!-- Off the scale ON PURPOSE: it crosses the panel's right rule and keeps going.
-       The thermosphere reaches 1,500 °C+, which no 104px ruler can hold, so the
-       dots stop pretending to measure anything past +20. -->
-  <path
-        d="M 909 1100 C 940 1040, 1000 1008, 1062 966"
-        fill="none"
-        stroke="url(#profhot)"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-dasharray="1 11"
-    />
-    <text
-        class="tempnum"
-        x="1066"
-        y="922"
-        text-anchor="end"
-        style="fill:#b76364; font-size:16px"
-    >1,500 °C and beyond</text>
-    <text
-        class="tempnum"
-        x="1066"
-        y="944"
-        text-anchor="end"
-        style="fill:#b76364; font-size:16px"
-    >off the scale →</text>
+  <text class="caxis" x="900" y="2528" text-anchor="middle" style="font-size: 14px; white-space: pre;">−100 °C</text>
+  <text class="caxis" x="1004" y="2528" text-anchor="middle" style="font-size: 14px; white-space: pre;">+60 °C</text>
+  <path d="M 975 2490 L 928 2023 L 928 1879 L 936 1727 L 963 1538 L 963 1489 L 927 1260 L 909 1100" fill="none" stroke="url(#prof)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" filter="url(#soft)" opacity=".75"/>
+  <path d="M 975 2490 L 928 2023 L 928 1879 L 936 1727 L 963 1538 L 963 1489 L 927 1260 L 909 1100" fill="none" stroke="url(#prof)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 909 1100 C 940 1040, 1000 1008, 1062 966" fill="none" stroke="url(#profhot)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 11"/>
+  <text class="tempnum" x="1066" y="922" text-anchor="end" style="fill: rgb(183, 99, 100); font-size: 16px; white-space: pre;">1,500 °C and beyond</text>
   <g>
-    <circle cx="975" cy="2490" r="5" fill="#ffd166" />
-    <circle cx="928" cy="2023" r="5" fill="#7ec8ff" />
-    <circle cx="963" cy="1489" r="5" fill="#ffd166" />
-    <circle cx="909" cy="1100" r="5" fill="#4f96dd" />
+    <circle cx="975" cy="2490" r="5" fill="#ffd166"/>
+    <circle cx="928" cy="2023" r="5" fill="#7ec8ff"/>
+    <circle cx="963" cy="1489" r="5" fill="#ffd166"/>
+    <circle cx="909" cy="1100" r="5" fill="#4f96dd"/>
   </g>
-
-  <!-- ════ SOURCES ════ -->
-  <rect y="2570" width="1100" height="130" fill="#050a14" />
-  <text
-        class="cite"
-        x="70"
-        y="2618"
-    >Layer boundaries and descriptions: NOAA JetStream, “Layers of the Atmosphere”; NASA, “Earth’s Atmosphere: A Multi-layered Cake”.</text>
-  <text
-        class="cite"
-        x="70"
-        y="2644"
-    >Temperature profile: U.S. Standard Atmosphere, 1976. Vertical scale compressed above 12 km; boundary heights vary with latitude and season.</text>
+  <rect y="2570" width="1100" height="130" fill="#050a14"/>
+  <text class="cite" x="70" y="2618" style="white-space: pre;">Layer boundaries and descriptions: NOAA JetStream, “Layers of the Atmosphere”; NASA, “Earth’s Atmosphere: A Multi-layered Cake”.</text>
+  <text class="cite" x="70" y="2644" style="white-space: pre;">Temperature profile: U.S. Standard Atmosphere, 1976. Vertical scale compressed above 12 km; boundary heights vary with latitude and season.</text>
 </svg>

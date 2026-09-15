@@ -21,28 +21,28 @@ scanned, screenshotted, handed to you — and want an annotated video of it.
 
 ## The camera is the picture moving
 
-The language has no camera primitive, so nothing here is a camera: `camera_pan`
-translates the image and `camera_zoom` scales it. They are **nested groups**, and
-the order is what makes the arithmetic simple —
+The language has no camera primitive, so nothing here is a camera — and there is
+no rig either. The whole scene is a background and the picture:
 
 ```xml
-<g id="camera_pan">
-  <g id="camera_zoom">
-    <image id="infographic" x="0" y="0" width="1100" height="2700" .../>
+<rect width="1920" height="1080" fill="var(--scene-background-color, #050a14)"/>
+<image id="atmosphere_infographic" x="0" y="0" width="1100" height="2700" .../>
 ```
 
-so a picture point `p` lands on screen at **`PAN + ZOOM × p`**. That one expression
-is every stop and every pointer in the document.
+The `<image>` element **is the actor**: it takes the move and the scale itself, so
+a picture point `p` lands on screen at **`PAN + ZOOM × p`**. That one expression is
+every stop and every pointer in the document.
 
-`camera_zoom` declares `pivot: top_left`. The default pivot is `center`, which
-scales about the actor's own middle — fine for a push-in on a shape, wrong for a
-camera, because the fixed point then moves as the picture does. With the top-left
-pinned and the image drawn at `(0, 0)`, the zoom leaves the origin alone and the
-pan alone decides what is on screen.
+Wrapper groups — one to translate, one to scale — were measured against this and
+add nothing: with the image drawn at `(0, 0)` the composed transform is the same
+either way. The arithmetic depends on `pivot: top_left` instead. The default pivot
+is `center`, which scales about the actor's own middle: fine for a push-in on a
+shape, wrong for a camera, because the fixed point then moves as the picture does.
 
-Pan and zoom are **different actors**, so a stop's two entries at one bookmark run
-together. Two sub-actions inside ONE entry would run in sequence instead, which is
-a dolly followed by a zoom rather than a push-in.
+A push-in needs the pan and the zoom at once, and that is **two entries for one
+actor at one bookmark** — `move` writes position, `show` writes scale, different
+properties, so they run together. Two sub-actions inside a SINGLE entry would run
+in sequence instead: a dolly, then a zoom.
 
 Every stop is written as a **vertical centre in the image's own pixels** — the
 coordinates you read off the PNG — and `const` converts it:
