@@ -29,7 +29,7 @@ defs:
       themes:
         - dark
         - light
-        - bone
+        - depth
 
     elevenlabs_credentials:
       type: "credentials"
@@ -105,7 +105,18 @@ defs:
         asset: template
         style:
           asset: style
-          theme: bone
+          # `depth` and not `bone`. Both are defined in animation-theme.css and
+          # both carry the two names this document reads through `css()` —
+          # `pulse-target-color` and `pulse-target-solid-color` — so the swap is
+          # a palette change and nothing else. `bone` is the warm cream set
+          # (#EFE9DC canvas, a terracotta subsystem ring); `depth` is the dark
+          # one (#0e1116 canvas), the same ground the teaser cut uses.
+          #
+          # ⚠️ THE LIST ABOVE MOVED WITH IT. `themes:` declares what gets BAKED,
+          # so leaving `bone` there would compile a palette nothing selects, and
+          # dropping it without changing this line would select a theme that was
+          # never baked. The two sites are one decision.
+          theme: depth
     tts:
       provider: "elevenlabs"
       credentials: "elevenlabs_credentials"
