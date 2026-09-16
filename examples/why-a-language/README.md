@@ -173,7 +173,7 @@ PNG as base64, because a scene SVG is inlined into the compiled page and a
 relative `href` would resolve against wherever that page lands:
 
 ```sh
-python3 resource/temp/make_brand_svg.py
+python3 resource/helper/make_brand_svg.py
 ```
 
 ⚠️ **The mark sits bottom CENTRE here, where every other example puts it bottom
@@ -191,7 +191,7 @@ and hand-editing a coordinate in a grid is how a grid stops being one. The box
 tables, the geometry and the class-to-variable mapping all live in one script:
 
 ```sh
-python3 resource/temp/make_scenes.py   # rewrites scene_02_challenge.svg AND scene_03_benefits.svg
+python3 resource/helper/make_scenes.py   # rewrites scene_02_challenge.svg AND scene_03_benefits.svg
 ```
 
 It mirrors its icons from the shared catalog in the engine repo
@@ -223,4 +223,4 @@ other three from half.
 regenerates every line that document lists and bills for all of them, even if you
 edited one. That is why there are three of them rather than one.
 
-`resource/temp/` is not published. It holds authoring scratch.
+`resource/helper/` is not published. It holds authoring scratch.

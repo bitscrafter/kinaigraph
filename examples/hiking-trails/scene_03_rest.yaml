@@ -3,7 +3,7 @@
 # ------------------------------------------
 # The pull up past the stone cabin to the campfire clearing, taken from an owner-authored
 # two-colour trace painted over the baked map and turned into overlay geometry by
-# `resource/temp/make_route_svg.py`. The trace distinguishes the stretches where the
+# `resource/helper/make_route_svg.py`. The trace distinguishes the stretches where the
 # walker can be SEEN from the stretches that ride BEHIND something on the map, so the
 # route alternates visible / hidden seven times: the open climb off the lower trail, the
 # long passage behind the cabin and its roof, three quick duckings between the pines,
@@ -128,7 +128,7 @@ defs:
         # ones and the box that holds them is sized by hand (see `rest_note`).
         #
         # Distance and walking time are DERIVED from the trace by
-        # `resource/temp/make_route_svg.py`, which prints this block; ascent and
+        # `resource/helper/make_route_svg.py`, which prints this block; ascent and
         # grade are authored (a top-down map carries no elevation). Re-trace the route
         # and paste the figures it prints, or the callout drifts from the line drawn.
         rest_caption:
@@ -187,7 +187,7 @@ defs:
         PACE_PX_PER_S: 210
 
         # ── Geometry ──────────────────────────────────────────────────────────────
-        # Per-stretch arc length, printed by `resource/temp/make_route_svg.py`.
+        # Per-stretch arc length, printed by `resource/helper/make_route_svg.py`.
         # These are the ONLY geometry figures a re-trace requires pasting across:
         # there is no `.length` on a path to divide by, so the numbers cannot come
         # from the drawing itself. Everything below is derived from them.

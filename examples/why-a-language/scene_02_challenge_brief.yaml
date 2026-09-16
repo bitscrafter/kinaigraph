@@ -14,7 +14,7 @@
 # ⚠️ AND NO CATEGORY SPANS BOTH ROWS. The rows are offset 200 under 320-wide
 # boxes, so every adjacent row-A/row-B pair overlaps by 120 px — two boxes that
 # overlap AND travel together cross each other on the way in. The drawing's box
-# order is what keeps each wave inside one row; see resource/temp/make_scenes.py.
+# order is what keeps each wave inside one row; see resource/helper/make_scenes.py.
 # Fifteen pain-point boxes in three sections: what BOTH ways of making a video
 # cost, then what the traditional way costs on top, then what the AI way costs on
 # top. The shared band is two rows because seven boxes do not fit across 1920 at

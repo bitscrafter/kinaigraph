@@ -65,4 +65,4 @@ resolve against whatever you pass as `--outdir`.
 Synthesis calls a text-to-speech provider and needs `ELEVENLABS_API_KEY` in the
 environment. It is a separate file from the scenes on purpose: re-rendering a scene must
 never re-synthesize audio that did not change. The voice identifiers used are listed in
-`resource/temp/elevenlabs_voices.txt`.
+`resource/helper/elevenlabs_voices.txt`.

@@ -107,8 +107,8 @@ nothing can silently pair a line with the wrong node.
 script — edit its `NODES` table and re-run it rather than hand-editing coordinates:
 
 ```sh
-python3 resource/temp/make_ladder_svg.py   # rewrites ladder.svg AND icon_layer.svg
-./resource/temp/make_preview.sh care       # a still, in either theme
+python3 resource/helper/make_ladder_svg.py   # rewrites ladder.svg AND icon_layer.svg
+./resource/helper/make_preview.sh care       # a still, in either theme
 ```
 
 **Icons come from a shared catalog**, not from here. The source of truth is
@@ -128,7 +128,7 @@ kinaigraph does not consume cross-file `<use href="other.svg#id">`, so the
 symbols are mirrored again into `icon_layer.svg` — but by the generator reading
 this file, not by hand.
 
-`resource/temp/` is not published. It holds authoring tools and scratch.
+`resource/helper/` is not published. It holds authoring tools and scratch.
 
 ⚠️ **`.seg` must never carry a `stroke-dasharray`.** The `reveal` property drives
 that same attribute to draw a stroke on progressively, so revealing an

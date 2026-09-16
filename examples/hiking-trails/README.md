@@ -69,8 +69,8 @@ cannot probe its clip cannot compute its own dwell. They are committed for that 
 | ---- | ---- |
 | `resource/image/hiking_map.png` | The source map artwork. |
 | `resource/scene/map.svg` | The backdrop layer — the map base64-embedded as a JPEG data URI. Rebuild with `make_map_svg.sh`. |
-| `resource/temp/hiking_trace*.png` / `*.jpeg` | The owner-authored paintings each route is extracted from. Every trace an example depends on lives here, beside the generator. |
-| `resource/temp/make_route_svg.py` | Turns a trace into a route overlay. One entry per route in its `ROUTES` table. |
+| `resource/helper/hiking_trace*.png` / `*.jpeg` | The owner-authored paintings each route is extracted from. Every trace an example depends on lives here, beside the generator. |
+| `resource/helper/make_route_svg.py` | Turns a trace into a route overlay. One entry per route in its `ROUTES` table. |
 | `resource/scene/route_layer*.svg` | **Generated** route overlays — do not hand-edit; the next run overwrites them. Colour lives in the generator's `line_colour`. |
 | `resource/scene/markers*.svg` | Hand-authored glyph layers (one per route): the travelling arrowheads, the destination ring and star. |
 | `resource/template/main.html`, `resource/style/theme_dark.css` | Shared container and theme. |

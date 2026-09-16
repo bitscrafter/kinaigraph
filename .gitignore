@@ -25,9 +25,16 @@ examples/**/*.mp3
 # ── Local authoring tools and scratch, not published ──
 # Generators that produced a committed SVG (make_*.py / make_*.sh) and their input data
 # are local work: useful to whoever ran them, noise to everyone cloning the examples.
+# An example renders from what IS published — the committed scene SVGs and assets — so a
+# clone never needs these to run.
+#
+#   resource/helper/  the stable authoring tools: generators, checks, rasterisers. Kept
+#                     indefinitely; they are what you re-run after changing an input.
+#   resource/temp/    genuinely temporary: logs, captures, intermediates. Deletable.
 examples/**/*.py
 examples/**/*.sh
 examples/**/*.geojson
+examples/**/resource/helper/
 examples/**/resource/temp/
 
 # Licensed stock audio lives at `resource/audio/source/` and stays UNPUBLISHED. It is an

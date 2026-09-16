@@ -2,7 +2,7 @@
 # hiking-trails — Serenity Lake route
 # ------------------------------------------
 # The walk out to the lake jetty, taken from an owner-authored trace painted over the
-# baked map and turned into overlay geometry by `resource/temp/make_route_svg.py`.
+# baked map and turned into overlay geometry by `resource/helper/make_route_svg.py`.
 # A companion to `scene_01_summit.yaml`, built to the same pattern: the route fades in
 # under a travelling marker that rides the drawn line, the destination is a star seated
 # in a pulsing ring, and a callout names what was reached.
@@ -76,7 +76,7 @@ defs:
         # ones and the box that holds them is sized by hand (see `lake_note`).
         #
         # Distance and walking time are DERIVED from the trace by
-        # `resource/temp/make_route_svg.py`, which prints this block; ascent and
+        # `resource/helper/make_route_svg.py`, which prints this block; ascent and
         # grade are authored (a top-down map carries no elevation). Re-trace the route
         # and paste the figures it prints, or the callout drifts from the line drawn.
         lake_caption:
@@ -139,7 +139,7 @@ defs:
         # narration is nearly all walking, so any slower and its callout has no time
         # left on screen. See that scene for the binding case.
         PACE_PX_PER_S: 210
-        # Arc length of the route, printed by `resource/temp/make_route_svg.py`.
+        # Arc length of the route, printed by `resource/helper/make_route_svg.py`.
         # The one figure a re-trace still requires pasting across: there is no
         # `.length` on a path to divide by, so the geometry cannot supply it.
         ROUTE_PX: 654.9

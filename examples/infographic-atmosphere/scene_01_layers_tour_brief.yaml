@@ -179,7 +179,7 @@ defs:
         #
         # ⛔ A LINE TOO LONG FOR THE BOX WRAPS, AND THE OVERFLOW IS DROPPED WITHOUT
         # A WORD. Counting rendered lines does not catch it — a wrapped half still
-        # renders as a line. Run resource/temp/check_note_widths.py after any edit.
+        # renders as a line. Run resource/helper/check_note_widths.py after any edit.
         #
         # ⚠️ THE TYPE IS SIZED AGAINST THE PICTURE, NOT THE FRAME. The detail stops
         # magnify the poster by DETAIL_ZOOM, so its own 20px captions arrive on

@@ -116,16 +116,11 @@ Three more rules this example follows:
   the aurora is, noctilucent clouds at the mesopause, the ozone column as 3 mm of
   gas, the tropopause running 8–18 km with latitude.
 - ⛔ **A note's text WRAPS, and what will not fit is silently dropped.** The frame
-  then shows a callout that looks deliberate and ends mid-sentence. Counting the
-  rendered lines will not tell you: a two-line note whose second line wraps still
-  renders two lines. After editing any note, run
-
-  ```sh
-  python3 resource/temp/check_note_widths.py
-  ```
-
-  which measures every line in the same font at the same size and fails if one
-  exceeds the box's inner width — `NOTE_W` less both paddings, 526 px here.
+  then shows a callout that looks deliberate and ends mid-sentence, and counting
+  the rendered lines will not tell you: a two-line note whose second line wraps
+  still renders two lines. Every line has to fit `NOTE_W` less both paddings —
+  **526 px here, at 30 px Arial** — so after rewriting a note, measure the line
+  rather than trusting the frame.
 
 Each callout's window is three actions in one entry — fade in, hold, fade out —
 whose durations sum to the dwell, with the hold derived from the narration rather
@@ -133,31 +128,28 @@ than written twice.
 
 ## The input image
 
-`resource/image/atmosphere.png` is treated as **given**. The poster's own SVG
-source sits in `resource/temp/` beside the script that rasterises it, because
-that is where an input's provenance belongs — but no part of the pipeline reads
-it. Swap in any PNG or JPEG, re-run the generator, and adjust the stops.
+`resource/image/atmosphere.png` is treated as **given** — the video never edits
+it. `resource/image/atmosphere.svg` is where that PNG came from, kept for anyone
+curious how the poster was drawn; nothing in the pipeline reads it.
 
-`resource/temp/make_frame_svg.py` wraps that file in the 16:9 scene and prints its
-pixel size:
+**To use your own picture**, put it in `resource/image/`, rebuild
+`resource/scene/atmosphere_frame.svg` around it, and adjust the stops. The frame
+is a background rect and one `<image>` whose `href` is the file inlined as a data
+URI:
 
-```sh
-python3 resource/temp/make_frame_svg.py
+```python
+import base64, pathlib
+data = pathlib.Path("resource/image/your.png").read_bytes()
+href = "data:image/png;base64," + base64.b64encode(data).decode()
 ```
 
-Rebuilding the input from the poster source is three steps, and only the last one
-is part of the example:
-
-```sh
-resource/temp/render.sh resource/temp/atmosphere.svg 1100 2700 1
-cp resource/temp/atmosphere.png resource/image/atmosphere.png
-python3 resource/temp/make_frame_svg.py
-```
+Give the `<image>` your file's pixel width and height, set `IMAGE_W` / `IMAGE_H`
+in the document to match, and re-read the stop centres off your own picture.
 
 ⚠️ **The image is embedded as base64, not linked.** A relative `href` resolves in
 `animation.html` but **breaks at capture**, which renders a copy of the page from
-`resource/temp/.capture/` — one directory deeper, where `../image/` no longer
-exists. The failure is silent in the video: a broken-image icon, panned and zoomed
+a `.capture/` directory beside the capture's own output — one level deeper than
+the `animation.html` a plain run leaves, so `../image/` no longer resolves. The failure is silent in the video: a broken-image icon, panned and zoomed
 exactly as the picture would have been.
 
 ## Files
@@ -171,13 +163,10 @@ exactly as the picture would have been.
 | `resource/script/{brief,teaser}/*.txt` | One file per line. These are the source; the MP3s are derived. |
 | `resource/audio/{brief,teaser}/*.mp3` | The recorded lines, read by Harper. |
 | `resource/image/atmosphere.png` | **The input.** A pre-existing raster. |
+| `resource/image/atmosphere.svg` | Where that PNG came from. Provenance, not a build step. |
 | `resource/scene/atmosphere_frame.svg` | Generated — the 16:9 frame holding the image actor. |
 | `resource/video/` | The silent capture the composition lays the voice over. Intermediate. |
 | `resource/style/theme_dark.css` | One variable: the letterbox colour behind the picture. |
-| `resource/temp/make_frame_svg.py` | Embeds the image in the frame. Re-run after swapping the input. |
-| `resource/temp/check_note_widths.py` | Fails if any callout line is too wide for its box. Run it after touching a note. |
-| `resource/temp/atmosphere.svg` | Where the input PNG came from — provenance, not a build step. |
-| `resource/temp/render.sh` | Rasterises that SVG at a device scale factor. |
 
 ## Rendering
 
