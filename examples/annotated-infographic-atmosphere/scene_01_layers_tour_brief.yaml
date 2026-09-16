@@ -47,8 +47,8 @@ defs:
             type: "text"
             content: |
                 ATMOSPHERE
-                Half of this air sits below 5.5 km —
-                lower than Everest's summit.
+                  Half of this air sits below 5.5 km —
+                  lower than Everest's summit.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
@@ -56,8 +56,8 @@ defs:
             type: "text"
             content: |
                 AURORA
-                This layer glowing: oxygen atoms
-                struck by particles from the Sun.
+                  This layer glowing: oxygen atoms
+                  struck by particles from the Sun.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
@@ -67,8 +67,8 @@ defs:
             type: "text"
             content: |
                 SPACE STATION
-                Four times above the edge of space,
-                and the air still drags it down.
+                  Four times above the edge of space,
+                  and the air still drags it down.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
@@ -76,8 +76,8 @@ defs:
             type: "text"
             content: |
                 NOCTILUCENT CLOUDS
-                The highest clouds on Earth, forming
-                at the mesopause in summer twilight.
+                  The highest clouds on Earth, forming
+                  at the mesopause in summer twilight.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
@@ -85,8 +85,8 @@ defs:
             type: "text"
             content: |
                 OZONE LAYER
-                At sea-level pressure, all of it
-                would be a layer 3 mm thick.
+                  At sea-level pressure, all of it
+                  would be a layer 3 mm thick.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
@@ -94,8 +94,8 @@ defs:
             type: "text"
             content: |
                 TROPOPAUSE
-                The troposphere's ceiling: 8 km over
-                the poles, 18 km over the equator.
+                  The troposphere's ceiling: 8 km over
+                  the poles, 18 km over the equator.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
@@ -319,7 +319,7 @@ animation:
 
             at:
                 x: 200
-                y: 740
+                y: 560
             origin: top_left
             fill: "#f7f8fa"
             stroke: "#555c66"
