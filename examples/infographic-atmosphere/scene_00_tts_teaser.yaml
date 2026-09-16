@@ -1,0 +1,63 @@
+# ------------------------------------------
+# infographic-atmosphere — Audio Generation: the TEASER cut
+# ------------------------------------------
+# Five lines: three dwell lines and the two bookends.
+#
+# ⚡ THIS CUT OWNS ITS WHOLE SCRIPT. Every line the teaser speaks is listed here
+# and stored under `resource/script/teaser/`, so the cut can be read and rebuilt
+# without opening the brief one — even though the two bookends are word-for-word
+# identical to it. A cut you can read on its own is worth the duplication.
+#
+# ⛔ THE BOOKEND MP3s WERE COPIED, NOT RECORDED. Identical script, identical
+# voice, so `resource/audio/brief/scene_01_00_open.mp3` and `…_08_close.mp3` were
+# copied to `resource/audio/teaser/` rather than synthesised a second time.
+# Running THIS document re-records all five and would spend credits reproducing
+# two files byte-for-byte equivalent to ones already here. Before you run it,
+# check whether only some lines changed — and if so, record those.
+#
+#     kinaigraph scene_00_tts_teaser.yaml
+#
+# Needs ELEVENLABS_API_KEY. `synthesis.context.status` is section-wide, so there
+# is no way to run half of this file.
+#
+# ⛔ NEVER SWEEP THIS FOLDER with `for y in scene_*.yaml` — that pulls in both
+# synthesis documents and re-records the whole example. Use
+# `ls scene_*.yaml | grep -v scene_00`.
+
+metadata:
+    title: "Infographic Atmosphere - Audio Generation (teaser cut)"
+    description: "Every line the teaser cut speaks"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "c1uwEpPUcC16tq1udqxk" # Harper
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        scene_01_00_open:
+            file: "./resource/script/teaser/scene_01_00_open.txt"
+            export: "./resource/audio/teaser/scene_01_00_open.mp3"
+        scene_01_01_title:
+            file: "./resource/script/teaser/scene_01_01_title.txt"
+            export: "./resource/audio/teaser/scene_01_01_title.mp3"
+        scene_01_02_upper:
+            file: "./resource/script/teaser/scene_01_02_upper.txt"
+            export: "./resource/audio/teaser/scene_01_02_upper.mp3"
+        scene_01_03_troposphere:
+            file: "./resource/script/teaser/scene_01_03_troposphere.txt"
+            export: "./resource/audio/teaser/scene_01_03_troposphere.mp3"
+        scene_01_04_close:
+            file: "./resource/script/teaser/scene_01_04_close.txt"
+            export: "./resource/audio/teaser/scene_01_04_close.mp3"

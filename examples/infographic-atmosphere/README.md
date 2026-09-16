@@ -9,6 +9,29 @@ the document never edits it. What the document adds is a **camera** and six
 This is the case where you have a PNG or a JPEG — exported from a design tool,
 scanned, screenshotted, handed to you — and want an annotated video of it.
 
+## Two cuts
+
+| Cut | Document | Length | Stops |
+| --- | -------- | ------ | ----- |
+| Brief | `scene_01_layers_tour_brief.yaml` → `infographic_atmosphere_brief.mp4` | 79.3 s | Seven, one per layer plus the space station and a recap |
+| Teaser | `scene_01_layers_tour_teaser.yaml` → `infographic_atmosphere_teaser.mp4` | 24.1 s | Three: the top, the bottom, and the surprise between them |
+
+⚠️ **The teaser is not the brief cut played fast.** Sampling all five layers in
+25 seconds would give a viewer five glances and no fact; the teaser drops the
+mesosphere, the stratosphere and the ozone layer entirely, shortens every camera
+move, and carries one line per note instead of two — its shortest dwell is 3.1 s,
+which is not long enough to read three lines.
+
+Each cut owns its whole script (`resource/script/brief/`, `resource/script/teaser/`),
+duplicating the two bookend lines on purpose so either can be read without
+opening the other. ⛔ **The duplicated MP3s were copied, not re-recorded** —
+identical text and identical voice, so synthesising them twice would have spent
+credits to produce the same audio. Their scripts were checksummed against each
+other first, which is what makes the copy provably the right recording.
+
+The rest of this document describes the brief cut; the teaser differs only in
+pace and in which stops it visits.
+
 ## The one scene
 
 | Beat | Window | What happens |
@@ -138,10 +161,12 @@ exactly as the picture would have been.
 
 | Path | Role |
 | ---- | ---- |
-| `scene_01_layers_tour_brief.yaml` | The document: camera, callouts, timeline, and the narration mix. |
-| `scene_00_tts_brief.yaml` | Synthesis only — records the nine lines. Costs credits; run it once, and again only when a script changes. |
-| `resource/script/brief/*.txt` | One file per line. These are the source; the MP3s are derived. |
-| `resource/audio/brief/*.mp3` | The recorded lines, read by Harper. |
+| `scene_01_layers_tour_brief.yaml` | The brief cut: camera, callouts, timeline, and the narration mix. |
+| `scene_01_layers_tour_teaser.yaml` | The teaser cut — three stops, shorter moves, one line per note. |
+| `scene_00_tts_brief.yaml` | Synthesis only — the brief cut's nine lines. Costs credits; run it once, and again only when a script changes. |
+| `scene_00_tts_teaser.yaml` | Synthesis only — the teaser's five. Two of them are already on disk as copies; read its header before running it. |
+| `resource/script/{brief,teaser}/*.txt` | One file per line. These are the source; the MP3s are derived. |
+| `resource/audio/{brief,teaser}/*.mp3` | The recorded lines, read by Harper. |
 | `resource/image/atmosphere.png` | **The input.** A pre-existing raster. |
 | `resource/scene/atmosphere_frame.svg` | Generated — the 16:9 frame holding the image actor. |
 | `resource/video/` | The silent capture the composition lays the voice over. Intermediate. |
@@ -153,8 +178,9 @@ exactly as the picture would have been.
 ## Rendering
 
 ```sh
-kinaigraph run scene_00_tts_brief.yaml     # once — costs ElevenLabs credits
+kinaigraph run scene_00_tts_brief.yaml      # once — costs ElevenLabs credits
 kinaigraph run scene_01_layers_tour_brief.yaml
+kinaigraph run scene_01_layers_tour_teaser.yaml
 ```
 
 ⛔ **Never sweep this folder** with `for y in scene_*.yaml`: that pulls in the

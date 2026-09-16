@@ -1,0 +1,341 @@
+# The teaser cut: the same picture, three stops, under thirty seconds.
+#
+# ⚠️ NOT THE BRIEF CUT PLAYED FAST. A teaser that samples all five layers is just
+# the long cut hurrying; this one takes the TOP, the BOTTOM, and the surprise in
+# between, and leaves the mesosphere, the stratosphere and the ozone layer for the
+# cut that has room to earn them.
+#
+# Everything structural is the brief cut's and is explained there: the <image>
+# element is the actor, `pivot: top_left` holds the picture's origin still under
+# the zoom, a picture point p lands at PAN + ZOOM × p, and each note is a labelled
+# card with no pointer. What differs here is the pace — shorter camera moves, two
+# lines per note instead of three, and three stops instead of seven.
+metadata:
+    title: "The Air Above You — teaser"
+    description: "three stops over a pre-existing PNG infographic, under 30s"
+    version: "1.0"
+
+defs:
+    assets:
+        frame:
+            type: "scene"
+            file: "./resource/scene/atmosphere_frame.svg"
+        atmosphere_infographic:
+            type: "actor"
+            part_of: frame
+            pivot: top_left
+
+        # ── Callout texts ────────────────────────────────────────────────────────
+        # A label and ONE line. The shortest dwell here is 3.1s, which is not long
+        # enough to read three.
+        title_text:
+            type: "text"
+            content: |
+                ATMOSPHERE
+                  Half of it sits below 5.5 km.
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 30
+            font_color: "#14181d"
+        upper_text:
+            type: "text"
+            content: |
+                SPACE STATION
+                  400 km up, and still slowed by air.
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 30
+            font_color: "#14181d"
+        troposphere_text:
+            type: "text"
+            content: |
+                TROPOSPHERE
+                  Three quarters of the air, and all the weather.
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 30
+            font_color: "#14181d"
+
+        # ── Narration ────────────────────────────────────────────────────────────
+        # ⚡ THE TEASER OWNS ITS SCRIPTS. resource/script/teaser/ carries all five
+        # lines, so this cut reads without opening the other one — even though two
+        # of them are word-for-word the brief's. Those two MP3s were COPIED rather
+        # than re-synthesised: identical text, identical voice, and re-recording
+        # them would have spent credits to produce the same audio twice.
+        narration_open:
+            type: "audio"
+            file: "./resource/audio/teaser/scene_01_00_open.mp3"
+        narration_title:
+            type: "audio"
+            file: "./resource/audio/teaser/scene_01_01_title.mp3"
+        narration_upper:
+            type: "audio"
+            file: "./resource/audio/teaser/scene_01_02_upper.mp3"
+        narration_troposphere:
+            type: "audio"
+            file: "./resource/audio/teaser/scene_01_03_troposphere.mp3"
+        narration_close:
+            type: "audio"
+            file: "./resource/audio/teaser/scene_01_04_close.mp3"
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+        style:
+            type: "style"
+            file: "./resource/style/theme_dark.css"
+
+    const:
+        FRAME_W: 1920
+        FRAME_H: 1080
+        IMAGE_W: 1100
+        IMAGE_H: 2700
+
+        OVERVIEW_ZOOM: "FRAME_H / IMAGE_H"
+        OVERVIEW_PAN_X: "FRAME_W / 2 - OVERVIEW_ZOOM * IMAGE_W / 2"
+
+        DETAIL_W: 1180
+        DETAIL_ZOOM: "FRAME_W / DETAIL_W"
+        DETAIL_PAN_X: "FRAME_W / 2 - DETAIL_ZOOM * IMAGE_W / 2"
+
+        # Three stops, in image px. The two the brief visits between them are gone.
+        TITLE_Y: 340
+        UPPER_Y: 870
+        TROPOSPHERE_Y: 2260
+        TITLE_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * TITLE_Y"
+        UPPER_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * UPPER_Y"
+        TROPOSPHERE_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * TROPOSPHERE_Y"
+
+        # Two lines of text, so the box is the brief cut's less one line.
+        NOTE_W: 570
+        NOTE_H: 112
+        NOTE_PAD: 22
+        NOTE_RADIUS: 14
+
+        # ⚠️ EVERY CAMERA NUMBER IS SHORTER THAN THE BRIEF CUT'S. A teaser that
+        # holds a shot as long as the long cut does is not a teaser.
+        ZOOM_MS: 2000
+        PAN_MS: 1600
+        FADE_MS: 300
+        ESTABLISH_MS: 1500
+        END_MS: 1000
+
+animation:
+    defaults:
+        assets:
+            scene: frame
+
+    annotations:
+        note_title:
+            note:
+                text: title_text
+                shape:
+                    rect:
+                        width: NOTE_W
+                        height: NOTE_H
+                        radius: NOTE_RADIUS
+                padding: NOTE_PAD
+                align: left
+            at:
+                x: 1180
+                y: 200
+            origin: top_left
+            fill: "#f7f8fa"
+            stroke: "#555c66"
+            stroke_width: 2
+
+        note_upper:
+            note:
+                text: upper_text
+                shape:
+                    rect:
+                        width: NOTE_W
+                        height: NOTE_H
+                        radius: NOTE_RADIUS
+                padding: NOTE_PAD
+                align: left
+            at:
+                x: 800
+                y: 780
+            origin: top_left
+            fill: "#f7f8fa"
+            stroke: "#555c66"
+            stroke_width: 2
+
+        note_troposphere:
+            note:
+                text: troposphere_text
+                shape:
+                    rect:
+                        width: NOTE_W
+                        height: NOTE_H
+                        radius: NOTE_RADIUS
+                padding: NOTE_PAD
+                align: left
+            at:
+                x: 200
+                y: 560
+            origin: top_left
+            fill: "#f7f8fa"
+            stroke: "#555c66"
+            stroke_width: 2
+
+    timeline:
+        0 @ establish:
+            - atmosphere_infographic:
+                  - move:
+                        dx: "OVERVIEW_PAN_X"
+                        duration: 0
+            - atmosphere_infographic:
+                  - show:
+                        opacity: 1
+                        scale:
+                            from: "OVERVIEW_ZOOM"
+                            to: "OVERVIEW_ZOOM"
+                        duration: 0
+                        hold:
+                            after: "ESTABLISH_MS"
+            - note_title:
+                  - show:
+                        opacity: 0
+                        duration: 0
+            - note_upper:
+                  - show:
+                        opacity: 0
+                        duration: 0
+            - note_troposphere:
+                  - show:
+                        opacity: 0
+                        duration: 0
+
+        establish.end @ push_in:
+            - atmosphere_infographic:
+                  - move:
+                        dx: "DETAIL_PAN_X - OVERVIEW_PAN_X"
+                        dy: "TITLE_PAN_Y"
+                        duration: "ZOOM_MS"
+                        easing: ease_in_out_quad
+            - atmosphere_infographic:
+                  - show:
+                        scale:
+                            from: "OVERVIEW_ZOOM"
+                            to: "DETAIL_ZOOM"
+                        duration: "ZOOM_MS"
+                        easing: ease_in_out_quad
+
+        push_in.end @ title:
+            - note_title:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: "FADE_MS"
+                        hold:
+                            after: "narration_title.duration - FADE_MS * 2"
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: "FADE_MS"
+
+        title.end @ pan_upper:
+            - atmosphere_infographic:
+                  - move:
+                        dy: "UPPER_PAN_Y - TITLE_PAN_Y"
+                        duration: "PAN_MS"
+                        easing: ease_in_out_quad
+
+        pan_upper.end @ upper:
+            - note_upper:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: "FADE_MS"
+                        hold:
+                            after: "narration_upper.duration - FADE_MS * 2"
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: "FADE_MS"
+
+        upper.end @ pan_troposphere:
+            - atmosphere_infographic:
+                  - move:
+                        dy: "TROPOSPHERE_PAN_Y - UPPER_PAN_Y"
+                        duration: "PAN_MS"
+                        easing: ease_in_out_quad
+
+        pan_troposphere.end @ troposphere:
+            - note_troposphere:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: "FADE_MS"
+                        hold:
+                            after: "narration_troposphere.duration - FADE_MS * 2"
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: "FADE_MS"
+
+        troposphere.end @ pull_out:
+            - atmosphere_infographic:
+                  - move:
+                        dx: "OVERVIEW_PAN_X - DETAIL_PAN_X"
+                        dy: "-TROPOSPHERE_PAN_Y"
+                        duration: "ZOOM_MS"
+                        easing: ease_in_out_quad
+                        hold:
+                            after: "END_MS"
+            - atmosphere_infographic:
+                  - show:
+                        scale:
+                            from: "DETAIL_ZOOM"
+                            to: "OVERVIEW_ZOOM"
+                        duration: "ZOOM_MS"
+                        easing: ease_in_out_quad
+                        hold:
+                            after: "END_MS"
+
+    capture:
+        infographic_atmosphere_teaser_silent:
+            output: "./resource/video/infographic_atmosphere_teaser_silent.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        # ⚠️ EVERY MIX CARRIES AN EXPLICIT `span.from`. A mix at a non-zero
+        # timestamp without one is placed at output 0 by a known defect.
+        "0":
+            - infographic_atmosphere_teaser_silent:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::establish.start"
+                        asset: narration_open
+                  - mix:
+                        span:
+                            from: "animation::title.start"
+                        asset: narration_title
+                  - mix:
+                        span:
+                            from: "animation::upper.start"
+                        asset: narration_upper
+                  - mix:
+                        span:
+                            from: "animation::troposphere.start"
+                        asset: narration_troposphere
+                  - mix:
+                        span:
+                            from: "animation::pull_out.start"
+                        asset: narration_close
+
+    capture:
+        out:
+            output: "./infographic_atmosphere_teaser.mp4"
+            fps: 30
