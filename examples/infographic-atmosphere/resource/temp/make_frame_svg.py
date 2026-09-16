@@ -15,7 +15,8 @@ JPEG) and re-run.
 ⚠️ THERE IS NO CAMERA RIG. The `<image>` element is the actor: it takes the move
 and the scale itself, and the document's `pivot: top_left` holds the picture's
 own origin still under the zoom. Drawn at (0, 0), a picture point p lands on
-screen at  pan + zoom × p. Wrapper groups were measured to add nothing.
+screen at  pan + zoom × p. No wrapper group is needed: with the image at (0, 0),
+a translate group and a scale group compose to what the element does alone.
 """
 import base64, pathlib, re, struct
 

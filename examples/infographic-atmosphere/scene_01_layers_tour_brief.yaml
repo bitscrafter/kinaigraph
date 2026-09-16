@@ -177,17 +177,15 @@ defs:
         # ── The callout boxes, in SCREEN px ──────────────────────────────────────
         # Sized by measuring the render — nothing measures the text for us.
         #
-        # ⛔ A LINE TOO LONG FOR THE BOX WRAPS, AND THE OVERFLOW IS DROPPED WITHOUT A
-        # WORD. The ISS callout shipped once with its second line simply absent. The
-        # check is to COUNT the rendered text lines in the frame and compare them
-        # with the authored ones; ink measured inside the box looks perfect either way.
+        # ⛔ A LINE TOO LONG FOR THE BOX WRAPS, AND THE OVERFLOW IS DROPPED WITHOUT
+        # A WORD. Counting rendered lines does not catch it — a wrapped half still
+        # renders as a line. Run resource/temp/check_note_widths.py after any edit.
         #
         # ⚠️ THE TYPE IS SIZED AGAINST THE PICTURE, NOT THE FRAME. The detail stops
         # magnify the poster by DETAIL_ZOOM, so its own 20px captions arrive on
         # screen at 32.5px. A callout set at 20px would read as fine print beside
         # them; 30px is the same apparent size as the thing it annotates.
-        # Measured off the render: the longest line is the upper callout's second,
-        # and these are the smallest box that keeps NOTE_PAD clear on every side.
+        # The smallest box that keeps NOTE_PAD clear around the longest line.
         NOTE_W: 570
         NOTE_H: 152
         NOTE_PAD: 22

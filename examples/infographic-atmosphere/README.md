@@ -23,11 +23,11 @@ move, and carries one line per note instead of two — its shortest dwell is 3.1
 which is not long enough to read three lines.
 
 Each cut owns its whole script (`resource/script/brief/`, `resource/script/teaser/`),
-duplicating the two bookend lines on purpose so either can be read without
-opening the other. ⛔ **The duplicated MP3s were copied, not re-recorded** —
-identical text and identical voice, so synthesising them twice would have spent
-credits to produce the same audio. Their scripts were checksummed against each
-other first, which is what makes the copy provably the right recording.
+duplicating the two bookend lines on purpose so either cut can be read and rebuilt
+without opening the other. ⚠️ **Where two cuts share a line word for word, copy
+the MP3 rather than synthesising it twice** — same text and same voice produce the
+same audio, and synthesis costs credits. Compare the two scripts before copying;
+that is what makes the copy the right recording.
 
 The rest of this document describes the brief cut; the teaser differs only in
 pace and in which stops it visits.
@@ -62,10 +62,10 @@ The `<image>` element **is the actor**: it takes the move and the scale itself, 
 a picture point `p` lands on screen at **`PAN + ZOOM × p`**. That one expression is
 every stop in the document.
 
-Wrapper groups — one to translate, one to scale — were measured against this and
-add nothing: with the image drawn at `(0, 0)` the composed transform is the same
-either way. The arithmetic depends on `pivot: top_left` instead. The default pivot
-is `center`, which scales about the actor's own middle: fine for a push-in on a
+No wrapper groups are needed. With the image drawn at `(0, 0)`, a group to
+translate and a group to scale compose to exactly what the element does by
+itself. What the arithmetic rests on is `pivot: top_left`: the default pivot is
+`center`, which scales about the actor's own middle — fine for a push-in on a
 shape, wrong for a camera, because the fixed point then moves as the picture does.
 
 A push-in needs the pan and the zoom at once, and that is **two entries for one
@@ -99,16 +99,13 @@ A box that scaled with the camera would be unreadable at the overview and
 enormous at a stop, so the box lives in frame coordinates while the picture moves
 underneath it.
 
-⛔ **None of them has a pointer, and that is the design.** They did, aimed by the
-same `PAN + ZOOM × p` mapping the stops use, and the leaders were *correct* —
-until the words above them were rewritten. Then three at once were pointing at
-what the old sentences had been about: the aurora note at the temperature trace,
-the noctilucent note at the meteor streaks, the tropopause note at Everest.
-Nothing failed, nothing warned; each leader simply asserted a link that had
-stopped being true. **A label cannot come to disagree with its own sentence**,
-which is why the notes now carry one instead.
+⛔ **None of them has a pointer, and that is deliberate.** A leader is a claim
+about a *place* in the picture, and nothing ties it to the sentence above it: edit
+the words and the leader keeps aiming where the old words pointed, with no error
+and no warning. A label cannot come to disagree with its own sentence. Aim a
+pointer only at something that cannot be rewritten out from under it.
 
-Other consequences worth keeping:
+Three more rules this example follows:
 
 - **The type is sized against the picture, not the frame.** A detail stop magnifies
   the poster by `DETAIL_ZOOM`, so its own 20 px captions arrive at 32.5 px. The
@@ -118,15 +115,17 @@ Other consequences worth keeping:
   atmosphere, never about how the video was made: half the mass below 5.5 km, what
   the aurora is, noctilucent clouds at the mesopause, the ozone column as 3 mm of
   gas, the tropopause running 8–18 km with latitude.
-- ⛔ **A note's text WRAPS, and what will not fit is silently dropped.** It has cost
-  this example twice: once a callout rendered with its second line missing, and
-  once the teaser shipped `Three quarters of the air, and all the weather.` as
-  `Three quarters of the air, and all the`. Counting rendered lines does NOT catch
-  the second kind — a two-line note whose second line wraps still renders two
-  bands, the second ending mid-sentence. **Run `python3 resource/temp/check_note_widths.py`**:
-  it measures every line of both documents in the same font at the same size and
-  fails if any exceeds the box's inner width. It exits 1 on the line above and 0
-  once it is shortened.
+- ⛔ **A note's text WRAPS, and what will not fit is silently dropped.** The frame
+  then shows a callout that looks deliberate and ends mid-sentence. Counting the
+  rendered lines will not tell you: a two-line note whose second line wraps still
+  renders two lines. After editing any note, run
+
+  ```sh
+  python3 resource/temp/check_note_widths.py
+  ```
+
+  which measures every line in the same font at the same size and fails if one
+  exceeds the box's inner width — `NOTE_W` less both paddings, 526 px here.
 
 Each callout's window is three actions in one entry — fade in, hold, fade out —
 whose durations sum to the dwell, with the hold derived from the narration rather
@@ -223,10 +222,9 @@ lines on the first frame.
 
 ## Sources
 
-The poster states facts, so its figures were checked against primary sources
-rather than carried over from wherever the draft got them. The poster carries the
-citations itself, in the footer; they are repeated here with links, together with
-what each one settled.
+The poster states facts, so every figure in it comes from a primary source. The
+poster carries the citations in its own footer; they are repeated here with links,
+together with what each one settles.
 
 | Claim | Source |
 | ----- | ------ |
@@ -239,7 +237,7 @@ what each one settled.
 | Airliners cruise at 9.1–12 km; the tropopause runs ~8 km polar to ~18 km tropical | [Britannica, *How High Does an Airplane Fly?*](https://www.britannica.com/topic/How-High-Does-An-Airplane-Fly) · [Britannica, *Tropopause*](https://www.britannica.com/science/tropopause) |
 | Everest is 8,848.86 m (Nepal–China, December 2020) | [Kathmandu Post](https://kathmandupost.com/national/2020/12/08/it-s-official-mount-everest-is-8-848-86-metres-tall) |
 
-Two things the checking changed, worth keeping in view:
+Two things worth keeping in view when reading the poster:
 
 - **Layer boundaries are conventions, and the sources disagree.** NASA puts the
   mesosphere at 50–80 km and the thermosphere at 80–700; UCAR has the mesosphere

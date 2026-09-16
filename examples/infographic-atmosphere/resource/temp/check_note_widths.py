@@ -8,8 +8,6 @@ overflow is dropped without a word — so the frame shows a callout that looks
 deliberate and says half of what was written. Counting the rendered lines does
 not catch it either: a two-line note whose second line wraps still renders two
 bands, the second being the first half of a sentence that now ends mid-word.
-That is exactly how `Three quarters of the air, and all the weather.` shipped in
-the teaser as `Three quarters of the air, and all the`.
 
 ⚡ So the check is ARITHMETIC, not pixels: measure each line in the same font at
 the same size and compare against the box's inner width. Chrome does the
