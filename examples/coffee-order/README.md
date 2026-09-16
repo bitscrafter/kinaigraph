@@ -94,6 +94,27 @@ of the bar, so moving a row in the artwork moves the bar with it.
 the dash machinery, so a marker-headed arrow shows its point at full strength
 before the shaft has travelled. Each head is shown when its shaft lands.
 
+## Groups say a thing once
+
+⚡ **A GROUP BROADCASTS; IT IS NOT A CONTAINER.** Naming one in a timeline
+expands into one instruction per member, so members stay individually
+addressable afterwards. That is what lets `not_yet` hide forty actors in a
+single line while every one of them is still shown on its own beat later.
+
+⚠️ **The two starting states are different properties, not one state.** A faded
+thing waits at `opacity: 0`, a drawn thing at `reveal: 0` — they cannot share a
+group because they do not share a verb. Hence `not_yet` and `undrawn`.
+
+⚡ **The `par` groups are the argument, not the saving.** Two entries at one
+bookmark merely *happen* to coincide; `par_calls` **states** that the espresso
+leg and the milk leg are one thing that happens once. The document now says what
+the picture is claiming.
+
+⛔ **The riders are deliberately not grouped.** A group `move` may only use
+`dx`/`dy` — absolute and anchor positions are refused at compile time — and even
+if they were allowed, the two legs cross different distances. A group is for
+things doing the *same* thing, not merely things doing it at the same moment.
+
 ## Pinned, and scrolling
 
 The title, the four participant heads and the four lifelines **do not move**. Only

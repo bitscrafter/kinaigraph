@@ -137,6 +137,75 @@ defs:
         rider_name: { type: "actor", part_of: diagram, id: rider_name }
         rider_prepare: { type: "actor", part_of: diagram, id: rider_prepare }
 
+        # ── groups ───────────────────────────────────────────────────────────
+        # ⚡ A GROUP BROADCASTS; IT IS NOT A CONTAINER. Naming one in a timeline
+        # expands into one instruction per member, so members stay individually
+        # addressable afterwards — which is why `not_yet` can hide forty actors
+        # in one line and every one of them can still be shown on its own beat.
+        #
+        # ⚠️ The two starting states are different PROPERTIES, not one state:
+        # a faded thing waits at `opacity: 0`, a drawn thing at `reveal: 0`.
+        # They cannot share a group because they do not share a verb.
+        not_yet:
+            type: "group"
+            member_type: "actor"
+            members: [head_order, head_name, head_semi, head_shot, head_steam, head_prepare, head_outofoat,
+                head_espresso, head_milk, head_handoff, ret_outofoat, ret_espresso, ret_milk, ret_handoff,
+                lbl_order, lbl_name, lbl_outofoat, lbl_semi, lbl_shot, lbl_espresso, lbl_steam, lbl_milk,
+                lbl_prepare, lbl_handoff, frag_opt, frag_par, frag_par_divider, rider_order, rider_semi,
+                rider_shot, rider_steam, rider_outofoat, rider_espresso, rider_milk, rider_name,
+                rider_prepare, life_customer, life_barista, life_machine, life_wand]
+
+        undrawn:
+            type: "group"
+            member_type: "actor"
+            members: [bar_customer, bar_barista, bar_machine, bar_wand, bar_prepare, msg_order, msg_name,
+                msg_semi, msg_shot, msg_steam, msg_prepare]
+
+        # The four lifelines arrive together, and always have.
+        lifelines:
+            type: "group"
+            member_type: "actor"
+            members: [life_customer, life_barista, life_machine, life_wand]
+
+        # ⚡ The barista's work and the customer's wait begin together, advance
+        # together and end together. They were two identical entries at every
+        # beat; as a group the document says once what it used to say five times.
+        long_bars:
+            type: "group"
+            member_type: "actor"
+            members: [bar_barista, bar_customer]
+
+        # ⚡ THE `par` GROUPS ARE THE ARGUMENT, not a saving. Two entries at one
+        # bookmark merely happen to coincide; a group STATES that the espresso
+        # leg and the milk leg are one thing that happens once.
+        # ⛔ The riders are deliberately NOT grouped: a group move may only use
+        # `dx`, and these two cross different distances.
+        par_frame:
+            type: "group"
+            member_type: "actor"
+            members: [frag_par, frag_par_divider]
+        par_calls:
+            type: "group"
+            member_type: "actor"
+            members: [msg_shot, msg_steam]
+        par_heads:
+            type: "group"
+            member_type: "actor"
+            members: [head_shot, head_steam]
+        par_bars:
+            type: "group"
+            member_type: "actor"
+            members: [bar_machine, bar_wand]
+        par_returns:
+            type: "group"
+            member_type: "actor"
+            members: [lbl_espresso, lbl_milk, ret_espresso, ret_milk]
+        par_return_heads:
+            type: "group"
+            member_type: "actor"
+            members: [head_espresso, head_milk]
+
         # ── narration ────────────────────────────────────────────────────────
         # One clip per beat. Each is declared for its DURATION as much as for its
         # sound: the beat it belongs to lasts exactly as long as the line, so
@@ -222,57 +291,8 @@ animation:
             - head_barista: [{ show: { opacity: 1 } }]
             - head_machine: [{ show: { opacity: 1 } }]
             - head_wand: [{ show: { opacity: 1 } }]
-            - bar_customer: [{ show: { opacity: 1, reveal: 0 } }]
-            - bar_barista: [{ show: { opacity: 1, reveal: 0 } }]
-            - bar_machine: [{ show: { opacity: 1, reveal: 0 } }]
-            - bar_wand: [{ show: { opacity: 1, reveal: 0 } }]
-            - bar_prepare: [{ show: { opacity: 1, reveal: 0 } }]
-            - msg_order: [{ show: { opacity: 1, reveal: 0 } }]
-            - msg_name: [{ show: { opacity: 1, reveal: 0 } }]
-            - msg_semi: [{ show: { opacity: 1, reveal: 0 } }]
-            - msg_shot: [{ show: { opacity: 1, reveal: 0 } }]
-            - msg_steam: [{ show: { opacity: 1, reveal: 0 } }]
-            - msg_prepare: [{ show: { opacity: 1, reveal: 0 } }]
-            - head_order: [{ show: { opacity: 0 } }]
-            - head_name: [{ show: { opacity: 0 } }]
-            - head_semi: [{ show: { opacity: 0 } }]
-            - head_shot: [{ show: { opacity: 0 } }]
-            - head_steam: [{ show: { opacity: 0 } }]
-            - head_prepare: [{ show: { opacity: 0 } }]
-            - head_outofoat: [{ show: { opacity: 0 } }]
-            - head_espresso: [{ show: { opacity: 0 } }]
-            - head_milk: [{ show: { opacity: 0 } }]
-            - head_handoff: [{ show: { opacity: 0 } }]
-            - ret_outofoat: [{ show: { opacity: 0 } }]
-            - ret_espresso: [{ show: { opacity: 0 } }]
-            - ret_milk: [{ show: { opacity: 0 } }]
-            - ret_handoff: [{ show: { opacity: 0 } }]
-            - lbl_order: [{ show: { opacity: 0 } }]
-            - lbl_name: [{ show: { opacity: 0 } }]
-            - lbl_outofoat: [{ show: { opacity: 0 } }]
-            - lbl_semi: [{ show: { opacity: 0 } }]
-            - lbl_shot: [{ show: { opacity: 0 } }]
-            - lbl_espresso: [{ show: { opacity: 0 } }]
-            - lbl_steam: [{ show: { opacity: 0 } }]
-            - lbl_milk: [{ show: { opacity: 0 } }]
-            - lbl_prepare: [{ show: { opacity: 0 } }]
-            - lbl_handoff: [{ show: { opacity: 0 } }]
-            - frag_opt: [{ show: { opacity: 0 } }]
-            - frag_par: [{ show: { opacity: 0 } }]
-            - frag_par_divider: [{ show: { opacity: 0 } }]
-            - rider_order: [{ show: { opacity: 0 } }]
-            - rider_semi: [{ show: { opacity: 0 } }]
-            - rider_shot: [{ show: { opacity: 0 } }]
-            - rider_steam: [{ show: { opacity: 0 } }]
-            - rider_outofoat: [{ show: { opacity: 0 } }]
-            - rider_espresso: [{ show: { opacity: 0 } }]
-            - rider_milk: [{ show: { opacity: 0 } }]
-            - rider_name: [{ show: { opacity: 0 } }]
-            - rider_prepare: [{ show: { opacity: 0 } }]
-            - life_customer: [{ show: { opacity: 0 } }]
-            - life_barista: [{ show: { opacity: 0 } }]
-            - life_machine: [{ show: { opacity: 0 } }]
-            - life_wand: [{ show: { opacity: 0 } }]
+            - undrawn: [{ show: { opacity: 1, reveal: 0 } }]
+            - not_yet: [{ show: { opacity: 0 } }]
             - rider_handoff:
                   - show:
                         opacity: 0
@@ -281,10 +301,7 @@ animation:
 
         # ── 1. the order ─────────────────────────────────────────────────────
         setup.end @ beat_order:
-            - life_customer: [{ show: { opacity: 1, duration: "narration_01.duration * FADE" } }]
-            - life_barista: [{ show: { opacity: 1, duration: "narration_01.duration * FADE" } }]
-            - life_machine: [{ show: { opacity: 1, duration: "narration_01.duration * FADE" } }]
-            - life_wand: [{ show: { opacity: 1, duration: "narration_01.duration * FADE" } }]
+            - lifelines: [{ show: { opacity: 1, duration: "narration_01.duration * FADE" } }]
             - lbl_order:
                   - show:
                         opacity: 1
@@ -301,10 +318,7 @@ animation:
                   - show: { opacity: 1, duration: "narration_01.duration * FADE" }
                   - move: { dx: "X_BARISTA - X_CUSTOMER", duration: "narration_01.duration * RUN", easing: "ease_in_out_quad" }
                   - show: { opacity: 0, duration: "narration_01.duration * FADE" }
-            - bar_barista:
-                  - show: { reveal: 0, duration: "narration_01.duration * DRAW" }
-                  - show: { reveal: { from: 0, to: "GROWN_ORDER" }, duration: "narration_01.duration * RUN" }
-            - bar_customer:
+            - long_bars:
                   - show: { reveal: 0, duration: "narration_01.duration * DRAW" }
                   - show: { reveal: { from: 0, to: "GROWN_ORDER" }, duration: "narration_01.duration * RUN" }
 
@@ -328,10 +342,7 @@ animation:
                   - move: { dy: "SELF_DOWN", duration: "narration_02.duration * RUN * 0.25", easing: "linear" }
                   - move: { dx: "SELF_BACK", duration: "narration_02.duration * RUN * 0.35", easing: "ease_in_out_quad" }
                   - show: { opacity: 0, duration: "narration_02.duration * FADE" }
-            - bar_barista:
-                  - show: { reveal: "GROWN_ORDER", duration: "narration_02.duration * DRAW" }
-                  - show: { reveal: { from: "GROWN_ORDER", to: "GROWN_NAME" }, duration: "narration_02.duration * RUN" }
-            - bar_customer:
+            - long_bars:
                   - show: { reveal: "GROWN_ORDER", duration: "narration_02.duration * DRAW" }
                   - show: { reveal: { from: "GROWN_ORDER", to: "GROWN_NAME" }, duration: "narration_02.duration * RUN" }
 
@@ -374,10 +385,7 @@ animation:
                   - show: { opacity: 1, duration: "narration_03.duration * FADE" }
                   - move: { dx: "X_BARISTA - X_CUSTOMER", duration: "narration_03.duration * RUN * 0.55", easing: "ease_in_out_quad" }
                   - show: { opacity: 0, duration: "narration_03.duration * FADE" }
-            - bar_barista:
-                  - show: { reveal: "GROWN_NAME", duration: "narration_03.duration * DRAW" }
-                  - show: { reveal: { from: "GROWN_NAME", to: "GROWN_OPT" }, duration: "narration_03.duration * RUN" }
-            - bar_customer:
+            - long_bars:
                   - show: { reveal: "GROWN_NAME", duration: "narration_03.duration * DRAW" }
                   - show: { reveal: { from: "GROWN_NAME", to: "GROWN_OPT" }, duration: "narration_03.duration * RUN" }
 
@@ -387,9 +395,7 @@ animation:
         # only say by convention, its compartments being stacked in a picture
         # where down has meant later all along.
         beat_opt.end @ beat_par:
-            - frag_par:
-                  - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-            - frag_par_divider:
+            - par_frame:
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
             - lbl_shot:
                   - show:
@@ -400,14 +406,10 @@ animation:
             - lbl_steam:
                   - show: { opacity: 0, duration: "narration_04.duration * 0.02" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-            - msg_shot:
+            # Both legs draw as one statement, not as two that coincide.
+            - par_calls:
                   - show: { reveal: { from: 0, to: 1 }, duration: "narration_04.duration * DRAW" }
-            - head_shot:
-                  - show: { opacity: 0, duration: "narration_04.duration * DRAW" }
-                  - show: { opacity: 1, duration: 1 }
-            - msg_steam:
-                  - show: { reveal: { from: 0, to: 1 }, duration: "narration_04.duration * DRAW" }
-            - head_steam:
+            - par_heads:
                   - show: { opacity: 0, duration: "narration_04.duration * DRAW" }
                   - show: { opacity: 1, duration: 1 }
             - rider_shot:
@@ -420,28 +422,13 @@ animation:
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
                   - move: { dx: "X_WAND - X_BARISTA", duration: "narration_04.duration * RUN * 0.55", easing: "ease_in_out_quad" }
                   - show: { opacity: 0, duration: "narration_04.duration * FADE" }
-            - bar_machine:
+            - par_bars:
                   - show: { reveal: 0, duration: "narration_04.duration * DRAW" }
                   - show: { reveal: { from: 0, to: 1 }, duration: "narration_04.duration * RUN" }
-            - bar_wand:
-                  - show: { reveal: 0, duration: "narration_04.duration * DRAW" }
-                  - show: { reveal: { from: 0, to: 1 }, duration: "narration_04.duration * RUN" }
-            - lbl_espresso:
+            - par_returns:
                   - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55)" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-            - lbl_milk:
-                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55)" }
-                  - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-            - ret_espresso:
-                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55)" }
-                  - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-            - head_espresso:
-                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55 + FADE)" }
-                  - show: { opacity: 1, duration: 1 }
-            - ret_milk:
-                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55)" }
-                  - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-            - head_milk:
+            - par_return_heads:
                   - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55 + FADE)" }
                   - show: { opacity: 1, duration: 1 }
             - rider_espresso:
@@ -454,10 +441,7 @@ animation:
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
                   - move: { dx: "X_BARISTA - X_WAND", duration: "narration_04.duration * RUN * 0.55", easing: "ease_in_out_quad" }
                   - show: { opacity: 0, duration: "narration_04.duration * FADE" }
-            - bar_barista:
-                  - show: { reveal: "GROWN_OPT", duration: "narration_04.duration * DRAW" }
-                  - show: { reveal: { from: "GROWN_OPT", to: "GROWN_PAR" }, duration: "narration_04.duration * RUN" }
-            - bar_customer:
+            - long_bars:
                   - show: { reveal: "GROWN_OPT", duration: "narration_04.duration * DRAW" }
                   - show: { reveal: { from: "GROWN_OPT", to: "GROWN_PAR" }, duration: "narration_04.duration * RUN" }
 
@@ -508,10 +492,7 @@ animation:
             - head_handoff:
                   - show: { opacity: 0, duration: "narration_06.duration * FADE" }
                   - show: { opacity: 1, duration: 1 }
-            - bar_barista:
-                  - show: { reveal: "GROWN_PREPARE", duration: "narration_06.duration * DRAW" }
-                  - show: { reveal: { from: "GROWN_PREPARE", to: "1" }, duration: "narration_06.duration * RUN" }
-            - bar_customer:
+            - long_bars:
                   - show: { reveal: "GROWN_PREPARE", duration: "narration_06.duration * DRAW" }
                   - show: { reveal: { from: "GROWN_PREPARE", to: "1" }, duration: "narration_06.duration * RUN" }
             # The mug stays where it lands. It is the drink, and the drink
