@@ -121,9 +121,7 @@
     <line x1="150" y1="800" x2="1030" y2="800"/>
   </g>
   <text class="layer" x="200" y="702" style="white-space: pre;">EXOSPHERE</text>
-  <text class="alt" x="200" y="733" style="white-space: pre;">600 km outward · thins away; no boundary with space</text>
-  <text class="small" x="200" y="772" style="white-space: pre;">The Moon flies through it, 384,400 km out — 0.2 hydrogen atoms per cm³.</text>
-  <ellipse cx="781" cy="872" rx="220" ry="58" fill="url(#aurora)"/>
+  <text class="alt" x="200" y="733" style="white-space: pre;">600 km outward · thins away; no boundary with space</text>  <ellipse cx="781" cy="872" rx="220" ry="58" fill="url(#aurora)"/>
   <text class="layer" x="200" y="838" style="white-space: pre;">THERMOSPHERE</text>
   <text class="alt" x="200" y="869" style="white-space: pre;">85 – 600 km</text>
   <g>
@@ -219,6 +217,6 @@
   <rect y="2570" width="1100" height="130" fill="#050a14"/>
   <text class="cite" x="70" y="2608" style="white-space: pre;">Layers and temperatures: NASA, “Earth’s Atmosphere: A Multi-layered Cake”; UCAR, “Layers of Earth’s Atmosphere”.</text>
   <text class="cite" x="70" y="2632" style="white-space: pre;">Composition (dry air): UCAR, “What’s in the Air”. Ozone layer: NOAA/WMO, “Twenty Questions About the Ozone Layer”.</text>
-  <text class="cite" x="70" y="2656" style="white-space: pre;">Radiosonde ceiling: NWS. Geocorona: Baliukin et al., J. Geophys. Res. Space Physics, 2019.</text>
+  <text class="cite" x="70" y="2656" style="white-space: pre;">Radiosonde ceiling: NWS, “Radiosonde Observation”.</text>
   <text class="cite" x="70" y="2680" style="white-space: pre;">Temperature profile: U.S. Standard Atmosphere, 1976. Vertical scale compressed above 12 km; boundaries vary with latitude, season and source.</text>
 </svg>
