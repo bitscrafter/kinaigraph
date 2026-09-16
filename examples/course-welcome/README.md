@@ -97,28 +97,36 @@ viewer is faster.
 | `scene_01_welcome.yaml` | The document: the rig, the phrases and the type. |
 | `resource/scene/avatar_layer.svg` | The instructor's bubble — groups `presenter`, `eyes-open`, `eyes-closed`, `mouth-closed`, `mouth-mid`, `mouth-open`, stacked at the same place. |
 | `resource/scene/pitch_text.svg` | Six lines of type, one actor each. |
-| `resource/scene/backdrop.svg` | The ground and the course provider's wordmark. |
+| `resource/scene/backdrop_agentic.svg` | The default ground: a lit gradient, a faint diagram of agents wired to their tools, and the plate the type sits on. |
+| `resource/scene/backdrop.svg` | The plain alternative — flat ground and the wordmark. |
 | `resource/style/theme_dark.css` · `theme_paper.css` | Two themes, values only; each drawing owns its class-to-variable mapping. |
 | `resource/script/*.txt` · `resource/audio/*.mp3` | The six spoken lines, and their recordings. |
 | `resource/template/main.html` | The HTML container. |
 
-## Two themes, one line
+## Three looks, and the pairing that matters
 
-Both stylesheets declare an **identical set of variable names** — the drawings map
-their own classes onto those names, so re-skinning is a one-line edit to the
-document's `style` asset:
+All three stylesheets declare an **identical set of variable names** — the drawings
+map their own classes onto those names, so re-skinning is an edit to the document's
+`style` asset and nothing else:
 
-```yaml
-style:
-    type: "style"
-    file: "./resource/style/theme_paper.css" # was theme_dark.css
-```
+| look | backdrop | theme | reads as |
+| ---- | -------- | ----- | -------- |
+| agentic *(default)* | `backdrop_agentic.svg` | `theme_agentic.css` | a lit gradient with a faint agent-and-tool diagram behind the type |
+| paper | `backdrop.svg` | `theme_paper.css` | warm white, ink type |
+| dark | `backdrop.svg` | `theme_dark.css` | the lecture-hall version |
 
-`dark` is the lecture-hall version; `paper` is warm white with the type in ink and
-the bubble outlined so it separates from the page. ⚠️ A theme that omits a name a
-drawing reads re-skins part of the picture and leaves the rest on the literal
-fallback baked into the SVG — which is why the two files carry the same names, not
-merely the same number of them.
+⚠️ **A backdrop and a theme are a pair.** The gradient backdrop paints its own
+light ground, so it wants ink type and an outlined bubble; put `theme_dark` behind
+it and you get white text on white. Swapping a look means swapping both lines.
+
+⚠️ **A theme that omits a name a drawing reads** re-skins part of the picture and
+leaves the rest on the literal fallback baked into the SVG — so the check is that
+the three files declare the same SET of names, not the same number of them.
+
+**Type over a gradient needs a plate, not a braver colour.** No single ink is safe
+across a gradient, so the backdrop puts a translucent white panel under the whole
+text column and the type sits on that: 16.4:1 for the heading and 9.5:1 for the
+body at the plate's darkest corner.
 
 The provider name in the backdrop is a placeholder — one `<text>` element to
 change.

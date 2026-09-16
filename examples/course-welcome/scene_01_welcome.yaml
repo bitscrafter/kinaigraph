@@ -27,9 +27,12 @@ metadata:
 
 defs:
     assets:
+        # ⚠️ A BACKDROP AND A THEME ARE A PAIR. This drawing paints its own light
+        # gradient, so it wants ink type and an outlined bubble — `theme_agentic`.
+        # `backdrop.svg` is the plain alternative, and it goes with `theme_dark`.
         backdrop:
             type: "scene"
-            file: "./resource/scene/backdrop.svg"
+            file: "./resource/scene/backdrop_agentic.svg"
 
         pitch_text:
             type: "scene"
@@ -126,7 +129,7 @@ defs:
 
         style:
             type: "style"
-            file: "./resource/style/theme_dark.css"
+            file: "./resource/style/theme_agentic.css"
 
     const:
         FADE_WINDOW: 700

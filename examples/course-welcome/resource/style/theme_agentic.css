@@ -1,0 +1,29 @@
+/* Course welcome — agentic theme, for `backdrop_agentic.svg`.
+ *
+ * ⚠️ VALUES ONLY, and the SAME NAMES as every other theme here. The stylesheet owns what
+ * a thing is coloured; each SVG owns which of its classes reads which variable. A theme
+ * that declares a name no drawing reads, or omits one a drawing does, re-skins some of
+ * the picture and leaves the rest on its literal fallback.
+ */
+
+:root {
+    /* Surfaces. The backdrop paints its own gradient over this, so the value only
+       shows where that drawing does not reach. */
+    --scene-background-color: #e6ecfb;
+    --speech-bubble-fill-color: #ffffff;
+    --speech-bubble-stroke-color: #c7d2fe;
+    --speech-bubble-stroke-width: 2;
+
+    /* Text. Measured over the backdrop's plate — white at 62% over the gradient —
+       which lands between #f2f5fc and #f9faff: 16.4:1 for the heading, 9.5:1 for
+       the body at the plate's darkest corner. */
+    --title-text-color: #0f172a;
+    --body-text-color: #334155;
+
+    /* Brand accent — the wordmark square. 5.0:1 against the gradient's dark end. */
+    --accent-color: #4f46e5;
+
+    /* Typography. Every face named here is present in the render container, which is
+       why the stack does not start with a webfont. */
+    --presenter-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+}

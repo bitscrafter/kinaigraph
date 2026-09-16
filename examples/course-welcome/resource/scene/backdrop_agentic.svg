@@ -1,0 +1,74 @@
+<svg id="backdrop_agentic" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- Backdrop: a lit gradient, a faint diagram of agents and their tools, and a
+       plate that guarantees the type on top of it stays readable.
+
+       ⚠️ THE MOTIF IS TEXTURE, NOT CONTENT. Every stroke in it sits under 12%
+       opacity: it should register as "engineering" at a glance and never compete
+       with the line a viewer is meant to read. -->
+  <defs>
+    <linearGradient id="agentic_sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef2ff" />
+      <stop offset="0.55" stop-color="#e6ecfb" />
+      <stop offset="1" stop-color="#dde5f7" />
+    </linearGradient>
+    <radialGradient id="agentic_glow" cx="0.78" cy="0.22" r="0.6">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.75" />
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+    <!-- One node: a rounded square with four ports, the shape this piece uses for
+         both an agent and a tool it can reach. -->
+    <symbol id="agentic_node" viewBox="0 0 64 64">
+      <rect x="10" y="10" width="44" height="44" rx="10" fill="none" stroke="#1e293b" stroke-width="2" />
+      <rect x="28" y="2" width="8" height="8" rx="2" fill="#1e293b" />
+      <rect x="28" y="54" width="8" height="8" rx="2" fill="#1e293b" />
+      <rect x="2" y="28" width="8" height="8" rx="2" fill="#1e293b" />
+      <rect x="54" y="28" width="8" height="8" rx="2" fill="#1e293b" />
+    </symbol>
+    <style>
+      .wordmark-dot { fill: var(--accent-color, #4f46e5); }
+      .wordmark text { fill: var(--title-text-color, #0f172a); font-family: var(--presenter-font-family, Arial, "Liberation Sans", Helvetica, sans-serif); font-size: 15px; font-weight: 700; letter-spacing: 0.18em; }
+      .mesh { stroke: #1e293b; fill: none; stroke-width: 2; }
+      .plate { fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect class="scene-bg" width="1280" height="720" fill="url(#agentic_sky)" />
+  <rect width="1280" height="720" fill="url(#agentic_glow)" />
+
+  <!-- The diagram: four agents around a shared harness, each wired to a tool.
+       Kept to the right of the text column and behind everything else. -->
+  <g opacity="0.1">
+    <g class="mesh">
+      <path d="M 980 168 L 1088 232 L 1088 356 L 980 420 L 872 356 L 872 232 Z" />
+      <path d="M 980 168 L 980 420 M 872 232 L 1088 356 M 872 356 L 1088 232" />
+      <path d="M 700 300 C 780 268, 820 268, 872 292" />
+      <path d="M 700 470 C 800 470, 840 420, 872 372" />
+      <circle cx="980" cy="294" r="26" />
+      <circle cx="980" cy="294" r="52" stroke-dasharray="10 12" />
+    </g>
+    <use href="#agentic_node" x="948" y="136" width="64" height="64" />
+    <use href="#agentic_node" x="1056" y="200" width="64" height="64" />
+    <use href="#agentic_node" x="1056" y="324" width="64" height="64" />
+    <use href="#agentic_node" x="948" y="388" width="64" height="64" />
+    <use href="#agentic_node" x="840" y="324" width="64" height="64" />
+    <use href="#agentic_node" x="840" y="200" width="64" height="64" />
+  </g>
+
+  <!-- Faint rails, bottom-left: the harness the agents run inside. -->
+  <g opacity="0.07" class="mesh">
+    <path d="M 72 608 H 1208" />
+    <path d="M 72 640 H 1208" />
+    <path d="M 210 608 V 640 M 430 608 V 640 M 650 608 V 640 M 870 608 V 640 M 1090 608 V 640" />
+  </g>
+
+  <!-- ⚠️ THE PLATE IS WHAT MAKES THE TYPE LEGIBLE, not the choice of ink. Over a
+       gradient, one colour cannot be safe everywhere; a translucent white panel
+       under the whole text column fixes the background the type sits on. -->
+  <rect class="plate" x="40" y="118" width="880" height="500" rx="24" opacity="0.62" />
+  <rect x="40" y="118" width="880" height="500" rx="24" fill="none" stroke="#ffffff" stroke-opacity="0.85" stroke-width="1.5" />
+
+  <g id="wordmark" class="wordmark">
+    <rect class="wordmark-dot" x="72" y="60" width="10" height="10" />
+    <text x="92" y="70">AGENTIC ENGINEERING</text>
+  </g>
+</svg>
