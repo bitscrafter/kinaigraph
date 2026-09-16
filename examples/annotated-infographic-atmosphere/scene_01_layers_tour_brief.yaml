@@ -8,12 +8,13 @@
 # There is no rig to build: the <image> element IS the actor, it takes the move
 # and the scale itself, and `pivot: top_left` keeps the picture's own origin
 # still under the zoom. A picture point p therefore lands on screen at
-# PAN + ZOOM × p — one expression, used below for every stop and every pointer.
+# PAN + ZOOM × p — one expression, used below for every stop.
 #
-# THE CALLOUTS. Each note's BOX is parked in the 1920 x 1080 frame, so it stays
-# the same size wherever the camera is, while its POINTER aims at a point written
-# in the IMAGE's own pixels — the coordinates you read off the PNG. That split is
-# what makes them annotations of the picture rather than parts of it.
+# THE CALLOUTS. Each note is parked in the 1920 x 1080 frame, so it stays the
+# same size wherever the camera is, and each opens with a LABEL naming what it is
+# about. NONE of them has a pointer, and that is the design: a leader is a claim
+# about a place in the picture, and it goes stale silently the moment the words
+# above it change. A label cannot come to disagree with its own sentence.
 #
 #   establish   the whole poster, fitted to the frame's height
 #   push_in     zoom onto the masthead
@@ -45,6 +46,7 @@ defs:
         title_text:
             type: "text"
             content: |
+                ATMOSPHERE
                 Half of this air sits below 5.5 km —
                 lower than Everest's summit.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
@@ -53,8 +55,9 @@ defs:
         upper_text:
             type: "text"
             content: |
-                The aurora is this layer glowing:
-                oxygen struck by solar particles.
+                AURORA
+                This layer glowing: oxygen atoms
+                struck by particles from the Sun.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
@@ -63,23 +66,26 @@ defs:
         iss_text:
             type: "text"
             content: |
+                SPACE STATION
                 Four times above the edge of space,
-                and the air up here still drags it down.
+                and the air still drags it down.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
         mesosphere_text:
             type: "text"
             content: |
-                The highest clouds on Earth form here:
-                noctilucent, in summer twilight.
+                NOCTILUCENT CLOUDS
+                The highest clouds on Earth, forming
+                at the mesopause in summer twilight.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
         stratosphere_text:
             type: "text"
             content: |
-                At sea-level pressure, all that ozone
+                OZONE LAYER
+                At sea-level pressure, all of it
                 would be a layer 3 mm thick.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
@@ -87,8 +93,9 @@ defs:
         troposphere_text:
             type: "text"
             content: |
-                Its ceiling is 8 km over the poles,
-                and 18 km over the equator.
+                TROPOPAUSE
+                The troposphere's ceiling: 8 km over
+                the poles, 18 km over the equator.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"
@@ -166,26 +173,6 @@ defs:
         STRATOSPHERE_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * STRATOSPHERE_Y"
         TROPOSPHERE_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * TROPOSPHERE_Y"
 
-        # ── What each pointer aims at, in IMAGE px ───────────────────────────────
-        # Read off the PNG. The stop's own pan is what carries them to the screen,
-        # so a point and its stop must agree — check the pair, never one alone.
-        # The aurora dot. Drawn at (700, 860) inside the group the poster shifts
-        # by (-19, -8), so it sits at (681, 852).
-        UPPER_POINT_X: 681
-        UPPER_POINT_Y: 852
-        # The ISS icon's left edge. The icon is drawn at (700, 930) and shifted by
-        # (-19, -8) in the poster, so it sits at (681, 922) and spans 30px either side.
-        ISS_POINT_X: 650
-        ISS_POINT_Y: 922
-        # The right end of the 85 km tick: the mesopause, which is where the
-        # highest clouds sit. The meteor streaks are the mesosphere's other fact
-        # and belong to the narration, not to this pointer.
-        MESOSPHERE_POINT_X: 160
-        MESOSPHERE_POINT_Y: 1100
-        # The chip's left EDGE, not its middle: the apex lands on the target, and a
-        # point inside the chip puts the leader across its own label.
-        STRATOSPHERE_POINT_X: 690
-        STRATOSPHERE_POINT_Y: 1683
 
         # ── The callout boxes, in SCREEN px ──────────────────────────────────────
         # Sized by measuring the render — nothing measures the text for us.
@@ -202,7 +189,7 @@ defs:
         # Measured off the render: the longest line is the upper callout's second,
         # and these are the smallest box that keeps NOTE_PAD clear on every side.
         NOTE_W: 570
-        NOTE_H: 112
+        NOTE_H: 152
         NOTE_PAD: 22
         NOTE_RADIUS: 14
 
@@ -222,8 +209,7 @@ animation:
             scene: frame
 
     annotations:
-        # The boxes are parked where that stop leaves empty frame; the pointers are
-        # written in image px and converted by the stop's own pan and zoom.
+        # Each box is parked where its stop leaves empty frame.
         note_title:
             note:
                 text: title_text
@@ -234,9 +220,8 @@ animation:
                         radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
-            # No pointer: the fact is about the whole column of air, not a place in
-            # the picture. Parked in the masthead's empty right half — the title
-            # text ends well left of it.
+            # Parked in the masthead's empty right half — the title text ends well
+            # left of it.
             at:
                 x: 1180
                 y: 200
@@ -255,12 +240,7 @@ animation:
                         radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
-                pointer:
-                    target:
-                        x: "DETAIL_PAN_X + DETAIL_ZOOM * UPPER_POINT_X"
-                        y: "UPPER_PAN_Y + DETAIL_ZOOM * UPPER_POINT_Y"
-            # Right edge stops at the temperature panel's left rule, and the bottom
-            # clears the MESOSPHERE heading the stop already has on screen.
+            # The bottom clears the MESOSPHERE heading at screen y 979.
             at:
                 x: 800
                 y: 780
@@ -281,10 +261,6 @@ animation:
                         radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
-                pointer:
-                    target:
-                        x: "DETAIL_PAN_X + DETAIL_ZOOM * ISS_POINT_X"
-                        y: "UPPER_PAN_Y + DETAIL_ZOOM * ISS_POINT_Y"
             at:
                 x: 800
                 y: 780
@@ -303,13 +279,7 @@ animation:
                         radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
-                pointer:
-                    target:
-                        x: "DETAIL_PAN_X + DETAIL_ZOOM * MESOSPHERE_POINT_X"
-                        y: "MESOSPHERE_PAN_Y + DETAIL_ZOOM * MESOSPHERE_POINT_Y"
-            # Below the poster's own fact box (which ends at screen y 570) and far
-            # enough LEFT that the leader to the 85 km tick runs beside that box
-            # rather than through it — the box starts at screen x 390.
+            # Below the poster's own fact box, which ends at screen y 570.
             at:
                 x: 180
                 y: 600
@@ -328,10 +298,6 @@ animation:
                         radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
-                pointer:
-                    target:
-                        x: "DETAIL_PAN_X + DETAIL_ZOOM * STRATOSPHERE_POINT_X"
-                        y: "STRATOSPHERE_PAN_Y + DETAIL_ZOOM * STRATOSPHERE_POINT_Y"
             at:
                 x: 390
                 y: 660
@@ -350,12 +316,10 @@ animation:
                         radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
-            # No pointer. The fact is about the tropopause, whose 8 km and 18 km
-            # are latitudes this picture does not draw — aiming the leader at the
-            # one 12 km line it does draw would point at a third number.
+
             at:
                 x: 200
-                y: 760
+                y: 740
             origin: top_left
             fill: "#f7f8fa"
             stroke: "#555c66"

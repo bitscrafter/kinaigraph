@@ -37,7 +37,7 @@ no rig either. The whole scene is a background and the picture:
 
 The `<image>` element **is the actor**: it takes the move and the scale itself, so
 a picture point `p` lands on screen at **`PAN + ZOOM × p`**. That one expression is
-every stop and every pointer in the document.
+every stop in the document.
 
 Wrapper groups — one to translate, one to scale — were measured against this and
 add nothing: with the image drawn at `(0, 0)` the composed transform is the same
@@ -62,41 +62,39 @@ Re-frame a stop by moving the centre, never the pan.
 
 ## The callouts annotate the picture without touching it
 
-Each note's **box is parked in the frame** and its **pointer aims into the
-picture**:
+Each note is **parked in the frame**, at a fixed size, and opens with a **label
+naming its subject**:
 
 ```yaml
-pointer:
-    target:
-        x: "DETAIL_PAN_X + DETAIL_ZOOM * MESOSPHERE_POINT_X"
-        y: "MESOSPHERE_PAN_Y + DETAIL_ZOOM * MESOSPHERE_POINT_Y"
-at:
-    x: 430
-    y: 600
+content: |
+    NOCTILUCENT CLOUDS
+    The highest clouds on Earth, forming
+    at the mesopause in summer twilight.
 ```
 
-The target is the same `PAN + ZOOM × p` mapping, so a pointer is aimed at a place
-in the *image* — the meteor streaks, the ozone band, Everest — while the box stays
-at a fixed size in the frame. A box that scaled with the camera would be unreadable
-at the overview and enormous at a stop.
+A box that scaled with the camera would be unreadable at the overview and
+enormous at a stop, so the box lives in frame coordinates while the picture moves
+underneath it.
 
-Two consequences worth keeping:
+⛔ **None of them has a pointer, and that is the design.** They did, aimed by the
+same `PAN + ZOOM × p` mapping the stops use, and the leaders were *correct* —
+until the words above them were rewritten. Then three at once were pointing at
+what the old sentences had been about: the aurora note at the temperature trace,
+the noctilucent note at the meteor streaks, the tropopause note at Everest.
+Nothing failed, nothing warned; each leader simply asserted a link that had
+stopped being true. **A label cannot come to disagree with its own sentence**,
+which is why the notes now carry one instead.
+
+Other consequences worth keeping:
 
 - **The type is sized against the picture, not the frame.** A detail stop magnifies
   the poster by `DETAIL_ZOOM`, so its own 20 px captions arrive at 32.5 px. The
   callouts are set at 30 px to match; at 20 px they read as fine print beside the
   thing they annotate.
-- **A pointer and its stop are one fact.** The target is converted by that stop's
-  pan, so moving a stop without moving its pointer aims the leader at empty sky.
-  Check the pair.
-- **A callout says what the poster does not, and points at what it is about.**
-  Every note here is a fact about the atmosphere, never about how the video was
-  made: half the mass below 5.5 km, what the aurora is, noctilucent clouds at the
-  mesopause, the ozone column as 3 mm of gas, the tropopause running 8–18 km with
-  latitude. Two of the six have no pointer, because a fact about the whole column
-  of air — or about a boundary this picture does not draw — has nothing to aim at,
-  and a leader sent to the nearest thing instead would assert a link that isn't
-  there.
+- **A callout says what the poster does not.** Every note is a fact about the
+  atmosphere, never about how the video was made: half the mass below 5.5 km, what
+  the aurora is, noctilucent clouds at the mesopause, the ozone column as 3 mm of
+  gas, the tropopause running 8–18 km with latitude.
 - ⚠️ **A note's text WRAPS, and what will not fit is silently clipped.** A line 14 px
   too long for the box cost this example a callout that rendered with its second
   line missing and no warning anywhere. Measuring the ink *inside* the box does not
@@ -104,8 +102,8 @@ Two consequences worth keeping:
   against the authored ones.
 
 Each callout's window is three actions in one entry — fade in, hold, fade out —
-whose durations sum to the dwell, with the hold derived (`DWELL_MS - FADE_MS * 2`)
-rather than written twice.
+whose durations sum to the dwell, with the hold derived from the narration rather
+than written twice.
 
 ## The input image
 
@@ -141,7 +139,7 @@ exactly as the picture would have been.
 | Path | Role |
 | ---- | ---- |
 | `scene_01_layers_tour_brief.yaml` | The document: camera, callouts, timeline, and the narration mix. |
-| `scene_00_tts_brief.yaml` | Synthesis only — records the seven lines. Costs credits; run it once, and again only when a script changes. |
+| `scene_00_tts_brief.yaml` | Synthesis only — records the nine lines. Costs credits; run it once, and again only when a script changes. |
 | `resource/script/brief/*.txt` | One file per line. These are the source; the MP3s are derived. |
 | `resource/audio/brief/*.mp3` | The recorded lines, read by Harper. |
 | `resource/image/atmosphere.png` | **The input.** A pre-existing raster. |
