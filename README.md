@@ -181,11 +181,11 @@ rendering needs an [ElevenLabs](https://elevenlabs.io/) API key in `ELEVENLABS_A
 each synthesis run costs credits. The synthesis step is always its own document, named for
 the cut it speaks.
 
-**6 of the 9 examples render with no key**, because their narration is in this repository:
-`course-welcome`, `hiking-trails`, `infographic-atmosphere`,
-`milestone-ladder`, `request-response` and `wave-anatomy`. Start there. `life-lessons-en`,
-`life-lessons-es` and `microservices-flow` are the ones that need a key — as do the videos
-under `docs/video/`, except where their recordings are committed.
+**6 of the 8 examples render with no key**, because their narration is in this repository:
+`course-welcome`, `hiking-trails`, `infographic-atmosphere`, `milestone-ladder`,
+`request-response` and `wave-anatomy`. Start there. `life-lessons-en` and `life-lessons-es`
+are the ones that need a key — as do the videos under `docs/video/`, except where their
+recordings are committed.
 
 ## Using it
 
@@ -272,7 +272,6 @@ kept the same way.
 
 | Example | What it shows |
 | --- | --- |
-| [`microservices-flow`](examples/microservices-flow/) | A narrated walkthrough of a request moving through a microservices architecture — animation paced to narration, animated diagrams, and compile-time theming (the same scene re-rendered in light and dark). |
 | [`request-response`](examples/request-response/) | The same request, authored **twice** — once with hand-measured timings, once with action bookmarks and `pace_by: distance`. The two disagree, and the shorter one is the correct one. |
 | [`wave-anatomy`](examples/wave-anatomy/) | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is drawn anywhere** — every curve is generated from its own equation and sampled by the compiler. |
 | [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. One route layer carries the drawn line, the travelled path and the distance the callout quotes. |

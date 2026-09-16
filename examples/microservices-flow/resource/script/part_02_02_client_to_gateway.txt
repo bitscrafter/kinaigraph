@@ -1,1 +1,0 @@
-It starts at the client. The request hits the API Gateway — the front door for all traffic.

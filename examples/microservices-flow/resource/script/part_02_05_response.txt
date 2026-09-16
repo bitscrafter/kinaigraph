@@ -1,1 +1,0 @@
-The data flows back through the gateway to the client. Request complete.
