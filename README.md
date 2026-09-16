@@ -181,10 +181,11 @@ rendering needs an [ElevenLabs](https://elevenlabs.io/) API key in `ELEVENLABS_A
 each synthesis run costs credits. The synthesis step is always its own document, named for
 the cut it speaks.
 
-**7 of the 10 examples render with no key**, because their narration is in this repository:
+**6 of the 9 examples render with no key**, because their narration is in this repository:
 `avatar-puppetry` (which is silent by design), `hiking-trails`, `infographic-atmosphere`,
-`milestone-ladder`, `request-response`, `wave-anatomy` and `why-a-language`. Start there.
-`life-lessons-en`, `life-lessons-es` and `microservices-flow` are the ones that need a key.
+`milestone-ladder`, `request-response` and `wave-anatomy`. Start there. `life-lessons-en`,
+`life-lessons-es` and `microservices-flow` are the ones that need a key — as do the videos
+under `docs/video/`, except where their recordings are committed.
 
 ## Using it
 
@@ -265,9 +266,12 @@ Each example is a set of YAML **scene** files plus its resources — SVG artwork
 themes, and narration scripts. Kinaigraph compiles a scene and renders it to an MP4
 (and can also play it live in the browser).
 
+Every one of them is about **somebody else's subject** — a map, an equation, a poster, a
+life. For videos about Kinaigraph itself, see [`docs/video/`](docs/video/), whose sources are
+kept the same way.
+
 | Example | What it shows |
 | --- | --- |
-| [`why-a-language`](examples/why-a-language/) | The pitch, in four scenes: why explainer videos are worth making, what making them costs today, what a language does about that cost, and what it opens up. Shipped as **two cuts from one set of drawings** — a 1:39 whose voice names a category and lets the picture enumerate it, and a 2:52 that names every box aloud. **Not one duration in either is a number anyone chose.** |
 | [`microservices-flow`](examples/microservices-flow/) | A narrated walkthrough of a request moving through a microservices architecture — animation paced to narration, animated diagrams, and compile-time theming (the same scene re-rendered in light and dark). |
 | [`request-response`](examples/request-response/) | The same request, authored **twice** — once with hand-measured timings, once with action bookmarks and `pace_by: distance`. The two disagree, and the shorter one is the correct one. |
 | [`wave-anatomy`](examples/wave-anatomy/) | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is drawn anywhere** — every curve is generated from its own equation and sampled by the compiler. |

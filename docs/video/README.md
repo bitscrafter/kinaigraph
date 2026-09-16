@@ -14,14 +14,22 @@ demonstrates the tool on somebody's subject, it belongs there.
 
 | category | answers | for |
 | --- | --- | --- |
-| `explainer` | what Kinaigraph is, and why it exists | someone deciding whether to look further — no prior knowledge assumed, and nothing to follow along with |
+| `product` | what Kinaigraph is, who it is for, and why it exists | someone deciding whether to look further — no prior knowledge assumed, and nothing to follow along with |
+| `explainer` | one concept of the language in depth — why it works that way, and how to reason about it | someone who can already render a scene and wants the mental model, including the edges that trip people up |
 | `tutorial` | how to do one thing, start to finish | someone authoring, with the document open — a task, in order, with a result at the end |
 | `architecture` | how the engine itself is built | a contributor, or a reader who wants to know what is under it |
 
-An **explainer** may leave you unable to write a scene, and that is fine: it is there to make
-you want to. A **tutorial** that leaves you without a rendered file has failed. Keep a piece to
-one of the two — the register is different, and a video that switches halfway serves neither
-reader.
+⚡ **`explainer` here means what it means in the engine repository**, where
+`tech-docs/internal/explainer/` holds the in-depth companions to the normative specs. A video
+explainer is the same document in another medium, and carries the same name as the markdown
+one it accompanies. ⚠️ Elsewhere in the world an "explainer video" is usually the sixty-second
+pitch — that is `product`, not this.
+
+A **product** piece may leave you unable to write a scene, and that is fine: it is there to
+make you want to. A **tutorial** that leaves you without a rendered file has failed. An
+**explainer** is neither — it answers *why is it like this*, and a reader should come away able
+to predict what the language will do, not just repeat what it did. Keep a piece to one job; the
+register is different, and a video that switches halfway serves no one.
 
 ## What is here
 
@@ -49,6 +57,7 @@ word.
 
 | category | piece | what it covers |
 | --- | --- | --- |
+| `product` | `why-a-language` | why these videos are worth making, what making them costs today, what a language does about that cost, and what it opens up — in two cuts from one set of drawings |
 | `architecture` | `structural_layers` | the ports, adapters, subsystems and layers the engine is built from |
 
 ## Rendering one
