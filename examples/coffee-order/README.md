@@ -66,11 +66,20 @@ lifelines (`X_MACHINE - X_BARISTA`), not numbers measured off the drawing.
 A message to self is still a message, so it carries a mug too: out, down, and
 back onto its own bar.
 
-⚠️ **TWO MUGS ON SCREEN MEANS TWO THINGS HAPPENING AT ONCE**, so anywhere that is
-not true, the first has to be gone before the second arrives. The detour is the
-one beat holding two journeys in a single line, and they only fit sequentially if
-each runs shorter — which is why its mugs cross at `RUN * 0.55`. Overlap them and
-the picture quietly claims the customer was answered and replied simultaneously.
+⚠️ **TWO MUGS IN ONE LANE MEANS TWO THINGS HAPPENING AT ONCE THERE**, so anywhere
+that is not true, the first has to be GONE before the second arrives. A request
+still fading out as its own reply sets off says the two overlapped, which is a
+claim about the café, not a detail of the animation.
+
+Two beats carry a there-and-back in a single line — the detour, and each lane of
+the `par`. They only fit sequentially if the crossings run shorter, which is the
+one rule: **a beat holding two journeys runs them at `RUN * 0.55`**, and the
+second waits on `DRAW + FADE * 2 + RUN * 0.55` — precisely the time the first
+takes to appear, cross and leave.
+
+⚡ **The `par` is the exception that proves it.** Two mugs on screen at once is
+exactly right there — but one per LANE. The lanes are simultaneous with each
+other; nothing is simultaneous with itself.
 
 ⚡ **The two long bars advance ROW BY ROW, ending at the message just sent.** At
 any moment each is exactly as long as that person has been busy. Two ways to get

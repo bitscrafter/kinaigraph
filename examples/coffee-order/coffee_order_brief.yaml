@@ -413,12 +413,12 @@ animation:
             - rider_shot:
                   - show: { opacity: 0, duration: "narration_04.duration * DRAW" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-                  - move: { dx: "X_MACHINE - X_BARISTA", duration: "narration_04.duration * RUN", easing: "ease_in_out_quad" }
+                  - move: { dx: "X_MACHINE - X_BARISTA", duration: "narration_04.duration * RUN * 0.55", easing: "ease_in_out_quad" }
                   - show: { opacity: 0, duration: "narration_04.duration * FADE" }
             - rider_steam:
                   - show: { opacity: 0, duration: "narration_04.duration * DRAW" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-                  - move: { dx: "X_WAND - X_BARISTA", duration: "narration_04.duration * RUN", easing: "ease_in_out_quad" }
+                  - move: { dx: "X_WAND - X_BARISTA", duration: "narration_04.duration * RUN * 0.55", easing: "ease_in_out_quad" }
                   - show: { opacity: 0, duration: "narration_04.duration * FADE" }
             - bar_machine:
                   - show: { reveal: 0, duration: "narration_04.duration * DRAW" }
@@ -427,32 +427,32 @@ animation:
                   - show: { reveal: 0, duration: "narration_04.duration * DRAW" }
                   - show: { reveal: { from: 0, to: 1 }, duration: "narration_04.duration * RUN" }
             - lbl_espresso:
-                  - show: { opacity: 0, duration: "narration_04.duration * 0.40" }
+                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55)" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
             - lbl_milk:
-                  - show: { opacity: 0, duration: "narration_04.duration * 0.40" }
+                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55)" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
             - ret_espresso:
-                  - show: { opacity: 0, duration: "narration_04.duration * 0.40" }
+                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55)" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
             - head_espresso:
-                  - show: { opacity: 0, duration: "narration_04.duration * (0.40 + FADE)" }
+                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55 + FADE)" }
                   - show: { opacity: 1, duration: 1 }
             - ret_milk:
-                  - show: { opacity: 0, duration: "narration_04.duration * 0.40" }
+                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55)" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
             - head_milk:
-                  - show: { opacity: 0, duration: "narration_04.duration * (0.40 + FADE)" }
+                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55 + FADE)" }
                   - show: { opacity: 1, duration: 1 }
             - rider_espresso:
-                  - show: { opacity: 0, duration: "narration_04.duration * (0.40 + FADE)" }
+                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55 + FADE)" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-                  - move: { dx: "X_BARISTA - X_MACHINE", duration: "narration_04.duration * RUN", easing: "ease_in_out_quad" }
+                  - move: { dx: "X_BARISTA - X_MACHINE", duration: "narration_04.duration * RUN * 0.55", easing: "ease_in_out_quad" }
                   - show: { opacity: 0, duration: "narration_04.duration * FADE" }
             - rider_milk:
-                  - show: { opacity: 0, duration: "narration_04.duration * (0.40 + FADE)" }
+                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55 + FADE)" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-                  - move: { dx: "X_BARISTA - X_WAND", duration: "narration_04.duration * RUN", easing: "ease_in_out_quad" }
+                  - move: { dx: "X_BARISTA - X_WAND", duration: "narration_04.duration * RUN * 0.55", easing: "ease_in_out_quad" }
                   - show: { opacity: 0, duration: "narration_04.duration * FADE" }
             - bar_barista:
                   - show: { reveal: "GROWN_OPT", duration: "narration_04.duration * DRAW" }
