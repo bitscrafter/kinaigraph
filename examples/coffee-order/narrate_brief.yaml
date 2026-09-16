@@ -1,0 +1,81 @@
+# ------------------------------------------
+# coffee-order — narration, brief cut
+# ------------------------------------------
+# Generates the six lines the brief cut speaks. Run ONCE, before rendering the
+# scene, and again whenever a script changes.
+#
+#     kinaigraph narrate_brief.yaml
+#
+# Needs ELEVENLABS_API_KEY. Every run costs credits and calls the provider, which
+# is why this is its own document: re-rendering the scene must never re-synthesise
+# audio that did not change.
+#
+# ⚡ `for y in scene_*.yaml` IS SAFE — nothing in that namespace bills. This
+# document does, and it is not a scene.
+#
+# ⚠️ `synthesis.context.status` is section-wide. Running this re-records all six
+# lines, not the one that changed — and because every window in the scene is a
+# share of a clip's probed duration, new takes silently re-time the whole piece.
+#
+# ⚠️ THE LINES ARE THE PACING. Nothing in the scene names a dwell length: each
+# beat lasts as long as the sentence spoken over it, and the camera's two
+# descents each ride a line. A line that runs long does not just cost its own
+# beat, it spends the whole piece.
+#
+# ⚠️ THE SCRIPT IS ABOUT THE MORNING, NOT THE NOTATION. It never says "lifeline"
+# or "activation". A viewer reading the picture while being told what happened at
+# the counter learns the diagram anyway; one being read the diagram aloud learns
+# neither, because the words and the drawing compete.
+
+metadata:
+    title: "Coffee Order - narration, brief cut"
+    description: "The six lines of the brief cut"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "ZT9u07TYPVl83ejeLakq" # Rachel
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        # 1 — the order arrives, and the wait begins
+        audio_01_order:
+            file: "./resource/script/brief/part_01_order.txt"
+            export: "./resource/audio/brief/part_01_order.mp3"
+
+        # 2 — the cup is written; the order is now the barista's
+        audio_02_name:
+            file: "./resource/script/brief/part_02_name.txt"
+            export: "./resource/audio/brief/part_02_name.mp3"
+
+        # 3 — the detour that only some mornings take
+        audio_03_opt:
+            file: "./resource/script/brief/part_03_opt.txt"
+            export: "./resource/audio/brief/part_03_opt.mp3"
+
+        # 4 — the two slow jobs running together. The longest line, and the point
+        #     of the piece: neither job waits for the other.
+        audio_04_par:
+            file: "./resource/script/brief/part_04_par.txt"
+            export: "./resource/audio/brief/part_04_par.mp3"
+
+        # 5 — the two halves become one drink
+        audio_05_prepare:
+            file: "./resource/script/brief/part_05_prepare.txt"
+            export: "./resource/audio/brief/part_05_prepare.mp3"
+
+        # 6 — the handover, and who actually waited
+        audio_06_handoff:
+            file: "./resource/script/brief/part_06_handoff.txt"
+            export: "./resource/audio/brief/part_06_handoff.mp3"

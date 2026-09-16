@@ -1,0 +1,54 @@
+/* Coffee Order — paper theme.
+ *
+ * ⚠️ VALUES ONLY. The stylesheet owns what a thing is coloured; the drawing owns
+ * which of its classes reads which name. A theme that declares a name no drawing
+ * reads, or omits one a drawing does, re-skins some of the picture and leaves the
+ * rest on the literal fallback baked into the SVG.
+ *
+ * The diagram has three tiers of weight, and keeping them apart is what makes a
+ * sequence diagram readable at all:
+ *
+ *   furniture  lifelines and the waiting bar — scaffolding, read past
+ *   structure  heads, activation bars, fragment frames — the grammar
+ *   content    the messages and their labels — the thing being said
+ *
+ * A message must never be the faintest thing on screen; a lifeline must never
+ * compete with one.
+ */
+
+:root {
+    /* Surface */
+    --scene-background-color: #f7f8fa;
+
+    /* Type */
+    --diagram-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+    --title-text-color: #14181d;
+    --body-text-color: #1f2933;
+    --muted-text-color: #5b6773;
+
+    /* Furniture — deliberately the faintest strokes in the picture. */
+    --lifeline-stroke-color: #bcc5ce;
+    --bar-wait-stroke-color: #dfe4e9;
+
+    /* Structure */
+    --head-fill-color: #ffffff;
+    --head-stroke-color: #3a4550;
+    --bar-stroke-color: #9ec9dd;
+    --bar-nest-stroke-color: #6ba9c6;
+
+    /* Content — the messages, and the darkest strokes on the page. */
+    --call-stroke-color: #1f2933;
+    --return-stroke-color: #5b6773;
+
+    /* The two combined fragments. They are different KINDS of thing — one is
+       "sometimes", the other is "at the same time" — so they are different
+       hues rather than two weights of one. */
+    --par-color: #2d7d9a;
+    --opt-color: #b0672f;
+    --tab-text-color: #ffffff;
+
+    /* The mug, from the icon catalog. The catalog's own variable names, rebound
+       from its neutral greys to coffee. The geometry is untouched. */
+    --icon-fill: #f6e7d6;
+    --icon-stroke: #6f4326;
+}

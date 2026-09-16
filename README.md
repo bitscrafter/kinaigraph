@@ -181,7 +181,7 @@ rendering needs an [ElevenLabs](https://elevenlabs.io/) API key in `ELEVENLABS_A
 each synthesis run costs credits. The synthesis step is always its own document, named for
 the cut it speaks.
 
-**Every one of the 7 examples renders with no key.** Their narration is committed, so a
+**Every one of the 8 examples renders with no key.** Their narration is committed, so a
 clone can render all of them with nothing but Kinaigraph installed. A key is only needed
 to RE-record a line — each example's `narrate_*.yaml` does that, and costs credits.
 The videos under `docs/video/` are the same, except where their recordings are committed.
@@ -277,6 +277,8 @@ kept the same way.
 | [`milestone-ladder`](examples/milestone-ladder/) | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark. |
 | [`life-lessons`](examples/life-lessons/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. The same two scenes in **English and Spanish**, sharing one paper, one stylesheet and one timeline: a localisation you can count rather than take on trust. |
 | [`course-welcome`](examples/course-welcome/) | The first half-minute of an online course: an instructor talks, blinks and breathes in the corner while the practicalities arrive beside her. Three mouth shapes and two eye states, swapped by pulses written against each other — the language has no concept of a face. |
+| [`infographic-atmosphere`](examples/infographic-atmosphere/) | A narrated tour of **a picture that already existed** — a PNG poster nobody authored here. The language has no camera, so the picture moves instead, and callouts park in the frame while it pans beneath them. |
+| [`coffee-order`](examples/coffee-order/) | A café order as a **sequence diagram**, drawn as it is told. The one diagram whose vertical axis is time, so the drawing runs deeper than the frame and the camera walks down it. A mug rides every message, and during the `par` two are in flight at once. |
 
 Narration audio is generated from the scripts via text-to-speech, so a scene reads
 its timing from the spoken lines. See each example's folder for its specific layout.

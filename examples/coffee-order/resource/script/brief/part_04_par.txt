@@ -1,0 +1,1 @@
+Now the two slow jobs run together. The machine pulls a double shot while the wand steams the milk, and neither one waits for the other. Doing them in turn would cost twice the time, and it is why the queue keeps moving at all.
