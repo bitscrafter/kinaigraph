@@ -2,7 +2,7 @@
 
 A UML sequence diagram of a café order: the customer asks, the barista writes the
 cup, the machine and the wand work at once, and a drink comes back. Four
-participants, ten messages, two combined fragments. 54 seconds, in one cut, and 89% of it is speech.
+participants, ten messages, two combined fragments. 52 seconds, in one cut, and 93% of it is speech.
 
 The narration is about the **morning**, not about the notation. It never says
 "lifeline" or "activation": the picture is there to be read while somebody tells
@@ -64,8 +64,13 @@ what the fragment exists to say. Their runs are the distance between two
 lifelines (`X_MACHINE - X_BARISTA`), not numbers measured off the drawing.
 
 A message to self is still a message, so it carries a mug too: out, down, and
-back onto its own bar — three legs, each its own entry, because separate entries
-at one bookmark are what run in sequence when each states its own start.
+back onto its own bar.
+
+⚠️ **TWO MUGS ON SCREEN MEANS TWO THINGS HAPPENING AT ONCE**, so anywhere that is
+not true, the first has to be gone before the second arrives. The detour is the
+one beat holding two journeys in a single line, and they only fit sequentially if
+each runs shorter — which is why its mugs cross at `RUN * 0.55`. Overlap them and
+the picture quietly claims the customer was answered and replied simultaneously.
 
 ⚡ **The two long bars advance ROW BY ROW, ending at the message just sent.** At
 any moment each is exactly as long as that person has been busy. Two ways to get
