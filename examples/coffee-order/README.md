@@ -115,6 +115,27 @@ the picture is claiming.
 if they were allowed, the two legs cross different distances. A group is for
 things doing the *same* thing, not merely things doing it at the same moment.
 
+## Why the mugs do not ride their own arrows
+
+The obvious way to move a rider is `move: { along: { asset: <the message> } }` —
+`request-response` does exactly that, and it works here too: a mug will trace a
+straight `<line>` or follow the three segments of a self-call `<path>` with no
+waypoints authored at all.
+
+⛔ **It is refused in this example, and the refusal is right.** The diagram pans,
+so the riders sit inside the group the camera moves:
+
+```text
+'rider_order' sits inside the moving group 'sheet' — a move-along rider nested
+inside a moving group is transformed twice (once by the group, once by the ride)
+```
+
+⚡ **You can have a camera that moves the drawing, or riders that ride the
+drawing's own geometry — not both on the same elements.** This example chose the
+camera, because a sequence diagram deeper than its frame is the entire point. So
+the mugs cross by `dx`, and the distance is named as what it is: the gap between
+two lifelines, `X_MACHINE - X_BARISTA`.
+
 ## Pinned, and scrolling
 
 The title, the four participant heads and the four lifelines **do not move**. Only

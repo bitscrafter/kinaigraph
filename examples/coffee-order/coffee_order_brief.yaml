@@ -293,23 +293,13 @@ animation:
             - head_wand: [{ show: { opacity: 1 } }]
             - undrawn: [{ show: { opacity: 1, reveal: 0 } }]
             - not_yet: [{ show: { opacity: 0 } }]
-            - rider_handoff:
-                  - show:
-                        opacity: 0
-                        hold:
-                            after: 400
+            - rider_handoff: [{ show: { opacity: 0, hold: { after: 400 } } }]
 
         # ── 1. the order ─────────────────────────────────────────────────────
         setup.end @ beat_order:
             - lifelines: [{ show: { opacity: 1, duration: "narration_01.duration * FADE" } }]
-            - lbl_order:
-                  - show:
-                        opacity: 1
-                        duration: "narration_01.duration * FADE"
-                        hold:
-                            after: "narration_01.duration * (1 + PAUSE - FADE)"
-            - msg_order:
-                  - show: { reveal: { from: 0, to: 1 }, duration: "narration_01.duration * DRAW" }
+            - lbl_order: [{ show: { opacity: 1, duration: "narration_01.duration * FADE", hold: { after: "narration_01.duration * (1 + PAUSE - FADE)" } } }]
+            - msg_order: [{ show: { reveal: { from: 0, to: 1 }, duration: "narration_01.duration * DRAW" } }]
             - head_order:
                   - show: { opacity: 0, duration: "narration_01.duration * DRAW" }
                   - show: { opacity: 1, duration: 1 }
@@ -324,14 +314,8 @@ animation:
 
         # ── 2. the cup is written ────────────────────────────────────────────
         beat_order.end @ beat_name:
-            - lbl_name:
-                  - show:
-                        opacity: 1
-                        duration: "narration_02.duration * FADE"
-                        hold:
-                            after: "narration_02.duration * (1 + PAUSE - FADE)"
-            - msg_name:
-                  - show: { reveal: { from: 0, to: 1 }, duration: "narration_02.duration * DRAW" }
+            - lbl_name: [{ show: { opacity: 1, duration: "narration_02.duration * FADE", hold: { after: "narration_02.duration * (1 + PAUSE - FADE)" } } }]
+            - msg_name: [{ show: { reveal: { from: 0, to: 1 }, duration: "narration_02.duration * DRAW" } }]
             - head_name:
                   - show: { opacity: 0, duration: "narration_02.duration * DRAW" }
                   - show: { opacity: 1, duration: 1 }
@@ -348,18 +332,13 @@ animation:
 
         # ── 3. the detour some mornings take ─────────────────────────────────
         beat_name.end @ beat_opt:
-            - sheet:
-                  - move: { dy: "-STOP_MID", duration: "narration_03.duration * DRAW", easing: "ease_in_out_quad" }
+            - sheet: [{ move: { dy: "-STOP_MID", duration: "narration_03.duration * DRAW", easing: "ease_in_out_quad" } }]
             - frag_opt:
                   - show: { opacity: 0, duration: "narration_03.duration * DRAW" }
                   - show: { opacity: 1, duration: "narration_03.duration * FADE" }
             - lbl_outofoat:
                   - show: { opacity: 0, duration: "narration_03.duration * DRAW" }
-                  - show:
-                        opacity: 1
-                        duration: "narration_03.duration * FADE"
-                        hold:
-                            after: "narration_03.duration * (1 + PAUSE - FADE)"
+                  - show: { opacity: 1, duration: "narration_03.duration * FADE", hold: { after: "narration_03.duration * (1 + PAUSE - FADE)" } }
             - ret_outofoat:
                   - show: { opacity: 0, duration: "narration_03.duration * DRAW" }
                   - show: { opacity: 1, duration: "narration_03.duration * FADE" }
@@ -395,20 +374,13 @@ animation:
         # only say by convention, its compartments being stacked in a picture
         # where down has meant later all along.
         beat_opt.end @ beat_par:
-            - par_frame:
-                  - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-            - lbl_shot:
-                  - show:
-                        opacity: 1
-                        duration: "narration_04.duration * FADE"
-                        hold:
-                            after: "narration_04.duration * (1 + PAUSE - FADE)"
+            - par_frame: [{ show: { opacity: 1, duration: "narration_04.duration * FADE" } }]
+            - lbl_shot: [{ show: { opacity: 1, duration: "narration_04.duration * FADE", hold: { after: "narration_04.duration * (1 + PAUSE - FADE)" } } }]
             - lbl_steam:
                   - show: { opacity: 0, duration: "narration_04.duration * 0.02" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
             # Both legs draw as one statement, not as two that coincide.
-            - par_calls:
-                  - show: { reveal: { from: 0, to: 1 }, duration: "narration_04.duration * DRAW" }
+            - par_calls: [{ show: { reveal: { from: 0, to: 1 }, duration: "narration_04.duration * DRAW" } }]
             - par_heads:
                   - show: { opacity: 0, duration: "narration_04.duration * DRAW" }
                   - show: { opacity: 1, duration: 1 }
@@ -447,15 +419,10 @@ animation:
 
         # ── 5. the two halves become one drink ───────────────────────────────
         beat_par.end @ beat_prepare:
-            - sheet:
-                  - move: { dy: "-(TRAVEL - STOP_MID)", duration: "narration_05.duration * DESCEND", easing: "ease_in_out_quad" }
+            - sheet: [{ move: { dy: "-(TRAVEL - STOP_MID)", duration: "narration_05.duration * DESCEND", easing: "ease_in_out_quad" } }]
             - lbl_prepare:
                   - show: { opacity: 0, duration: "narration_05.duration * DESCEND" }
-                  - show:
-                        opacity: 1
-                        duration: "narration_05.duration * FADE"
-                        hold:
-                            after: "narration_05.duration * (1 + PAUSE - FADE - DESCEND)"
+                  - show: { opacity: 1, duration: "narration_05.duration * FADE", hold: { after: "narration_05.duration * (1 + PAUSE - FADE - DESCEND)" } }
             - msg_prepare:
                   - show: { reveal: 0, duration: "narration_05.duration * DESCEND" }
                   - show: { reveal: { from: 0, to: 1 }, duration: "narration_05.duration * DRAW" }
@@ -481,14 +448,8 @@ animation:
 
         # ── 6. the handover ──────────────────────────────────────────────────
         beat_prepare.end @ beat_handoff:
-            - lbl_handoff:
-                  - show:
-                        opacity: 1
-                        duration: "narration_06.duration * FADE"
-                        hold:
-                            after: "narration_06.duration * (1 + PAUSE - FADE)"
-            - ret_handoff:
-                  - show: { opacity: 1, duration: "narration_06.duration * FADE" }
+            - lbl_handoff: [{ show: { opacity: 1, duration: "narration_06.duration * FADE", hold: { after: "narration_06.duration * (1 + PAUSE - FADE)" } } }]
+            - ret_handoff: [{ show: { opacity: 1, duration: "narration_06.duration * FADE" } }]
             - head_handoff:
                   - show: { opacity: 0, duration: "narration_06.duration * FADE" }
                   - show: { opacity: 1, duration: 1 }
@@ -500,12 +461,7 @@ animation:
             - rider_handoff:
                   - show: { opacity: 0, duration: "narration_06.duration * FADE" }
                   - show: { opacity: 1, duration: "narration_06.duration * FADE" }
-                  - move:
-                        dx: "X_CUSTOMER - X_BARISTA"
-                        duration: "narration_06.duration * RUN"
-                        easing: "ease_in_out_quad"
-                        hold:
-                            after: "MARGIN"
+                  - move: { dx: "X_CUSTOMER - X_BARISTA", duration: "narration_06.duration * RUN", easing: "ease_in_out_quad", hold: { after: "MARGIN" } }
 
     capture:
         video_coffee_order_animation:
