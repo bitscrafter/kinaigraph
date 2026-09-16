@@ -49,7 +49,7 @@ for part of every cycle both shapes will be visible, or neither.
 
 - **Speech is phrases, not a flap.** One pulse across the whole talk gives a
   single rate with no silences, which is what reads as a machine. There are six
-  phrases here, 1.5 s to 4.4 s, separated by pauses you can see, and the mouth
+  phrases here, 1.4 s to 4.4 s, separated by pauses you can see, and the mouth
   SHAPE alternates between them: wide on the emphatic phrases, half-open on the
   quiet ones.
 - **A phrase lasts as long as its recording.** Only the RATE is authored — how

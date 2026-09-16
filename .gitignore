@@ -30,12 +30,17 @@ examples/**/*.mp3
 #
 #   resource/helper/  the stable authoring tools: generators, checks, rasterisers. Kept
 #                     indefinitely; they are what you re-run after changing an input.
-#   resource/temp/    genuinely temporary: logs, captures, intermediates. Deletable.
+#   resource/tmp/     genuinely temporary: logs, captures, intermediates, and the takes
+#                     of a recording you are not using. Deletable.
+#
+# ⚠️ `tmp`, not `temp`: `resource/temp` is a prefix of `resource/template`, and a sweep
+# over the shorter string rewrites the longer one in every document that names its
+# container. That has happened once here, across 32 files.
 examples/**/*.py
 examples/**/*.sh
 examples/**/*.geojson
 examples/**/resource/helper/
-examples/**/resource/temp/
+examples/**/resource/tmp/
 #
 # ⚠️ The same rules, for the same reason, under `docs/video/src/`. A piece that
 # moves between the two trees keeps its helpers unpublished — without these, a
@@ -44,7 +49,7 @@ docs/video/**/*.py
 docs/video/**/*.sh
 docs/video/**/*.geojson
 docs/video/**/resource/helper/
-docs/video/**/resource/temp/
+docs/video/**/resource/tmp/
 
 # Licensed stock audio lives at `resource/audio/source/` and stays UNPUBLISHED. It is an
 # input rather than a build output — a clone cannot regenerate it the way it regenerates
