@@ -120,10 +120,10 @@ defs:
         # apart during that sentence is the one thing this beat must not do.
         #
         # ⚠️ Tuned to the recorded line (clauses at 0.00 / 1.96 / 3.59 / 6.82 s).
-        # Re-measure with ffmpeg `silencedetect` if the words change.
+        # Re-measure the silence boundaries if the words change.
         # ⚠️ THESE FRACTIONS ARE MEASURED, AND THEY EXPIRE. Each is the point in the
         # body at which the voice resumes after the pause before that moment, taken
-        # with ffmpeg `silencedetect` against the COMMITTED recording. A fraction says
+        # against the COMMITTED recording's silence boundaries. A fraction says
         # how much of the line a span gets, never where the words fall inside it — so
         # re-record and they are wrong again. The previous values were carried over
         # from a recording that was never committed and put the first curve 1.35 s

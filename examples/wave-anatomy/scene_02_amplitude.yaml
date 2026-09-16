@@ -116,7 +116,7 @@ defs:
         # ⚠️ These two fractions are TUNED TO THE RECORDED LINE (values at 1.39 / 2.24 / 2.92 s).
         # They survive re-recording the same words, because the proportions of a spoken
         # sentence are stable; they do NOT survive a rewrite that changes the script's
-        # shape. Re-measure with ffmpeg `silencedetect` if the words change.
+        # shape. Re-measure the silence boundaries if the words change.
         # ⚠️ EVERY DERIVED SPAN IS TRUNCATED TO WHOLE MILLISECONDS. A probed narration
         # duration is not a round number (9752.381 ms), so a third of it is not either.
         # A held window's end rounds UP to the millisecond while the bookmark that ends
@@ -126,7 +126,7 @@ defs:
         # integer, so a window ends exactly where the next begins, which is allowed.
         # ⚠️ THESE FRACTIONS ARE MEASURED, AND THEY EXPIRE. Each is the point in the
         # body at which the voice resumes after the pause before that moment, taken
-        # with ffmpeg `silencedetect` against the COMMITTED recording. A fraction says
+        # against the COMMITTED recording's silence boundaries. A fraction says
         # how much of the line a span gets, never where the words fall inside it — so
         # re-record and they are wrong again. The previous values were carried over
         # from a recording that was never committed and put the first curve 1.35 s

@@ -27,8 +27,8 @@ something we judge.
 
 ## Install
 
-⚠️ **You need an administrator account on the Mac.** Installing `ffmpeg` uses Homebrew, which
-requires one, and putting the binary on your `PATH` uses `sudo`. If the account you are using
+⚠️ **You need an administrator account on the Mac.** Installing the media encoder uses
+Homebrew, which requires one, and putting the binary on your `PATH` uses `sudo`. If the account you are using
 cannot run `sudo`, stop here — the rest of this section will not work.
 
 macOS only, for now. Two builds are published with every release:
@@ -50,12 +50,14 @@ uname -m
 Kinaigraph renders in a real browser and encodes with a real encoder, so two things must
 already be on your machine before it can do anything.
 
-[Google Chrome](https://www.google.com/chrome/) — Kinaigraph drives it to rasterize each
-frame. Chromium and Edge also work. Download and install it the ordinary way; there is no
-command-line route worth preferring.
+**A browser** — Kinaigraph drives it to rasterize each frame.
+[Google Chrome](https://www.google.com/chrome/) is the usual choice; Chromium and Edge also
+work. Download and install it the ordinary way; there is no command-line route worth
+preferring.
 
-[`ffmpeg`](https://ffmpeg.org/) — used to encode the frames into an MP4 and to mux the
-narration audio. The usual route is [Homebrew](https://brew.sh/). If you do not have Homebrew:
+**A media encoder** — it encodes the frames into an MP4 and muxes the narration audio.
+[`ffmpeg`](https://ffmpeg.org/) is the usual choice, by way of
+[Homebrew](https://brew.sh/). If you do not have Homebrew:
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -69,7 +71,7 @@ brew install ffmpeg
 
 Homebrew will tell you to add its directory to your `PATH` and print the exact lines for your
 shell. Do what it says — on Apple Silicon it installs to `/opt/homebrew/bin`, which is **not**
-on a fresh account's `PATH`, and `ffmpeg` will be invisible until you add it.
+on a fresh account's `PATH`, and the encoder will be invisible until you add it.
 
 ### 2. Install Kinaigraph
 
@@ -132,7 +134,8 @@ If one does, `doctor` prints what it searched and a `Hint:` telling you what to 
             Alternatives: None Identified
 ```
 
-That is almost always `ffmpeg` missing, or installed but not on your `PATH` — see step 1.
+That is almost always the media encoder missing, or installed but not on your `PATH` — see
+step 1.
 Fix it before going further; rendering will fail without it.
 
 ### If macOS refuses to run it
@@ -235,9 +238,9 @@ Options
     --version           Print the version and exit.
 
 Environment
-    KINAIGRAPH_BROWSER          Browser executable — Chrome, Chromium, or Edge
-    KINAIGRAPH_MEDIA_ENCODER    ffmpeg executable
-    KINAIGRAPH_MEDIA_INSPECTOR  ffprobe executable
+    KINAIGRAPH_BROWSER          Browser executable
+    KINAIGRAPH_MEDIA_ENCODER    Media encoder executable
+    KINAIGRAPH_MEDIA_INSPECTOR  Media inspector executable
     KINAIGRAPH_WEB_RUNTIME_HOME Browser runtime assets
 ```
 
@@ -245,8 +248,8 @@ Environment
 `kinaigraph 0.1.0-alpha.1`.
 
 The four environment variables are overrides. You do not need to set any of them: a
-released build carries its own browser runtime, and finds Chrome and `ffmpeg` on your
-`PATH`. Set one only when you want a specific executable used.
+released build carries its own browser runtime, and finds the browser and the media
+encoder on your `PATH`. Set one only when you want a specific executable used.
 
 ## Examples
 

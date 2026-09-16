@@ -122,7 +122,7 @@ record the timings they were tuned against.
 
 ⚠️ **Re-record a line and those fractions need re-checking.** A fraction is not a
 timestamp: new audio moves the clause boundaries inside the same clip, and a value that
-used to land on a word no longer does. `ffmpeg -af silencedetect` gives you the boundaries
+used to land on a word no longer does. A media inspector that reports silence boundaries gives you the timings
 to check them against. Each beat is shaped like its script:
 an opening clause with the plot still empty, a quick count where each value lands as it is
 spoken, and a long tail holding the comparison while the closing clause plays. **These
