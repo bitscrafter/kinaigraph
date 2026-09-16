@@ -2,7 +2,7 @@
 
 A UML sequence diagram of a café order: the customer asks, the barista writes the
 cup, the machine and the wand work at once, and a drink comes back. Four
-participants, ten messages, two combined fragments. 57 seconds, in one cut.
+participants, ten messages, two combined fragments. 54 seconds, in one cut, and 89% of it is speech.
 
 The narration is about the **morning**, not about the notation. It never says
 "lifeline" or "activation": the picture is there to be read while somebody tells
@@ -96,15 +96,28 @@ the root as an actor resets the scene, and every child state written in the same
 frame is discarded. The symptom is precise and misleading: the drawing renders
 complete, correct, and completely static. The camera moves an inner `<g>`.
 
-## Timing
+## Timing: there is not one millisecond in the document
 
-Nothing in the document names a dwell length. Each beat is as long as the line
-spoken over it, and the camera's two descents are each the length of the line
-they ride under — so the picture is never travelling while nothing is being said.
+⚡ **EVERY DURATION IS A SHARE OF THE LINE BEING SPOKEN OVER IT.** Five fractions
+govern the whole piece — how long an arrow takes to draw, how long a fade takes,
+how long a mug takes to cross, how long the camera takes, and how much quiet
+follows. A longer line does not merely wait longer; it draws, travels and rests
+longer, in proportion. Re-record anything and the beat re-fits itself.
 
-The bars' growth is derived the same way: the span from the order to the handoff
-is the sum of the clips in between. Re-record one line and the beat, the descent
-and the bars all re-fit on the next render.
+⚡ **ACTIONS INSIDE ONE ENTRY RUN IN SEQUENCE.** That is why there is almost no
+`hold` arithmetic: a beat is written as the list of things that happen, in order,
+each stating only its own length. A rider is one entry — wait, arrive, run,
+leave — rather than three entries chained by hand-summed offsets.
+
+⚠️ **A BOOKMARK ENDS WHEN ITS LONGEST ACTION DOES**, which is the trap here. An
+entry that overruns its own line does not get truncated: it stretches the beat,
+and the overrun is heard as dead air after the narrator has stopped. One beat ran
+to 1.44× its line this way. The check is arithmetic, not taste — add up the
+fractions in the longest chain and keep the total under `1 + PAUSE`.
+
+⚠️ **A WAIT MUST HOLD THE VALUE IT IS WAITING AT.** Delaying a half-grown bar
+with `reveal: 0` does not pause it, it resets it — the bar collapses and regrows
+every beat. Each wait states the level the previous beat left behind.
 
 ## Files
 
