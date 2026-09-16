@@ -1,6 +1,10 @@
 <svg id="backdrop_agentic" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
-  <!-- Backdrop: a lit gradient, a faint diagram of agents and their tools, and a
-       plate that guarantees the type on top of it stays readable.
+  <!-- Backdrop: a lit gradient and a faint diagram of agents and their tools.
+
+       ⚠️ NO PANEL UNDER THE TYPE. The gradient stays light enough end to end that
+       ink reads on it directly — 14.1:1 for the heading and 8.2:1 for the body at
+       its darkest corner — and a plate would only hide the drawing it sits on.
+       A panel is for type over something busy or dark, which this is not.
 
        ⚠️ THE MOTIF IS TEXTURE, NOT CONTENT. Every stroke in it sits under 12%
        opacity: it should register as "engineering" at a glance and never compete
@@ -28,7 +32,6 @@
       .wordmark-dot { fill: var(--accent-color, #4f46e5); }
       .wordmark text { fill: var(--title-text-color, #0f172a); font-family: var(--presenter-font-family, Arial, "Liberation Sans", Helvetica, sans-serif); font-size: 15px; font-weight: 700; letter-spacing: 0.18em; }
       .mesh { stroke: #1e293b; fill: none; stroke-width: 2; }
-      .plate { fill: #ffffff; }
     </style>
   </defs>
 
@@ -60,12 +63,6 @@
     <path d="M 72 640 H 1208" />
     <path d="M 210 608 V 640 M 430 608 V 640 M 650 608 V 640 M 870 608 V 640 M 1090 608 V 640" />
   </g>
-
-  <!-- ⚠️ THE PLATE IS WHAT MAKES THE TYPE LEGIBLE, not the choice of ink. Over a
-       gradient, one colour cannot be safe everywhere; a translucent white panel
-       under the whole text column fixes the background the type sits on. -->
-  <rect class="plate" x="40" y="118" width="880" height="500" rx="24" opacity="0.62" />
-  <rect x="40" y="118" width="880" height="500" rx="24" fill="none" stroke="#ffffff" stroke-opacity="0.85" stroke-width="1.5" />
 
   <g id="wordmark" class="wordmark">
     <rect class="wordmark-dot" x="72" y="60" width="10" height="10" />
