@@ -182,7 +182,7 @@ each synthesis run costs credits. The synthesis step is always its own document,
 the cut it speaks.
 
 **6 of the 9 examples render with no key**, because their narration is in this repository:
-`avatar-puppetry` (which is silent by design), `hiking-trails`, `infographic-atmosphere`,
+`course-welcome` (which is silent by design), `hiking-trails`, `infographic-atmosphere`,
 `milestone-ladder`, `request-response` and `wave-anatomy`. Start there. `life-lessons-en`,
 `life-lessons-es` and `microservices-flow` are the ones that need a key — as do the videos
 under `docs/video/`, except where their recordings are committed.
@@ -278,7 +278,7 @@ kept the same way.
 | [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. One route layer carries the drawn line, the travelled path and the distance the callout quotes. |
 | [`milestone-ladder`](examples/milestone-ladder/) | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark. |
 | [`life-lessons-en`](examples/life-lessons-en/) · [`life-lessons-es`](examples/life-lessons-es/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. The same two scenes in English and Spanish, which is what a localization actually costs. |
-| [`avatar-puppetry`](examples/avatar-puppetry/) | A presenter who talks, blinks and breathes — three mouth shapes and two eye states swapped by pulses written against each other. The language has no concept of a face. |
+| [`course-welcome`](examples/course-welcome/) | The first half-minute of an online course: an instructor talks, blinks and breathes in the corner while the practicalities arrive beside her. Three mouth shapes and two eye states, swapped by pulses written against each other — the language has no concept of a face. |
 
 Narration audio is generated from the scripts via text-to-speech, so a scene reads
 its timing from the spoken lines. See each example's folder for its specific layout.
