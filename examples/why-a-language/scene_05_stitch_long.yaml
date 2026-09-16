@@ -1,5 +1,5 @@
 # ------------------------------------------
-# why-a-language — the FULL cut, stitched
+# why-a-language — the LONG cut, stitched
 # ------------------------------------------
 # The four scenes in order, captured as the example's headline deliverable.
 #
@@ -20,12 +20,12 @@
 #
 # ⚠️ IT ROLLS WHAT THE SCENES WROTE, so all four must have been rendered first:
 #
-#     kinaigraph scene_00_tts_full.yaml     # once, and it costs credits
-#     kinaigraph scene_01_premise_full.yaml
-#     kinaigraph scene_02_challenge_full.yaml
-#     kinaigraph scene_03_benefits_full.yaml
-#     kinaigraph scene_04_possibilities_full.yaml
-#     kinaigraph scene_05_stitch_full.yaml
+#     kinaigraph scene_00_tts_long.yaml     # once, and it costs credits
+#     kinaigraph scene_01_premise_long.yaml
+#     kinaigraph scene_02_challenge_long.yaml
+#     kinaigraph scene_03_benefits_long.yaml
+#     kinaigraph scene_04_possibilities_long.yaml
+#     kinaigraph scene_05_stitch_long.yaml
 #
 # ⛔ NEVER SWEEP THIS DIRECTORY WITH `for y in scene_*.yaml` — that pulls in
 # scene_00 and re-records the narration, which costs credits and silently moves
@@ -37,7 +37,7 @@
 # file to watch.
 
 metadata:
-    title: "Why a Language - the full cut, stitched"
+    title: "Why a Language - the long cut, stitched"
     description: "The four scenes in order, each already carrying its own narration"
     version: "1.0"
 
@@ -48,16 +48,16 @@ defs:
         # animation capture, before its own composition mixed the voice on.
         premise:
             type: video
-            file: "./resource/video/scene_01_premise_full.mp4"
+            file: "./resource/video/scene_01_premise_long.mp4"
         challenge:
             type: video
-            file: "./resource/video/scene_02_challenge_full.mp4"
+            file: "./resource/video/scene_02_challenge_long.mp4"
         benefits:
             type: video
-            file: "./resource/video/scene_03_benefits_full.mp4"
+            file: "./resource/video/scene_03_benefits_long.mp4"
         possibilities:
             type: video
-            file: "./resource/video/scene_04_possibilities_full.mp4"
+            file: "./resource/video/scene_04_possibilities_long.mp4"
 
 composition:
     context:
@@ -82,6 +82,6 @@ composition:
                   - roll:
 
     capture:
-        why_a_language_full:
-            output: "./why_a_language_full.mp4"
+        why_a_language_long:
+            output: "./why_a_language_long.mp4"
             fps: 30

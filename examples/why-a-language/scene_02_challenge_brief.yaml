@@ -2,7 +2,7 @@
 # why-a-language — Scene 2: the challenge (BRIEF cut)
 # ------------------------------------------
 # ⚡ THE VOICE NAMES CATEGORIES; THE PICTURE ENUMERATES. That is the whole
-# difference between this cut and the full one, and it is worth stating as a
+# difference between this cut and the long one, and it is worth stating as a
 # rule: narration that reads the screen aloud competes with the reader, who is
 # faster. Here the shared band arrives in THREE WAVES, each wave a category and
 # each sized to its own sentence, and the seven boxes say which seven.
@@ -29,10 +29,9 @@
 # initial values. Move a box in the drawing and the slide follows it — there is
 # no coordinate here to forget to update.
 #
-# ⚠️ THE PRECURSOR WROTE THE RETURN AS `x: "common-1:left"`, a coordinate naming
-# another element's edge. That form is gone; `restore` with no checkpoint is the
-# direct spelling of what it was reaching for, and it says "where you were drawn"
-# instead of "the left edge of yourself".
+# ⚠️ THE RETURN IS A `restore` WITH NO CHECKPOINT, not a coordinate. It says
+# "where you were drawn" rather than "the left edge of yourself", so moving a box
+# in the artwork moves where it comes back to, with nothing here to update.
 #
 # ⛔ THE THREE SECTIONS LEAVE FROM THREE DIFFERENT EDGES — common from below,
 # traditional from the right, AI from the left. That is not variety for its own
@@ -52,11 +51,9 @@ defs:
             file: "./resource/scene/scene_02_challenge.svg"
 
         # ── The three sections, as groups ─────────────────────────────────────
-        # ⚠️ `traditional_N`, NOT `trad_N`. The drawing spells these ids out in
-        # full and the precursor's timeline abbreviated them — the one id here
-        # that is not a mechanical hyphen-to-underscore of the precursor's. Both
-        # spellings are legal identifiers, so carrying the abbreviation across
-        # would have compiled and animated nothing.
+        # ⚠️ `traditional_N`, NOT `trad_N`. The timeline must spell an id exactly as
+        # the drawing does. Both spellings are legal identifiers, so an abbreviated
+        # one compiles happily and animates nothing.
         box_common:
             type: "group"
             members: [common_1, common_2, common_3, common_4, common_5, common_6, common_7]

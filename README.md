@@ -252,6 +252,12 @@ released build carries its own browser runtime, and finds Chrome and `ffmpeg` on
 
 ## Examples
 
+Some examples tell their subject at more than one length, and the document's
+suffix says which: **`_teaser`** under 30 seconds, **`_brief`** around a minute,
+**`_long`** for the full-length telling. Each cut carries its own scripts and
+recordings under `resource/script/<cut>/` and `resource/audio/<cut>/`, so you can
+read or render one without the others.
+
 Each example is a set of YAML **scene** files plus its resources — SVG artwork, CSS
 themes, and narration scripts. Kinaigraph compiles a scene and renders it to an MP4
 (and can also play it live in the browser).

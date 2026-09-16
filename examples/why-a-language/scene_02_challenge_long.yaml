@@ -15,10 +15,9 @@
 # initial values. Move a box in the drawing and the slide follows it — there is
 # no coordinate here to forget to update.
 #
-# ⚠️ THE PRECURSOR WROTE THE RETURN AS `x: "common-1:left"`, a coordinate naming
-# another element's edge. That form is gone; `restore` with no checkpoint is the
-# direct spelling of what it was reaching for, and it says "where you were drawn"
-# instead of "the left edge of yourself".
+# ⚠️ THE RETURN IS A `restore` WITH NO CHECKPOINT, not a coordinate. It says
+# "where you were drawn" rather than "the left edge of yourself", so moving a box
+# in the artwork moves where it comes back to, with nothing here to update.
 #
 # ⛔ THE THREE SECTIONS LEAVE FROM THREE DIFFERENT EDGES — common from below,
 # traditional from the right, AI from the left. That is not variety for its own
@@ -38,11 +37,9 @@ defs:
             file: "./resource/scene/scene_02_challenge.svg"
 
         # ── The three sections, as groups ─────────────────────────────────────
-        # ⚠️ `traditional_N`, NOT `trad_N`. The drawing spells these ids out in
-        # full and the precursor's timeline abbreviated them — the one id here
-        # that is not a mechanical hyphen-to-underscore of the precursor's. Both
-        # spellings are legal identifiers, so carrying the abbreviation across
-        # would have compiled and animated nothing.
+        # ⚠️ `traditional_N`, NOT `trad_N`. The timeline must spell an id exactly as
+        # the drawing does. Both spellings are legal identifiers, so an abbreviated
+        # one compiles happily and animates nothing.
         box_common:
             type: "group"
             members: [common_1, common_2, common_3, common_4, common_5, common_6, common_7]
@@ -70,13 +67,13 @@ defs:
         # composition at the foot of the file mixes all three onto the frames.
         narration_intro:
             type: "audio"
-            file: "./resource/audio/full/scene_02_01_intro.mp3"
+            file: "./resource/audio/long/scene_02_01_intro.mp3"
         narration_traditional:
             type: "audio"
-            file: "./resource/audio/full/scene_02_02_traditional.mp3"
+            file: "./resource/audio/long/scene_02_02_traditional.mp3"
         narration_ai:
             type: "audio"
-            file: "./resource/audio/full/scene_02_03_ai.mp3"
+            file: "./resource/audio/long/scene_02_03_ai.mp3"
 
         # Last, so it draws above everything. Its own scene because it carries
         # ~60 KB of embedded PNG — inside a content scene that payload would be
@@ -465,8 +462,8 @@ animation:
         # after them do not.
 
     capture:
-        scene_02_challenge_full_silent:
-            output: "./resource/video/scene_02_challenge_full_silent.mp4"
+        scene_02_challenge_long_silent:
+            output: "./resource/video/scene_02_challenge_long_silent.mp4"
             fps: 30
 
 # Three lines onto one clip, each at the bookmark its own section starts on.
@@ -479,7 +476,7 @@ composition:
         # non-zero timestamp hits a known defect that places the audio at output
         # 0 — which here would stack all three lines on the first frame.
         "0":
-            - scene_02_challenge_full_silent:
+            - scene_02_challenge_long_silent:
                   - roll:
                   - mix:
                         span:
@@ -495,6 +492,6 @@ composition:
                         asset: narration_ai
 
     capture:
-        scene_02_challenge_full:
-            output: "./resource/video/scene_02_challenge_full.mp4"
+        scene_02_challenge_long:
+            output: "./resource/video/scene_02_challenge_long.mp4"
             fps: 30

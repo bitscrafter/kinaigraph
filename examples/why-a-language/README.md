@@ -10,11 +10,11 @@ lines spoken over it.
 | cut | length | how the voice works |
 | --- | --- | --- |
 | **brief** | 1:39 | names a CATEGORY and lets the boxes enumerate it · theme `paper` |
-| **full** | 2:52 | names every box out loud · theme `depth` |
+| **long** | 2:52 | names every box out loud · theme `depth` |
 
 ⚡ **They differ in the narration and in the theme, and in nothing else.** Same
 artwork, same timeline shapes — the brief's lines are shorter and its scene 2
-splits the shared band into three category waves; the full names every box and
+splits the shared band into three category waves; the long names every box and
 takes `depth` rather than `paper`.
 
 ⚡ **EACH CUT IS SELF-SUFFICIENT.** Every line it speaks lives in its own script
@@ -29,7 +29,7 @@ the themes and the template are shared, because those are not narration.
 Pick a cut; the five documents are the same shape either way.
 
 ```sh
-CUT=brief          # or: CUT=full
+CUT=brief          # or: CUT=long
 
 kinaigraph scene_00_tts_$CUT.yaml         # once — needs ELEVENLABS_API_KEY, costs credits
 kinaigraph scene_01_premise_$CUT.yaml
@@ -60,14 +60,14 @@ committed take. Use `ls scene_*.yaml | grep -v scene_00`.
 | `scene_05_stitch_<cut>.yaml` | That cut in order. The only documents that write beside the document. |
 | `resource/script/<cut>/` · `resource/audio/<cut>/` | That cut's lines and recordings. Nothing is shared. |
 | `resource/scene/scene_0N_*.svg` | The artwork, shared by both cuts. |
-| `resource/style/theme_*.css` | Four themes — `paper` (the brief's), `depth` (the full's), `light`, `dark`. Values only, and all four declare an identical set of names. |
+| `resource/style/theme_*.css` | Four themes — `paper` (the brief's), `depth` (the long's), `light`, `dark`. Values only, and all four declare an identical set of names. |
 | `resource/scene/scene_00_cover.svg` | The wordmark. The first and last frame of both cuts, and nothing else. |
 | `resource/scene/brand_layer.svg` | The brand mark, embedded as base64 data. |
 | `resource/image/bitscrafter_logo.png` | The mark as a raster, before embedding. |
 
 ## What this example is a good place to notice
 
-**The brief cut names categories; the full cut names boxes.** Narration that
+**The brief cut names categories; the long cut names boxes.** Narration that
 reads the screen aloud competes with the reader, who is faster — so the brief
 says *"none of it is software"* and lets two boxes arrive saying which two. Scene
 2's shared band comes in as three waves, one per category, and the difference in

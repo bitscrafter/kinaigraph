@@ -10,14 +10,14 @@
 # one glyph pulling the eye. Nothing here is a path, a physics model, or a loop:
 # twenty-four `move` actions, each with its own dx/dy, all sharing one duration.
 #
-# ⚠️ THE THREE DRIFT DISTANCES ARE THE WHOLE VOCABULARY. The precursor had six
-# constants for them and two pairs disagreed with their own names — `driftDistance`
-# was 35 but `driftDistanceNeg` was -45, so a "negative distance" was really a
-# negative LARGE. The three below carry the same rendered values with the trap
-# removed: a negative is written `"-DRIFT_FAR"` at the site that wants one.
+# ⚠️ THE THREE DRIFT DISTANCES ARE THE WHOLE VOCABULARY. A separate constant per
+# direction is how a name comes to disagree with its value — a `*_NEG` twin that
+# is not the negative of its partner reads as correct and animates as something
+# else. There is one constant per DISTANCE, and a negative is written
+# `"-DRIFT_FAR"` at the site that wants one.
 
 metadata:
-    title: "Why a Language (full) - Scene 1: the premise"
+    title: "Why a Language (long) - Scene 1: the premise"
     description: "The premise, over a drifting field of icons, sized to its narration"
     version: "1.0"
 
@@ -63,7 +63,7 @@ defs:
         # the same clip onto the rendered frames.
         narration_intro:
             type: "audio"
-            file: "./resource/audio/full/scene_01_01_premise.mp3"
+            file: "./resource/audio/long/scene_01_01_premise.mp3"
 
         # Last, so it draws above everything. Its own scene because it carries
         # ~60 KB of embedded PNG — inside a content scene that payload would be
@@ -321,9 +321,8 @@ animation:
                         duration: narration_intro.duration
 
         # ── A held breath after the line ──────────────────────────────────────
-        # ⚠️ `opacity: 1` IS CARRYING THE PAD. The precursor wrote `show: { hold }`
-        # with no property at all; the current language requires a `show` to say
-        # what it shows, so the scene restates the opacity it is already at and
+        # ⚠️ `opacity: 1` IS CARRYING THE PAD. A `show` must say what it shows, so a
+        # pure pause restates the opacity the actor is already at and
         # the hold rides on it. Every pure pad in these four documents is spelled
         # this way.
         audio_in.end @ audio_out:
@@ -364,8 +363,8 @@ animation:
         # after them do not.
 
     capture:
-        scene_01_premise_full_silent:
-            output: "./resource/video/scene_01_premise_full_silent.mp4"
+        scene_01_premise_long_silent:
+            output: "./resource/video/scene_01_premise_long_silent.mp4"
             fps: 30
 
 # The same document mixes its own line onto its own frames. Scene 1 carries one
@@ -381,7 +380,7 @@ composition:
         # two title fades before it. A spanless mix at a non-zero timestamp also
         # hits a known defect that places the audio at output 0.
         "0":
-            - scene_01_premise_full_silent:
+            - scene_01_premise_long_silent:
                   - roll:
                   - mix:
                         span:
@@ -389,6 +388,6 @@ composition:
                         asset: narration_intro
 
     capture:
-        scene_01_premise_full:
-            output: "./resource/video/scene_01_premise_full.mp4"
+        scene_01_premise_long:
+            output: "./resource/video/scene_01_premise_long.mp4"
             fps: 30

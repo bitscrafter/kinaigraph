@@ -10,11 +10,11 @@
 # one glyph pulling the eye. Nothing here is a path, a physics model, or a loop:
 # twenty-four `move` actions, each with its own dx/dy, all sharing one duration.
 #
-# ⚠️ THE THREE DRIFT DISTANCES ARE THE WHOLE VOCABULARY. The precursor had six
-# constants for them and two pairs disagreed with their own names — `driftDistance`
-# was 35 but `driftDistanceNeg` was -45, so a "negative distance" was really a
-# negative LARGE. The three below carry the same rendered values with the trap
-# removed: a negative is written `"-DRIFT_FAR"` at the site that wants one.
+# ⚠️ THE THREE DRIFT DISTANCES ARE THE WHOLE VOCABULARY. A separate constant per
+# direction is how a name comes to disagree with its value — a `*_NEG` twin that
+# is not the negative of its partner reads as correct and animates as something
+# else. There is one constant per DISTANCE, and a negative is written
+# `"-DRIFT_FAR"` at the site that wants one.
 
 metadata:
     title: "Why a Language (brief) - Scene 1: the premise"
@@ -323,9 +323,8 @@ animation:
                         duration: "NARRATION_DURATION"
 
         # ── A held breath after the line ──────────────────────────────────────
-        # ⚠️ `opacity: 1` IS CARRYING THE PAD. The precursor wrote `show: { hold }`
-        # with no property at all; the current language requires a `show` to say
-        # what it shows, so the scene restates the opacity it is already at and
+        # ⚠️ `opacity: 1` IS CARRYING THE PAD. A `show` must say what it shows, so a
+        # pure pause restates the opacity the actor is already at and
         # the hold rides on it. Every pure pad in these four documents is spelled
         # this way.
         audio_in.end @ audio_out:

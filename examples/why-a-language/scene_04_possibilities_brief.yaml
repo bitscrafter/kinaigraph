@@ -10,15 +10,12 @@
 # exactly as long as the sentence about it, so a viewer never watches a circle
 # arrive early and sit there, and re-recording one line moves one topic.
 #
-# ⚠️ THE PRECURSOR DIMMED THE LAST RING AND FADED IT OUT AT THE SAME INSTANT.
-# `biz_dim` wrote circle_biz 1.0 -> 0.5 starting at `audio-biz.end - topicDim`,
-# and `biz-fadeout` wrote the whole ring group 0.5 -> 0 starting at
-# `audio-biz.end - topicFadeOut` — the same moment, both constants being 400. Two
-# absolute writers of one property over one window is a `set`/`set` race the
-# current language rejects outright (§6.7.2), and it was never coherent anyway:
-# nothing can dim to half and vanish at once. There is no `biz_dim` below. The
-# final fade uses the `opacity: 0` shorthand instead, which runs each ring from
-# WHEREVER IT IS — the last one from full, the other three from half.
+# ⚠️ ONE PROPERTY, ONE WRITER, ONE WINDOW. Dimming a ring `1.0 -> 0.5` while
+# fading the group `0.5 -> 0` across the same moment is a `set`/`set` race the
+# language rejects outright (§6.7.2) — and it is incoherent anyway: nothing can
+# dim to half and vanish at once. The final fade uses the `opacity: 0` shorthand,
+# which runs each ring from WHEREVER IT IS — the last one from full, the other
+# three from half.
 
 metadata:
     title: "Why a Language (brief) - Scene 4: the possibilities"
@@ -139,13 +136,10 @@ defs:
         # from x 960, so 450 and 1350 follow from each other and from nothing
         # else. Widen the gap and both move by the same amount.
         #
-        # ⚠️ MEASURED, because eyeballing it is what got it wrong. The precursor
-        # parked them at 500 and 1400, which centres the PAIR on 1010 — fifty
-        # right of the text. Sampling all four topics in the render, the gap
-        # between a ring and the nearest text came out 12..100 px on the left
-        # against 114..202 px on the right; the longest line (business, 632..1286)
-        # left twelve pixels of air on one side and a hundred and fourteen on the
-        # other. At 450 and 1350 that worst case is 62 against 64.
+        # ⚠️ THE PAIR IS CENTRED ON THE TEXT, NOT ON THE FRAME. The topic lines are
+        # not centred in the viewBox, so a symmetric pair of rings leaves a wide gap
+        # on one side and a narrow one on the other — worst on the longest line.
+        # These two put the tightest gap within a couple of pixels on both sides.
         GATHER_LEFT_X: 450
         GATHER_RIGHT_X: 1350
         GATHER_TOP_Y: 400

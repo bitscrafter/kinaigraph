@@ -68,16 +68,16 @@ defs:
         # ── The four lines ────────────────────────────────────────────────────
         narration_intro:
             type: "audio"
-            file: "./resource/audio/full/scene_03_01_intro.mp3"
+            file: "./resource/audio/long/scene_03_01_intro.mp3"
         narration_production:
             type: "audio"
-            file: "./resource/audio/full/scene_03_02_production.mp3"
+            file: "./resource/audio/long/scene_03_02_production.mp3"
         narration_workflow:
             type: "audio"
-            file: "./resource/audio/full/scene_03_03_workflow.mp3"
+            file: "./resource/audio/long/scene_03_03_workflow.mp3"
         narration_closing:
             type: "audio"
-            file: "./resource/audio/full/scene_03_04_closing.mp3"
+            file: "./resource/audio/long/scene_03_04_closing.mp3"
 
         # Last, so it draws above everything. Its own scene because it carries
         # ~60 KB of embedded PNG — inside a content scene that payload would be
@@ -182,8 +182,8 @@ animation:
         # after them do not.
 
     capture:
-        scene_03_benefits_full_silent:
-            output: "./resource/video/scene_03_benefits_full_silent.mp4"
+        scene_03_benefits_long_silent:
+            output: "./resource/video/scene_03_benefits_long_silent.mp4"
             fps: 30
 
 # Four lines onto one clip, each at the bookmark its own group appears on.
@@ -195,7 +195,7 @@ composition:
         # ⚠️ EVERY MIX CARRIES AN EXPLICIT `span.from` — see scene_02's note on
         # the defect a spanless mix at a non-zero timestamp hits.
         "0":
-            - scene_03_benefits_full_silent:
+            - scene_03_benefits_long_silent:
                   - roll:
                   - mix:
                         span:
@@ -215,6 +215,6 @@ composition:
                         asset: narration_closing
 
     capture:
-        scene_03_benefits_full:
-            output: "./resource/video/scene_03_benefits_full.mp4"
+        scene_03_benefits_long:
+            output: "./resource/video/scene_03_benefits_long.mp4"
             fps: 30
