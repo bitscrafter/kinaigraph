@@ -1,0 +1,68 @@
+# ------------------------------------------
+# Life Lessons — the two quotes in one piece (English)
+# ------------------------------------------
+# Rolls the two scene animations back to back and lays each narration over its own
+# clip. Render the scenes first: this document reads what they write.
+#
+# ⚡ THERE IS NO TRANSITION ACTION, AND NONE IS NEEDED. Both scenes stand on the
+# same paper, so the join shows no seam — the only thing that changes across it is
+# the words. Each scene fades its quote out before its tail pad, so what a viewer
+# sees at the cut is one quote dissolving, a beat of empty page, and the next
+# arriving. The effect is authored where it belongs: in the scenes.
+#
+# ⚠️ IT ROLLS THE SILENT ANIMATIONS, NOT THE FINISHED SCENES. A scene's own
+# deliverable already carries its narration; rolling that and mixing again would
+# lay the voice over itself.
+
+metadata:
+    title: "Life Lessons — both quotes (English)"
+    description: "the two scenes in order, each with its own narration"
+    version: "1.0"
+
+defs:
+    assets:
+        gratitude:
+            type: video
+            file: "./resource/video/scene_01_gratitude_perspective_en_animation.mp4"
+        life_meaning:
+            type: video
+            file: "./resource/video/scene_02_life_meaning_en_animation.mp4"
+
+        narration_gratitude:
+            type: audio
+            file: "./resource/audio/en/part_01_gratitude_perspective.mp3"
+        narration_life_meaning:
+            type: audio
+            file: "./resource/audio/en/part_02_life_meaning.mp3"
+
+    const:
+        # The head pad each scene opens with, before its quote begins to appear.
+        # ⚠️ Stated here because a document cannot read another's constants — keep
+        # it equal to MARGIN in the scene documents.
+        HEAD_PAD: 350
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        "0 @ gratitude_bk":
+            - gratitude:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "HEAD_PAD"
+                        asset: narration_gratitude
+
+        "gratitude_bk.end @ life_meaning_bk":
+            - life_meaning:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "HEAD_PAD"
+                        asset: narration_life_meaning
+
+    capture:
+        out:
+            output: "./life_lessons_en.mp4"
+            fps: 30

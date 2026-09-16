@@ -24,6 +24,9 @@ The recordings are committed, so a clone renders every scene with no key.
 `scene_00_tts_{en,es}.yaml` are synthesis-only: each turns that language's scripts into
 its narration MP3s. Run one when you change a script in that language — never both.
 
+`scene_00_stitch_{en,es}.yaml` puts both quotes into one piece — 12.5 s in English,
+10.1 s in Spanish. Render the scenes first; the stitch reads what they write.
+
 ## A language is a dimension, like a cut
 
 The suffix on a document names the language, and every resource kind that varies by
@@ -33,6 +36,7 @@ kind and is shared by both:
 ```text
 life-lessons/
 ├── scene_00_tts_en.yaml                     scene_00_tts_es.yaml
+├── scene_00_stitch_en.yaml                  scene_00_stitch_es.yaml
 ├── scene_01_gratitude_perspective_en.yaml   …_es.yaml
 ├── scene_02_life_meaning_en.yaml            …_es.yaml
 └── resource/
@@ -75,6 +79,21 @@ type as artwork.
   languages differ in length for the same quote — 5.40 s against 3.83 s for the first —
   and neither document carries a number that had to change for that.
 
+## The transition is in the scenes, not in the stitch
+
+There is no transition action, and none is needed here. **Both scenes stand on the same
+paper**, so the cut between them shows no seam — the only thing that changes across it is
+the words. Each scene fades its quote out before its tail pad, so the join reads as one
+quote dissolving, a beat of empty page, and the next arriving.
+
+⚠️ **The stitch rolls the SILENT animations, not the finished scenes.** A scene's own
+deliverable already carries its narration; rolling that and mixing again lays the voice
+over itself.
+
+⚠️ **A document cannot read another's constants.** The stitch states `HEAD_PAD` to place
+each voice where its scene's head pad ends — keep it equal to `MARGIN` in the scenes, or
+the narration starts before the quote does.
+
 ## Rendering it
 
 You need Kinaigraph installed — see the [install instructions](../../README.md#install).
@@ -85,6 +104,8 @@ kinaigraph scene_01_gratitude_perspective_en.yaml
 kinaigraph scene_02_life_meaning_en.yaml
 kinaigraph scene_01_gratitude_perspective_es.yaml
 kinaigraph scene_02_life_meaning_es.yaml
+kinaigraph scene_00_stitch_en.yaml
+kinaigraph scene_00_stitch_es.yaml
 ```
 
 Paths inside a scene resolve against the scene file's own folder — which is this

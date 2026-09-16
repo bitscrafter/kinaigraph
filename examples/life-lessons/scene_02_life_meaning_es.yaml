@@ -63,6 +63,7 @@ defs:
     const:
         MARGIN: 350 # head pad of quiet before the quote appears
         FADE: "narration.duration * 2.75 / 4" # fade-in duration for the quote
+        FADE_OUT: 600 # the quote leaving, so the stitch reads as a dissolve
 
 animation:
     context:
@@ -106,12 +107,21 @@ animation:
                             after: "narration.duration"
 
         # Teardown: a tail of quiet.
+        # ⚡ THE QUOTE LEAVES THE WAY IT ARRIVED. Both scenes stand on the SAME
+        # paper, so a cut between them shows no seam — only the words change. The
+        # fade out is what turns that into a dissolve: this quote goes, the page
+        # holds empty for a beat, the next one arrives. Stitched or standalone,
+        # the scene ends on paper rather than on a sentence.
         narrate_quote.end @ teardown:
+            - quote:
+                  - show:
+                        opacity: 0
+                        duration: "FADE_OUT"
             - background:
                   - show:
                         opacity: 1
                         hold:
-                            after: "MARGIN"
+                            after: "MARGIN + FADE_OUT"
 
     capture:
         # Silent animation (paper + fading quote). The composition below rolls
