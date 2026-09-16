@@ -42,9 +42,9 @@ scene_01_gratitude_perspective.yaml
 scene_02_life_meaning.yaml
 resource/script/                           the spoken lines, one .txt per scene
 resource/
-  css/theme_life_lessons.css      how the quote is styled
-  foreground/*.svg                the quote artwork, one per scene
-  backgrounds/*                   paper textures
+  style/theme_life_lessons.css    how the quote is styled
+  scene/*.svg                     the quote artwork, one per scene
+  image/*                         paper textures
 ```
 
 ## Rendering it
@@ -64,5 +64,4 @@ resolve against whatever you pass as `--outdir`.
 
 Synthesis calls a text-to-speech provider and needs `ELEVENLABS_API_KEY` in the
 environment. It is a separate file from the scenes on purpose: re-rendering a scene must
-never re-synthesize audio that did not change. The voice identifiers used are listed in
-`resource/helper/elevenlabs_voices.txt`.
+never re-synthesize audio that did not change.

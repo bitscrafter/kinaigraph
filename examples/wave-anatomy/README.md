@@ -62,19 +62,11 @@ could not.
 Beat 1 says **pre-drawn**, not *drawn*. The grid, the axes and the tick labels are all
 drawn, in `plot.svg`; what was never drawn in advance is the curve.
 
-⚠️ **This reverses an earlier design.** The narration used to be trigonometry and nothing
-else, with the engine's story carried by a capability legend in the bottom-left corner —
-one box per beat, so a viewer here for the waves never had to care what rendered them and
-a reader evaluating the language could read four boxes and ignore the voice. That
-separation was deliberate and it had a real argument behind it.
-
-It was dropped because once the voice says "sampled the function", a box reading
-**Function drawing — a function, sampled into a curve** is the same sentence twice, four
-seconds apart. Whichever way this example goes it should do one of them, not both. The
-legend is gone, and with it three theme variables and a text asset per beat.
-
-The cost is length: **420 characters of narration became 688, and the piece runs about
-51 s rather than the 25–35 s the four short lines used to fit in.**
+⚠️ **Say a thing in the voice or on the screen, not both.** A legend box reading
+*a function, sampled into a curve* four seconds after the narration says "sampled the
+function" is the same sentence twice, and the viewer pays for it twice. This piece puts
+that sentence in the voice, which costs it length — the narration carries what a legend
+would otherwise have shown.
 
 **On the two words.** `expression` is a Kinaigraph FIELD name, and in mathematics it means
 something narrower than `function` — a formula, not the thing it defines. Since this piece
@@ -119,21 +111,19 @@ earlier values stay on screen as ghosts to compare against, which a morph could 
 **Deriving from the narration is not the same as syncing to it.** Every span here is a
 fraction of `narration.duration`, so the beats re-fit any re-recording — but a fraction
 only says *how much* of the line a span gets, never *where the words are inside it*. Equal
-thirds put the three curves of beats 2 and 3 across the whole clip while the voice said
-"one, two, three" inside two seconds: the first curve arrived before its value was named
-and the third arrived **1.75 s after**. Beat 4 was worse in kind — equal thirds started the
-vertical slide 1.4 s before "Upward is offset", so the two curves separated while the
-viewer was being told they coincide.
+thirds would put the three curves of beats 2 and 3 across the whole clip while the voice
+says "one, two, three" inside two seconds — the first curve arriving before its value is
+named, the third well after it. Beat 4 is worse in kind: equal thirds start the vertical
+slide before "Upward is offset", so the two curves separate while the viewer is being
+told they coincide.
 
-So the fractions are tuned to where the words actually land, measured with ffmpeg's
-`silencedetect` and recorded in each scene's comments.
+So the fractions are tuned to where the words actually land, and each scene's comments
+record the timings they were tuned against.
 
-⚠️ **Those measurements predate the narration this repository ships.** They were taken
-against a recording that was never committed, and `resource/audio/` is empty until you
-run `scene_00`. Treat the tuned fractions as a starting point, not as verified: after
-generating, re-measure with `silencedetect` and check each value still lands as it is
-spoken. The request-response example does exactly this, and a re-record there moved a
-clause boundary by 0.65 s on its own. Each beat is shaped like its script:
+⚠️ **Re-record a line and those fractions need re-checking.** A fraction is not a
+timestamp: new audio moves the clause boundaries inside the same clip, and a value that
+used to land on a word no longer does. `ffmpeg -af silencedetect` gives you the boundaries
+to check them against. Each beat is shaped like its script:
 an opening clause with the plot still empty, a quick count where each value lands as it is
 spoken, and a long tail holding the comparison while the closing clause plays. **These
 fractions survive re-recording the same words** — the proportions of a spoken sentence are

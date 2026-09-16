@@ -49,11 +49,7 @@ whenever a script changes) before rendering.
 | `resource/template/main.html` | Common HTML container (carries the `KINAI_*` placeholders). |
 | `resource/style/theme_dark.css` / `theme_light.css` | The two CSS-custom-property sets. |
 | `resource/script/` | Source narration text per shot. |
-| `audio/` | TTS-generated narration MP3s (output of `scene_00`). |
-| `video/` | Rendered MP4s. |
-
-(`resource/scene/diff_panel.svg` is a standalone One-Dark code-panel asset kept
-for reuse; it is not part of the current five-scene arc.)
+| `resource/audio/` | The narration MP3s, once `scene_00` has generated them. |
 
 ## Rendering
 

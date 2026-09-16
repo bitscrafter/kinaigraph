@@ -28,11 +28,11 @@ nothing for the timeline to measure.
 | ---- | ---------- |
 | `milestone_ladder_<cut>_tts.yaml` | Synthesis only. Turns that cut's six scripts into six clips. |
 | `milestone_ladder_<cut>.yaml` | The piece. Animation plus the composition that mixes the narration onto it. |
-| `resource/scene/ladder.svg` | The rails, discs and labels. Generated — see below. |
-| `resource/scene/icons.svg` | The six glyphs, copied from the shared catalog. |
-| `resource/scene/icon_layer.svg` | The glyphs, placed. Generated, stacked over the ladder. |
-| `resource/scene/brand_layer.svg` | The brand mark, embedded as data. Generated from the PNG. |
-| `resource/image/bitscrafter_logo.png` | Source of truth for the mark. |
+| `resource/scene/ladder.svg` | The rails, discs and labels. |
+| `resource/scene/icons.svg` | The six glyphs, as symbols. |
+| `resource/scene/icon_layer.svg` | The glyphs, placed and stacked over the ladder. |
+| `resource/scene/brand_layer.svg` | The brand mark, embedded as base64 data. |
+| `resource/image/bitscrafter_logo.png` | The mark as a raster, before embedding. |
 | `resource/style/theme_ladder.css` | The palette and type. |
 | `resource/script/<cut>/part_NN_*.txt` | The narration, one file per step. |
 | `resource/audio/<cut>/part_NN_*.mp3` | The recordings, once generated. |
@@ -68,9 +68,7 @@ layer. The brand mark is a third, on top.
 inlined into the compiled page, so a relative `href` would resolve against
 wherever that *page* lands, and `--outdir` can move it; data survives the move.
 It gets its own file because the payload is ~60 KB of base64 — carried inside
-`ladder.svg` it would be four fifths of the file and bury the geometry, which is
-what happens in the architecture video it came from. The PNG stays the source of
-truth and the generator does the encoding.
+`ladder.svg` it would be four fifths of the file and bury the geometry.
 
 **Two themes, opposite ramps.** `dark` brightens toward 2025; `care` — the light
 one — darkens. In both, further from the background means further along. Each
@@ -85,10 +83,10 @@ preview shows the dark theme rather than unstyled shapes; whenever the styleshee
 is in scope, the theme wins.
 
 Nothing is duplicated by that split: a mapping lives in the scene, a value lives in
-the stylesheet. The one exception is deliberate — the `.dark` column appears twice,
-once as values and once as fallbacks — and the generator READS the stylesheet to
-produce them, so they cannot drift. A variable a scene uses but the stylesheet does
-not define stops generation rather than emitting a fallback-less `var()`.
+the stylesheet. The one exception is deliberate: the `.dark` column appears twice, once as values
+and once as `var()` fallbacks, so a scene opened without a stylesheet still shows
+the dark palette rather than unstyled shapes. Keep the two in step — a fallback
+that drifts from its variable is invisible until the stylesheet is out of scope.
 
 **Arial only, deliberately.** Nothing in the stylesheet may name a font that is
 not installed by default on Windows, macOS and Linux — an example that renders
@@ -103,19 +101,11 @@ nothing can silently pair a line with the wrong node.
 
 ## Editing it
 
-**The geometry is generated.** `resource/scene/ladder.svg` comes out of a local
-script — edit its `NODES` table and re-run it rather than hand-editing coordinates:
+⚠️ **The ladder is a regular grid.** Its discs sit at even intervals on two rails,
+so moving one coordinate by hand is how a grid stops being one — change the rung
+spacing everywhere or not at all.
 
-```sh
-python3 resource/helper/make_ladder_svg.py   # rewrites ladder.svg AND icon_layer.svg
-./resource/helper/make_preview.sh care       # a still, in either theme
-```
-
-**Icons come from a shared catalog**, not from here. The source of truth is
-`tech-docs/internal/design/diagram/icon-catalog.svg` in the engine repo; this
-example carries a six-symbol subset, and an edit belongs upstream first.
-
-They are named for the SHAPE — `clock`, `graduate`, `stethoscope`, `heart`,
+**The icons are named for the SHAPE** — `clock`, `graduate`, `stethoscope`, `heart`,
 `hospital`, `group` — not for what this example means by them. A heart is a heart
 wherever it is used; an "affinity" would only make sense here.
 
@@ -124,11 +114,9 @@ Colour comes from the catalog's class vocabulary (`icon-fill`, `icon-stroke`,
 `theme_ladder.css` binds per theme. So one drawing serves dark and light, and a
 symbol drops in from the catalog unmodified.
 
-kinaigraph does not consume cross-file `<use href="other.svg#id">`, so the
-symbols are mirrored again into `icon_layer.svg` — but by the generator reading
-this file, not by hand.
-
-`resource/helper/` is not published. It holds authoring tools and scratch.
+⚠️ **kinaigraph does not consume cross-file `<use href="other.svg#id">`.** A symbol
+defined in `icons.svg` has to appear again inside the layer that places it, which is
+why `icon_layer.svg` carries its own copy of each glyph it uses.
 
 ⚠️ **`.seg` must never carry a `stroke-dasharray`.** The `reveal` property drives
 that same attribute to draw a stroke on progressively, so revealing an

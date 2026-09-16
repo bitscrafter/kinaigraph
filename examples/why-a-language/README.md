@@ -59,12 +59,11 @@ committed take. Use `ls scene_*.yaml | grep -v scene_00`.
 | `scene_0N_*_<cut>.yaml` | That cut's four scenes. |
 | `scene_05_stitch_<cut>.yaml` | That cut in order. The only documents that write beside the document. |
 | `resource/script/<cut>/` · `resource/audio/<cut>/` | That cut's lines and recordings. Nothing is shared. |
-| `resource/scene/scene_0N_*.svg` | The artwork, shared by both cuts. Scenes 2 and 3 are **generated** — see *Editing it*. |
+| `resource/scene/scene_0N_*.svg` | The artwork, shared by both cuts. |
 | `resource/style/theme_*.css` | Four themes — `paper` (the brief's), `depth` (the full's), `light`, `dark`. Values only, and all four declare an identical set of names. |
 | `resource/scene/scene_00_cover.svg` | The wordmark. The first and last frame of both cuts, and nothing else. |
-| `resource/scene/brand_layer.svg` | The brand mark, embedded as data. **Generated** — see *Editing it*. |
-| `resource/image/bitscrafter_logo.png` | Source of truth for the mark. |
-| `resource/video/` | Intermediates. Gitignored. |
+| `resource/scene/brand_layer.svg` | The brand mark, embedded as base64 data. |
+| `resource/image/bitscrafter_logo.png` | The mark as a raster, before embedding. |
 
 ## What this example is a good place to notice
 
@@ -81,8 +80,8 @@ Two rules make that work, and the compiler enforces the first:
   the actor and both windows (§6.7.2).
 - **No category spans both rows.** The band's rows are offset 200 under 320-wide
   boxes, so every adjacent row-A/row-B pair overlaps by 120 px — and two boxes
-  that overlap *and travel together* cross each other on the way in. The box order
-  in the generator is what keeps each wave inside one row.
+  that overlap *and travel together* cross each other on the way in. The order the
+  boxes are declared in is what keeps each wave inside one row.
 
 **One clip per category, never fractions of one clip.** Each wave takes its length
 from its own line, so re-recording one sentence moves one wave. Splitting a single
@@ -124,11 +123,10 @@ they share enters from underneath both.
 a number and you will find beat pads and fade lengths under a second — nothing
 that paces a section.
 
-⛔ **AND NO SCENE ENDS ON A HELD BLANK FRAME.** Every scene used to close on one
-and the next opened on another; measured, the three cuts between scenes carried
-1.7 s, 1.1 s and 2.8 s of nothing, and the brief spent 7.7 s on blank frames
-altogether. The fades stay — cutting hard between them is jarring — but the held
-frames after them are gone, which took the blank down to 3.7 s. Re-record one line and exactly one section
+⛔ **AND NO SCENE ENDS ON A HELD BLANK FRAME.** A scene that closes on one and a
+next that opens on another put seconds of nothing between every pair. The fades
+stay — cutting hard between them is jarring — but nothing holds after them.
+Re-record one line and exactly one section
 of one scene moves; everything after it slides by itself, because the stitch
 chains by bookmark rather than by number.
 
@@ -142,85 +140,56 @@ rather than unstyled shapes; whenever a stylesheet is in scope, it wins.
 so a fallback can only mirror ONE of them. It mirrors the brief's, because the
 brief is the deliverable. That costs nothing at render time — a fallback is only
 reached when NO stylesheet is in scope, and one always is — it decides only what
-a scene file looks like opened on its own. Verified rather than assumed: the same
-scene rendered under `dark` before and after repointing the fallbacks is
-pixel-identical.
+a scene file looks like opened on its own.
 
 All four themes declare an identical set of names, and every name is read by at
 least one scene. Swapping them is a one-line edit to each document's `style`
 asset.
 
-**The scenes used to carry their own palettes, and could not.** All four held four
-copies of the whole palette — two `@media (prefers-color-scheme)` tiers plus
-`html.dark-mode` / `html.light-mode` overrides. A variable defined only under a
-media query has no determinable cascade at compile time, so `css()` reading one
-fails outright. The copies had also drifted: scene 1 alone gave its secondary text a
-different value from the one scenes 3 and 4 agreed on, in both palettes.
+⚠️ **A palette cannot live in the scene.** A variable defined only under a
+`@media (prefers-color-scheme)` query has no determinable cascade at compile time,
+so `css()` reading one fails outright — and a palette copied into each scene drifts
+between them besides. The values belong in the stylesheets, one set per theme.
 
 **Arial only, deliberately.** Nothing may name a font that is not installed by
 default on Windows, macOS and Linux — an example that renders differently
 depending on who clones it is a broken example. Liberation Sans, the Linux
-default, is metric-compatible with Arial, so a fallback shifts no layout. The
-artwork asked for `'Segoe UI'` first, which is a Windows font: everywhere else it
-resolved to something with different advance widths and every heading came out a
-different size. The two mathematical `ƒ` glyphs inside the icons keep a serif
+default, is metric-compatible with Arial, so a fallback shifts no layout. Name a Windows-only face such as
+`'Segoe UI'` and everywhere else it resolves to something with different advance
+widths, so every heading comes out a different size. The two mathematical `ƒ` glyphs inside the icons keep a serif
 face, spelled out the same way — Times New Roman with Liberation Serif behind it.
 
 ## Editing it
 
-**The brand mark is generated too.** `resource/scene/brand_layer.svg` embeds the
-PNG as base64, because a scene SVG is inlined into the compiled page and a
-relative `href` would resolve against wherever that page lands:
-
-```sh
-python3 resource/helper/make_brand_svg.py
-```
+⚠️ **A brand mark must be embedded, not linked.** `resource/scene/brand_layer.svg`
+carries the PNG as base64, because a scene SVG is inlined into the compiled page
+and a relative `href` would resolve against wherever that page lands.
 
 ⚠️ **The mark sits bottom CENTRE here, where every other example puts it bottom
-right.** Measured against every drawn element, the bottom-right slot collides in
-three of the four scenes — an icon in scene 1, the `Renders Locally` box in scene
-3, and scene 4's bullseye ring. Bottom centre is clear of all of them.
+right.** The bottom-right slot collides with a drawn element in three of the four
+scenes — an icon in scene 1, the `Renders Locally` box in scene 3, and scene 4's
+bullseye ring. Bottom centre is clear of all of them.
 
 ⚠️ **One asset serves every theme.** The logo is light-on-transparent, drawn for
 a dark canvas, so the light themes invert it (`--brand-mark-filter: invert(1)`)
-rather than shipping a second file — the same treatment the architecture video
-uses.
-
-**Scenes 2 and 3 are generated; do not hand-edit them.** Both are regular grids,
-and hand-editing a coordinate in a grid is how a grid stops being one. The box
-tables, the geometry and the class-to-variable mapping all live in one script:
-
-```sh
-python3 resource/helper/make_scenes.py   # rewrites scene_02_challenge.svg AND scene_03_benefits.svg
-```
-
-It mirrors its icons from the shared catalog in the engine repo
-(`tech-docs/internal/design/diagram/icon-catalog.svg`) — an icon edit belongs
-upstream first — and it reads `theme_paper.css` to emit each `var()`'s fallback, so
-the fallbacks cannot drift from the theme. It also emits **only** the icon classes
-its own glyphs carry, so a scene never defines a rule nothing in it reads.
+rather than shipping a second file.
 
 **SVG ids use underscores, and so does everything that names them.** Asset names,
 group names, bookmark labels and timeline keys must match
-`^[a-zA-Z_][a-zA-Z0-9_]*$`; ids may legally carry hyphens, but these files
-converted theirs so the timeline can reference an element by its bare id and avoid
-a bridging actor declaration per element.
+`^[a-zA-Z_][a-zA-Z0-9_]*$`; ids may legally carry hyphens, but an id that
+matches that shape lets the timeline reference the element directly, with no
+bridging actor declaration per element.
 
-⚠️ **A renamed id can break a stylesheet silently.** Scene 1's four theme blocks
-selected its root by id, that id was rewritten underneath them, and every one of
-them stopped matching — with no `var()` fallbacks behind them, the scene rendered
-with no fill at all and no error. The fallbacks are what turn that class
-of mistake into something you can see.
+⚠️ **A renamed id can break a stylesheet silently.** A theme block that selects
+its root by id stops matching the moment that id changes, and with no `var()`
+fallbacks behind it the scene renders with no fill at all and no error. The
+fallbacks are what turn that class of mistake into something you can see.
 
-⚠️ **Two writers cannot both dictate one property at overlapping times.** The
-precursor dimmed the last topic ring and faded it out from the same instant —
-`1.0 -> 0.5` and `0.5 -> 0` over one window. That is rejected now, and it was
-never coherent. Scene 4 drops the dim and ends on `opacity: 0` with no `from`,
-which runs each ring from wherever it actually is: the last one from full, the
-other three from half.
+⚠️ **Two writers cannot both dictate one property at overlapping times.** Dimming
+a ring and fading it out across one window — `1.0 -> 0.5` and `0.5 -> 0` — is
+rejected. Scene 4 ends on `opacity: 0` with no `from`, which runs each ring from
+wherever it actually is: the last one from full, the other three from half.
 
 ⚠️ **`synthesis.context.status` is section-wide.** Re-running the TTS document
 regenerates every line that document lists and bills for all of them, even if you
 edited one. That is why there are three of them rather than one.
-
-`resource/helper/` is not published. It holds authoring scratch.

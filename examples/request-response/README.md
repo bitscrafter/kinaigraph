@@ -58,7 +58,7 @@ Three things the beat gives up, each for its own reason:
   text too small to read.
 - ⚠️ **Six SVG copies.** Two scene assets may not share a root `<svg id>`, so each cell
   needs its own diagram and chevron layer. The `*_top` / `*_bottom` files differ from
-  their originals by that id alone — re-derive them rather than editing.
+  their originals by that id alone; keep them otherwise identical.
 
 **The source panels are authored at 1920×540 — the cell's own aspect** — so they fill
 without letterboxing and one unit in them is one capture pixel. That is what lets their
@@ -84,9 +84,8 @@ the diagram paints straight over it.
 ⛔ **Both stylesheets declare their variables twice** — once at `:root`, once under this
 document's asset names. A grid puts both scenes in one document and `:root` is one
 element per document, so without the second declaration the last stylesheet emitted
-paints the whole frame. The stylesheets carry beat 3's asset names as a result, a
-coupling the compiler could remove; filed upstream as
-`grid-cells-cannot-carry-one-theme-each`.
+paints the whole frame. The stylesheets carry beat 3's asset names as a result — a coupling to keep in mind if
+you reuse a stylesheet across documents.
 
 ### Beat 2's claim is checkable by eye
 
@@ -96,9 +95,9 @@ node, link, badge and CSS rule is byte-identical, which is why the diagram does 
 at the cut between the beats. A viewer who suspects the two are different drawings can
 watch for a jump and not find one.
 
-⚠️ That property is load-bearing and easy to lose. **v2 is derived from v1** — re-derive
-it rather than hand-editing it, or the beat starts asserting something the render no
-longer shows. (Badge 4 sits *below* the user service in both files for the same reason:
+⚠️ That property is load-bearing and easy to lose. **v2 is v1 plus the store node and
+its two links, and nothing else** — let anything else differ and the beat starts
+asserting something the render no longer shows. (Badge 4 sits *below* the user service in both files for the same reason:
 the store needs the gap above it, and the two diagrams must differ by the store alone.)
 
 The store is not decoration — the packet rides the new leg. `link-store-user` is only
@@ -199,8 +198,7 @@ store is declared by the **document**, as a `note` annotation — a box, an auto
 pointer and its own fade, authored in YAML. Keeping it out of the artwork is what lets the
 same scene be reused by a beat that does not want the callout at all.
 
-Paste this into the beat-2 document when it is authored; it is verified against
-`get_user_profile_v2.svg` and reproduces the callout the SVG used to carry:
+The callout, written against `get_user_profile_v2.svg`:
 
 ```yaml
 defs:
@@ -255,9 +253,9 @@ animation:
                         duration: 800
 ```
 
-Two limits worth knowing before you extend it. The old artwork set the caption in
-**italic**; a `type: text` asset takes only `content` / `file` / `font_family` /
-`font_size` / `font_color`, so italic is not available. And a note's box tracks the
+Two limits worth knowing before you extend it. A `type: text` asset takes only
+`content` / `file` / `font_family` / `font_size` / `font_color`, so a caption cannot be
+set in italic. And a note's box tracks the
 attached stylesheet through `css()` while its text colour cannot — which is why
 `--callout-fill-color` and `--callout-stroke-color` are theme variables and a
 `--callout-text-color` is not. Every note in the example inherits that split: each one's
@@ -278,9 +276,8 @@ text colour is a literal on its `type: text` asset, tracking `theme_blueprint.cs
 - **A fixed box with a moving pointer.** `binding: live` on a callout's `pointer.target`
   re-resolves the apex every frame, so each payload callout keeps aiming at the packet
   as it travels while their boxes stay put and stay readable.
-- **Why six entries rather than one `move` with six sub-actions:** a sub-action was not
-  addressable from the timeline when `scene_01_flow_with_orient_at_parent_action.yaml`
-  was written, so nothing could hang a badge pulse on a leg boundary. Six entries buy that addressability; the cost is
+- **Why six entries rather than one `move` with six sub-actions:** each entry is
+  addressable from the timeline, so a badge pulse can hang on a leg boundary. The cost is
   six hand-measured lengths.
 
 ### The disagreement, and why the shorter file is the better one
@@ -299,11 +296,6 @@ ratio of 1.278 where the true arc ratio is 1.381 — so in
 `scene_01_flow_with_orient_at_parent_action.yaml` the packet **speeds up and slows down at
 each leg boundary**. That is exactly what
 `pace_by: distance` exists to prevent, and it was silently not happening.
-
-`scene_01_flow.yaml` was also written *before* the `action-bookmarks`
-feature was built, as a check of the design against a real document rather than a sketch.
-The feature shipped and the file needed no change to become valid: the spelling it was
-written against is the spelling that shipped.
 
 ## Layout
 

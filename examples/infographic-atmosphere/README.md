@@ -43,10 +43,9 @@ pace and in which stops it visits.
 | `closing` | 67.8 – 74.8 s | The recap, over a still frame. No callout: the voice is the whole beat. |
 | `pull_out` | 74.8 – 79.3 s | Back to the whole poster, under a 2.0 s sign-off. |
 
-**The two bookends cost no runtime.** The opening and closing shots are camera
-moves that had to happen anyway — 5.0 s at the front, 4.5 s at the back — so both
-lines were written to fit *inside* silence the piece already contained. Nine
-lines, and the video is the same length it was with seven.
+**A bookend line costs no runtime if it fits the shot.** The opening and closing
+camera moves take 5.0 s and 4.5 s whatever happens over them, so a line written to
+fit inside one reaches the end of the piece without lengthening it.
 
 ## The camera is the picture moving
 
@@ -128,9 +127,8 @@ than written twice.
 
 ## The input image
 
-`resource/image/atmosphere.png` is treated as **given** — the video never edits
-it. `resource/image/atmosphere.svg` is where that PNG came from, kept for anyone
-curious how the poster was drawn; nothing in the pipeline reads it.
+`resource/image/atmosphere.png` is treated as **given** — the video never edits it.
+The same poster is beside it as vector artwork, for reading rather than rendering.
 
 **To use your own picture**, put it in `resource/image/`, rebuild
 `resource/scene/atmosphere_frame.svg` around it, and adjust the stops. The frame
@@ -163,9 +161,8 @@ exactly as the picture would have been.
 | `resource/script/{brief,teaser}/*.txt` | One file per line. These are the source; the MP3s are derived. |
 | `resource/audio/{brief,teaser}/*.mp3` | The recorded lines, read by Harper. |
 | `resource/image/atmosphere.png` | **The input.** A pre-existing raster. |
-| `resource/image/atmosphere.svg` | Where that PNG came from. Provenance, not a build step. |
-| `resource/scene/atmosphere_frame.svg` | Generated — the 16:9 frame holding the image actor. |
-| `resource/video/` | The silent capture the composition lays the voice over. Intermediate. |
+| `resource/image/atmosphere.svg` | The same poster as vector artwork. Nothing reads it; the video uses the PNG. |
+| `resource/scene/atmosphere_frame.svg` | The 16:9 frame: a background rect and the image actor. |
 | `resource/style/theme_dark.css` | One variable: the letterbox colour behind the picture. |
 
 ## Rendering

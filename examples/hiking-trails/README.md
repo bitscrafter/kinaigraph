@@ -4,19 +4,18 @@ Three walking routes drawn across one cartoon map. A marker travels each trail, 
 behind the scenery where the trail does, and arrives at a callout that names where it
 got to. The three clips stitch into a single narrated piece.
 
-The point of the example is that **none of the route geometry is authored**. Each route
-was painted once, by hand, over a copy of the map in two flat colours — one for the
-stretches where the walker can be seen, one for the stretches that ride behind
-something. A generator turns that painting into overlay geometry, and the scene file
-rides it. Re-paint a trail and re-run; the drawn line, the travelled line and the
-figures in the callout all move together, because they all come from the same trace.
+The point of the example is that **one route layer answers three questions at once**.
+Each route is a set of alternating stretches — visible where the walker can be seen,
+hidden where the trail rides behind scenery — and the scene file rides that layer:
+the drawn line, the path the marker travels, and the distance the callout quotes all
+come from the same geometry, so they cannot disagree with each other.
 
 ## The three routes
 
 | Route | Scene | Stretches | Beat |
 | ----- | ----- | --------- | ---- |
 | Summit Peak | `scene_01_summit.yaml` | 9 (alternating) | The long climb. The marker turns onto the curve as it walks, and hands off between a solid arrowhead and an outline ghost nine times as the pines hide it. |
-| Serenity Lake | `scene_02_lake.yaml` | 1 (all visible) | The open walk. Traced entirely in the visible brush, so there is no ghost at all — the difference from the summit is the painting, not the code. |
+| Serenity Lake | `scene_02_lake.yaml` | 1 (all visible) | The open walk. Every stretch is visible, so there is no ghost at all — the difference from the summit is in the route layer, not in the document. |
 | Viewpoint Rest Stop | `scene_03_rest.yaml` | 7 (alternating) | The pull past the stone cabin, whose roof hides the longest stretch of the three. Ends on a callout anchored to the marker rather than to a coordinate. |
 
 `scene_00_tts_generation.yaml` is synthesis-only — it generates the narration MP3s under
@@ -68,11 +67,9 @@ cannot probe its clip cannot compute its own dwell. They are committed for that 
 | Path | What |
 | ---- | ---- |
 | `resource/image/hiking_map.png` | The source map artwork. |
-| `resource/scene/map.svg` | The backdrop layer — the map base64-embedded as a JPEG data URI. Rebuild with `make_map_svg.sh`. |
-| `resource/helper/hiking_trace*.png` / `*.jpeg` | The owner-authored paintings each route is extracted from. Every trace an example depends on lives here, beside the generator. |
-| `resource/helper/make_route_svg.py` | Turns a trace into a route overlay. One entry per route in its `ROUTES` table. |
-| `resource/scene/route_layer*.svg` | **Generated** route overlays — do not hand-edit; the next run overwrites them. Colour lives in the generator's `line_colour`. |
-| `resource/scene/markers*.svg` | Hand-authored glyph layers (one per route): the travelling arrowheads, the destination ring and star. |
+| `resource/scene/map.svg` | The backdrop layer — the map base64-embedded as a JPEG data URI. |
+| `resource/scene/route_layer*.svg` | One route overlay per trail: the drawn line, split into the stretches the walker is seen on and the ones that ride behind scenery. |
+| `resource/scene/markers*.svg` | The glyph layers, one per route: the travelling arrowheads, the destination ring and star. |
 | `resource/template/main.html`, `resource/style/theme_dark.css` | Shared container and theme. |
 | `resource/script/` | Source narration text, one file per route. |
 | `scene_04_stitch_with_ambience.yaml` | The same stitch with a forest bed under it. Needs the licensed track, so it is not the default — but it is **the one to read**: slicing a bed across separate roll entries is a capability that exists nowhere else here. |
@@ -98,15 +95,15 @@ kinaigraph scene_04_stitch.yaml
 kinaigraph scene_04_stitch_with_ambience.yaml
 ```
 
-To re-route a trail: repaint its trace, run
-`./make_route_svg.py --route <name>` from `resource/scene/`, and paste the per-leg
-durations it prints into that scene's `LEG_n_MS` consts.
+⚠️ **A route's leg durations and its geometry are one fact.** Each `LEG_n_MS` is that
+stretch's share of the walk at the example's one walking pace, so changing the drawn
+line without changing the durations makes the marker walk at a different speed on
+that stretch alone.
 
 ## Credits
 
-**Map artwork** — generated with Google Gemini. The route overlays, marker glyphs and
-callouts on top of it are Kinaigraph-authored SVG; the backdrop is the only generated
-art in the example.
+**Map artwork** — AI-generated backdrop. The route overlays, marker glyphs and
+callouts on top of it are authored SVG.
 
 **Ambient audio** — "Birds Forest Nature" by *soundreality* on
 [Pixabay](https://pixabay.com/), asset `445379`, under the

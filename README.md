@@ -260,10 +260,10 @@ themes, and narration scripts. Kinaigraph compiles a scene and renders it to an 
 | [`microservices-flow`](examples/microservices-flow/) | A narrated walkthrough of a request moving through a microservices architecture — animation paced to narration, animated diagrams, and compile-time theming (the same scene re-rendered in light and dark). |
 | [`request-response`](examples/request-response/) | The same request, authored **twice** — once with hand-measured timings, once with action bookmarks and `pace_by: distance`. The two disagree, and the shorter one is the correct one. |
 | [`wave-anatomy`](examples/wave-anatomy/) | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is drawn anywhere** — every curve is generated from its own equation and sampled by the compiler. |
-| [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. **None of the route geometry is authored** — the trails were painted by hand and traced. |
+| [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. One route layer carries the drawn line, the travelled path and the distance the callout quotes. |
 | [`milestone-ladder`](examples/milestone-ladder/) | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark. |
 | [`life-lessons-en`](examples/life-lessons-en/) · [`life-lessons-es`](examples/life-lessons-es/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. The same two scenes in English and Spanish, which is what a localization actually costs. |
-| [`kinaigraph-avatar`](examples/kinaigraph-avatar/) | A rigged picture-in-picture presenter, exported from a Claude Design session. |
+| [`kinaigraph-avatar`](examples/kinaigraph-avatar/) | A rigged picture-in-picture presenter: blinks, mouth shapes and a speech bubble, driven from one narration. |
 
 Narration audio is generated from the scripts via text-to-speech, so a scene reads
 its timing from the spoken lines. See each example's folder for its specific layout.

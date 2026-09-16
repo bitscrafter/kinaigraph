@@ -1,15 +1,14 @@
 # Presenter Avatar — Kinaigraph input package
 
-Exported from the Claude Design session (`Presenter Avatar.dc.html`). A rigged
-picture-in-picture presenter that delivers the Kinaigraph pitch, bottom-right
-of a 1280×720 scene.
+A rigged picture-in-picture presenter that delivers the Kinaigraph pitch,
+bottom-right of a 1280×720 scene.
 
 ## Contents
 
 | Path | What |
 | ---- | ---- |
 | `resource/scene/avatar_layer.svg` | The rigged avatar layer — shared `0 0 1280 720` viewBox, actor groups: `presenter`, `eyes-open`, `eyes-closed`, `mouth-closed`, `mouth-mid`, `mouth-open`. Bubble themes via the `service-node-*` variables; character colors stay literal. |
-| `resource/template/main.html` | Common HTML container (copied from microservices-flow). |
+| `resource/template/main.html` | Common HTML container. |
 | `resource/style/theme_dark.css` | Dark theme. VALUES only — each SVG owns its own class-to-variable mapping. |
 | `resource/script/part_01_intro.txt` | Narration script — the Kinaigraph pitch. |
 | `scene_00_tts_generation.yaml` | Generates `audio/avatar_intro.mp3` from the script. |
@@ -34,9 +33,3 @@ out of phase. Blinks are two 1-cycle pulses on `eyes-closed` placed with
 Stack it like `chevron_layer.svg`: add `avatar_layer` as a second scene asset
 in any 1280×720 scene (e.g. the microservices flow) and drive the same actors
 from that scene's beats. The bubble sits at x 1036–1236, y 480–680.
-
-## Caveat
-
-The avatar layer was exported from a Claude Design session rather than authored
-by hand, unlike the artwork in the other examples. The YAML compiles and renders
-(it did not when that note was first written).
