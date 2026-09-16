@@ -4,31 +4,50 @@ The narrated videos that explain Kinaigraph are themselves made with Kinaigraph.
 holds their **sources** — the same YAML, SVG, scripts and audio a reader would write, kept here
 so anyone can open one up and see how a finished piece is put together.
 
-This is **technical documentation about Kinaigraph**, not a tutorial and not an example gallery.
-The pieces under [`../../examples/`](../../examples/) exist to be learned from; these exist to
-explain the system, and happen to be readable for the same reason.
+These are **videos about Kinaigraph itself**. The pieces under
+[`../../examples/`](../../examples/) are something else: each one showcases what the language
+can do in a domain — maps, mathematics, architecture diagrams, typography, a science poster —
+and none of them is about Kinaigraph. If a piece explains the tool, it belongs here; if it
+demonstrates the tool on somebody's subject, it belongs there.
+
+## The categories
+
+| category | answers | for |
+| --- | --- | --- |
+| `explainer` | what Kinaigraph is, and why it exists | someone deciding whether to look further — no prior knowledge assumed, and nothing to follow along with |
+| `tutorial` | how to do one thing, start to finish | someone authoring, with the document open — a task, in order, with a result at the end |
+| `architecture` | how the engine itself is built | a contributor, or a reader who wants to know what is under it |
+
+An **explainer** may leave you unable to write a scene, and that is fine: it is there to make
+you want to. A **tutorial** that leaves you without a rendered file has failed. Keep a piece to
+one of the two — the register is different, and a video that switches halfway serves neither
+reader.
 
 ## What is here
 
 ```text
-docs/video/src/<topic>/<name>/
-├── <name>_full.yaml          the complete piece
+docs/video/src/<category>/<name>/
+├── <name>_long.yaml          the full-length telling
 ├── <name>_brief.yaml         a shorter cut of the same material
-├── <name>_teaser.yaml        ~30 seconds
+├── <name>_teaser.yaml        under 30 seconds
 └── resource/
     ├── scene/                the SVG artwork the animation drives
     ├── style/                the stylesheet, one class per theme
     ├── template/             the page the scene is composed into
     ├── image/                logos and raster art
-    ├── script/{full,brief,teaser}/   narration, one file per part
-    └── audio/{full,brief,teaser}/    the recorded narration
+    ├── script/{long,brief,teaser}/   narration, one file per part
+    └── audio/{long,brief,teaser}/    the recorded narration
 ```
+
+The suffix names the cut's LENGTH, and the ladder is `teaser` → `brief` → `long`. `full` and
+`detailed` are reserved for a different question — how much of a subject a piece covers — so a
+long cut that is still an overview can say so later without the words being spent.
 
 Each `resource/` subfolder is named for the **asset type** the language declares — `scene`,
 `style`, `template`, `image` — so what a folder holds and what a document calls it are the same
 word.
 
-| topic | piece | what it covers |
+| category | piece | what it covers |
 | --- | --- | --- |
 | `architecture` | `structural_layers` | the ports, adapters, subsystems and layers the engine is built from |
 
@@ -40,11 +59,11 @@ these differ from the examples, where narration is generated and ignored.
 
 ```sh
 cd docs/video/src/architecture/structural_layers
-kinaigraph structural_layers_full.yaml
-open ./structural_layers_full.mp4
+kinaigraph structural_layers_long.yaml
+open ./structural_layers_long.mp4
 ```
 
-Outputs land beside the document. Rendering the full piece takes a few minutes — it drives a
+Outputs land beside the document. Rendering the long piece takes a few minutes — it drives a
 real browser frame by frame and then encodes what it captured. The `_brief` and `_teaser`
 documents are the same diagram and the same theme, told shorter:
 

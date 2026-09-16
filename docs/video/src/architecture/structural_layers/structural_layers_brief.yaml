@@ -1,9 +1,9 @@
 # ------------------------------------------
 # Kinaigraph Architecture - Structural Layers - Brief
 # ------------------------------------------
-# The same diagram as the full version, told one ring at a time instead of one item
+# The same diagram as the long version, told one ring at a time instead of one item
 # at a time: six ports and six subsystems are named in a breath rather than given
-# a beat each. Roughly 1:20 against the full version's 2:46.
+# a beat each. Roughly 1:20 against the long version's 2:46.
 #
 # Self-contained by design. Each length carries its own synthesis rather than
 # sharing one audio document, so a reader can follow a single file end to end.

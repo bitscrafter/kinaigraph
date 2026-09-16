@@ -125,84 +125,84 @@ synthesis:
 
   tts:
     part_01_intro:
-      file: "./resource/script/full/part_01_intro.txt"
-      export: "./resource/audio/full/part_01_intro.mp3"
+      file: "./resource/script/long/part_01_intro.txt"
+      export: "./resource/audio/long/part_01_intro.mp3"
 
     part_02_hex_architecture:
-      file: "./resource/script/full/part_02_hex_architecture.txt"
-      export: "./resource/audio/full/part_02_hex_architecture.mp3"
+      file: "./resource/script/long/part_02_hex_architecture.txt"
+      export: "./resource/audio/long/part_02_hex_architecture.mp3"
 
     part_03_adapter_1:
-      file: "./resource/script/full/part_03_port_adapter_1.txt"
-      export: "./resource/audio/full/part_03_port_adapter_1.mp3"
+      file: "./resource/script/long/part_03_port_adapter_1.txt"
+      export: "./resource/audio/long/part_03_port_adapter_1.mp3"
 
     part_04_adapter_2:
-      file: "./resource/script/full/part_04_port_adapter_2.txt"
-      export: "./resource/audio/full/part_04_port_adapter_2.mp3"
+      file: "./resource/script/long/part_04_port_adapter_2.txt"
+      export: "./resource/audio/long/part_04_port_adapter_2.mp3"
 
     part_05_adapter_3:
-      file: "./resource/script/full/part_05_port_adapter_3.txt"
-      export: "./resource/audio/full/part_05_port_adapter_3.mp3"
+      file: "./resource/script/long/part_05_port_adapter_3.txt"
+      export: "./resource/audio/long/part_05_port_adapter_3.mp3"
 
     part_06_adapter_4:
-      file: "./resource/script/full/part_06_port_adapter_4.txt"
-      export: "./resource/audio/full/part_06_port_adapter_4.mp3"
+      file: "./resource/script/long/part_06_port_adapter_4.txt"
+      export: "./resource/audio/long/part_06_port_adapter_4.mp3"
 
     part_07_adapter_5:
-      file: "./resource/script/full/part_07_port_adapter_5.txt"
-      export: "./resource/audio/full/part_07_port_adapter_5.mp3"
+      file: "./resource/script/long/part_07_port_adapter_5.txt"
+      export: "./resource/audio/long/part_07_port_adapter_5.mp3"
 
     part_08_adapter_6:
-      file: "./resource/script/full/part_08_port_adapter_6.txt"
-      export: "./resource/audio/full/part_08_port_adapter_6.mp3"
+      file: "./resource/script/long/part_08_port_adapter_6.txt"
+      export: "./resource/audio/long/part_08_port_adapter_6.mp3"
 
     part_09_subsystems_intro:
-      file: "./resource/script/full/part_09_subsystems_intro.txt"
-      export: "./resource/audio/full/part_09_subsystems_intro.mp3"
+      file: "./resource/script/long/part_09_subsystems_intro.txt"
+      export: "./resource/audio/long/part_09_subsystems_intro.mp3"
 
     part_10_subsystem_syntax:
-      file: "./resource/script/full/part_10_subsystem_syntax.txt"
-      export: "./resource/audio/full/part_10_subsystem_syntax.mp3"
+      file: "./resource/script/long/part_10_subsystem_syntax.txt"
+      export: "./resource/audio/long/part_10_subsystem_syntax.mp3"
 
     part_11_subsystem_semantic:
-      file: "./resource/script/full/part_11_subsystem_semantic.txt"
-      export: "./resource/audio/full/part_11_subsystem_semantic.mp3"
+      file: "./resource/script/long/part_11_subsystem_semantic.txt"
+      export: "./resource/audio/long/part_11_subsystem_semantic.mp3"
 
     part_12_subsystem_resolution:
-      file: "./resource/script/full/part_12_subsystem_resolution.txt"
-      export: "./resource/audio/full/part_12_subsystem_resolution.mp3"
+      file: "./resource/script/long/part_12_subsystem_resolution.txt"
+      export: "./resource/audio/long/part_12_subsystem_resolution.mp3"
 
     part_13_subsystem_bytecode:
-      file: "./resource/script/full/part_13_subsystem_bytecode.txt"
-      export: "./resource/audio/full/part_13_subsystem_bytecode.mp3"
+      file: "./resource/script/long/part_13_subsystem_bytecode.txt"
+      export: "./resource/audio/long/part_13_subsystem_bytecode.mp3"
 
     part_14_subsystem_instruction:
-      file: "./resource/script/full/part_14_subsystem_instruction.txt"
-      export: "./resource/audio/full/part_14_subsystem_instruction.mp3"
+      file: "./resource/script/long/part_14_subsystem_instruction.txt"
+      export: "./resource/audio/long/part_14_subsystem_instruction.mp3"
 
     part_15_subsystem_dependency:
-      file: "./resource/script/full/part_15_subsystem_dependency.txt"
-      export: "./resource/audio/full/part_15_subsystem_dependency.mp3"
+      file: "./resource/script/long/part_15_subsystem_dependency.txt"
+      export: "./resource/audio/long/part_15_subsystem_dependency.mp3"
 
     part_16_clean_architecture:
-      file: "./resource/script/full/part_16_clean_architecture.txt"
-      export: "./resource/audio/full/part_16_clean_architecture.mp3"
+      file: "./resource/script/long/part_16_clean_architecture.txt"
+      export: "./resource/audio/long/part_16_clean_architecture.mp3"
 
     part_17_layer_infra:
-      file: "./resource/script/full/part_17_layer_infra.txt"
-      export: "./resource/audio/full/part_17_layer_infra.mp3"
+      file: "./resource/script/long/part_17_layer_infra.txt"
+      export: "./resource/audio/long/part_17_layer_infra.mp3"
 
     part_18_layer_usecase:
-      file: "./resource/script/full/part_18_layer_usecase.txt"
-      export: "./resource/audio/full/part_18_layer_usecase.mp3"
+      file: "./resource/script/long/part_18_layer_usecase.txt"
+      export: "./resource/audio/long/part_18_layer_usecase.mp3"
 
     part_19_layer_model:
-      file: "./resource/script/full/part_19_layer_model.txt"
-      export: "./resource/audio/full/part_19_layer_model.mp3"
+      file: "./resource/script/long/part_19_layer_model.txt"
+      export: "./resource/audio/long/part_19_layer_model.mp3"
 
     part_20_conclusion:
-      file: "./resource/script/full/part_20_conclusion.txt"
-      export: "./resource/audio/full/part_20_conclusion.mp3"
+      file: "./resource/script/long/part_20_conclusion.txt"
+      export: "./resource/audio/long/part_20_conclusion.mp3"
 
 animation:
   context:
@@ -643,8 +643,8 @@ animation:
   #    step_conclusion.end + delayMargin @ animation_end:
 
   capture:
-    structural_layers_full_silent:
-      output: "./resource/video/structural_layers_full_silent.mp4"
+    structural_layers_long_silent:
+      output: "./resource/video/structural_layers_long_silent.mp4"
       fps: 30
 
 composition:
@@ -656,7 +656,7 @@ composition:
     # clip onto it at the moment its animation step begins. The start times are
     # pulled cross-section from the animation bookmarks (qualified `animation::`).
     0:
-      - structural_layers_full_silent:
+      - structural_layers_long_silent:
           - roll:
               actions:
                 - mix:
@@ -761,6 +761,6 @@ composition:
                       to: "animation::step_conclusion.end"
 
   capture:
-    structural_layers_full:
-      output: "./structural_layers_full.mp4"
+    structural_layers_long:
+      output: "./structural_layers_long.mp4"
       fps: 30
