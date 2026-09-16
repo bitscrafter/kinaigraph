@@ -36,6 +36,15 @@ examples/**/*.sh
 examples/**/*.geojson
 examples/**/resource/helper/
 examples/**/resource/temp/
+#
+# ⚠️ The same rules, for the same reason, under `docs/video/src/`. A piece that
+# moves between the two trees keeps its helpers unpublished — without these, a
+# `git mv` from examples/ into docs/ silently re-adds every generator it carries.
+docs/video/**/*.py
+docs/video/**/*.sh
+docs/video/**/*.geojson
+docs/video/**/resource/helper/
+docs/video/**/resource/temp/
 
 # Licensed stock audio lives at `resource/audio/source/` and stays UNPUBLISHED. It is an
 # input rather than a build output — a clone cannot regenerate it the way it regenerates
