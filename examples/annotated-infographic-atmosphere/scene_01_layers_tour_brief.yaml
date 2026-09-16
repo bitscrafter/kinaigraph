@@ -16,7 +16,7 @@
 # what makes them annotations of the picture rather than parts of it.
 #
 #   establish   the whole poster, fitted to the frame's height
-#   push_in     zoom onto the title, and say what the source is
+#   push_in     zoom onto the masthead
 #   upper … troposphere   pan down one band at a time, one callout each
 #   pull_out    back to the whole poster
 metadata:
@@ -42,22 +42,22 @@ defs:
         # ── Callout texts ────────────────────────────────────────────────────────
         # Each one says something the poster does not say for itself. A callout that
         # repeats the caption under it has cost a viewer a read and told them nothing.
-        source_text:
+        title_text:
             type: "text"
             content: |
-                A 1100 × 2700 PNG, untouched.
-                The camera moves over the picture.
+                Half of this air sits below 5.5 km —
+                lower than Everest's summit.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
-            font_color: "#16232f"
+            font_color: "#14181d"
         upper_text:
             type: "text"
             content: |
-                The trace leaves the panel on purpose:
-                2,000 °C will not fit a 116-pixel ruler.
+                The aurora is this layer glowing:
+                oxygen struck by solar particles.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
-            font_color: "#16232f"
+            font_color: "#14181d"
         # The poster has 41px of clear space beside the ISS marker — not enough for
         # the fact that makes it worth marking. The video is where it fits.
         iss_text:
@@ -67,31 +67,31 @@ defs:
                 and the air up here still drags it down.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
-            font_color: "#16232f"
+            font_color: "#14181d"
         mesosphere_text:
             type: "text"
             content: |
-                Colder than anywhere on the ground —
-                and it is the meteors that mark it out.
+                The highest clouds on Earth form here:
+                noctilucent, in summer twilight.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
-            font_color: "#16232f"
+            font_color: "#14181d"
         stratosphere_text:
             type: "text"
             content: |
-                The one layer that warms with height,
-                because ozone is absorbing ultraviolet.
+                At sea-level pressure, all that ozone
+                would be a layer 3 mm thick.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
-            font_color: "#16232f"
+            font_color: "#14181d"
         troposphere_text:
             type: "text"
             content: |
-                Everest fits inside this bottom band,
-                which holds three quarters of the air.
+                Its ceiling is 8 km over the poles,
+                and 18 km over the equator.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
-            font_color: "#16232f"
+            font_color: "#14181d"
 
         # ── Narration ────────────────────────────────────────────────────────────
         # One clip per dwell. Each is declared for its DURATION as much as for its
@@ -119,6 +119,16 @@ defs:
         narration_closing:
             type: "audio"
             file: "./resource/audio/brief/scene_01_07_closing.mp3"
+        # The bookends. Both are SHORT on purpose: each fits inside silence the
+        # camera already needed — 5.0s of establish and push-in at the front, 4.5s
+        # of pull-out at the back — so the voice reaches both ends of the piece
+        # without adding a frame to it.
+        narration_open:
+            type: "audio"
+            file: "./resource/audio/brief/scene_01_00_open.mp3"
+        narration_close:
+            type: "audio"
+            file: "./resource/audio/brief/scene_01_08_close.mp3"
 
         template:
             type: "template"
@@ -159,20 +169,23 @@ defs:
         # ── What each pointer aims at, in IMAGE px ───────────────────────────────
         # Read off the PNG. The stop's own pan is what carries them to the screen,
         # so a point and its stop must agree — check the pair, never one alone.
-        UPPER_POINT_X: 1016
-        UPPER_POINT_Y: 986
+        # The aurora dot. Drawn at (700, 860) inside the group the poster shifts
+        # by (-19, -8), so it sits at (681, 852).
+        UPPER_POINT_X: 681
+        UPPER_POINT_Y: 852
         # The ISS icon's left edge. The icon is drawn at (700, 930) and shifted by
         # (-19, -8) in the poster, so it sits at (681, 922) and spans 30px either side.
         ISS_POINT_X: 650
         ISS_POINT_Y: 922
-        MESOSPHERE_POINT_X: 852
-        MESOSPHERE_POINT_Y: 1204
+        # The right end of the 85 km tick: the mesopause, which is where the
+        # highest clouds sit. The meteor streaks are the mesosphere's other fact
+        # and belong to the narration, not to this pointer.
+        MESOSPHERE_POINT_X: 160
+        MESOSPHERE_POINT_Y: 1100
         # The chip's left EDGE, not its middle: the apex lands on the target, and a
         # point inside the chip puts the leader across its own label.
         STRATOSPHERE_POINT_X: 690
         STRATOSPHERE_POINT_Y: 1683
-        TROPOSPHERE_POINT_X: 744
-        TROPOSPHERE_POINT_Y: 2334
 
         # ── The callout boxes, in SCREEN px ──────────────────────────────────────
         # Sized by measuring the render — nothing measures the text for us.
@@ -191,6 +204,7 @@ defs:
         NOTE_W: 570
         NOTE_H: 112
         NOTE_PAD: 22
+        NOTE_RADIUS: 14
 
         ZOOM_MS: 2500
         PAN_MS: 2000
@@ -210,23 +224,25 @@ animation:
     annotations:
         # The boxes are parked where that stop leaves empty frame; the pointers are
         # written in image px and converted by the stop's own pan and zoom.
-        note_source:
+        note_title:
             note:
-                text: source_text
+                text: title_text
                 shape:
                     rect:
                         width: NOTE_W
                         height: NOTE_H
+                        radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
-            # No pointer: it names the whole picture, not a place in it. Parked in
-            # the masthead's empty right half — the title text ends well left of it.
+            # No pointer: the fact is about the whole column of air, not a place in
+            # the picture. Parked in the masthead's empty right half — the title
+            # text ends well left of it.
             at:
                 x: 1180
                 y: 200
             origin: top_left
-            fill: "#fdf6ec"
-            stroke: "#b76364"
+            fill: "#f7f8fa"
+            stroke: "#555c66"
             stroke_width: 2
 
         note_upper:
@@ -236,6 +252,7 @@ animation:
                     rect:
                         width: NOTE_W
                         height: NOTE_H
+                        radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
                 pointer:
@@ -248,8 +265,8 @@ animation:
                 x: 800
                 y: 780
             origin: top_left
-            fill: "#fdf6ec"
-            stroke: "#b76364"
+            fill: "#f7f8fa"
+            stroke: "#555c66"
             stroke_width: 2
 
         # Same box position as note_upper: the camera has not moved between them, so
@@ -261,6 +278,7 @@ animation:
                     rect:
                         width: NOTE_W
                         height: NOTE_H
+                        radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
                 pointer:
@@ -271,8 +289,8 @@ animation:
                 x: 800
                 y: 780
             origin: top_left
-            fill: "#fdf6ec"
-            stroke: "#b76364"
+            fill: "#f7f8fa"
+            stroke: "#555c66"
             stroke_width: 2
 
         note_mesosphere:
@@ -282,19 +300,22 @@ animation:
                     rect:
                         width: NOTE_W
                         height: NOTE_H
+                        radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
                 pointer:
                     target:
                         x: "DETAIL_PAN_X + DETAIL_ZOOM * MESOSPHERE_POINT_X"
                         y: "MESOSPHERE_PAN_Y + DETAIL_ZOOM * MESOSPHERE_POINT_Y"
-            # Below the poster's own fact box, clear of "Meteors burn up here".
+            # Below the poster's own fact box (which ends at screen y 570) and far
+            # enough LEFT that the leader to the 85 km tick runs beside that box
+            # rather than through it — the box starts at screen x 390.
             at:
-                x: 430
+                x: 180
                 y: 600
             origin: top_left
-            fill: "#fdf6ec"
-            stroke: "#b76364"
+            fill: "#f7f8fa"
+            stroke: "#555c66"
             stroke_width: 2
 
         note_stratosphere:
@@ -304,6 +325,7 @@ animation:
                     rect:
                         width: NOTE_W
                         height: NOTE_H
+                        radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
                 pointer:
@@ -314,8 +336,8 @@ animation:
                 x: 390
                 y: 660
             origin: top_left
-            fill: "#fdf6ec"
-            stroke: "#b76364"
+            fill: "#f7f8fa"
+            stroke: "#555c66"
             stroke_width: 2
 
         note_troposphere:
@@ -325,18 +347,18 @@ animation:
                     rect:
                         width: NOTE_W
                         height: NOTE_H
+                        radius: NOTE_RADIUS
                 padding: NOTE_PAD
                 align: left
-                pointer:
-                    target:
-                        x: "DETAIL_PAN_X + DETAIL_ZOOM * TROPOSPHERE_POINT_X"
-                        y: "TROPOSPHERE_PAN_Y + DETAIL_ZOOM * TROPOSPHERE_POINT_Y"
+            # No pointer. The fact is about the tropopause, whose 8 km and 18 km
+            # are latitudes this picture does not draw — aiming the leader at the
+            # one 12 km line it does draw would point at a third number.
             at:
                 x: 200
                 y: 760
             origin: top_left
-            fill: "#fdf6ec"
-            stroke: "#b76364"
+            fill: "#f7f8fa"
+            stroke: "#555c66"
             stroke_width: 2
 
     timeline:
@@ -355,7 +377,7 @@ animation:
                         hold:
                             after: "ESTABLISH_MS"
             # Every callout starts hidden; each stop is what brings its own up.
-            - note_source:
+            - note_title:
                   - show:
                         opacity: 0
                         duration: 0
@@ -402,7 +424,7 @@ animation:
         # A dwell bookmark holds no camera action at all: the picture is still, and
         # the callout's own fade in, hold and fade out are what fill the window.
         push_in.end @ title:
-            - note_source:
+            - note_title:
                   - show:
                         opacity:
                             from: 0
@@ -573,6 +595,10 @@ composition:
                   - roll:
                   - mix:
                         span:
+                            from: "animation::establish.start"
+                        asset: narration_open
+                  - mix:
+                        span:
                             from: "animation::title.start"
                         asset: narration_title
                   - mix:
@@ -599,6 +625,10 @@ composition:
                         span:
                             from: "animation::closing.start"
                         asset: narration_closing
+                  - mix:
+                        span:
+                            from: "animation::pull_out.start"
+                        asset: narration_close
 
     capture:
         out:

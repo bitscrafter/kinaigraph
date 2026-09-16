@@ -13,15 +13,17 @@ scanned, screenshotted, handed to you — and want an annotated video of it.
 
 | Beat | Window | What happens |
 | ---- | ------ | ------------ |
-| `establish` | 0.0 – 2.5 s | The whole poster, fitted to the frame's height. 1100 × 2700 into 1920 × 1080 means 0.4 × — the establishing shot is the only one that shows the piece entire. Silent. |
+| `establish` | 0.0 – 2.5 s | The whole poster, fitted to the frame's height. 1100 × 2700 into 1920 × 1080 means 0.4 × — the establishing shot is the only one that shows the piece entire. A 2.6 s opening line plays across it and the push-in. |
 | `push_in` | 2.5 – 5.0 s | Pan and zoom together onto the masthead. |
-| `title` | 5.0 – 17.0 s | The first line, over a callout that says what the source is. |
+| `title` | 5.0 – 17.0 s | The composition line, over a callout placing half the atmosphere's mass below 5.5 km. |
 | `pan_upper` … `troposphere` | 17.0 – 67.8 s | Four stops down the picture — exosphere and thermosphere, mesosphere, stratosphere, troposphere — each a 2 s pan then a dwell with one line and one callout. The first stop holds **two** dwells, `upper` and `upper_iss`, because the camera has one framing and the picture there has two things worth saying. |
 | `closing` | 67.8 – 74.8 s | The recap, over a still frame. No callout: the voice is the whole beat. |
-| `pull_out` | 74.8 – 79.3 s | Back to the whole poster. Silent. |
+| `pull_out` | 74.8 – 79.3 s | Back to the whole poster, under a 2.0 s sign-off. |
 
-The opening and closing shots say nothing on purpose: the voice starts once the
-camera has arrived somewhere and stops before it leaves.
+**The two bookends cost no runtime.** The opening and closing shots are camera
+moves that had to happen anyway — 5.0 s at the front, 4.5 s at the back — so both
+lines were written to fit *inside* silence the piece already contained. Nine
+lines, and the video is the same length it was with seven.
 
 ## The camera is the picture moving
 
@@ -87,6 +89,14 @@ Two consequences worth keeping:
 - **A pointer and its stop are one fact.** The target is converted by that stop's
   pan, so moving a stop without moving its pointer aims the leader at empty sky.
   Check the pair.
+- **A callout says what the poster does not, and points at what it is about.**
+  Every note here is a fact about the atmosphere, never about how the video was
+  made: half the mass below 5.5 km, what the aurora is, noctilucent clouds at the
+  mesopause, the ozone column as 3 mm of gas, the tropopause running 8–18 km with
+  latitude. Two of the six have no pointer, because a fact about the whole column
+  of air — or about a boundary this picture does not draw — has nothing to aim at,
+  and a leader sent to the nearest thing instead would assert a link that isn't
+  there.
 - ⚠️ **A note's text WRAPS, and what will not fit is silently clipped.** A line 14 px
   too long for the box cost this example a callout that rendered with its second
   line missing and no warning anywhere. Measuring the ink *inside* the box does not

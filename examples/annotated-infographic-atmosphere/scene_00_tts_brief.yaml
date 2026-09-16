@@ -1,13 +1,14 @@
 # ------------------------------------------
 # annotated-infographic-atmosphere — Audio Generation: the BRIEF cut
 # ------------------------------------------
-# Seven lines, one per dwell. The camera stops are fixed by the picture, so each
-# line's DURATION is what its stop lasts — re-record one sentence and one stop
-# changes length, nothing else.
+# Nine lines. Seven are dwell lines, one per stop, and the camera stops are fixed
+# by the picture — so each line's DURATION is what its stop lasts. Re-record one
+# sentence and one stop changes length, nothing else.
 #
-# ⚠️ THE OPENING AND CLOSING SHOTS ARE SILENT. `establish` and `pull_out` show
-# the whole poster and say nothing; the voice starts once the camera has arrived
-# somewhere and stops before it leaves.
+# ⚡ THE OTHER TWO ARE BOOKENDS, and they are short for a reason: each has to fit
+# inside silence the camera already needed — 5.0s of establish and push-in at the
+# front, 4.5s of pull-out at the back. Written to length, they reach both ends of
+# the piece without adding a frame to it. Keep them under those windows.
 #
 #     kinaigraph scene_00_tts_brief.yaml
 #
@@ -40,6 +41,9 @@ synthesis:
         status: active
 
     tts:
+        scene_01_00_open:
+            file: "./resource/script/brief/scene_01_00_open.txt"
+            export: "./resource/audio/brief/scene_01_00_open.mp3"
         scene_01_01_title:
             file: "./resource/script/brief/scene_01_01_title.txt"
             export: "./resource/audio/brief/scene_01_01_title.mp3"
@@ -61,3 +65,6 @@ synthesis:
         scene_01_07_closing:
             file: "./resource/script/brief/scene_01_07_closing.txt"
             export: "./resource/audio/brief/scene_01_07_closing.mp3"
+        scene_01_08_close:
+            file: "./resource/script/brief/scene_01_08_close.txt"
+            export: "./resource/audio/brief/scene_01_08_close.mp3"
