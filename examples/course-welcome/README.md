@@ -99,6 +99,8 @@ viewer is faster.
 | `resource/scene/pitch_text.svg` | Six lines of type, one actor each. |
 | `resource/scene/backdrop_agentic.svg` | The default ground: a lit gradient and a diagram of agents wired to their tools, kept to the right of the type. |
 | `resource/scene/backdrop.svg` | The plain alternative — flat ground and the wordmark. |
+| `resource/scene/brand_layer.svg` | The publisher's mark, bottom-left. Transparent everywhere else. |
+| `resource/image/bitscrafter_logo.png` | The mark as a raster, before embedding. |
 | `resource/style/theme_dark.css` · `theme_paper.css` | Two themes, values only; each drawing owns its class-to-variable mapping. |
 | `resource/script/*.txt` · `resource/audio/*.mp3` | The six spoken lines, and their recordings. |
 | `resource/template/main.html` | The HTML container. |
@@ -133,6 +135,13 @@ background you chose.
 
 The provider name in the backdrop is a placeholder — one `<text>` element to
 change.
+
+⚠️ **Two marks, two owners, two corners.** The wordmark at the top left is the
+course *provider*, and it is part of the fiction this example sets up. The mark at
+the bottom left is the *publisher* of the video. Keeping them apart is the point:
+conflate them and the placeholder stops reading as a placeholder. The bottom right
+belongs to the instructor, which is why the publisher's mark is on the left here
+and on the right in every other example.
 
 ## Stacking the rig on another scene
 

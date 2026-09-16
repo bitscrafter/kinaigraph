@@ -50,11 +50,15 @@ fit inside one reaches the end of the piece without lengthening it.
 ## The camera is the picture moving
 
 The language has no camera primitive, so nothing here is a camera — and there is
-no rig either. The whole scene is a background and the picture:
+no rig either. The whole scene is a background, the picture, and a mark:
 
 ```xml
 <rect width="1920" height="1080" fill="var(--scene-background-color, #050a14)"/>
 <image id="atmosphere_infographic" x="0" y="0" width="1100" height="2700" .../>
+<g id="brand">
+  <rect class="brand-plate" x="1674" y="946" width="150" height="94" rx="14" .../>
+  <image id="brand_mark" x="1690" y="958" width="118" height="70" .../>
+</g>
 ```
 
 The `<image>` element **is the actor**: it takes the move and the scale itself, so
@@ -81,6 +85,25 @@ MESOSPHERE_PAN_Y: "FRAME_H / 2 - DETAIL_ZOOM * MESOSPHERE_Y"
 ```
 
 Re-frame a stop by moving the centre, never the pan.
+
+⚡ **A SIBLING OF THE PICTURE IS OUTSIDE THE CAMERA.** The actor is the `<image>`
+element *alone*, so the second `<image>` beside it takes none of the transforms —
+the poster slides and scales underneath a mark that never moves. That is the whole
+answer to "where does a watermark go when the subject is what moves": not into the
+subject. Drop the mark into the poster instead and it pans off the top of the
+frame somewhere around the stratosphere.
+
+⚠️ **A MOVING GROUND IS WHAT EARNS A PLATE.** Elsewhere a mark sits on one known
+colour and needs nothing behind it. Here the corner shows the letterbox, then a
+deep-blue mesosphere, then the troposphere's pale sky — so the same light traces
+read at 15.3:1 at one stop and **2.0:1** at another, legible in the establish and
+gone by the time the camera reaches the weather. The mark is therefore set on a
+rounded plate of the background colour at 82%, which holds the corner near the
+letterbox whatever slides beneath it: **11.9:1 at worst, across both cuts**.
+
+That is the general rule, and it is the one case this repository has of it: reach
+for a plate when the thing behind the type **changes**, not when it is merely
+busy. A fixed ground you can measure once and leave alone.
 
 ## The callouts annotate the picture without touching it
 
@@ -162,7 +185,8 @@ exactly as the picture would have been.
 | `resource/audio/{brief,teaser}/*.mp3` | The recorded lines, read by Harper. |
 | `resource/image/atmosphere.png` | **The input.** A pre-existing raster. |
 | `resource/image/atmosphere.svg` | The same poster as vector artwork. Nothing reads it; the video uses the PNG. |
-| `resource/scene/atmosphere_frame.svg` | The 16:9 frame: a background rect and the image actor. |
+| `resource/image/bitscrafter_logo.png` | The publisher's mark, before embedding. |
+| `resource/scene/atmosphere_frame.svg` | The 16:9 frame: a background rect, the image actor, and the mark that does not move with it. |
 | `resource/style/theme_dark.css` | One variable: the letterbox colour behind the picture. |
 
 ## Rendering

@@ -42,18 +42,21 @@ life-lessons/
 └── resource/
     ├── scene/
     │   ├── paper_background_medium.svg      shared — the paper both languages sit on
+    │   ├── brand_layer.svg                  shared — the publisher's mark
     │   ├── en/scene_0*.svg                  the quote, set in English
     │   └── es/scene_0*.svg                  the quote, set in Spanish
     ├── script/{en,es}/part_0*.txt
     ├── audio/{en,es}/part_0*.mp3
     ├── image/paper_texture_rough_01.{jpg,svg}   shared — the baked paper and its source
+    ├── image/bitscrafter_logo.png           shared — the mark before embedding
     └── style/theme_life_lessons.css         shared
 ```
 
 ⚡ **What localising actually costs is now countable.** A third language is two SVGs, two
-scripts, two recordings and three documents copied with their paths changed — and
-**nothing else**: not the paper, not the stylesheet, not a line of timeline. The shared
-files outnumber the per-language ones.
+scripts and two recordings — six resource files — plus three documents copied with their
+paths changed. **Nothing else**: not the paper, not the mark, not the stylesheet, not a
+line of timeline. Six files in `resource/` are shared by every language, and a language
+adds six of its own.
 
 ⚠️ **The words live in the artwork, not in a `text` asset**, because these quotes are set
 rather than typed — the line breaks and the centring are the design. That is what makes a
@@ -71,6 +74,11 @@ type as artwork.
   `type: style` asset. Where the text sits stays in the SVG. Restyling the quote is a
   stylesheet edit; nothing about the animation moves — and both languages restyle at once,
   because they share the file.
+- **A third layer that is not part of the story.** The publisher's mark is its own
+  transparent scene in cell `[0, 0]`, declared last so it paints over both the others,
+  shown once at the head and never touched again. It sits in `resource/scene/` rather
+  than under `en/` or `es/`, because a mark is not a translation — both languages stack
+  the same file.
 - **A baked paper texture.** The background is an embedded JPEG rather than the raw
   SVG texture. The JPEG pre-smooths the paper's high-frequency noise, which the H.264
   encoder would otherwise spend its bitrate on.

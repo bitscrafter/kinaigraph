@@ -122,5 +122,5 @@ why `icon_layer.svg` carries its own copy of each glyph it uses.
 that same attribute to draw a stroke on progressively, so revealing an
 already-dashed line renders **nothing**, silently.
 
-⚠️ **`synthesis.context.status` is section-wide.** Re-running the TTS document
+⚠️ **`synthesis.context.status` is section-wide.** Re-running the `narrate` document
 regenerates all six clips and bills for all six, even if you edited one line.

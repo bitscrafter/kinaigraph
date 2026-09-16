@@ -8,11 +8,11 @@
 # fill) lives in resource/style/theme_life_lessons.css, attached to the foreground scene
 # as a `type: style` asset; positioning (centering) stays in the SVG.
 #
-# Path resolution (as in the tts yaml): `file:` inputs resolve against THIS
+# Path resolution (as in `narrate_<lang>.yaml`): `file:` inputs resolve against THIS
 # yaml.s own folder, which IS the example root (the yaml sits at the top), so file: paths need no ../.
 # Capture `output:` resolves against the --outdir you pass.
 # Run from the example root:
-#   kinaigraph ./scene_02_life_meaning.yaml --outdir ./out
+#   kinaigraph ./scene_02_life_meaning_en.yaml
 
 metadata:
     title: "Life Lessons - Scene 02: The Meaning of Life (English)"
@@ -39,6 +39,13 @@ defs:
         quote_style:
             type: "style"
             file: "resource/style/theme_life_lessons.css"
+
+        # The publisher's mark, on its own transparent overlay. It sits in
+        # `resource/scene/`, not under `en/` or `es/`, because nothing about it
+        # is language-specific — both languages stack the same file.
+        brand:
+            type: "scene"
+            file: "resource/scene/brand_layer.svg"
 
         # 1x1 grid: both scenes occupy the single cell and z-stack by declaration
         # order. This is the layout that gives the background/foreground precedence.
@@ -77,6 +84,10 @@ animation:
               cell:
                   - 0
                   - 0
+            - asset: brand
+              cell:
+                  - 0
+                  - 0
 
     timeline:
         # Head: paper up, quote hidden, for MARGIN.
@@ -89,6 +100,11 @@ animation:
             - quote:
                   - show:
                         opacity: 0
+            # Present from the first frame and never touched again — it is the
+            # publisher's mark, not part of the quote.
+            - brand:
+                  - show:
+                        opacity: 1
 
         # Reveal: the quote fades in over the paper.
         setup.end @ reveal_quote:

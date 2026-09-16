@@ -8,11 +8,12 @@
 # exactly one is visible. Everything below is that one idea, applied to a mouth,
 # a pair of eyelids, and a breath.
 #
-# Three stacked layers share the 0 0 1280 720 viewBox; declaration order is
+# Four stacked layers share the 0 0 1280 720 viewBox; declaration order is
 # z-order, bottom to top:
 #   backdrop.svg      the ground and the provider's wordmark
 #   pitch_text.svg    six lines of type, one actor each
 #   avatar_layer.svg  the instructor's bubble, bottom-right
+#   brand_layer.svg   the publisher's mark, bottom-left
 #
 # ⚡ THE VOICE IS WHAT TIMES IT. Each phrase lasts exactly as long as the line
 # spoken over it, and the mouth's cycle count rides that window, so a re-recorded
@@ -41,6 +42,15 @@ defs:
         avatar_layer:
             type: "scene"
             file: "./resource/scene/avatar_layer.svg"
+
+        # ⚠️ TWO MARKS, TWO OWNERS. The wordmark in `backdrop_agentic.svg` is the
+        # course provider — part of the fiction this example sets up. This one is
+        # the publisher of the video. Different things, different corners: the
+        # provider signs the top left, the publisher the bottom left. The right
+        # corner is the instructor's.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
 
         # ── The typed lines, one actor per line ──────────────────────────────
         line_1:
@@ -214,6 +224,13 @@ animation:
                         hold:
                             before: "VIDEO_MARGIN"
             - avatar_layer:
+                  - show:
+                        opacity: 1
+                        hold:
+                            before: "VIDEO_MARGIN"
+            # Present from the first frame and never touched again — it is the
+            # publisher's mark, not part of the story.
+            - brand:
                   - show:
                         opacity: 1
                         hold:

@@ -191,6 +191,6 @@ a ring and fading it out across one window — `1.0 -> 0.5` and `0.5 -> 0` — i
 rejected. Scene 4 ends on `opacity: 0` with no `from`, which runs each ring from
 wherever it actually is: the last one from full, the other three from half.
 
-⚠️ **`synthesis.context.status` is section-wide.** Re-running the TTS document
+⚠️ **`synthesis.context.status` is section-wide.** Re-running the `narrate` document
 regenerates every line that document lists and bills for all of them, even if you
 edited one. That is why there are three of them rather than one.
