@@ -25,7 +25,7 @@ defs:
             credentials: "elevenlabs_credentials"
             #voice: "6bPfTtSpgxgD0GeBVfqu" # Zen (English)
             # voice: "MFZUKuGQUsGJPQjTS4wC" # Jon (English)
-            voice: "Hsmirri4X6khvaZNtgT5" # Chris (English)
+            voice: "RGb96Dcl0k5eVje8EBch" # Serena (English)
 
 synthesis:
     context:

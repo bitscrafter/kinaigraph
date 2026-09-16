@@ -42,7 +42,7 @@ life-lessons/
     │   └── es/scene_0*.svg                  the quote, set in Spanish
     ├── script/{en,es}/part_0*.txt
     ├── audio/{en,es}/part_0*.mp3
-    ├── image/paper_texture_rough_01.jpg     shared
+    ├── image/paper_texture_rough_01.{jpg,svg}   shared — the baked paper and its source
     └── style/theme_life_lessons.css         shared
 ```
 
@@ -72,7 +72,7 @@ type as artwork.
   encoder would otherwise spend its bitrate on.
 - **Timing read from the voice.** The fade is expressed against the narration clip's
   probed duration, so re-recording a line re-fits the scene on the next render. The two
-  languages differ in length for the same quote — 4.83 s against 4.17 s for the first —
+  languages differ in length for the same quote — 5.40 s against 3.83 s for the first —
   and neither document carries a number that had to change for that.
 
 ## Rendering it
