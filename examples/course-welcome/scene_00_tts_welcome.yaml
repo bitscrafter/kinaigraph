@@ -34,7 +34,7 @@ defs:
         tts:
             provider: "elevenlabs"
             credentials: "elevenlabs_credentials"
-            voice: "v5JQmAUezEqHZcOGEbiT" # Leo
+            voice: "IDHS58OMlK9jZvRdhEVy" # Jennifer
 
 synthesis:
     context:

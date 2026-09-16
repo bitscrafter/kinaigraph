@@ -57,11 +57,28 @@
     <use href="#agentic_node" x="840" y="200" width="64" height="64" />
   </g>
 
-  <!-- Faint rails, bottom-left: the harness the agents run inside. -->
-  <g opacity="0.07" class="mesh">
-    <path d="M 72 608 H 1208" />
-    <path d="M 72 640 H 1208" />
-    <path d="M 210 608 V 640 M 430 608 V 640 M 650 608 V 640 M 870 608 V 640 M 1090 608 V 640" />
+  <!-- Behind the type: a request entering the system, and what answers it.
+       ⚠️ 6% — under the 10% the diagram on the right carries, because this half
+       has words over it. Anything that competes with a sentence has lost. -->
+  <g opacity="0.06">
+    <g class="mesh">
+      <!-- the prompt, arriving from off-frame left -->
+      <path d="M -20 250 C 120 250, 180 214, 300 214" stroke-dasharray="3 14" stroke-linecap="round" />
+      <path d="M -20 470 C 140 470, 200 506, 320 506" stroke-dasharray="3 14" stroke-linecap="round" />
+      <!-- a prompt window with its caret -->
+      <rect x="96" y="150" width="210" height="128" rx="14" />
+      <path d="M 96 190 H 306" />
+      <path d="M 128 232 h 34" stroke-width="6" stroke-linecap="round" />
+      <circle cx="120" cy="170" r="5" />
+      <circle cx="140" cy="170" r="5" />
+      <!-- a reply, further down and turned the other way -->
+      <rect x="150" y="440" width="230" height="132" rx="14" />
+      <path d="M 182 486 H 330 M 182 514 H 300 M 182 542 H 344" stroke-width="4" stroke-linecap="round" />
+      <!-- the loop between them: propose, run, check, propose again -->
+      <circle cx="470" cy="360" r="86" stroke-dasharray="12 16" />
+      <circle cx="470" cy="360" r="34" />
+      <path d="M 470 274 l 16 26 l -32 0 Z" fill="#1e293b" stroke="none" />
+    </g>
   </g>
 
   <g id="wordmark" class="wordmark">

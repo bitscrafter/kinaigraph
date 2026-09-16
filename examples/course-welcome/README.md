@@ -6,7 +6,7 @@ modules, in what order, what each one ends with, where questions go.
 
 It is the format every course, onboarding pack and internal announcement uses —
 a talking head and a few lines of type — and it is normally cut by hand, keyframe
-by keyframe. Here the whole thing is 27 seconds of declarations.
+by keyframe. Here the whole thing is 22 seconds of declarations.
 
 ```sh
 kinaigraph scene_00_tts_welcome.yaml   # once — costs credits; the recordings are committed
@@ -49,7 +49,7 @@ for part of every cycle both shapes will be visible, or neither.
 
 - **Speech is phrases, not a flap.** One pulse across the whole talk gives a
   single rate with no silences, which is what reads as a machine. There are six
-  phrases here, 1.8 s to 5.6 s, separated by pauses you can see, and the mouth
+  phrases here, 1.4 s to 4.0 s, separated by pauses you can see, and the mouth
   SHAPE alternates between them: wide on the emphatic phrases, half-open on the
   quiet ones.
 - **A phrase lasts as long as its recording.** Only the RATE is authored — how
@@ -97,7 +97,7 @@ viewer is faster.
 | `scene_01_welcome.yaml` | The document: the rig, the phrases and the type. |
 | `resource/scene/avatar_layer.svg` | The instructor's bubble — groups `presenter`, `eyes-open`, `eyes-closed`, `mouth-closed`, `mouth-mid`, `mouth-open`, stacked at the same place. |
 | `resource/scene/pitch_text.svg` | Six lines of type, one actor each. |
-| `resource/scene/backdrop_agentic.svg` | The default ground: a lit gradient and a faint diagram of agents wired to their tools. |
+| `resource/scene/backdrop_agentic.svg` | The default ground: a lit gradient, a prompt and its reply behind the type, and a diagram of agents wired to their tools on the right. |
 | `resource/scene/backdrop.svg` | The plain alternative — flat ground and the wordmark. |
 | `resource/style/theme_dark.css` · `theme_paper.css` | Two themes, values only; each drawing owns its class-to-variable mapping. |
 | `resource/script/*.txt` · `resource/audio/*.mp3` | The six spoken lines, and their recordings. |
@@ -125,7 +125,9 @@ the three files declare the same SET of names, not the same number of them.
 
 **A light gradient does not need a panel under its type.** Ink reads on this one
 end to end — 14.1:1 for the heading and 8.2:1 for the body at its darkest corner —
-and a panel would have hidden the drawing it sits on. Reach for one when the type
+and a panel would have hidden the drawing it sits on. ⚠️ **What is behind the words
+is drawn fainter than what is not**: 6% under the text column against 10% for the
+diagram on the right, because anything that competes with a sentence has lost. Reach for one when the type
 crosses something busy or dark; measure first, because a panel costs you the
 background you chose.
 
