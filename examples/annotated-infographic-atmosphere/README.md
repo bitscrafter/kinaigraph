@@ -159,7 +159,7 @@ what each one settled.
 | The ozone layer is 15–35 km | [NOAA/WMO, *Twenty Questions About the Ozone Layer*](https://csl.noaa.gov/assessments/ozone/2022/twentyquestions/) · [NASA Ozone Watch](https://ozonewatch.gsfc.nasa.gov/facts/SH.html) |
 | A radiosonde can exceed 35 km before the balloon bursts | [NWS, *Radiosonde Observation*](https://www.weather.gov/upperair/factsheet) |
 | Airliners cruise at 9.1–12 km; the tropopause runs ~8 km polar to ~18 km tropical | [Britannica, *How High Does an Airplane Fly?*](https://www.britannica.com/topic/How-High-Does-An-Airplane-Fly) · [Britannica, *Tropopause*](https://www.britannica.com/science/tropopause) |
-| The hydrogen geocorona reaches ~630,000 km — past the Moon's 384,400 km | [Baliukin et al., *JGR Space Physics* 2019](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JA026136) · [ESA/SOHO](https://www.esa.int/Science_Exploration/Space_Science/Earth_s_atmosphere_stretches_out_to_the_Moon_and_beyond) · [NASA Space Place](https://spaceplace.nasa.gov/moon-distance/en/) |
+| The outermost hydrogen reaches ~630,000 km — "the Moon flies through Earth's atmosphere", at ~0.2 atoms per cm³ | [Baliukin et al., *JGR Space Physics* 2019](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JA026136) · [ESA/SOHO](https://www.esa.int/Science_Exploration/Space_Science/Earth_s_atmosphere_stretches_out_to_the_Moon_and_beyond) · [NASA Space Place](https://spaceplace.nasa.gov/moon-distance/en/) |
 | Everest is 8,848.86 m (Nepal–China, December 2020) | [Kathmandu Post](https://kathmandupost.com/national/2020/12/08/it-s-official-mount-everest-is-8-848-86-metres-tall) |
 
 Two things the checking changed, worth keeping in view:
@@ -173,4 +173,6 @@ Two things the checking changed, worth keeping in view:
   an edge: the Kármán line at 100 km is an administrative convention, and the
   exobase (~500–1,000 km) is where a particle's mean free path exceeds the scale
   height, so molecules stop colliding. The ISS callout is built on that — it sits
-  four times above the Kármán line and is *still* dragged down by air.
+  four times above the Kármán line and is *still* dragged down by air. There is no
+  sixth layer for "outer space" for the same reason: space is not a layer, it is
+  what this one thins into.
