@@ -167,9 +167,9 @@
   <rect x="693" y="1640" width="200" height="86" rx="8" fill="#7ec8ff" fill-opacity=".16"/>
   <text class="obj" x="708" y="1690" style="fill: rgb(207, 231, 247); white-space: pre; font-size: 19px;">Ozone · 15 – 35 km</text>
   <g>
-    <ellipse cx="880" cy="1522" rx="17" ry="22" fill="#eef5fb" opacity=".95"/>
-    <line x1="880" y1="1544" x2="880" y2="1566" stroke="#eef5fb" stroke-width="1.6"/>
-    <rect x="872" y="1566" width="16" height="11" rx="2" fill="#ffd166"/>
+    <ellipse cx="840" cy="1522" rx="17" ry="22" fill="#eef5fb" opacity=".95"/>
+    <line x1="840" y1="1544" x2="840" y2="1566" stroke="#eef5fb" stroke-width="1.6"/>
+    <rect x="832" y="1566" width="16" height="11" rx="2" fill="#ffd166"/>
     <text class="obj" x="620" y="1478" style="white-space: pre;">Weather balloon · 30 – 35 km</text>
   </g>
   <text class="layer" x="200" y="2020" style="white-space: pre;">TROPOSPHERE</text>
