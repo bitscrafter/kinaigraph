@@ -44,7 +44,7 @@ synthesis:
         #
         # ⚠️ ITS SIX CLAUSES ARE BALANCED AGAINST THE SIX LEGS, which are fixed
         # fractions of the walk. Rewrite a clause and the voice stops tracking the
-        # packet — re-measure the silence boundaries after regenerating. At the
+        # packet — the fractions need re-checking after regenerating. At the
         # committed recording the worst boundary is 0.56 s out, 1.7% of the walk.
         audio_beat_01_flow:
             file: "./resource/script/part_01_flow.txt"

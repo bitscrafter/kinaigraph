@@ -117,18 +117,15 @@ named, the third well after it. Beat 4 is worse in kind: equal thirds start the 
 slide before "Upward is offset", so the two curves separate while the viewer is being
 told they coincide.
 
-So the fractions are tuned to where the words actually land, and each scene's comments
-record the timings they were tuned against.
+So the fractions follow where the words actually land.
 
-⚠️ **Re-record a line and those fractions need re-checking.** A fraction is not a
-timestamp: new audio moves the clause boundaries inside the same clip, and a value that
-used to land on a word no longer does. A media inspector that reports silence boundaries gives you the timings
-to check them against. Each beat is shaped like its script:
+⚠️ **A fraction is not a timestamp.** It says how much of the line a span gets, never
+where a word falls inside it — so new audio for the same clip moves the clause boundaries
+underneath every value. Each beat is shaped like its script:
 an opening clause with the plot still empty, a quick count where each value lands as it is
 spoken, and a long tail holding the comparison while the closing clause plays. **These
 fractions survive re-recording the same words** — the proportions of a spoken sentence are
-stable — **but not a rewrite that changes the script's shape.** Change the words and
-re-measure. Beat 1 needed no tuning: its pen and its dot already tracked the description,
+stable — **but not a rewrite that changes the script's shape.** Beat 1 needed no tuning: its pen and its dot already tracked the description,
 the dot reaching the trough as "two-seventy" is spoken.
 
 **The window frame is load-bearing.** `resource/scene/frame_layer.svg` is declared

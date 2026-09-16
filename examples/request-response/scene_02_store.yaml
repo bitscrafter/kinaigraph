@@ -173,13 +173,13 @@ defs:
         # for, so a symmetric padding leaves the caption riding high by half that
         # difference. Padding is the only lever: `top` pushes the block down 1:1.
         #
-        # The horizontal pair is EQUAL and needs no correction: measured at 18 px and
-        # 18 px, `align: center` is already exact. The fork hanging off the right edge
+        # The horizontal pair is EQUAL and needs no correction: `align: center` is
+        # exact on that axis. The fork hanging off the right edge
         # makes the composite read slightly left-heavy, but centring the text in the
         # BOX is the rule that stays true when the caption or the fork's aim changes.
         #
-        # ⚠️ These four are tuned to THIS caption at THIS font size. Change either and
-        # re-measure — they encode where the renderer put this text, not a rule.
+        # ⚠️ These four are tuned to THIS caption at THIS font size. They encode where
+        # the renderer puts this text, not a rule — change either and they are wrong.
         STORE_NOTE_PADDING_TOP: 10
         STORE_NOTE_PADDING_BOTTOM: 2
         STORE_NOTE_PADDING_LEFT: 6

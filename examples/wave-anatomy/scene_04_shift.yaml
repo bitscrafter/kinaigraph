@@ -50,8 +50,8 @@ defs:
             # ⛔ A LITERAL, AND IT DOES NOT FOLLOW THE THEME. A note's text colour is
             # authored here, in `defs`, where no style is in scope — css() cannot reach
             # it. Swapping the stylesheet moves every box and every line and leaves
-            # THIS behind: these were theme_dark's values and measured 1.00 against
-            # paper's label box, which is invisible. Re-check them on any new theme.
+            # THIS behind: a colour chosen for one theme can vanish into another's
+            # box. Re-check it on any new theme.
             font_color: "#16496d"
         tag_cos_text:
             type: "text"
@@ -119,15 +119,11 @@ defs:
         # while the viewer was still being told the two curves coincide. Moving them
         # apart during that sentence is the one thing this beat must not do.
         #
-        # ⚠️ Tuned to the recorded line (clauses at 0.00 / 1.96 / 3.59 / 6.82 s).
-        # Re-measure the silence boundaries if the words change.
-        # ⚠️ THESE FRACTIONS ARE MEASURED, AND THEY EXPIRE. Each is the point in the
-        # body at which the voice resumes after the pause before that moment, taken
-        # against the COMMITTED recording's silence boundaries. A fraction says
-        # how much of the line a span gets, never where the words fall inside it — so
-        # re-record and they are wrong again. The previous values were carried over
-        # from a recording that was never committed and put the first curve 1.35 s
-        # after the voice named it.
+        # ⚠️ Tuned to the recorded line: the fractions follow its clause boundaries.
+        # ⚠️ THESE FRACTIONS EXPIRE. Each is the point in the body at which the voice
+        # resumes after the pause before that moment. A fraction says how much of the
+        # line a span gets, never where the words fall inside it — so a re-recording
+        # moves the words underneath every one of them.
         PHASE_FRACTION: 0.375 # the slide, landing on "Sideways is phase"
         COS_FRACTION: 0.375 # the cosine drawing and holding, over its own sentence
 

@@ -134,8 +134,7 @@ If one does, `doctor` prints what it searched and a `Hint:` telling you what to 
             Alternatives: None Identified
 ```
 
-That is almost always the media encoder missing, or installed but not on your `PATH` — see
-step 1.
+That is almost always `ffmpeg` missing, or installed but not on your `PATH` — see step 1.
 Fix it before going further; rendering will fail without it.
 
 ### If macOS refuses to run it
@@ -238,9 +237,9 @@ Options
     --version           Print the version and exit.
 
 Environment
-    KINAIGRAPH_BROWSER          Browser executable
-    KINAIGRAPH_MEDIA_ENCODER    Media encoder executable
-    KINAIGRAPH_MEDIA_INSPECTOR  Media inspector executable
+    KINAIGRAPH_BROWSER          Browser executable — Chrome, Chromium, or Edge
+    KINAIGRAPH_MEDIA_ENCODER    ffmpeg executable
+    KINAIGRAPH_MEDIA_INSPECTOR  ffprobe executable
     KINAIGRAPH_WEB_RUNTIME_HOME Browser runtime assets
 ```
 
@@ -248,8 +247,8 @@ Environment
 `kinaigraph 0.1.0-alpha.1`.
 
 The four environment variables are overrides. You do not need to set any of them: a
-released build carries its own browser runtime, and finds the browser and the media
-encoder on your `PATH`. Set one only when you want a specific executable used.
+released build carries its own browser runtime, and finds Chrome and `ffmpeg` on your
+`PATH`. Set one only when you want a specific executable used.
 
 ## Examples
 

@@ -209,8 +209,7 @@ defs:
         # `PATH_PX`. `pace_by: distance` on the parent `move` splits TRAVEL_MS
         # across the six legs in proportion to each leg's own arc length, which the
         # compiler measures. Re-position a node in the SVG and the timing follows by
-        # itself — previously these thirteen numbers had to be re-measured by hand
-        # (by a script whose only job was to measure what the compiler already knew).
+        # itself, where thirteen authored numbers would each have to be corrected.
         FIXED_MS: "VIDEO_MARGIN * 2"
         TRAVEL_MS: "narration.duration - FIXED_MS"
 

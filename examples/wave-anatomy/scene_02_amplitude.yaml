@@ -54,8 +54,8 @@ defs:
             # ⛔ A LITERAL, AND IT DOES NOT FOLLOW THE THEME. A note's text colour is
             # authored here, in `defs`, where no style is in scope — css() cannot reach
             # it. Swapping the stylesheet moves every box and every line and leaves
-            # THIS behind: these were theme_dark's values and measured 1.00 against
-            # paper's label box, which is invisible. Re-check them on any new theme.
+            # THIS behind: a colour chosen for one theme can vanish into another's
+            # box. Re-check it on any new theme.
             font_color: "#16496d"
         tag_mid_text:
             type: "text"
@@ -104,8 +104,7 @@ defs:
         # steps across the whole body read correctly on paper and were wrong on screen:
         # the voice says "A half, one, two" inside a couple of seconds and then spends the rest
         # of the line on the closing clause, so an evenly-spread visual had the first
-        # curve arriving before its value was named and the last arriving well after —
-        # measured at 1.75 s late on the frequency beat.
+        # curve arriving before its value was named and the last arriving well after.
         #
         # The beat is therefore three spans, matching the shape every script in this
         # example has: an opening clause with the plot still empty, a quick count where
@@ -113,10 +112,9 @@ defs:
         # closing clause plays. The payoff — every value on screen at once — gets the
         # dwell, which is what it was always for.
         #
-        # ⚠️ These two fractions are TUNED TO THE RECORDED LINE (values at 1.39 / 2.24 / 2.92 s).
-        # They survive re-recording the same words, because the proportions of a spoken
-        # sentence are stable; they do NOT survive a rewrite that changes the script's
-        # shape. Re-measure the silence boundaries if the words change.
+        # ⚠️ These two fractions are TUNED TO THE RECORDED LINE. They survive re-recording
+        # the same words, because the proportions of a spoken sentence are stable; they do
+        # NOT survive a rewrite that changes the script's shape.
         # ⚠️ EVERY DERIVED SPAN IS TRUNCATED TO WHOLE MILLISECONDS. A probed narration
         # duration is not a round number (9752.381 ms), so a third of it is not either.
         # A held window's end rounds UP to the millisecond while the bookmark that ends
@@ -124,13 +122,10 @@ defs:
         # half-millisecond BEFORE the previous one finishes — which is a genuine
         # same-property overlap and is refused. Truncating first makes every boundary an
         # integer, so a window ends exactly where the next begins, which is allowed.
-        # ⚠️ THESE FRACTIONS ARE MEASURED, AND THEY EXPIRE. Each is the point in the
-        # body at which the voice resumes after the pause before that moment, taken
-        # against the COMMITTED recording's silence boundaries. A fraction says
-        # how much of the line a span gets, never where the words fall inside it — so
-        # re-record and they are wrong again. The previous values were carried over
-        # from a recording that was never committed and put the first curve 1.35 s
-        # after the voice named it.
+        # ⚠️ THESE FRACTIONS EXPIRE. Each is the point in the body at which the voice
+        # resumes after the pause before that moment. A fraction says how much of the
+        # line a span gets, never where the words fall inside it — so a re-recording
+        # moves the words underneath every one of them.
         LEAD_FRACTION: 0.171 # the opening clause, before the first value is named
         STEP_FRACTION: 0.080 # value to value, once the count starts
 
