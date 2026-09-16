@@ -538,8 +538,8 @@ animation:
                             after: "END_MS"
 
     capture:
-        layers_tour_brief_silent:
-            output: "./resource/video/layers_tour_brief_silent.mp4"
+        infographic_atmosphere_brief_silent:
+            output: "./resource/video/infographic_atmosphere_brief_silent.mp4"
             fps: 30
 
 # The picture and its callouts are captured silent above; the voice is laid over
@@ -555,7 +555,7 @@ composition:
         # timestamp without one is placed at output 0 by a known defect — which
         # here would stack all seven lines on the first frame.
         "0":
-            - layers_tour_brief_silent:
+            - infographic_atmosphere_brief_silent:
                   - roll:
                   - mix:
                         span:
@@ -596,5 +596,5 @@ composition:
 
     capture:
         out:
-            output: "./scene_01_layers_tour_brief.mp4"
+            output: "./infographic_atmosphere_brief.mp4"
             fps: 30

@@ -1,4 +1,4 @@
-# Annotated Infographic: The Atmosphere
+# Infographic: The Atmosphere
 
 A narrated 79-second video built from **a picture that already existed**. The input is
 `resource/image/atmosphere.png` — a 1100 × 2700 raster, the shape a poster is, not

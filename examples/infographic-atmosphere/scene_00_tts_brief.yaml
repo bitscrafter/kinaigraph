@@ -1,5 +1,5 @@
 # ------------------------------------------
-# annotated-infographic-atmosphere — Audio Generation: the BRIEF cut
+# infographic-atmosphere — Audio Generation: the BRIEF cut
 # ------------------------------------------
 # Nine lines. Seven are dwell lines, one per stop, and the camera stops are fixed
 # by the picture — so each line's DURATION is what its stop lasts. Re-record one
@@ -20,7 +20,7 @@
 # `ls scene_*.yaml | grep -v scene_00`.
 
 metadata:
-    title: "Annotated Infographic: The Atmosphere - Audio Generation (brief cut)"
+    title: "Infographic Atmosphere - Audio Generation (brief cut)"
     description: "Every line the brief cut speaks"
     version: "1.0"
 
