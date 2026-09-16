@@ -54,14 +54,14 @@ You need Kinaigraph installed — see the [install instructions](../../README.md
 Run from this directory:
 
 ```sh
-kinaigraph scene_00_tts_generation.yaml --outdir ./out    # once, to synthesize narration
-kinaigraph scene_01_gratitude_perspective.yaml --outdir ./out
-kinaigraph scene_02_life_meaning.yaml --outdir ./out
+kinaigraph scene_00_tts_generation.yaml    # once, to synthesize narration
+kinaigraph scene_01_gratitude_perspective.yaml
+kinaigraph scene_02_life_meaning.yaml
 ```
 
 Paths inside a scene resolve against the scene file's own folder — which is this
 directory, since the YAML sits at the top — so `file:` values need no `../`. Outputs
-resolve against whatever you pass as `--outdir`.
+land beside the document unless you pass `--outdir`.
 
 Synthesis calls a text-to-speech provider and needs `ELEVENLABS_API_KEY` in the
 environment. It is a separate file from the scenes on purpose: re-rendering a scene must

@@ -55,17 +55,17 @@ whenever a script changes) before rendering.
 
 ```bash
 # 1) Generate audio once (only when scripts change).
-kinaigraph scene_00_tts_generation.yaml --outdir .
+kinaigraph scene_00_tts_generation.yaml
 
 # 2) Render each scene end-to-end (produces the per-scene *_composition.mp4).
-kinaigraph scene_01_intro.yaml       --outdir .
-kinaigraph scene_02_step_flow.yaml   --outdir .
-kinaigraph scene_03_add_datastore.yaml   --outdir .
-kinaigraph scene_04_retheme.yaml     --outdir .
-kinaigraph scene_05_conclusion.yaml  --outdir .
+kinaigraph scene_01_intro.yaml
+kinaigraph scene_02_step_flow.yaml
+kinaigraph scene_03_add_datastore.yaml
+kinaigraph scene_04_retheme.yaml
+kinaigraph scene_05_conclusion.yaml
 
 # 3) Stitch the five composition outputs into the final video.
-kinaigraph scene_06_stitch.yaml      --outdir .
+kinaigraph scene_06_stitch.yaml
 ```
 
 Per scene the binary produces `<scene>_animation.mp4` (frames only) and

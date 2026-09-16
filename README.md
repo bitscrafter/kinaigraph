@@ -175,13 +175,16 @@ Or download the ZIP from the [repository page](https://github.com/bitscrafter/ki
 
 ### ⚠️ Most examples need a text-to-speech key
 
-Kinaigraph times animation to narration, so most scenes here read an audio clip that is
-**generated from a script**, not committed. Rendering those needs an
-[ElevenLabs](https://elevenlabs.io/) API key in `ELEVENLABS_API_KEY`, and each synthesis run
-costs credits. Every example has a `scene_00_tts_generation.yaml` that does that step.
+Kinaigraph times animation to narration, so most scenes here read an audio clip spoken by a
+text-to-speech provider. Where that clip is committed you need nothing; where it is not,
+rendering needs an [ElevenLabs](https://elevenlabs.io/) API key in `ELEVENLABS_API_KEY`, and
+each synthesis run costs credits. The synthesis step is always its own document, named for
+the cut it speaks.
 
-**Two examples render with no key** — `milestone-ladder` and `hiking-trails` both ship
-their narration, so every input they use is already in this repository. Start there.
+**7 of the 10 examples render with no key**, because their narration is in this repository:
+`avatar-puppetry` (which is silent by design), `hiking-trails`, `infographic-atmosphere`,
+`milestone-ladder`, `request-response`, `wave-anatomy` and `why-a-language`. Start there.
+`life-lessons-en`, `life-lessons-es` and `microservices-flow` are the ones that need a key.
 
 ## Using it
 
@@ -271,7 +274,7 @@ themes, and narration scripts. Kinaigraph compiles a scene and renders it to an 
 | [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. One route layer carries the drawn line, the travelled path and the distance the callout quotes. |
 | [`milestone-ladder`](examples/milestone-ladder/) | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark. |
 | [`life-lessons-en`](examples/life-lessons-en/) · [`life-lessons-es`](examples/life-lessons-es/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. The same two scenes in English and Spanish, which is what a localization actually costs. |
-| [`kinaigraph-avatar`](examples/kinaigraph-avatar/) | A rigged picture-in-picture presenter: blinks, mouth shapes and a speech bubble, driven from one narration. |
+| [`avatar-puppetry`](examples/avatar-puppetry/) | A presenter who talks, blinks and breathes — three mouth shapes and two eye states swapped by pulses written against each other. The language has no concept of a face. |
 
 Narration audio is generated from the scripts via text-to-speech, so a scene reads
 its timing from the spoken lines. See each example's folder for its specific layout.

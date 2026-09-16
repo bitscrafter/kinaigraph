@@ -168,9 +168,9 @@ exactly as the picture would have been.
 ## Rendering
 
 ```sh
-kinaigraph run scene_00_tts_brief.yaml      # once — costs ElevenLabs credits
-kinaigraph run scene_01_layers_tour_brief.yaml
-kinaigraph run scene_01_layers_tour_teaser.yaml
+kinaigraph scene_00_tts_brief.yaml      # once — costs ElevenLabs credits
+kinaigraph scene_01_layers_tour_brief.yaml
+kinaigraph scene_01_layers_tour_teaser.yaml
 ```
 
 ⛔ **Never sweep this folder** with `for y in scene_*.yaml`: that pulls in the

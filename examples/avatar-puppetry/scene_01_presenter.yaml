@@ -1,0 +1,404 @@
+# A presenter rig, puppeteered from the timeline.
+#
+# ⚡ THE LANGUAGE HAS NO PUPPET FEATURE. The drawing carries three mouth shapes
+# and two eye states stacked on top of each other, all but one hidden; a state
+# CHANGE is two `pulse` actions written against each other — the shape arriving
+# and the shape leaving, same window, same `cycles`, so they stay phase-locked
+# and exactly one of them is visible at a time. Everything below is that one
+# idea, applied to a mouth, a pair of eyelids and a breath.
+#
+# Three stacked layers share the 0 0 1280 720 viewBox; declaration order is
+# z-order, bottom to top:
+#   backdrop.svg      the background and the wordmark
+#   pitch_text.svg    four lines of type, one actor each
+#   avatar_layer.svg  the presenter bubble, bottom-right
+#
+# ⚠️ NOTHING HERE IS SPOKEN. The rig is driven by the constants below rather than
+# by a narration, so the example renders from a clone with no key and no credits.
+# To hang it on a voice instead, declare an `audio` asset and replace TALK_MS
+# with `<that asset>.duration` — every window below is written as a share of it.
+
+metadata:
+    title: "Presenter Avatar — puppeteered from the timeline"
+    description: "mouth, eyes and breath driven by paired pulses"
+    version: "1.0"
+
+defs:
+    assets:
+        backdrop:
+            type: "scene"
+            file: "./resource/scene/backdrop.svg"
+
+        pitch_text:
+            type: "scene"
+            file: "./resource/scene/pitch_text.svg"
+
+        avatar_layer:
+            type: "scene"
+            file: "./resource/scene/avatar_layer.svg"
+
+        # ── The typed lines, one actor per line ──────────────────────────────
+        line_1:
+            type: "actor"
+            part_of: pitch_text
+            id: line-1
+        line_2:
+            type: "actor"
+            part_of: pitch_text
+            id: line-2
+        line_3:
+            type: "actor"
+            part_of: pitch_text
+            id: line-3
+        line_4:
+            type: "actor"
+            part_of: pitch_text
+            id: line-4
+
+        # ── The rig ──────────────────────────────────────────────────────────
+        # Each of these is a group in the drawing, stacked at the same place.
+        # `mouth-closed` rests visible; everything else rests at opacity 0.
+        presenter:
+            type: "actor"
+            part_of: avatar_layer
+            id: presenter
+            origin: center
+            pivot: center
+        mouth_open:
+            type: "actor"
+            part_of: avatar_layer
+            id: mouth-open
+        mouth_mid:
+            type: "actor"
+            part_of: avatar_layer
+            id: mouth-mid
+        mouth_closed:
+            type: "actor"
+            part_of: avatar_layer
+            id: mouth-closed
+        eyes_open:
+            type: "actor"
+            part_of: avatar_layer
+            id: eyes-open
+        eyes_closed:
+            type: "actor"
+            part_of: avatar_layer
+            id: eyes-closed
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+            style: style
+
+        style:
+            type: "style"
+            file: "./resource/style/theme_dark.css"
+
+    const:
+        FADE_WINDOW: 750
+        VIDEO_MARGIN: 500
+
+        # ── Speech, as phrases rather than a flap ────────────────────────────
+        # ⚠️ A SINGLE PULSE ACROSS THE WHOLE TALK IS WHAT READS AS A MACHINE: one
+        # rate, no silences, starting and stopping with the shot. Real speech
+        # comes in phrases of different lengths, separated by pauses you can see.
+        # Four phrases, each with its own rate, and the mouth SHAPE changes with
+        # them — wide for the emphatic ones, half-open for the quieter ones.
+        PHRASE_1_MS: 5200 #  12 cycles ≈ 2.3 syllables/s, the opening claim
+        PHRASE_1_CYCLES: 12
+        PAUSE_1_MS: 700
+
+        PHRASE_2_MS: 4200 #  quieter, half-open mouth
+        PHRASE_2_CYCLES: 9
+        PAUSE_2_MS: 900
+
+        PHRASE_3_MS: 6000 #  the long one, and the fastest
+        PHRASE_3_CYCLES: 14
+        PAUSE_3_MS: 800
+
+        PHRASE_4_MS: 3200 #  trailing off, quiet again
+        PHRASE_4_CYCLES: 7
+
+        TALK_MS: "PHRASE_1_MS + PAUSE_1_MS + PHRASE_2_MS + PAUSE_2_MS + PHRASE_3_MS + PAUSE_3_MS + PHRASE_4_MS"
+
+        # A shape that is skipped for a phrase waits out that phrase and the
+        # pause beside it, because same-type sub-actions run in sequence.
+        MID_LEAD_MS: "PHRASE_1_MS + PAUSE_1_MS"
+        MID_GAP_MS: "PAUSE_2_MS + PHRASE_3_MS + PAUSE_3_MS"
+        OPEN_GAP_MS: "PAUSE_1_MS + PHRASE_2_MS + PAUSE_2_MS"
+
+        # ── Blinking ─────────────────────────────────────────────────────────
+        # ⚠️ EVENLY SPACED BLINKS READ AS A METRONOME. These four gaps are
+        # deliberately unequal, and 150 ms is about what a blink takes — long
+        # enough to see, short enough not to look like a wince.
+        BLINK_MS: 150
+        BLINK_1_LEAD: 2600
+        BLINK_2_GAP: 4100
+        BLINK_3_GAP: 3200
+        BLINK_4_GAP: 5400
+
+        # ── Idle motion ──────────────────────────────────────────────────────
+        # Two slow cycles that do not divide into each other, so the bubble never
+        # returns to the same pose on a beat: breathing scales, the sway rotates.
+        BREATHE_CYCLES: 7
+        SWAY_CYCLES: 3
+        # ⚠️ A rotation target must sit in [0, 360), so the sway rocks from upright
+        # to SWAY_DEGREES and back rather than swinging either side of centre.
+        SWAY_DEGREES: 1.6
+
+animation:
+    defaults:
+        assets:
+            scene: avatar_layer
+
+    timeline:
+        # Declaration order fixes the z-order; the head margin is quiet.
+        0 @ setup_ts:
+            - backdrop:
+                  - show:
+                        opacity: 1
+                        hold:
+                            before: "VIDEO_MARGIN"
+            - pitch_text:
+                  - show:
+                        opacity: 1
+                        hold:
+                            before: "VIDEO_MARGIN"
+            - avatar_layer:
+                  - show:
+                        opacity: 1
+                        hold:
+                            before: "VIDEO_MARGIN"
+
+        setup_ts.end @ talk_ts:
+            # ── The type, one line per phrase ────────────────────────────────
+            - line_1:
+                  - show:
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 20
+                                  to:
+                                      dx: 0
+                                      dy: -20
+            - line_2:
+                  - show:
+                        hold:
+                            before: "PHRASE_1_MS + PAUSE_1_MS - FADE_WINDOW"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 20
+                                  to:
+                                      dx: 0
+                                      dy: -20
+            - line_3:
+                  - show:
+                        hold:
+                            before: "PHRASE_2_MS + PAUSE_2_MS - FADE_WINDOW"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 20
+                                  to:
+                                      dx: 0
+                                      dy: -20
+            - line_4:
+                  - show:
+                        hold:
+                            before: "PHRASE_3_MS + PAUSE_3_MS - FADE_WINDOW"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 20
+                                  to:
+                                      dx: 0
+                                      dy: -20
+
+            # ── Idle motion: two slow cycles on the whole bubble ─────────────
+            - presenter:
+                  - pulse:
+                        duration: "TALK_MS"
+                        cycles: BREATHE_CYCLES
+                        scale:
+                            from: 1
+                            to: 1.015
+            - presenter:
+                  - pulse:
+                        duration: "TALK_MS"
+                        cycles: SWAY_CYCLES
+                        rotation:
+                            from: 0
+                            to: SWAY_DEGREES
+
+            # ── The mouth ────────────────────────────────────────────────────
+            # The resting smile is the one shape that leaves on every phrase, so
+            # it carries a counter-pulse for each — same window, same cycles as
+            # whichever shape is arriving.
+            - mouth_closed:
+                  - pulse:
+                        duration: PHRASE_1_MS
+                        cycles: PHRASE_1_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0
+                  - pulse:
+                        hold:
+                            before: PAUSE_1_MS
+                        duration: PHRASE_2_MS
+                        cycles: PHRASE_2_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0.4
+                  - pulse:
+                        hold:
+                            before: PAUSE_2_MS
+                        duration: PHRASE_3_MS
+                        cycles: PHRASE_3_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0
+                  - pulse:
+                        hold:
+                            before: PAUSE_3_MS
+                        duration: PHRASE_4_MS
+                        cycles: PHRASE_4_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0.4
+
+            # Wide open on the emphatic phrases, 1 and 3.
+            - mouth_open:
+                  - pulse:
+                        duration: PHRASE_1_MS
+                        cycles: PHRASE_1_CYCLES
+                        opacity:
+                            from: 0
+                            to: 1
+                  - pulse:
+                        hold:
+                            before: "OPEN_GAP_MS"
+                        duration: PHRASE_3_MS
+                        cycles: PHRASE_3_CYCLES
+                        opacity:
+                            from: 0
+                            to: 1
+
+            # Half-open on the quiet ones, 2 and 4.
+            - mouth_mid:
+                  - pulse:
+                        hold:
+                            before: "MID_LEAD_MS"
+                        duration: PHRASE_2_MS
+                        cycles: PHRASE_2_CYCLES
+                        opacity:
+                            from: 0
+                            to: 0.85
+                  - pulse:
+                        hold:
+                            before: "MID_GAP_MS"
+                        duration: PHRASE_4_MS
+                        cycles: PHRASE_4_CYCLES
+                        opacity:
+                            from: 0
+                            to: 0.85
+
+            # ── The eyes ─────────────────────────────────────────────────────
+            # Each blink is one cycle of a pair: the lids arrive as the open eyes
+            # leave. The gaps are unequal and the pair shares them, so the two
+            # actors stay in step without either knowing about the other.
+            - eyes_closed:
+                  - pulse:
+                        hold:
+                            before: BLINK_1_LEAD
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 0
+                            to: 1
+                  - pulse:
+                        hold:
+                            before: BLINK_2_GAP
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 0
+                            to: 1
+                  - pulse:
+                        hold:
+                            before: BLINK_3_GAP
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 0
+                            to: 1
+                  - pulse:
+                        hold:
+                            before: BLINK_4_GAP
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 0
+                            to: 1
+            - eyes_open:
+                  - pulse:
+                        hold:
+                            before: BLINK_1_LEAD
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 1
+                            to: 0
+                  - pulse:
+                        hold:
+                            before: BLINK_2_GAP
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 1
+                            to: 0
+                  - pulse:
+                        hold:
+                            before: BLINK_3_GAP
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 1
+                            to: 0
+                  - pulse:
+                        hold:
+                            before: BLINK_4_GAP
+                        duration: BLINK_MS
+                        cycles: 1
+                        opacity:
+                            from: 1
+                            to: 0
+
+        # The tail margin is quiet, like the head.
+        talk_ts.end @ tear_down_ts:
+            - backdrop:
+                  - show:
+                        hold:
+                            after: "VIDEO_MARGIN"
+                        opacity: 1
+
+    capture:
+        out:
+            output: "./avatar_puppetry.mp4"
+            fps: 30
