@@ -79,11 +79,11 @@
   <text class="sub" x="70" y="372" style="white-space: pre;">reverses direction three times on the way up.</text>
   <rect x="70" y="404" width="132" height="4" fill="#ffd166"/>
   <g>
-    <rect x="70" y="446" width="960" height="176" rx="14" fill="#0c1730" stroke="#7ec8ff" stroke-opacity=".3"/>
+    <rect x="70" y="446" width="960" height="184" rx="14" fill="#0c1730" stroke="#7ec8ff" stroke-opacity=".3"/>
     <text class="facthd" x="98" y="488" style="fill: rgb(126, 200, 255); white-space: pre;">WHAT IT IS</text>
-    <text class="lede" x="98" y="528" style="white-space: pre;">The whole envelope of gas held to Earth by gravity: 78% nitrogen,</text>
-    <text class="lede" x="98" y="562" style="white-space: pre;">21% oxygen. It is divided into FIVE LAYERS, one above the next,</text>
-    <text class="lede" x="98" y="596" style="white-space: pre;">and nothing lies beyond the outermost — it just thins away.</text>
+    <text class="lede" x="98" y="528" style="white-space: pre;">The whole envelope of gas held to Earth by gravity — dry air is 78%</text>
+    <text class="lede" x="98" y="562" style="white-space: pre;">nitrogen and 21% oxygen. It is divided into FIVE LAYERS, one above</text>
+    <text class="lede" x="98" y="596" style="white-space: pre;">the next, and nothing lies beyond the outermost: it just thins away.</text>
   </g>
   <line x1="150" y1="700" x2="150" y2="2490" stroke="#ffffff" stroke-opacity=".3" stroke-width="2"/>
   <g>
@@ -122,6 +122,7 @@
   </g>
   <text class="layer" x="200" y="702" style="white-space: pre;">EXOSPHERE</text>
   <text class="alt" x="200" y="733" style="white-space: pre;">600 km outward · thins away; no boundary with space</text>
+  <text class="small" x="200" y="772" style="white-space: pre;">The Moon, at 384,400 km, orbits inside Earth’s hydrogen geocorona.</text>
   <ellipse cx="781" cy="872" rx="220" ry="58" fill="url(#aurora)"/>
   <text class="layer" x="200" y="838" style="white-space: pre;">THERMOSPHERE</text>
   <text class="alt" x="200" y="869" style="white-space: pre;">85 – 600 km</text>
@@ -129,7 +130,7 @@
     <rect x="200" y="895" width="420" height="138" rx="12" fill="#081334" fill-opacity=".82" stroke="#7ec8ff" stroke-opacity=".35"/>
     <text class="facthd" x="224" y="927" style="fill: rgb(126, 200, 255); white-space: pre;">TEMPERATURE WITHOUT HEAT</text>
     <text class="fact" x="224" y="959" style="white-space: pre;">Molecules move fast enough to register</text>
-    <text class="fact" x="224" y="985" style="white-space: pre;">1,500 °C — but they are so sparse that a</text>
+    <text class="fact" x="224" y="985" style="white-space: pre;">2,000 °C — but they are so sparse that a</text>
     <text class="fact" x="224" y="1011" style="white-space: pre;">thermometer would read far below zero.</text>
   </g>
   <g transform="matrix(1, 0, 0, 1, -19, -8)">
@@ -161,17 +162,17 @@
   <g>
     <rect x="200" y="1597" width="485" height="140" rx="12" fill="#10255a" fill-opacity=".82" stroke="#7ec8ff" stroke-opacity=".35"/>
     <text class="facthd" x="224" y="1629" style="fill: rgb(126, 200, 255); white-space: pre;">THE OZONE LAYER</text>
-    <text class="fact" x="224" y="1661" style="white-space: pre;">Between 20 and 30 km, ozone absorbs the Sun's</text>
+    <text class="fact" x="224" y="1661" style="white-space: pre;">Between 15 and 35 km, ozone absorbs the Sun's</text>
     <text class="fact" x="224" y="1687" style="white-space: pre;">ultraviolet light. That is why temperature RISES</text>
     <text class="fact" x="224" y="1713" style="white-space: pre;">with height here — the only layer that warms.</text>
   </g>
   <rect x="693" y="1640" width="200" height="86" rx="8" fill="#7ec8ff" fill-opacity=".16"/>
-  <text class="obj" x="708" y="1690" style="fill: rgb(207, 231, 247); white-space: pre; font-size: 19px;">Ozone · 20 – 30 km</text>
+  <text class="obj" x="708" y="1690" style="fill: rgb(207, 231, 247); white-space: pre; font-size: 19px;">Ozone · 15 – 35 km</text>
   <g>
     <ellipse cx="880" cy="1522" rx="17" ry="22" fill="#eef5fb" opacity=".95"/>
     <line x1="880" y1="1544" x2="880" y2="1566" stroke="#eef5fb" stroke-width="1.6"/>
     <rect x="872" y="1566" width="16" height="11" rx="2" fill="#ffd166"/>
-    <text class="obj" x="700" y="1478" style="white-space: pre;">Weather balloon · 35 km</text>
+    <text class="obj" x="620" y="1478" style="white-space: pre;">Weather balloon · 30 – 35 km</text>
   </g>
   <text class="layer" x="200" y="2020" style="white-space: pre;">TROPOSPHERE</text>
   <text class="alt" x="200" y="2051" style="white-space: pre;">0 – 12 km</text>
@@ -208,7 +209,7 @@
   <path d="M 975 2490 L 928 2023 L 928 1879 L 936 1727 L 963 1538 L 963 1489 L 927 1260 L 909 1100" fill="none" stroke="url(#prof)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" filter="url(#soft)" opacity=".75"/>
   <path d="M 975 2490 L 928 2023 L 928 1879 L 936 1727 L 963 1538 L 963 1489 L 927 1260 L 909 1100" fill="none" stroke="url(#prof)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
   <path d="M 909 1100 C 940 1040, 1000 1008, 1062 966" fill="none" stroke="url(#profhot)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 11"/>
-  <text class="tempnum" x="1066" y="922" text-anchor="end" style="fill: rgb(183, 99, 100); font-size: 16px; white-space: pre;">1,500 °C and beyond</text>
+  <text class="tempnum" x="1066" y="922" text-anchor="end" style="fill: rgb(183, 99, 100); font-size: 16px; white-space: pre;">2,000 °C and beyond</text>
   <g>
     <circle cx="975" cy="2490" r="5" fill="#ffd166"/>
     <circle cx="928" cy="2023" r="5" fill="#7ec8ff"/>
@@ -216,6 +217,8 @@
     <circle cx="909" cy="1100" r="5" fill="#4f96dd"/>
   </g>
   <rect y="2570" width="1100" height="130" fill="#050a14"/>
-  <text class="cite" x="70" y="2618" style="white-space: pre;">Layer boundaries and descriptions: NOAA JetStream, “Layers of the Atmosphere”; NASA, “Earth’s Atmosphere: A Multi-layered Cake”.</text>
-  <text class="cite" x="70" y="2644" style="white-space: pre;">Temperature profile: U.S. Standard Atmosphere, 1976. Vertical scale compressed above 12 km; boundary heights vary with latitude and season.</text>
+  <text class="cite" x="70" y="2608" style="white-space: pre;">Layers and temperatures: NASA, “Earth’s Atmosphere: A Multi-layered Cake”; UCAR, “Layers of Earth’s Atmosphere”.</text>
+  <text class="cite" x="70" y="2632" style="white-space: pre;">Composition (dry air): UCAR, “What’s in the Air”. Ozone layer: NOAA/WMO, “Twenty Questions About the Ozone Layer”.</text>
+  <text class="cite" x="70" y="2656" style="white-space: pre;">Radiosonde ceiling: NWS. Geocorona: Baliukin et al., J. Geophys. Res. Space Physics, 2019.</text>
+  <text class="cite" x="70" y="2680" style="white-space: pre;">Temperature profile: U.S. Standard Atmosphere, 1976. Vertical scale compressed above 12 km; boundaries vary with latitude, season and source.</text>
 </svg>

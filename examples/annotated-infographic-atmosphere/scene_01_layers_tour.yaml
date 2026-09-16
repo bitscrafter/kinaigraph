@@ -54,7 +54,17 @@ defs:
             type: "text"
             content: |
                 The trace leaves the panel on purpose:
-                1,500 °C will not fit a 116-pixel ruler.
+                2,000 °C will not fit a 116-pixel ruler.
+            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
+            font_size: 30
+            font_color: "#16232f"
+        # The poster has 41px of clear space beside the ISS marker — not enough for
+        # the fact that makes it worth marking. The video is where it fits.
+        iss_text:
+            type: "text"
+            content: |
+                Four times above the edge of space,
+                and the air up here still drags it down.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#16232f"
@@ -124,6 +134,10 @@ defs:
         # so a point and its stop must agree — check the pair, never one alone.
         UPPER_POINT_X: 1016
         UPPER_POINT_Y: 986
+        # The ISS icon's left edge. The icon is drawn at (700, 930) and shifted by
+        # (-19, -8) in the poster, so it sits at (681, 922) and spans 30px either side.
+        ISS_POINT_X: 650
+        ISS_POINT_Y: 922
         MESOSPHERE_POINT_X: 852
         MESOSPHERE_POINT_Y: 1204
         # The chip's left EDGE, not its middle: the apex lands on the target, and a
@@ -134,8 +148,12 @@ defs:
         TROPOSPHERE_POINT_Y: 2334
 
         # ── The callout boxes, in SCREEN px ──────────────────────────────────────
-        # Sized by measuring the render — nothing measures the text for us, and
-        # overflow is silent. Re-check after any wording or font change.
+        # Sized by measuring the render — nothing measures the text for us.
+        #
+        # ⛔ A LINE TOO LONG FOR THE BOX WRAPS, AND THE OVERFLOW IS DROPPED WITHOUT A
+        # WORD. The ISS callout shipped once with its second line simply absent. The
+        # check is to COUNT the rendered text lines in the frame and compare them
+        # with the authored ones; ink measured inside the box looks perfect either way.
         #
         # ⚠️ THE TYPE IS SIZED AGAINST THE PICTURE, NOT THE FRAME. The detail stops
         # magnify the poster by DETAIL_ZOOM, so its own 20px captions arrive on
@@ -198,6 +216,29 @@ animation:
                         y: "UPPER_PAN_Y + DETAIL_ZOOM * UPPER_POINT_Y"
             # Right edge stops at the temperature panel's left rule, and the bottom
             # clears the MESOSPHERE heading the stop already has on screen.
+            at:
+                x: 800
+                y: 780
+            origin: top_left
+            fill: "#fdf6ec"
+            stroke: "#b76364"
+            stroke_width: 2
+
+        # Same box position as note_upper: the camera has not moved between them, so
+        # the second callout reads as a replacement in place rather than a new frame.
+        note_iss:
+            note:
+                text: iss_text
+                shape:
+                    rect:
+                        width: NOTE_W
+                        height: NOTE_H
+                padding: NOTE_PAD
+                align: left
+                pointer:
+                    target:
+                        x: "DETAIL_PAN_X + DETAIL_ZOOM * ISS_POINT_X"
+                        y: "UPPER_PAN_Y + DETAIL_ZOOM * ISS_POINT_Y"
             at:
                 x: 800
                 y: 780
@@ -294,6 +335,10 @@ animation:
                   - show:
                         opacity: 0
                         duration: 0
+            - note_iss:
+                  - show:
+                        opacity: 0
+                        duration: 0
             - note_mesosphere:
                   - show:
                         opacity: 0
@@ -365,7 +410,23 @@ animation:
                             to: 0
                         duration: "FADE_MS"
 
-        upper.end @ pan_mesosphere:
+        # A second dwell at the SAME camera position: the stop earns two facts.
+        upper.end @ upper_iss:
+            - note_iss:
+                  - show:
+                        opacity:
+                            from: 0
+                            to: 1
+                        duration: "FADE_MS"
+                        hold:
+                            after: "NOTE_HOLD_MS"
+                  - show:
+                        opacity:
+                            from: 1
+                            to: 0
+                        duration: "FADE_MS"
+
+        upper_iss.end @ pan_mesosphere:
             - atmosphere_infographic:
                   - move:
                         dy: "MESOSPHERE_PAN_Y - UPPER_PAN_Y"
