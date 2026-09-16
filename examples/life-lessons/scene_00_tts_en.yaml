@@ -36,12 +36,12 @@ synthesis:
         # Scene 01: Gratitude / perspective
         # ------------------------------------------
         audio_scene_01_gratitude_perspective:
-            file: "resource/script/part_01_gratitude_perspective.txt"
-            export: "./resource/audio/part_01_gratitude_perspective.mp3"
+            file: "resource/script/en/part_01_gratitude_perspective.txt"
+            export: "./resource/audio/en/part_01_gratitude_perspective.mp3"
 
         # ------------------------------------------
         # Scene 02: The meaning of life
         # ------------------------------------------
         audio_scene_02_life_meaning:
-            file: "resource/script/part_02_life_meaning.txt"
-            export: "./resource/audio/part_02_life_meaning.mp3"
+            file: "resource/script/en/part_02_life_meaning.txt"
+            export: "./resource/audio/en/part_02_life_meaning.mp3"

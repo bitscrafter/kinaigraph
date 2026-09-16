@@ -1,5 +1,5 @@
 # ------------------------------------------
-# Life Lessons - Scene 01: Gratitude / Perspective (Spanish)
+# Life Lessons - Scene 02: The Meaning of Life (English)
 # ------------------------------------------
 # Layers the styled quote (foreground) over the paper texture (background) using
 # a 1x1 grid LAYOUT: both scenes sit in the single cell [0, 0] and z-stack in
@@ -12,11 +12,11 @@
 # yaml.s own folder, which IS the example root (the yaml sits at the top), so file: paths need no ../.
 # Capture `output:` resolves against the --outdir you pass.
 # Run from the example root:
-#   kinaigraph ./scene_01_gratitude_perspective.yaml --outdir ./out
+#   kinaigraph ./scene_02_life_meaning.yaml --outdir ./out
 
 metadata:
-    title: "Life Lessons - Scene 01: Gratitude / Perspective (Spanish)"
-    description: "The gratitude / perspective quote (Spanish), fading in over paper texture"
+    title: "Life Lessons - Scene 02: The Meaning of Life (English)"
+    description: "The meaning-of-life quote, fading in over paper texture"
     version: "1.0"
 
 defs:
@@ -32,7 +32,7 @@ defs:
         # Top layer: the transparent quote text (shares the 1280x720 viewBox).
         foreground:
             type: "scene"
-            file: "resource/scene/scene_01_gratitude_perspective.svg"
+            file: "resource/scene/en/scene_02_life_meaning.svg"
             style: quote_style
 
         # Visual styling for the quote text (font, size, fill).
@@ -58,7 +58,7 @@ defs:
         # committable input dir (audio). Its .duration paces the hold below.
         narration:
             type: "audio"
-            file: "./resource/audio/part_01_gratitude_perspective.mp3"
+            file: "./resource/audio/en/part_02_life_meaning.mp3"
 
     const:
         MARGIN: 350 # head pad of quiet before the quote appears
@@ -116,8 +116,8 @@ animation:
     capture:
         # Silent animation (paper + fading quote). The composition below rolls
         # this and mixes the narration into the final video.
-        video_scene_01_animation:
-            output: "./video/scene_01_gratitude_perspective_animation.mp4"
+        video_scene_02_animation:
+            output: "./resource/video/scene_02_life_meaning_en_animation.mp4"
             fps: 30
 
 composition:
@@ -128,7 +128,7 @@ composition:
         # Roll the animation and lay the narration over it, starting at the
         # narrate_quote bookmark in the animation.
         "0":
-            - video_scene_01_animation:
+            - video_scene_02_animation:
                   - roll:
                   - mix:
                         span:
@@ -137,6 +137,6 @@ composition:
 
     capture:
         # Final scene: the animation with the narration mixed in.
-        video_scene_01:
-            output: "./video/scene_01_gratitude_perspective.mp4"
+        video_scene_02:
+            output: "./life_meaning_en.mp4"
             fps: 30

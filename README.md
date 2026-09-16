@@ -181,11 +181,10 @@ rendering needs an [ElevenLabs](https://elevenlabs.io/) API key in `ELEVENLABS_A
 each synthesis run costs credits. The synthesis step is always its own document, named for
 the cut it speaks.
 
-**6 of the 8 examples render with no key**, because their narration is in this repository:
-`course-welcome`, `hiking-trails`, `infographic-atmosphere`, `milestone-ladder`,
-`request-response` and `wave-anatomy`. Start there. `life-lessons-en` and `life-lessons-es`
-are the ones that need a key — as do the videos under `docs/video/`, except where their
-recordings are committed.
+**Every one of the 7 examples renders with no key.** Their narration is committed, so a
+clone can render all of them with nothing but Kinaigraph installed. A key is only needed
+to RE-record a line — each example's `scene_00_tts_*.yaml` does that, and costs credits.
+The videos under `docs/video/` are the same, except where their recordings are committed.
 
 ## Using it
 
@@ -276,7 +275,7 @@ kept the same way.
 | [`wave-anatomy`](examples/wave-anatomy/) | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is drawn anywhere** — every curve is generated from its own equation and sampled by the compiler. |
 | [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. One route layer carries the drawn line, the travelled path and the distance the callout quotes. |
 | [`milestone-ladder`](examples/milestone-ladder/) | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark. |
-| [`life-lessons-en`](examples/life-lessons-en/) · [`life-lessons-es`](examples/life-lessons-es/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. The same two scenes in English and Spanish, which is what a localization actually costs. |
+| [`life-lessons`](examples/life-lessons/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. The same two scenes in **English and Spanish**, sharing one paper, one stylesheet and one timeline: a localisation you can count rather than take on trust. |
 | [`course-welcome`](examples/course-welcome/) | The first half-minute of an online course: an instructor talks, blinks and breathes in the corner while the practicalities arrive beside her. Three mouth shapes and two eye states, swapped by pulses written against each other — the language has no concept of a face. |
 
 Narration audio is generated from the scripts via text-to-speech, so a scene reads

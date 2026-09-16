@@ -1,5 +1,5 @@
 # ------------------------------------------
-# Life Lessons - Scene 01: Gratitude / Perspective (English)
+# Life Lessons - Scene 01: Gratitude / Perspective (Spanish)
 # ------------------------------------------
 # Layers the styled quote (foreground) over the paper texture (background) using
 # a 1x1 grid LAYOUT: both scenes sit in the single cell [0, 0] and z-stack in
@@ -15,8 +15,8 @@
 #   kinaigraph ./scene_01_gratitude_perspective.yaml --outdir ./out
 
 metadata:
-    title: "Life Lessons - Scene 01: Gratitude / Perspective (English)"
-    description: "The gratitude / perspective quote, fading in over paper texture"
+    title: "Life Lessons - Scene 01: Gratitude / Perspective (Spanish)"
+    description: "The gratitude / perspective quote (Spanish), fading in over paper texture"
     version: "1.0"
 
 defs:
@@ -32,7 +32,7 @@ defs:
         # Top layer: the transparent quote text (shares the 1280x720 viewBox).
         foreground:
             type: "scene"
-            file: "resource/scene/scene_01_gratitude_perspective.svg"
+            file: "resource/scene/es/scene_01_gratitude_perspective.svg"
             style: quote_style
 
         # Visual styling for the quote text (font, size, fill).
@@ -58,7 +58,7 @@ defs:
         # committable input dir (audio). Its .duration paces the hold below.
         narration:
             type: "audio"
-            file: "./resource/audio/part_01_gratitude_perspective.mp3"
+            file: "./resource/audio/es/part_01_gratitude_perspective.mp3"
 
     const:
         MARGIN: 350 # head pad of quiet before the quote appears
@@ -89,14 +89,15 @@ animation:
                   - show:
                         opacity: 0
 
-        # Reveal: the quote fades in over the paper, then holds through the
-        # narration (+ a tail of MARGIN).
+        # Reveal: the quote fades in over the paper.
         setup.end @ reveal_quote:
             - quote:
                   - show:
                         opacity: 1
                         duration: "FADE"
 
+        # Narrate: hold the scene through the narration (this bookmark also anchors
+        # where the mix starts in the composition below).
         setup.end @ narrate_quote:
             - background:
                   - show:
@@ -104,6 +105,7 @@ animation:
                         hold:
                             after: "narration.duration"
 
+        # Teardown: a tail of quiet.
         narrate_quote.end @ teardown:
             - background:
                   - show:
@@ -115,7 +117,7 @@ animation:
         # Silent animation (paper + fading quote). The composition below rolls
         # this and mixes the narration into the final video.
         video_scene_01_animation:
-            output: "./video/scene_01_gratitude_perspective_animation.mp4"
+            output: "./resource/video/scene_01_gratitude_perspective_es_animation.mp4"
             fps: 30
 
 composition:
@@ -123,8 +125,8 @@ composition:
         status: active
 
     timeline:
-        # Roll the animation and lay the narration over it, starting when the
-        # quote begins to appear (the `reveal` bookmark in the animation).
+        # Roll the animation and lay the narration over it, starting at the
+        # narrate_quote bookmark in the animation.
         "0":
             - video_scene_01_animation:
                   - roll:
@@ -136,5 +138,5 @@ composition:
     capture:
         # Final scene: the animation with the narration mixed in.
         video_scene_01:
-            output: "./video/scene_01_gratitude_perspective.mp4"
+            output: "./gratitude_perspective_es.mp4"
             fps: 30

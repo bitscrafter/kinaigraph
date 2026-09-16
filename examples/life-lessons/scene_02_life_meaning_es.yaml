@@ -32,7 +32,7 @@ defs:
         # Top layer: the transparent quote text (shares the 1280x720 viewBox).
         foreground:
             type: "scene"
-            file: "resource/scene/scene_02_life_meaning.svg"
+            file: "resource/scene/es/scene_02_life_meaning.svg"
             style: quote_style
 
         # Visual styling for the quote text (font, size, fill).
@@ -58,7 +58,7 @@ defs:
         # committable input dir (audio). Its .duration paces the hold below.
         narration:
             type: "audio"
-            file: "./resource/audio/part_02_life_meaning.mp3"
+            file: "./resource/audio/es/part_02_life_meaning.mp3"
 
     const:
         MARGIN: 350 # head pad of quiet before the quote appears
@@ -117,7 +117,7 @@ animation:
         # Silent animation (paper + fading quote). The composition below rolls
         # this and mixes the narration into the final video.
         video_scene_02_animation:
-            output: "./video/scene_02_life_meaning_animation.mp4"
+            output: "./resource/video/scene_02_life_meaning_es_animation.mp4"
             fps: 30
 
 composition:
@@ -138,5 +138,5 @@ composition:
     capture:
         # Final scene: the animation with the narration mixed in.
         video_scene_02:
-            output: "./video/scene_02_life_meaning.mp4"
+            output: "./life_meaning_es.mp4"
             fps: 30
