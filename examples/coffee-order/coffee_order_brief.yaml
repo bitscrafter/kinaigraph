@@ -72,7 +72,6 @@ defs:
         head_wand: { type: "actor", part_of: diagram, id: head_wand }
 
         title: { type: "actor", part_of: diagram, id: title }
-        subtitle: { type: "actor", part_of: diagram, id: subtitle }
 
         # ── the activation bars ──────────────────────────────────────────────
         # Stroked lines rather than rects, so `reveal` grows them DOWNWARD —
@@ -286,7 +285,6 @@ animation:
             - sheet: [{ show: { opacity: 1 } }]
             - brand: [{ show: { opacity: 1 } }]
             - title: [{ show: { opacity: 1 } }]
-            - subtitle: [{ show: { opacity: 1 } }]
             - head_customer: [{ show: { opacity: 1 } }]
             - head_barista: [{ show: { opacity: 1 } }]
             - head_machine: [{ show: { opacity: 1 } }]
