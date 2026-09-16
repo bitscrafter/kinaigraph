@@ -1,6 +1,6 @@
 # Annotated Infographic: The Atmosphere
 
-A 38-second video built from **a picture that already existed**. The input is
+A narrated 79-second video built from **a picture that already existed**. The input is
 `resource/image/atmosphere.png` — a 1100 × 2700 raster, the shape a poster is, not
 the shape a video is. Nothing inside it is an actor, nothing inside it moves, and
 the document never edits it. What the document adds is a **camera** and six
@@ -13,11 +13,15 @@ scanned, screenshotted, handed to you — and want an annotated video of it.
 
 | Beat | Window | What happens |
 | ---- | ------ | ------------ |
-| `establish` | 0.0 – 2.5 s | The whole poster, fitted to the frame's height. 1100 × 2700 into 1920 × 1080 means 0.4 × — the establishing shot is the only one that shows the piece entire. |
+| `establish` | 0.0 – 2.5 s | The whole poster, fitted to the frame's height. 1100 × 2700 into 1920 × 1080 means 0.4 × — the establishing shot is the only one that shows the piece entire. Silent. |
 | `push_in` | 2.5 – 5.0 s | Pan and zoom together onto the masthead. |
-| `title` | 5.0 – 8.5 s | A callout with no pointer says what the source is. |
-| `pan_upper` … `troposphere` | 8.5 – 34.0 s | Four stops down the picture — exosphere and thermosphere, mesosphere, stratosphere, troposphere — each a 2 s pan then a 3.5 s dwell with one callout. The first stop holds **two** dwells, `upper` and `upper_iss`, because the camera has one framing and the picture there has two things worth saying. |
-| `pull_out` | 34.0 – 38.5 s | Back to the whole poster. |
+| `title` | 5.0 – 17.0 s | The first line, over a callout that says what the source is. |
+| `pan_upper` … `troposphere` | 17.0 – 67.8 s | Four stops down the picture — exosphere and thermosphere, mesosphere, stratosphere, troposphere — each a 2 s pan then a dwell with one line and one callout. The first stop holds **two** dwells, `upper` and `upper_iss`, because the camera has one framing and the picture there has two things worth saying. |
+| `closing` | 67.8 – 74.8 s | The recap, over a still frame. No callout: the voice is the whole beat. |
+| `pull_out` | 74.8 – 79.3 s | Back to the whole poster. Silent. |
+
+The opening and closing shots say nothing on purpose: the voice starts once the
+camera has arrived somewhere and stops before it leaves.
 
 ## The camera is the picture moving
 
@@ -126,9 +130,13 @@ exactly as the picture would have been.
 
 | Path | Role |
 | ---- | ---- |
-| `scene_01_layers_tour.yaml` | The document: camera, callouts, timeline. |
+| `scene_01_layers_tour_brief.yaml` | The document: camera, callouts, timeline, and the narration mix. |
+| `scene_00_tts_brief.yaml` | Synthesis only — records the seven lines. Costs credits; run it once, and again only when a script changes. |
+| `resource/script/brief/*.txt` | One file per line. These are the source; the MP3s are derived. |
+| `resource/audio/brief/*.mp3` | The recorded lines, read by Harper. |
 | `resource/image/atmosphere.png` | **The input.** A pre-existing raster. |
-| `resource/scene/atmosphere_frame.svg` | Generated — the 16:9 frame and the two camera groups. |
+| `resource/scene/atmosphere_frame.svg` | Generated — the 16:9 frame holding the image actor. |
+| `resource/video/` | The silent capture the composition lays the voice over. Intermediate. |
 | `resource/style/theme_dark.css` | One variable: the letterbox colour behind the picture. |
 | `resource/temp/make_frame_svg.py` | Embeds the image in the frame. Re-run after swapping the input. |
 | `resource/temp/atmosphere.svg` | Where the input PNG came from — provenance, not a build step. |
@@ -137,11 +145,42 @@ exactly as the picture would have been.
 ## Rendering
 
 ```sh
-kinaigraph run scene_01_layers_tour.yaml
+kinaigraph run scene_00_tts_brief.yaml     # once — costs ElevenLabs credits
+kinaigraph run scene_01_layers_tour_brief.yaml
 ```
 
-The tour is silent — the picture and the callouts carry it. There is no
-`scene_00_tts_generation.yaml` here.
+⛔ **Never sweep this folder** with `for y in scene_*.yaml`: that pulls in the
+synthesis document and re-records every line. Use `ls scene_*.yaml | grep -v scene_00`.
+
+## The narration is what times the video
+
+Nothing in the timeline names a dwell length. Each callout's hold is its own
+line's duration —
+
+```yaml
+hold:
+    after: "narration_mesosphere.duration - FADE_MS * 2"
+```
+
+— so a stop lasts exactly as long as the sentence spoken over it, the two fades
+being spent inside that same window. Rewrite a script, regenerate that one clip,
+re-render: the stop re-times itself and the stops after it shift to follow. Only
+the pans, the opening hold and the pull-out are fixed, and they total 17.5 s.
+
+The voice is not played by the animation. The animation captures a **silent**
+MP4; the `composition` section rolls that capture and mixes each line onto it at
+the bookmark its dwell opens:
+
+```yaml
+- mix:
+      span:
+          from: "animation::mesosphere.start"
+      asset: narration_mesosphere
+```
+
+⚠️ **Every mix states `span.from` explicitly.** A mix at a non-zero timestamp
+without one is placed at output 0 by a known defect, which would stack all seven
+lines on the first frame.
 
 ## Sources
 

@@ -1,0 +1,63 @@
+# ------------------------------------------
+# annotated-infographic-atmosphere — Audio Generation: the BRIEF cut
+# ------------------------------------------
+# Seven lines, one per dwell. The camera stops are fixed by the picture, so each
+# line's DURATION is what its stop lasts — re-record one sentence and one stop
+# changes length, nothing else.
+#
+# ⚠️ THE OPENING AND CLOSING SHOTS ARE SILENT. `establish` and `pull_out` show
+# the whole poster and say nothing; the voice starts once the camera has arrived
+# somewhere and stops before it leaves.
+#
+#     kinaigraph scene_00_tts_brief.yaml
+#
+# Needs ELEVENLABS_API_KEY. Every run costs credits, and re-running this
+# re-records EVERY line listed — `synthesis.context.status` is section-wide.
+#
+# ⛔ NEVER SWEEP THIS FOLDER with `for y in scene_*.yaml` — that pulls in the
+# synthesis document and re-records the whole example. Use
+# `ls scene_*.yaml | grep -v scene_00`.
+
+metadata:
+    title: "Annotated Infographic: The Atmosphere - Audio Generation (brief cut)"
+    description: "Every line the brief cut speaks"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "c1uwEpPUcC16tq1udqxk" # Harper
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        scene_01_01_title:
+            file: "./resource/script/brief/scene_01_01_title.txt"
+            export: "./resource/audio/brief/scene_01_01_title.mp3"
+        scene_01_02_upper:
+            file: "./resource/script/brief/scene_01_02_upper.txt"
+            export: "./resource/audio/brief/scene_01_02_upper.mp3"
+        scene_01_03_iss:
+            file: "./resource/script/brief/scene_01_03_iss.txt"
+            export: "./resource/audio/brief/scene_01_03_iss.mp3"
+        scene_01_04_mesosphere:
+            file: "./resource/script/brief/scene_01_04_mesosphere.txt"
+            export: "./resource/audio/brief/scene_01_04_mesosphere.mp3"
+        scene_01_05_stratosphere:
+            file: "./resource/script/brief/scene_01_05_stratosphere.txt"
+            export: "./resource/audio/brief/scene_01_05_stratosphere.mp3"
+        scene_01_06_troposphere:
+            file: "./resource/script/brief/scene_01_06_troposphere.txt"
+            export: "./resource/audio/brief/scene_01_06_troposphere.mp3"
+        scene_01_07_closing:
+            file: "./resource/script/brief/scene_01_07_closing.txt"
+            export: "./resource/audio/brief/scene_01_07_closing.mp3"
