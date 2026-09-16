@@ -182,7 +182,7 @@ each synthesis run costs credits. The synthesis step is always its own document,
 the cut it speaks.
 
 **6 of the 9 examples render with no key**, because their narration is in this repository:
-`course-welcome` (which is silent by design), `hiking-trails`, `infographic-atmosphere`,
+`course-welcome`, `hiking-trails`, `infographic-atmosphere`,
 `milestone-ladder`, `request-response` and `wave-anatomy`. Start there. `life-lessons-en`,
 `life-lessons-es` and `microservices-flow` are the ones that need a key — as do the videos
 under `docs/video/`, except where their recordings are committed.

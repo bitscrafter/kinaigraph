@@ -14,10 +14,11 @@
 #   pitch_text.svg    six lines of type, one actor each
 #   avatar_layer.svg  the instructor's bubble, bottom-right
 #
-# ⚠️ NOTHING HERE IS SPOKEN. The rig runs on the constants below rather than on a
-# recording, so the piece renders from a clone with no key and no credits. To put
-# a voice under it, declare an `audio` asset and replace TALK_MS with
-# `<that asset>.duration` — every window below is written as a share of it.
+# ⚡ THE VOICE IS WHAT TIMES IT. Each phrase lasts exactly as long as the line
+# spoken over it, and the mouth's cycle count rides that window, so a re-recorded
+# sentence re-times its own phrase and shifts the ones after it — with the flap
+# still at the same rate. The recordings are committed, so this renders from a
+# clone with no key.
 
 metadata:
     title: "Course welcome — an instructor, puppeteered from the timeline"
@@ -94,6 +95,30 @@ defs:
             part_of: avatar_layer
             id: eyes-closed
 
+        # ── Narration ────────────────────────────────────────────────────────
+        # One clip per phrase. Each is declared for its DURATION as much as for
+        # its sound: the phrase it belongs to lasts exactly as long as the line,
+        # so re-recording one sentence re-times one phrase and shifts the rest.
+        # Generate them with scene_00_tts_welcome.yaml before rendering.
+        narration_1:
+            type: "audio"
+            file: "./resource/audio/part_01_welcome.mp3"
+        narration_2:
+            type: "audio"
+            file: "./resource/audio/part_02_modules.mp3"
+        narration_3:
+            type: "audio"
+            file: "./resource/audio/part_03_order.mp3"
+        narration_4:
+            type: "audio"
+            file: "./resource/audio/part_04_labs.mp3"
+        narration_5:
+            type: "audio"
+            file: "./resource/audio/part_05_forum.mp3"
+        narration_6:
+            type: "audio"
+            file: "./resource/audio/part_06_signoff.mp3"
+
         template:
             type: "template"
             file: "./resource/template/main.html"
@@ -111,42 +136,41 @@ defs:
         # ⚠️ A SINGLE PULSE ACROSS THE WHOLE TALK IS WHAT READS AS A MACHINE: one
         # rate, no silences, starting and stopping with the shot. Real speech
         # comes in phrases of different lengths, separated by pauses you can see.
-        # Six phrases, one per line of type, each with its own rate — and the
-        # mouth SHAPE alternates between them, wide then half-open.
-        PHRASE_1_MS: 3400 # "Welcome to the course."
-        PHRASE_1_CYCLES: 8
+        # Six phrases, one per line of type — and the mouth SHAPE alternates
+        # between them, wide then half-open.
+        #
+        # ⚡ A PHRASE'S LENGTH IS ITS RECORDING. Only the RATE is authored: how many
+        # times the mouth opens across the line. Re-record a sentence and its phrase
+        # re-times itself, the ones after it shift, and the flap stays at the same
+        # syllables-per-second because the cycle count travels with the line.
+        PHRASE_1_CYCLES: 6 # "Welcome to the course — glad you're here."
         PAUSE_1_MS: 600
 
-        PHRASE_2_MS: 4000 # four modules
-        PHRASE_2_CYCLES: 9
+        PHRASE_2_CYCLES: 8 # four modules
         PAUSE_2_MS: 700
 
-        PHRASE_3_MS: 4600 # any order
-        PHRASE_3_CYCLES: 11
+        PHRASE_3_CYCLES: 9 # any order
         PAUSE_3_MS: 700
 
-        PHRASE_4_MS: 4200 # labs and answers
-        PHRASE_4_CYCLES: 10
+        PHRASE_4_CYCLES: 8 # labs and answers
         PAUSE_4_MS: 800
 
-        PHRASE_5_MS: 4800 # the forum
-        PHRASE_5_CYCLES: 11
+        PHRASE_5_CYCLES: 10 # the forum
         PAUSE_5_MS: 900
 
-        PHRASE_6_MS: 2600 # "See you in module one."
-        PHRASE_6_CYCLES: 6
+        PHRASE_6_CYCLES: 4 # "See you in module one."
 
-        TALK_MS: "PHRASE_1_MS + PAUSE_1_MS + PHRASE_2_MS + PAUSE_2_MS + PHRASE_3_MS + PAUSE_3_MS + PHRASE_4_MS + PAUSE_4_MS + PHRASE_5_MS + PAUSE_5_MS + PHRASE_6_MS"
+        TALK_MS: "PHRASE_6_AT + narration_6.duration"
 
         # ⚠️ `hold.before` IS MEASURED FROM THE BOOKMARK, NOT FROM THE ENTRY ABOVE.
         # Sub-actions of the same type chain inside ONE entry; separate actors each
         # start at the bookmark. The six lines are six actors, so each states the
         # whole elapsed time — write a gap instead and line 3 arrives before line 2.
-        PHRASE_2_AT: "PHRASE_1_MS + PAUSE_1_MS"
-        PHRASE_3_AT: "PHRASE_2_AT + PHRASE_2_MS + PAUSE_2_MS"
-        PHRASE_4_AT: "PHRASE_3_AT + PHRASE_3_MS + PAUSE_3_MS"
-        PHRASE_5_AT: "PHRASE_4_AT + PHRASE_4_MS + PAUSE_4_MS"
-        PHRASE_6_AT: "PHRASE_5_AT + PHRASE_5_MS + PAUSE_5_MS"
+        PHRASE_2_AT: "narration_1.duration + PAUSE_1_MS"
+        PHRASE_3_AT: "PHRASE_2_AT + narration_2.duration + PAUSE_2_MS"
+        PHRASE_4_AT: "PHRASE_3_AT + narration_3.duration + PAUSE_3_MS"
+        PHRASE_5_AT: "PHRASE_4_AT + narration_4.duration + PAUSE_4_MS"
+        PHRASE_6_AT: "PHRASE_5_AT + narration_5.duration + PAUSE_5_MS"
 
         # ── Blinking ─────────────────────────────────────────────────────────
         # ⚠️ EVENLY SPACED BLINKS READ AS A METRONOME. These five gaps are
@@ -307,7 +331,7 @@ animation:
             # elapsed time.
             - mouth_closed:
                   - pulse:
-                        duration: PHRASE_1_MS
+                        duration: "narration_1.duration"
                         cycles: PHRASE_1_CYCLES
                         opacity:
                             from: 1
@@ -315,7 +339,7 @@ animation:
                   - pulse:
                         hold:
                             before: PAUSE_1_MS
-                        duration: PHRASE_2_MS
+                        duration: "narration_2.duration"
                         cycles: PHRASE_2_CYCLES
                         opacity:
                             from: 1
@@ -323,7 +347,7 @@ animation:
                   - pulse:
                         hold:
                             before: PAUSE_2_MS
-                        duration: PHRASE_3_MS
+                        duration: "narration_3.duration"
                         cycles: PHRASE_3_CYCLES
                         opacity:
                             from: 1
@@ -331,7 +355,7 @@ animation:
                   - pulse:
                         hold:
                             before: PAUSE_3_MS
-                        duration: PHRASE_4_MS
+                        duration: "narration_4.duration"
                         cycles: PHRASE_4_CYCLES
                         opacity:
                             from: 1
@@ -339,7 +363,7 @@ animation:
                   - pulse:
                         hold:
                             before: PAUSE_4_MS
-                        duration: PHRASE_5_MS
+                        duration: "narration_5.duration"
                         cycles: PHRASE_5_CYCLES
                         opacity:
                             from: 1
@@ -347,7 +371,7 @@ animation:
                   - pulse:
                         hold:
                             before: PAUSE_5_MS
-                        duration: PHRASE_6_MS
+                        duration: "narration_6.duration"
                         cycles: PHRASE_6_CYCLES
                         opacity:
                             from: 1
@@ -356,23 +380,23 @@ animation:
             # Wide open on the emphatic phrases — 1, 3 and 5.
             - mouth_open:
                   - pulse:
-                        duration: PHRASE_1_MS
+                        duration: "narration_1.duration"
                         cycles: PHRASE_1_CYCLES
                         opacity:
                             from: 0
                             to: 1
                   - pulse:
                         hold:
-                            before: "PAUSE_1_MS + PHRASE_2_MS + PAUSE_2_MS"
-                        duration: PHRASE_3_MS
+                            before: "PAUSE_1_MS + narration_2.duration + PAUSE_2_MS"
+                        duration: "narration_3.duration"
                         cycles: PHRASE_3_CYCLES
                         opacity:
                             from: 0
                             to: 1
                   - pulse:
                         hold:
-                            before: "PAUSE_3_MS + PHRASE_4_MS + PAUSE_4_MS"
-                        duration: PHRASE_5_MS
+                            before: "PAUSE_3_MS + narration_4.duration + PAUSE_4_MS"
+                        duration: "narration_5.duration"
                         cycles: PHRASE_5_CYCLES
                         opacity:
                             from: 0
@@ -382,24 +406,24 @@ animation:
             - mouth_mid:
                   - pulse:
                         hold:
-                            before: "PHRASE_1_MS + PAUSE_1_MS"
-                        duration: PHRASE_2_MS
+                            before: "narration_1.duration + PAUSE_1_MS"
+                        duration: "narration_2.duration"
                         cycles: PHRASE_2_CYCLES
                         opacity:
                             from: 0
                             to: 0.85
                   - pulse:
                         hold:
-                            before: "PAUSE_2_MS + PHRASE_3_MS + PAUSE_3_MS"
-                        duration: PHRASE_4_MS
+                            before: "PAUSE_2_MS + narration_3.duration + PAUSE_3_MS"
+                        duration: "narration_4.duration"
                         cycles: PHRASE_4_CYCLES
                         opacity:
                             from: 0
                             to: 0.85
                   - pulse:
                         hold:
-                            before: "PAUSE_4_MS + PHRASE_5_MS + PAUSE_5_MS"
-                        duration: PHRASE_6_MS
+                            before: "PAUSE_4_MS + narration_5.duration + PAUSE_5_MS"
+                        duration: "narration_6.duration"
                         cycles: PHRASE_6_CYCLES
                         opacity:
                             from: 0
@@ -499,6 +523,49 @@ animation:
                         hold:
                             after: "VIDEO_MARGIN"
                         opacity: 1
+
+    capture:
+        course_welcome_silent:
+            output: "./resource/video/course_welcome_silent.mp4"
+            fps: 30
+
+# The picture is captured silent above; the voice is laid over it here, one mix
+# per phrase. ⚠️ A mix's `span.from` is measured in the rolled clip's own time, so
+# each offset is the head margin plus everything that ran before that phrase —
+# the same expressions the timeline uses, which is what keeps voice and mouth on
+# the same instant.
+composition:
+    context:
+        status: active
+
+    timeline:
+        "0":
+            - course_welcome_silent:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "VIDEO_MARGIN"
+                        asset: narration_1
+                  - mix:
+                        span:
+                            from: "VIDEO_MARGIN + PHRASE_2_AT"
+                        asset: narration_2
+                  - mix:
+                        span:
+                            from: "VIDEO_MARGIN + PHRASE_3_AT"
+                        asset: narration_3
+                  - mix:
+                        span:
+                            from: "VIDEO_MARGIN + PHRASE_4_AT"
+                        asset: narration_4
+                  - mix:
+                        span:
+                            from: "VIDEO_MARGIN + PHRASE_5_AT"
+                        asset: narration_5
+                  - mix:
+                        span:
+                            from: "VIDEO_MARGIN + PHRASE_6_AT"
+                        asset: narration_6
 
     capture:
         out:

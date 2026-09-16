@@ -1,0 +1,61 @@
+# ------------------------------------------
+# course-welcome — Audio Generation
+# ------------------------------------------
+# Six lines, one per phrase. The scene takes each phrase's LENGTH from the clip
+# recorded here, so re-recording one line re-times that phrase and shifts the
+# ones after it; nothing else changes.
+#
+# ⚠️ THE SPOKEN LINES ARE NOT THE LINES ON SCREEN. The type carries the fact in
+# as few words as possible, to be read at a glance; the voice says it the way a
+# person would. A voice that reads the screen aloud finishes second, because the
+# viewer is faster.
+#
+#     kinaigraph scene_00_tts_welcome.yaml
+#
+# Needs ELEVENLABS_API_KEY. Every run costs credits, and re-running this
+# re-records EVERY line listed — `synthesis.context.status` is section-wide.
+#
+# ⛔ NEVER SWEEP THIS FOLDER with `for y in scene_*.yaml` — that pulls in the
+# synthesis document and re-records the whole example. Use
+# `ls scene_*.yaml | grep -v scene_00`.
+
+metadata:
+    title: "Course Welcome - Audio Generation"
+    description: "Every line the instructor speaks"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "Uh6UEmMIUnnL0GOOUghh" # Ray
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        part_01_welcome:
+            file: "./resource/script/part_01_welcome.txt"
+            export: "./resource/audio/part_01_welcome.mp3"
+        part_02_modules:
+            file: "./resource/script/part_02_modules.txt"
+            export: "./resource/audio/part_02_modules.mp3"
+        part_03_order:
+            file: "./resource/script/part_03_order.txt"
+            export: "./resource/audio/part_03_order.mp3"
+        part_04_labs:
+            file: "./resource/script/part_04_labs.txt"
+            export: "./resource/audio/part_04_labs.mp3"
+        part_05_forum:
+            file: "./resource/script/part_05_forum.txt"
+            export: "./resource/audio/part_05_forum.mp3"
+        part_06_signoff:
+            file: "./resource/script/part_06_signoff.txt"
+            export: "./resource/audio/part_06_signoff.mp3"

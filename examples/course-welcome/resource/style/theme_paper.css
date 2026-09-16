@@ -1,0 +1,28 @@
+/* Course welcome — paper theme.
+ *
+ * ⚠️ VALUES ONLY, and the SAME NAMES as every other theme here. The stylesheet owns what
+ * a thing is coloured; each SVG owns which of its classes reads which variable. A theme
+ * that declares a name no drawing reads, or omits one a drawing does, re-skins some of
+ * the picture and leaves the rest on its literal fallback.
+ */
+
+:root {
+    /* Surfaces */
+    --scene-background-color: #f4f1ea;
+    /* The bubble is white on warm paper — close enough that the stroke is what
+       separates them, which is why it is darker here than in the dark theme. */
+    --speech-bubble-fill-color: #ffffff;
+    --speech-bubble-stroke-color: #c9c2b4;
+    --speech-bubble-stroke-width: 2;
+
+    /* Text. 15.8:1 for the heading, 6.7:1 for the body against the background. */
+    --title-text-color: #15181d;
+    --body-text-color: #4a5561;
+
+    /* Brand accent — the wordmark square. 4.5:1, the floor for a small solid mark. */
+    --accent-color: #b45309;
+
+    /* Typography. Every face named here is present in the render container, which is
+       why the stack does not start with a webfont. */
+    --presenter-font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+}
