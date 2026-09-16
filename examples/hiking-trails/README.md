@@ -18,8 +18,8 @@ come from the same geometry, so they cannot disagree with each other.
 | Serenity Lake | `scene_02_lake.yaml` | 1 (all visible) | The open walk. Every stretch is visible, so there is no ghost at all — the difference from the summit is in the route layer, not in the document. |
 | Viewpoint Rest Stop | `scene_03_rest.yaml` | 7 (alternating) | The pull past the stone cabin, whose roof hides the longest stretch of the three. Ends on a callout anchored to the marker rather than to a coordinate. |
 
-`scene_00_tts_generation.yaml` is synthesis-only — it generates the narration MP3s under
-`resource/audio/` from the scripts under `resource/script/`. `scene_04_stitch.yaml` concatenates the three
+`narrate.yaml` is synthesis-only — it generates the narration MP3s under
+`resource/audio/` from the scripts under `resource/script/`. `stitch.yaml` concatenates the three
 clips into the headline deliverable.
 
 Each route scene sizes **itself** to its narration: it declares the line as an audio
@@ -72,7 +72,7 @@ cannot probe its clip cannot compute its own dwell. They are committed for that 
 | `resource/scene/markers*.svg` | The glyph layers, one per route: the travelling arrowheads, the destination ring and star. |
 | `resource/template/main.html`, `resource/style/theme_dark.css` | Shared container and theme. |
 | `resource/script/` | Source narration text, one file per route. |
-| `scene_04_stitch_with_ambience.yaml` | The same stitch with a forest bed under it. Needs the licensed track, so it is not the default — but it is **the one to read**: slicing a bed across separate roll entries is a capability that exists nowhere else here. |
+| `stitch_with_ambience.yaml` | The same stitch with a forest bed under it. Needs the licensed track, so it is not the default — but it is **the one to read**: slicing a bed across separate roll entries is a capability that exists nowhere else here. |
 | `resource/audio/` | The narration. Committed, so a clone renders without a TTS key. |
 
 ## Rendering
@@ -80,7 +80,7 @@ cannot probe its clip cannot compute its own dwell. They are committed for that 
 ```bash
 # 1) Only if a SCRIPT changed. The narration is committed, so a clone can skip
 #    this entirely. Needs ELEVENLABS_API_KEY and costs credits.
-kinaigraph scene_00_tts_generation.yaml
+kinaigraph narrate.yaml
 
 # 2) Render each route.
 kinaigraph scene_01_summit.yaml
@@ -88,11 +88,11 @@ kinaigraph scene_02_lake.yaml
 kinaigraph scene_03_rest.yaml
 
 # 3) Stitch the three into the final video.
-kinaigraph scene_04_stitch.yaml
+kinaigraph stitch.yaml
 
 # Optional: the same piece with a forest bed under it. Needs the track —
 # see "Ambient audio" below.
-kinaigraph scene_04_stitch_with_ambience.yaml
+kinaigraph stitch_with_ambience.yaml
 ```
 
 ⚠️ **A route's leg durations and its geometry are one fact.** Each `LEG_n_MS` is that
@@ -110,8 +110,8 @@ callouts on top of it are authored SVG.
 [Pixabay Content License](https://pixabay.com/service/license-summary/).
 
 The audio file is **not committed**, which is why the bed lives in its own document:
-`scene_04_stitch.yaml` is the default and renders from a clone untouched, while
-`scene_04_stitch_with_ambience.yaml` is the one that needs the download.
+`stitch.yaml` is the default and renders from a clone untouched, while
+`stitch_with_ambience.yaml` is the one that needs the download.
 
 ⚠️ Read the ambience version even if you never render it. Slicing a bed across
 separate roll entries — source offsets expressed over the clips' own probed

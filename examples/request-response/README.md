@@ -25,14 +25,14 @@ no `along` of its own. That parent has no tangent to read, writes a constant `0`
 and the chevron never turns around on the return legs. It is an open bug in the engine,
 not an authoring choice, and nothing in this example does it.
 
-`scene_00_tts_generation.yaml` is synthesis-only. It generates the narration for all
+`narrate.yaml` is synthesis-only. It generates the narration for all
 three beats from the scripts under `resource/script/`. Run it once, before rendering, and again
 whenever a script changes.
 
 | `scene_02_store.yaml` | Beat 2 — the shared store is added, and the packet rides the new leg. |
 
 | `scene_03_theme.yaml` | Beat 3 — the same diagram and route in two themes, side by side. |
-| `scene_04_stitch.yaml` | The three beats in order, each carrying its own narration. |
+| `stitch.yaml` | The three beats in order, each carrying its own narration. |
 
 ### Beat 3 is side by side because theming is compile-time
 
@@ -300,12 +300,12 @@ each leg boundary**. That is exactly what
 ## Layout
 
 ```text
-scene_00_tts_generation.yaml                       narration synthesis (run first)
+narrate.yaml                       narration synthesis (run first)
 scene_01_flow.yaml                                 beat 1, paced by distance
 scene_01_flow_with_orient_at_parent_action.yaml    beat 1, hand-timed
 scene_02_store.yaml                                beat 2, the store arrives
 scene_03_theme.yaml                                beat 3, two themes at once
-scene_04_stitch.yaml                               the three beats, with narration
+stitch.yaml                               the three beats, with narration
 resource/
   scene/get_user_profile_v1.svg                       the system, as drawn
   scene/get_user_profile_v2.svg                       the same, plus the shared data store
@@ -322,11 +322,11 @@ You need Kinaigraph installed — see the [install instructions](../../README.md
 Run from this directory:
 
 ```sh
-kinaigraph scene_00_tts_generation.yaml    # once, to synthesize narration
+kinaigraph narrate.yaml    # once, to synthesize narration
 kinaigraph scene_01_flow.yaml
 kinaigraph scene_02_store.yaml
 kinaigraph scene_03_theme.yaml
-kinaigraph scene_04_stitch.yaml
+kinaigraph stitch.yaml
 ```
 
 ⛔ **Do not pass `--outdir` here.** The beats declare their capture as
@@ -335,7 +335,7 @@ rebases only the OUTPUT — the beats' clips land under it while the stitch stil
 its inputs beside the document. The stitch then refuses with `no file at …`, naming three
 paths that were just written somewhere else.
 
-The beats capture **intermediates** into `resource/video/`; `scene_04_stitch.yaml` is the
+The beats capture **intermediates** into `resource/video/`; `stitch.yaml` is the
 only document that writes beside the document, and `request_response.mp4` is the file to
 watch. The finished piece runs about **69 s**.
 

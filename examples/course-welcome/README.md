@@ -9,7 +9,7 @@ a talking head and a few lines of type — and it is normally cut by hand, keyfr
 by keyframe. Here the whole thing is 24 seconds of declarations.
 
 ```sh
-kinaigraph scene_00_tts_welcome.yaml   # once — costs credits; the recordings are committed
+kinaigraph narrate.yaml   # once — costs credits; the recordings are committed
 kinaigraph scene_01_welcome.yaml
 ```
 

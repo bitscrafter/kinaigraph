@@ -17,11 +17,11 @@
 #
 # ⚠️ IT ROLLS WHAT THE BEATS WROTE, so all three must have been rendered first:
 #
-#     kinaigraph scene_00_tts_generation.yaml --outdir .   # once, and it costs credits
+#     kinaigraph narrate.yaml --outdir .   # once, and it costs credits
 #     kinaigraph scene_01_flow.yaml
 #     kinaigraph scene_02_store.yaml
 #     kinaigraph scene_03_theme.yaml
-#     kinaigraph scene_04_stitch.yaml
+#     kinaigraph stitch.yaml
 #
 # The beats capture INTERMEDIATES into `resource/video/`; this document is the only one
 # that writes beside the document, and `./request_response.mp4` is the file to watch.

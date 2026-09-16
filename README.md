@@ -183,7 +183,7 @@ the cut it speaks.
 
 **Every one of the 7 examples renders with no key.** Their narration is committed, so a
 clone can render all of them with nothing but Kinaigraph installed. A key is only needed
-to RE-record a line — each example's `scene_00_tts_*.yaml` does that, and costs credits.
+to RE-record a line — each example's `narrate_*.yaml` does that, and costs credits.
 The videos under `docs/video/` are the same, except where their recordings are committed.
 
 ## Using it
@@ -210,7 +210,7 @@ then render its scenes:
 
 ```sh
 export ELEVENLABS_API_KEY=...
-kinaigraph scene_00_tts_generation.yaml
+kinaigraph narrate.yaml
 kinaigraph scene_01_<name>.yaml
 ```
 

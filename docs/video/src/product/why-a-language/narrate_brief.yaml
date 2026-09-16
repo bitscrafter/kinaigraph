@@ -15,14 +15,13 @@
 # you can read and rebuild without cross-referencing the other one is worth the
 # duplication.
 #
-#     kinaigraph scene_00_tts_brief.yaml
+#     kinaigraph narrate_brief.yaml
 #
 # Needs ELEVENLABS_API_KEY. Every run costs credits, and re-running this
 # re-records EVERY line listed — `synthesis.context.status` is section-wide.
 #
-# ⛔ NEVER SWEEP THIS FOLDER with `for y in scene_*.yaml` — that pulls in both
-# synthesis documents and re-records the whole example. Use
-# `ls scene_*.yaml | grep -v scene_00`.
+# ⚡ `for y in scene_*.yaml` IS SAFE — nothing in that namespace bills. This
+# document does, and it is not a scene.
 
 metadata:
     title: "Why a Language - Audio Generation (brief cut)"

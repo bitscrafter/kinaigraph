@@ -16,7 +16,7 @@
 # is what lets all three ride at ONE walking pace and still add up to the target run
 # time: the pace is fixed by geometry, and the words are what flex.
 #
-#     kinaigraph scene_00_tts_generation.yaml
+#     kinaigraph narrate.yaml
 #
 # Needs ELEVENLABS_API_KEY in the environment. Every run costs credits and calls out to
 # the provider, so it is deliberately a separate file from the scenes — re-rendering a

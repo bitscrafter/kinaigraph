@@ -104,7 +104,7 @@ defs:
         # One clip per dwell. Each is declared for its DURATION as much as for its
         # sound: the stop it belongs to lasts exactly as long as the line, so
         # re-recording one sentence re-times one stop and nothing else.
-        # Generate them with scene_00_tts_brief.yaml before rendering.
+        # Generate them with narrate_brief.yaml before rendering.
         narration_title:
             type: "audio"
             file: "./resource/audio/brief/scene_01_01_title.mp3"

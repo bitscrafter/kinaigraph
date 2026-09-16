@@ -1,7 +1,7 @@
 # ------------------------------------------
 # hiking-trails — the stitch, NARRATION ONLY
 # ------------------------------------------
-# The same three routes in the same order as `scene_04_stitch.yaml`, without the
+# The same three routes in the same order as `stitch.yaml`, without the
 # ambience bed.
 #
 # It exists so a CLONE can render the finished piece. The bedded stitch mixes a
@@ -9,7 +9,7 @@
 # permits use but not redistribution — so that document cannot run until you
 # fetch the track. This one has no such dependency.
 #
-#     kinaigraph scene_04_stitch.yaml
+#     kinaigraph stitch.yaml
 #
 # Numbered 04 like the document it mirrors: it IS step four, in the variant that
 # needs nothing fetched.

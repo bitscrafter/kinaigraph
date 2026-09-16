@@ -21,10 +21,10 @@ The recordings are committed, so a clone renders every scene with no key.
 | 1 | `scene_01_gratitude_perspective_{en,es}.yaml` | *"Gratitude won't change your situation, but it will change your perspective."* |
 | 2 | `scene_02_life_meaning_{en,es}.yaml` | *"The meaning of life isn't found in a destination, but in the path that leads there."* |
 
-`scene_00_tts_{en,es}.yaml` are synthesis-only: each turns that language's scripts into
+`narrate_{en,es}.yaml` are synthesis-only: each turns that language's scripts into
 its narration MP3s. Run one when you change a script in that language — never both.
 
-`scene_00_stitch_{en,es}.yaml` puts both quotes into one piece — 12.5 s in English,
+`stitch_{en,es}.yaml` puts both quotes into one piece — 12.5 s in English,
 10.1 s in Spanish. Render the scenes first; the stitch reads what they write.
 
 ## A language is a dimension, like a cut
@@ -35,8 +35,8 @@ kind and is shared by both:
 
 ```text
 life-lessons/
-├── scene_00_tts_en.yaml                     scene_00_tts_es.yaml
-├── scene_00_stitch_en.yaml                  scene_00_stitch_es.yaml
+├── narrate_en.yaml                     narrate_es.yaml
+├── stitch_en.yaml                  stitch_es.yaml
 ├── scene_01_gratitude_perspective_en.yaml   …_es.yaml
 ├── scene_02_life_meaning_en.yaml            …_es.yaml
 └── resource/
@@ -104,8 +104,8 @@ kinaigraph scene_01_gratitude_perspective_en.yaml
 kinaigraph scene_02_life_meaning_en.yaml
 kinaigraph scene_01_gratitude_perspective_es.yaml
 kinaigraph scene_02_life_meaning_es.yaml
-kinaigraph scene_00_stitch_en.yaml
-kinaigraph scene_00_stitch_es.yaml
+kinaigraph stitch_en.yaml
+kinaigraph stitch_es.yaml
 ```
 
 Paths inside a scene resolve against the scene file's own folder — which is this

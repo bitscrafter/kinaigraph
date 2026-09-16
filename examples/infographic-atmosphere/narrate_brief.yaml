@@ -10,14 +10,13 @@
 # front, 4.5s of pull-out at the back. Written to length, they reach both ends of
 # the piece without adding a frame to it. Keep them under those windows.
 #
-#     kinaigraph scene_00_tts_brief.yaml
+#     kinaigraph narrate_brief.yaml
 #
 # Needs ELEVENLABS_API_KEY. Every run costs credits, and re-running this
 # re-records EVERY line listed — `synthesis.context.status` is section-wide.
 #
-# ⛔ NEVER SWEEP THIS FOLDER with `for y in scene_*.yaml` — that pulls in the
-# synthesis document and re-records the whole example. Use
-# `ls scene_*.yaml | grep -v scene_00`.
+# ⚡ `for y in scene_*.yaml` IS SAFE — nothing in that namespace bills. This
+# document does, and it is not a scene.
 
 metadata:
     title: "Infographic Atmosphere - Audio Generation (brief cut)"

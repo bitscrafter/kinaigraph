@@ -31,12 +31,12 @@ Pick a cut; the five documents are the same shape either way.
 ```sh
 CUT=brief          # or: CUT=long
 
-kinaigraph scene_00_tts_$CUT.yaml         # once — needs ELEVENLABS_API_KEY, costs credits
+kinaigraph narrate_$CUT.yaml         # once — needs ELEVENLABS_API_KEY, costs credits
 kinaigraph scene_01_premise_$CUT.yaml
 kinaigraph scene_02_challenge_$CUT.yaml
 kinaigraph scene_03_benefits_$CUT.yaml
 kinaigraph scene_04_possibilities_$CUT.yaml
-kinaigraph scene_05_stitch_$CUT.yaml
+kinaigraph stitch_$CUT.yaml
 open ./why_a_language_$CUT.mp4
 ```
 
@@ -48,20 +48,21 @@ The narration has to exist before any scene will render: every phase derives its
 length from a clip's probed `.duration`, so without the audio there is nothing
 for the timeline to measure.
 
-⛔ **Never sweep this folder with `for y in scene_*.yaml`.** That pulls in all
-three `scene_00` documents and re-records everything — it bills credits, and
-every new length silently moves the timings the scenes measured against the
-committed take. Use `ls scene_*.yaml | grep -v scene_00`.
+⚡ **`for y in scene_*.yaml` is safe here.** Every document in the `scene_`
+namespace renders and nothing in it bills; `narrate_brief.yaml` and
+`narrate_long.yaml` sit outside that namespace so a sweep cannot reach them. Running one
+of those re-records its cut, and every new clip length silently moves the
+timings the scenes measured against the committed take.
 
 | File | What it is |
 | ---- | ---------- |
-| `scene_00_tts_<cut>.yaml` | Synthesis. Every line that cut speaks. |
+| `narrate_<cut>.yaml` | Synthesis. Every line that cut speaks. |
 | `scene_0N_*_<cut>.yaml` | That cut's four scenes. |
-| `scene_05_stitch_<cut>.yaml` | That cut in order. The only documents that write beside the document. |
+| `stitch_<cut>.yaml` | That cut in order. The only documents that write beside the document. |
 | `resource/script/<cut>/` · `resource/audio/<cut>/` | That cut's lines and recordings. Nothing is shared. |
 | `resource/scene/scene_0N_*.svg` | The artwork, shared by both cuts. |
 | `resource/style/theme_*.css` | Four themes — `paper` (the brief's), `depth` (the long's), `light`, `dark`. Values only, and all four declare an identical set of names. |
-| `resource/scene/scene_00_cover.svg` | The wordmark. The first and last frame of both cuts, and nothing else. |
+| `resource/scene/cover.svg` | The wordmark. The first and last frame of both cuts, and nothing else. |
 | `resource/scene/brand_layer.svg` | The brand mark, embedded as base64 data. |
 | `resource/image/bitscrafter_logo.png` | The mark as a raster, before embedding. |
 

@@ -3,7 +3,7 @@
 # ------------------------------------------
 # Six steps of one life, told in under thirty seconds
 #
-#     kinaigraph milestone_ladder_teaser_tts.yaml   # once, needs an API key
+#     kinaigraph narrate_teaser.yaml   # once, needs an API key
 #     kinaigraph milestone_ladder_teaser.yaml
 #
 # ── How a step is built ──────────────────────────────────────────────────────

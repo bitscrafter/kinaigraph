@@ -158,8 +158,8 @@ defs:
 
         # Declared for its DURATION, not to be played here. The clip takes its length
         # from this file so the visuals stretch to the voice; the narration itself is
-        # mixed once, in `scene_04_stitch.yaml`, where all three lines and the music bed
-        # meet. Generate it with `scene_00_tts_generation.yaml` before rendering.
+        # mixed once, in `stitch.yaml`, where all three lines and the music bed
+        # meet. Generate it with `narrate.yaml` before rendering.
         # Declared after the marker layers, so the badge paints over everything.
         brand:
             type: "scene"

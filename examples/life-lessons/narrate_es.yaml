@@ -1,16 +1,16 @@
 # ------------------------------------------
-# Life Lessons - Audio Generation (English)
+# Life Lessons - Audio Generation (Spanish)
 # ------------------------------------------
-# Generates the English TTS narration for each life-lessons phrase.
+# Generates the Spanish TTS narration for each life-lessons phrase.
 # Run once (or when the scripts change) before rendering the scenes.
 # Path resolution: `file:` inputs resolve against THIS yaml's own directory
 # (the compiler uses the input file's folder as the source dir) -- which IS the example root (the yaml sits at the top). `export:` outputs resolve against the
 # --outdir you pass (e.g. `--outdir ./out` -> ./out/audio/...).
-# Run from the example root:  kinaigraph ./scene_00_tts_generation.yaml --outdir ./out
+# Run from the example root:  kinaigraph ./narrate.yaml --outdir ./out
 
 metadata:
-    title: "Life Lessons - Audio Generation (English)"
-    description: "Generate the English TTS narration for the life-lessons phrases"
+    title: "Life Lessons - Audio Generation (Spanish)"
+    description: "Generate the Spanish TTS narration for the life-lessons phrases"
     version: "1.0"
 
 defs:
@@ -23,9 +23,10 @@ defs:
         tts:
             provider: "elevenlabs"
             credentials: "elevenlabs_credentials"
-            #voice: "6bPfTtSpgxgD0GeBVfqu" # Zen (English)
-            # voice: "MFZUKuGQUsGJPQjTS4wC" # Jon (English)
-            voice: "RGb96Dcl0k5eVje8EBch" # Serena (English)
+            #voice: "Y4A7VD8bsOlWNzF8WIRV" # Gabriel (Spanish)
+            #voice: "NWJYfWwtJp5Ud8GCYoZB" # Daniel Yvker (Spanish)
+            #voice: "gV6hxeVYFRxKsMjfOkUK" # Daniel (Spanish)
+            voice: "GxqThEDZF0RjxmGomt0o" # Javier (Spanish)
 
 synthesis:
     context:
@@ -36,12 +37,12 @@ synthesis:
         # Scene 01: Gratitude / perspective
         # ------------------------------------------
         audio_scene_01_gratitude_perspective:
-            file: "resource/script/en/part_01_gratitude_perspective.txt"
-            export: "./resource/audio/en/part_01_gratitude_perspective.mp3"
+            file: "resource/script/es/part_01_gratitude_perspective.txt"
+            export: "./resource/audio/es/part_01_gratitude_perspective.mp3"
 
         # ------------------------------------------
         # Scene 02: The meaning of life
         # ------------------------------------------
         audio_scene_02_life_meaning:
-            file: "resource/script/en/part_02_life_meaning.txt"
-            export: "./resource/audio/en/part_02_life_meaning.mp3"
+            file: "resource/script/es/part_02_life_meaning.txt"
+            export: "./resource/audio/es/part_02_life_meaning.mp3"

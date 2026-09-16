@@ -156,8 +156,8 @@ exactly as the picture would have been.
 | ---- | ---- |
 | `scene_01_layers_tour_brief.yaml` | The brief cut: camera, callouts, timeline, and the narration mix. |
 | `scene_01_layers_tour_teaser.yaml` | The teaser cut — three stops, shorter moves, one line per note. |
-| `scene_00_tts_brief.yaml` | Synthesis only — the brief cut's nine lines. Costs credits; run it once, and again only when a script changes. |
-| `scene_00_tts_teaser.yaml` | Synthesis only — the teaser's five. Two of them are already on disk as copies; read its header before running it. |
+| `narrate_brief.yaml` | Synthesis only — the brief cut's nine lines. Costs credits; run it once, and again only when a script changes. |
+| `narrate_teaser.yaml` | Synthesis only — the teaser's five. Two of them are already on disk as copies; read its header before running it. |
 | `resource/script/{brief,teaser}/*.txt` | One file per line. These are the source; the MP3s are derived. |
 | `resource/audio/{brief,teaser}/*.mp3` | The recorded lines, read by Harper. |
 | `resource/image/atmosphere.png` | **The input.** A pre-existing raster. |
@@ -168,13 +168,14 @@ exactly as the picture would have been.
 ## Rendering
 
 ```sh
-kinaigraph scene_00_tts_brief.yaml      # once — costs ElevenLabs credits
+kinaigraph narrate_brief.yaml      # once — costs ElevenLabs credits
 kinaigraph scene_01_layers_tour_brief.yaml
 kinaigraph scene_01_layers_tour_teaser.yaml
 ```
 
-⛔ **Never sweep this folder** with `for y in scene_*.yaml`: that pulls in the
-synthesis document and re-records every line. Use `ls scene_*.yaml | grep -v scene_00`.
+⚡ **`for y in scene_*.yaml` is safe here**, and that is what the names are for: the
+`scene_` namespace holds only renderable scenes, and re-rendering one costs nothing.
+Synthesis sits outside it, in `narrate_brief.yaml` — the one document that bills.
 
 ## The narration is what times the video
 

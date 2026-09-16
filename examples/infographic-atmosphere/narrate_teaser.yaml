@@ -15,14 +15,13 @@
 # two files byte-for-byte equivalent to ones already here. Before you run it,
 # check whether only some lines changed — and if so, record those.
 #
-#     kinaigraph scene_00_tts_teaser.yaml
+#     kinaigraph narrate_teaser.yaml
 #
 # Needs ELEVENLABS_API_KEY. `synthesis.context.status` is section-wide, so there
 # is no way to run half of this file.
 #
-# ⛔ NEVER SWEEP THIS FOLDER with `for y in scene_*.yaml` — that pulls in both
-# synthesis documents and re-records the whole example. Use
-# `ls scene_*.yaml | grep -v scene_00`.
+# ⚡ `for y in scene_*.yaml` IS SAFE — nothing in that namespace bills. This
+# document does, and it is not a scene.
 
 metadata:
     title: "Infographic Atmosphere - Audio Generation (teaser cut)"

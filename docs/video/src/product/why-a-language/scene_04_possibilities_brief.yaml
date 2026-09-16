@@ -83,7 +83,7 @@ defs:
         # is the topmost thing on those two frames.
         cover:
             type: "scene"
-            file: "./resource/scene/scene_00_cover.svg"
+            file: "./resource/scene/cover.svg"
 
         wordmark:
             type: "actor"

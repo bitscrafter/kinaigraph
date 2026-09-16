@@ -12,7 +12,7 @@ Two cuts of the same six steps. The **brief** tells the story; the **teaser**
 compresses it to a single line per node.
 
 ```sh
-kinaigraph milestone_ladder_teaser_tts.yaml   # once — needs ELEVENLABS_API_KEY, costs credits
+kinaigraph narrate_teaser.yaml   # once — needs ELEVENLABS_API_KEY, costs credits
 kinaigraph milestone_ladder_teaser.yaml
 open ./milestone_ladder_teaser.mp4
 ```
@@ -26,7 +26,7 @@ nothing for the timeline to measure.
 
 | File | What it is |
 | ---- | ---------- |
-| `milestone_ladder_<cut>_tts.yaml` | Synthesis only. Turns that cut's six scripts into six clips. |
+| `narrate_<cut>.yaml` | Synthesis only. Turns that cut's six scripts into six clips. |
 | `milestone_ladder_<cut>.yaml` | The piece. Animation plus the composition that mixes the narration onto it. |
 | `resource/scene/ladder.svg` | The rails, discs and labels. |
 | `resource/scene/icons.svg` | The six glyphs, as symbols. |

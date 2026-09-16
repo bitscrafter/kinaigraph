@@ -1,5 +1,5 @@
 # ------------------------------------------
-# why-a-language — the BRIEF cut, stitched
+# why-a-language — the LONG cut, stitched
 # ------------------------------------------
 # The four scenes in order, captured as the example's headline deliverable.
 #
@@ -9,12 +9,6 @@
 # BOOKMARK — `premise_bk.end`, `challenge_bk.end` — rather than by number, so every
 # offset is read from the clips' own probed durations. Re-record a line,
 # re-render that scene, and everything after it moves by itself.
-#
-# ⚡ EACH CUT IS SELF-SUFFICIENT. Every line it speaks lives in its own script
-# and audio folder, every scene it rolls is its own document, and its synthesis
-# document lists everything it needs. Two lines happen to be word-for-word
-# identical across the cuts and are still stored twice — a cut you can read and
-# rebuild without cross-referencing the other one is worth the duplication.
 #
 # ⚠️ THIS EXAMPLE NARRATES PER SCENE, NOT PER CLIP, and that is the one place it
 # parts company with request-response. There, each beat carries exactly one line,
@@ -26,25 +20,24 @@
 #
 # ⚠️ IT ROLLS WHAT THE SCENES WROTE, so all four must have been rendered first:
 #
-#     kinaigraph scene_00_tts_shared.yaml     # once — the lines both cuts use
-#     kinaigraph scene_00_tts_brief.yaml     # once, and it costs credits
-#     kinaigraph scene_01_premise_brief.yaml
-#     kinaigraph scene_02_challenge_brief.yaml
-#     kinaigraph scene_03_benefits_brief.yaml
-#     kinaigraph scene_04_possibilities_brief.yaml
-#     kinaigraph scene_05_stitch_brief.yaml
+#     kinaigraph narrate_long.yaml     # once, and it costs credits
+#     kinaigraph scene_01_premise_long.yaml
+#     kinaigraph scene_02_challenge_long.yaml
+#     kinaigraph scene_03_benefits_long.yaml
+#     kinaigraph scene_04_possibilities_long.yaml
+#     kinaigraph stitch_long.yaml
 #
-# ⛔ NEVER SWEEP THIS DIRECTORY WITH `for y in scene_*.yaml` — that pulls in
-# scene_00 and re-records the narration, which costs credits and silently moves
-# every timing the four scenes measured against the committed take. Use
-# `ls scene_*.yaml | grep -v scene_00`.
+# ⚡ `for y in scene_*.yaml` IS SAFE — the `scene_` namespace holds only
+# renderable scenes. Synthesis lives in `narrate_<cut>.yaml`, outside it, and
+# running one of those re-records the cut: it costs credits and silently moves
+# every timing the four scenes measured against the committed take.
 #
 # The scenes capture INTERMEDIATES into `resource/video/`; this document is the
 # only one that writes beside the document, and `./why_a_language.mp4` is the
 # file to watch.
 
 metadata:
-    title: "Why a Language - the brief cut, stitched"
+    title: "Why a Language - the long cut, stitched"
     description: "The four scenes in order, each already carrying its own narration"
     version: "1.0"
 
@@ -55,16 +48,16 @@ defs:
         # animation capture, before its own composition mixed the voice on.
         premise:
             type: video
-            file: "./resource/video/scene_01_premise_brief.mp4"
+            file: "./resource/video/scene_01_premise_long.mp4"
         challenge:
             type: video
-            file: "./resource/video/scene_02_challenge_brief.mp4"
+            file: "./resource/video/scene_02_challenge_long.mp4"
         benefits:
             type: video
-            file: "./resource/video/scene_03_benefits_brief.mp4"
+            file: "./resource/video/scene_03_benefits_long.mp4"
         possibilities:
             type: video
-            file: "./resource/video/scene_04_possibilities_brief.mp4"
+            file: "./resource/video/scene_04_possibilities_long.mp4"
 
 composition:
     context:
@@ -89,6 +82,6 @@ composition:
                   - roll:
 
     capture:
-        why_a_language_brief:
-            output: "./why_a_language_brief.mp4"
+        why_a_language_long:
+            output: "./why_a_language_long.mp4"
             fps: 30

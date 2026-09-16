@@ -102,7 +102,7 @@ defs:
         # One clip per phrase. Each is declared for its DURATION as much as for
         # its sound: the phrase it belongs to lasts exactly as long as the line,
         # so re-recording one sentence re-times one phrase and shifts the rest.
-        # Generate them with scene_00_tts_welcome.yaml before rendering.
+        # Generate them with narrate.yaml before rendering.
         narration_1:
             type: "audio"
             file: "./resource/audio/part_01_welcome.mp3"
