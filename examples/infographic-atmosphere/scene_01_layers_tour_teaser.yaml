@@ -48,7 +48,7 @@ defs:
             type: "text"
             content: |
                 TROPOSPHERE
-                  Three quarters of the air, and all the weather.
+                  Its ceiling: 8 km polar, 18 km tropical.
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 30
             font_color: "#14181d"

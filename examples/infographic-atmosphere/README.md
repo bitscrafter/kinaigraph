@@ -118,11 +118,15 @@ Other consequences worth keeping:
   atmosphere, never about how the video was made: half the mass below 5.5 km, what
   the aurora is, noctilucent clouds at the mesopause, the ozone column as 3 mm of
   gas, the tropopause running 8–18 km with latitude.
-- ⚠️ **A note's text WRAPS, and what will not fit is silently clipped.** A line 14 px
-  too long for the box cost this example a callout that rendered with its second
-  line missing and no warning anywhere. Measuring the ink *inside* the box does not
-  catch it — the check that does is counting the rendered text lines and comparing
-  against the authored ones.
+- ⛔ **A note's text WRAPS, and what will not fit is silently dropped.** It has cost
+  this example twice: once a callout rendered with its second line missing, and
+  once the teaser shipped `Three quarters of the air, and all the weather.` as
+  `Three quarters of the air, and all the`. Counting rendered lines does NOT catch
+  the second kind — a two-line note whose second line wraps still renders two
+  bands, the second ending mid-sentence. **Run `python3 resource/temp/check_note_widths.py`**:
+  it measures every line of both documents in the same font at the same size and
+  fails if any exceeds the box's inner width. It exits 1 on the line above and 0
+  once it is shortened.
 
 Each callout's window is three actions in one entry — fade in, hold, fade out —
 whose durations sum to the dwell, with the hold derived from the narration rather
@@ -172,6 +176,7 @@ exactly as the picture would have been.
 | `resource/video/` | The silent capture the composition lays the voice over. Intermediate. |
 | `resource/style/theme_dark.css` | One variable: the letterbox colour behind the picture. |
 | `resource/temp/make_frame_svg.py` | Embeds the image in the frame. Re-run after swapping the input. |
+| `resource/temp/check_note_widths.py` | Fails if any callout line is too wide for its box. Run it after touching a note. |
 | `resource/temp/atmosphere.svg` | Where the input PNG came from — provenance, not a build step. |
 | `resource/temp/render.sh` | Rasterises that SVG at a device scale factor. |
 
