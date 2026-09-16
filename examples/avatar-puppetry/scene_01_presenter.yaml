@@ -121,11 +121,14 @@ defs:
 
         TALK_MS: "PHRASE_1_MS + PAUSE_1_MS + PHRASE_2_MS + PAUSE_2_MS + PHRASE_3_MS + PAUSE_3_MS + PHRASE_4_MS"
 
-        # A shape that is skipped for a phrase waits out that phrase and the
-        # pause beside it, because same-type sub-actions run in sequence.
-        MID_LEAD_MS: "PHRASE_1_MS + PAUSE_1_MS"
-        MID_GAP_MS: "PAUSE_2_MS + PHRASE_3_MS + PAUSE_3_MS"
-        OPEN_GAP_MS: "PAUSE_1_MS + PHRASE_2_MS + PAUSE_2_MS"
+        # ⚠️ `hold.before` IS MEASURED FROM THE BOOKMARK, NOT FROM THE ENTRY ABOVE.
+        # Sub-actions of the same type chain inside ONE entry; separate actors each
+        # start at the bookmark. So a shape that sits a phrase out states the whole
+        # elapsed time, and the lines below carry cumulative offsets rather than
+        # gaps — writing a gap puts line 3 on screen before line 2.
+        PHRASE_2_AT: "PHRASE_1_MS + PAUSE_1_MS"
+        PHRASE_3_AT: "PHRASE_2_AT + PHRASE_2_MS + PAUSE_2_MS"
+        PHRASE_4_AT: "PHRASE_3_AT + PHRASE_3_MS + PAUSE_3_MS"
 
         # ── Blinking ─────────────────────────────────────────────────────────
         # ⚠️ EVENLY SPACED BLINKS READ AS A METRONOME. These four gaps are
@@ -188,7 +191,7 @@ animation:
             - line_2:
                   - show:
                         hold:
-                            before: "PHRASE_1_MS + PAUSE_1_MS - FADE_WINDOW"
+                            before: "PHRASE_2_AT - FADE_WINDOW"
                         duration: FADE_WINDOW
                         actions:
                             - show:
@@ -203,7 +206,7 @@ animation:
             - line_3:
                   - show:
                         hold:
-                            before: "PHRASE_2_MS + PAUSE_2_MS - FADE_WINDOW"
+                            before: "PHRASE_3_AT - FADE_WINDOW"
                         duration: FADE_WINDOW
                         actions:
                             - show:
@@ -218,7 +221,7 @@ animation:
             - line_4:
                   - show:
                         hold:
-                            before: "PHRASE_3_MS + PAUSE_3_MS - FADE_WINDOW"
+                            before: "PHRASE_4_AT - FADE_WINDOW"
                         duration: FADE_WINDOW
                         actions:
                             - show:
@@ -293,7 +296,7 @@ animation:
                             to: 1
                   - pulse:
                         hold:
-                            before: "OPEN_GAP_MS"
+                            before: "PAUSE_1_MS + PHRASE_2_MS + PAUSE_2_MS"
                         duration: PHRASE_3_MS
                         cycles: PHRASE_3_CYCLES
                         opacity:
@@ -304,7 +307,7 @@ animation:
             - mouth_mid:
                   - pulse:
                         hold:
-                            before: "MID_LEAD_MS"
+                            before: "PHRASE_1_MS + PAUSE_1_MS"
                         duration: PHRASE_2_MS
                         cycles: PHRASE_2_CYCLES
                         opacity:
@@ -312,7 +315,7 @@ animation:
                             to: 0.85
                   - pulse:
                         hold:
-                            before: "MID_GAP_MS"
+                            before: "PAUSE_2_MS + PHRASE_3_MS + PAUSE_3_MS"
                         duration: PHRASE_4_MS
                         cycles: PHRASE_4_CYCLES
                         opacity:
