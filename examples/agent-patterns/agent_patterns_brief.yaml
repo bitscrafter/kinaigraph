@@ -1,0 +1,1597 @@
+# Seven agentic-system topologies, built one edge at a time.
+#
+# The subject is Anthropic's "Building Effective AI Agents" (Erik S. and Barry
+# Zhang, 19 December 2024): one building block, five workflow patterns, one
+# agent pattern. The diagrams are redrawn here; the structure and the vocabulary
+# are the post's.
+#
+# ⚡ THE PIECE IS A BUILD, NOT A TOUR. The seven patterns are not seven topics —
+# they are the same few parts rewired, and they sit in an order. So each beat
+# adds exactly the one edge class the beat before it lacked: the sequential
+# edge, then the exclusive branch, then the join, then a lane count nobody
+# wrote down, then an arrow pointing backwards, then the loop closing on the
+# world. A tour would have shown seven pictures; this shows one picture seven
+# times.
+#
+# ⚡ THE ENTRY NODE NEVER MOVES AND NEVER CHANGES COLOUR. It is the head of
+# every topology in turn, and it is the only shape that does not take the
+# complexity ramp — a constant that re-tinted itself each beat would be claiming
+# to be seven things. Only its LABEL swaps, and the seven names are seven `text`
+# elements stacked at one baseline in the scene, shown one at a time.
+#
+# ⚠️ THE OTHER WAY TO DO THAT IS `animation.annotations`, AND IT CANNOT BE USED
+# HERE. A note's words come from a `type: text` asset, whose `font_color` is a
+# literal authored in `defs` where no style is in scope — `css()` cannot reach
+# it. This document declares two themes whose title ink is at opposite ends of
+# the ramp, so one literal would be unreadable in one of them. Text that has to
+# follow a theme belongs in the scene; a note is for text that does not.
+#
+# ⚠️ THE TOPOLOGIES COLLIDE ON THE CANVAS AND MUST NOT COLLIDE IN TIME. Beat
+# `chain` puts a node at x=1240 and beat `route` puts one at x=1330; they
+# overlap in the artwork and only this document keeps them apart. Every beat is
+# therefore preceded by its own `clear_*` entry which takes the previous group
+# to zero BEFORE the next one starts. There is no crossfade anywhere in the
+# piece, and the 260 ms those clears cost is the price of that.
+#
+# ⚠️ SOLID EDGES ARE REVEALED, DASHED EDGES ARE FADED, AND THE TWO ARE DIFFERENT
+# GROUPS. `reveal` drives `stroke-dasharray`, so revealing an already-dashed
+# stroke renders NOTHING, silently. That is a constraint, but here it carries
+# meaning: an edge whose existence is fixed when the diagram is drawn DRAWS
+# ITSELF, and an edge the running system decides on ARRIVES. The orchestrator's
+# fan-out and the agent's human checkpoint are the two that arrive.
+#
+# ⚠️ EVERY ARROWHEAD IS ITS OWN ACTOR. A marker is untouched by the dash
+# machinery, so a marker-headed arrow would show its point before its shaft. The
+# heads are polygons in the `*_heads` groups and land when their shafts do.
+#
+# ⚡ EVERY BEAT DEPOSITS ITS MINIATURE ON THE LEDGER as its line is spoken. That
+# is the reason this is a video and not a poster: a still diagram cannot
+# accumulate, and the closing frame is an argument only because the viewer
+# watched each of the seven being earned.
+#
+# ⚡ NO TIMELINE ENTRY IN THIS DOCUMENT DOES ARITHMETIC. A beat lists its ledger
+# deposit first and gives it the clip's own duration, so the beat is exactly as
+# long as its line with nothing subtracted to get there; everything else waits
+# on one named move. Read a beat top to bottom and it is a list of things that
+# happen, in order.
+
+metadata:
+    title: "Agent Patterns - five workflows, one agent"
+    description: "The patterns from Anthropic's Building Effective AI Agents, built one edge at a time"
+    version: "1.0"
+
+defs:
+    assets:
+        diagram:
+            type: "scene"
+            file: "./resource/scene/flow.svg"
+            style: style
+
+        # Frame-sized and never moved. It is a separate scene because `flow.svg`
+        # hides and shows whole groups all the way through; a mark living inside
+        # it would be one more thing to keep alive across every transition.
+        brand:
+            type: "scene"
+            file: "./resource/scene/brand_layer.svg"
+
+        # 1x1 grid: the diagram and the mark share the single cell and z-stack by
+        # declaration order — diagram first, mark over it.
+        stage:
+            type: "layout"
+            kind: "grid"
+            rows: 1
+            cols: 1
+
+
+        # ── the masthead, and the attribution it must never lose ─────────────
+        masthead:
+            type: "actor"
+            part_of: diagram
+            id: masthead
+
+        # ── the ledger ───────────────────────────────────────────────────────
+        # Three layers per row: the unlit track, the lit tick, and the
+        # miniature. Track and name are there from the first frame — the viewer
+        # should be able to see how far the piece is going to go — while the
+        # tick and the miniature are what each beat earns.
+        rail_track_atom:
+            type: "actor"
+            part_of: diagram
+            id: rail-track-atom
+        rail_track_chain:
+            type: "actor"
+            part_of: diagram
+            id: rail-track-chain
+        rail_track_route:
+            type: "actor"
+            part_of: diagram
+            id: rail-track-route
+        rail_track_parallel:
+            type: "actor"
+            part_of: diagram
+            id: rail-track-parallel
+        rail_track_orchestrate:
+            type: "actor"
+            part_of: diagram
+            id: rail-track-orchestrate
+        rail_track_evaluate:
+            type: "actor"
+            part_of: diagram
+            id: rail-track-evaluate
+        rail_track_agent:
+            type: "actor"
+            part_of: diagram
+            id: rail-track-agent
+
+        name_atom:
+            type: "actor"
+            part_of: diagram
+            id: name-atom
+        name_chain:
+            type: "actor"
+            part_of: diagram
+            id: name-chain
+        name_route:
+            type: "actor"
+            part_of: diagram
+            id: name-route
+        name_parallel:
+            type: "actor"
+            part_of: diagram
+            id: name-parallel
+        name_orchestrate:
+            type: "actor"
+            part_of: diagram
+            id: name-orchestrate
+        name_evaluate:
+            type: "actor"
+            part_of: diagram
+            id: name-evaluate
+        name_agent:
+            type: "actor"
+            part_of: diagram
+            id: name-agent
+
+        rail_atom:
+            type: "actor"
+            part_of: diagram
+            id: rail-atom
+        rail_chain:
+            type: "actor"
+            part_of: diagram
+            id: rail-chain
+        rail_route:
+            type: "actor"
+            part_of: diagram
+            id: rail-route
+        rail_parallel:
+            type: "actor"
+            part_of: diagram
+            id: rail-parallel
+        rail_orchestrate:
+            type: "actor"
+            part_of: diagram
+            id: rail-orchestrate
+        rail_evaluate:
+            type: "actor"
+            part_of: diagram
+            id: rail-evaluate
+        rail_agent:
+            type: "actor"
+            part_of: diagram
+            id: rail-agent
+
+        mini_atom:
+            type: "actor"
+            part_of: diagram
+            id: mini-atom
+        mini_chain:
+            type: "actor"
+            part_of: diagram
+            id: mini-chain
+        mini_route:
+            type: "actor"
+            part_of: diagram
+            id: mini-route
+        mini_parallel:
+            type: "actor"
+            part_of: diagram
+            id: mini-parallel
+        mini_orchestrate:
+            type: "actor"
+            part_of: diagram
+            id: mini-orchestrate
+        mini_evaluate:
+            type: "actor"
+            part_of: diagram
+            id: mini-evaluate
+        mini_agent:
+            type: "actor"
+            part_of: diagram
+            id: mini-agent
+
+        # ── the entry node, and the seven names it wears ─────────────────────
+        n_entry:
+            type: "actor"
+            part_of: diagram
+            id: n-entry
+        badge_entry_icon:
+            type: "actor"
+            part_of: diagram
+            id: badge-entry-icon
+        badge_entry_text:
+            type: "actor"
+            part_of: diagram
+            id: badge-entry-text
+        lbl_entry_atom:
+            type: "actor"
+            part_of: diagram
+            id: lbl-entry-atom
+        lbl_entry_chain:
+            type: "actor"
+            part_of: diagram
+            id: lbl-entry-chain
+        lbl_entry_route:
+            type: "actor"
+            part_of: diagram
+            id: lbl-entry-route
+        lbl_entry_orchestrate:
+            type: "actor"
+            part_of: diagram
+            id: lbl-entry-orchestrate
+        lbl_entry_evaluate:
+            type: "actor"
+            part_of: diagram
+            id: lbl-entry-evaluate
+        lbl_entry_agent:
+            type: "actor"
+            part_of: diagram
+            id: lbl-entry-agent
+
+        # ── the seven topology groups, addressed whole only to CLEAR them ────
+        # ⚡ One actor per SVG group, and the only thing ever asked of it is to
+        # go to zero. Building needs the parts; dismantling does not.
+        g_atom:
+            type: "actor"
+            part_of: diagram
+            id: g-atom
+        g_chain:
+            type: "actor"
+            part_of: diagram
+            id: g-chain
+        g_route:
+            type: "actor"
+            part_of: diagram
+            id: g-route
+        g_parallel:
+            type: "actor"
+            part_of: diagram
+            id: g-parallel
+        g_orchestrate:
+            type: "actor"
+            part_of: diagram
+            id: g-orchestrate
+        g_evaluate:
+            type: "actor"
+            part_of: diagram
+            id: g-evaluate
+        g_agent:
+            type: "actor"
+            part_of: diagram
+            id: g-agent
+        g_entry:
+            type: "actor"
+            part_of: diagram
+            id: g-entry
+
+        # ── 1. the augmented LLM ─────────────────────────────────────────────
+        e_atom_retr:
+            type: "actor"
+            part_of: diagram
+            id: e-atom-retr
+        e_atom_tool:
+            type: "actor"
+            part_of: diagram
+            id: e-atom-tool
+        e_atom_mem:
+            type: "actor"
+            part_of: diagram
+            id: e-atom-mem
+        h_atom_retr:
+            type: "actor"
+            part_of: diagram
+            id: h-atom-retr
+        h_atom_tool:
+            type: "actor"
+            part_of: diagram
+            id: h-atom-tool
+        h_atom_mem:
+            type: "actor"
+            part_of: diagram
+            id: h-atom-mem
+        n_retrieval:
+            type: "actor"
+            part_of: diagram
+            id: n-retrieval
+        n_tools:
+            type: "actor"
+            part_of: diagram
+            id: n-tools
+        n_memory:
+            type: "actor"
+            part_of: diagram
+            id: n-memory
+
+        # ── 2. prompt chaining ───────────────────────────────────────────────
+        e_ch_1:
+            type: "actor"
+            part_of: diagram
+            id: e-ch-1
+        e_ch_2:
+            type: "actor"
+            part_of: diagram
+            id: e-ch-2
+        e_ch_3:
+            type: "actor"
+            part_of: diagram
+            id: e-ch-3
+        e_ch_fail:
+            type: "actor"
+            part_of: diagram
+            id: e-ch-fail
+        h_ch_1:
+            type: "actor"
+            part_of: diagram
+            id: h-ch-1
+        h_ch_2:
+            type: "actor"
+            part_of: diagram
+            id: h-ch-2
+        h_ch_3:
+            type: "actor"
+            part_of: diagram
+            id: h-ch-3
+        h_ch_fail:
+            type: "actor"
+            part_of: diagram
+            id: h-ch-fail
+        l_ch_fail:
+            type: "actor"
+            part_of: diagram
+            id: l-ch-fail
+        n_gate:
+            type: "actor"
+            part_of: diagram
+            id: n-gate
+        lbl_gate:
+            type: "actor"
+            part_of: diagram
+            id: lbl-gate
+        n_call2:
+            type: "actor"
+            part_of: diagram
+            id: n-call2
+        n_call3:
+            type: "actor"
+            part_of: diagram
+            id: n-call3
+
+        # ── 3. routing ───────────────────────────────────────────────────────
+        e_rt_1:
+            type: "actor"
+            part_of: diagram
+            id: e-rt-1
+        e_rt_2:
+            type: "actor"
+            part_of: diagram
+            id: e-rt-2
+        e_rt_3:
+            type: "actor"
+            part_of: diagram
+            id: e-rt-3
+        h_rt_1:
+            type: "actor"
+            part_of: diagram
+            id: h-rt-1
+        h_rt_2:
+            type: "actor"
+            part_of: diagram
+            id: h-rt-2
+        h_rt_3:
+            type: "actor"
+            part_of: diagram
+            id: h-rt-3
+        n_route_1:
+            type: "actor"
+            part_of: diagram
+            id: n-route-1
+        n_route_2:
+            type: "actor"
+            part_of: diagram
+            id: n-route-2
+        n_route_3:
+            type: "actor"
+            part_of: diagram
+            id: n-route-3
+
+        # ── 4. parallelization ───────────────────────────────────────────────
+        e_pa_1:
+            type: "actor"
+            part_of: diagram
+            id: e-pa-1
+        e_pa_2:
+            type: "actor"
+            part_of: diagram
+            id: e-pa-2
+        e_pa_3:
+            type: "actor"
+            part_of: diagram
+            id: e-pa-3
+        h_pa_1:
+            type: "actor"
+            part_of: diagram
+            id: h-pa-1
+        h_pa_2:
+            type: "actor"
+            part_of: diagram
+            id: h-pa-2
+        h_pa_3:
+            type: "actor"
+            part_of: diagram
+            id: h-pa-3
+        n_par_1:
+            type: "actor"
+            part_of: diagram
+            id: n-par-1
+        n_par_2:
+            type: "actor"
+            part_of: diagram
+            id: n-par-2
+        n_par_3:
+            type: "actor"
+            part_of: diagram
+            id: n-par-3
+        e_pj_1:
+            type: "actor"
+            part_of: diagram
+            id: e-pj-1
+        e_pj_2:
+            type: "actor"
+            part_of: diagram
+            id: e-pj-2
+        e_pj_3:
+            type: "actor"
+            part_of: diagram
+            id: e-pj-3
+        h_pj_1:
+            type: "actor"
+            part_of: diagram
+            id: h-pj-1
+        h_pj_2:
+            type: "actor"
+            part_of: diagram
+            id: h-pj-2
+        h_pj_3:
+            type: "actor"
+            part_of: diagram
+            id: h-pj-3
+        n_aggregator:
+            type: "actor"
+            part_of: diagram
+            id: n-aggregator
+        # ⚡ Parallelization's own head. The source fans out from the INPUT, not
+        # from a model, so this beat does not borrow the persistent box.
+        n_in:
+            type: "actor"
+            part_of: diagram
+            id: n-in
+        lbl_variants:
+            type: "actor"
+            part_of: diagram
+            id: lbl-variants
+
+        # ── 5. orchestrator-workers ──────────────────────────────────────────
+        e_or_1:
+            type: "actor"
+            part_of: diagram
+            id: e-or-1
+        e_or_2:
+            type: "actor"
+            part_of: diagram
+            id: e-or-2
+        e_or_3:
+            type: "actor"
+            part_of: diagram
+            id: e-or-3
+        e_or_4:
+            type: "actor"
+            part_of: diagram
+            id: e-or-4
+        h_or_1:
+            type: "actor"
+            part_of: diagram
+            id: h-or-1
+        h_or_2:
+            type: "actor"
+            part_of: diagram
+            id: h-or-2
+        h_or_3:
+            type: "actor"
+            part_of: diagram
+            id: h-or-3
+        h_or_4:
+            type: "actor"
+            part_of: diagram
+            id: h-or-4
+        n_orc_1:
+            type: "actor"
+            part_of: diagram
+            id: n-orc-1
+        n_orc_2:
+            type: "actor"
+            part_of: diagram
+            id: n-orc-2
+        n_orc_3:
+            type: "actor"
+            part_of: diagram
+            id: n-orc-3
+        n_orc_4:
+            type: "actor"
+            part_of: diagram
+            id: n-orc-4
+        e_oj_1:
+            type: "actor"
+            part_of: diagram
+            id: e-oj-1
+        e_oj_2:
+            type: "actor"
+            part_of: diagram
+            id: e-oj-2
+        e_oj_3:
+            type: "actor"
+            part_of: diagram
+            id: e-oj-3
+        e_oj_4:
+            type: "actor"
+            part_of: diagram
+            id: e-oj-4
+        h_oj_1:
+            type: "actor"
+            part_of: diagram
+            id: h-oj-1
+        h_oj_2:
+            type: "actor"
+            part_of: diagram
+            id: h-oj-2
+        h_oj_3:
+            type: "actor"
+            part_of: diagram
+            id: h-oj-3
+        h_oj_4:
+            type: "actor"
+            part_of: diagram
+            id: h-oj-4
+        n_synth:
+            type: "actor"
+            part_of: diagram
+            id: n-synth
+        lbl_runtime:
+            type: "actor"
+            part_of: diagram
+            id: lbl-runtime
+
+        # ── 6. evaluator-optimizer ───────────────────────────────────────────
+        e_ev_fwd:
+            type: "actor"
+            part_of: diagram
+            id: e-ev-fwd
+        e_ev_back:
+            type: "actor"
+            part_of: diagram
+            id: e-ev-back
+        e_ev_out:
+            type: "actor"
+            part_of: diagram
+            id: e-ev-out
+        h_ev_fwd:
+            type: "actor"
+            part_of: diagram
+            id: h-ev-fwd
+        h_ev_back:
+            type: "actor"
+            part_of: diagram
+            id: h-ev-back
+        h_ev_out:
+            type: "actor"
+            part_of: diagram
+            id: h-ev-out
+        l_ev_fwd:
+            type: "actor"
+            part_of: diagram
+            id: l-ev-fwd
+        l_ev_back:
+            type: "actor"
+            part_of: diagram
+            id: l-ev-back
+        l_ev_out:
+            type: "actor"
+            part_of: diagram
+            id: l-ev-out
+        n_evaluator:
+            type: "actor"
+            part_of: diagram
+            id: n-evaluator
+        n_accepted:
+            type: "actor"
+            part_of: diagram
+            id: n-accepted
+
+        # ── 7. agents ────────────────────────────────────────────────────────
+        e_ag_act:
+            type: "actor"
+            part_of: diagram
+            id: e-ag-act
+        e_ag_obs:
+            type: "actor"
+            part_of: diagram
+            id: e-ag-obs
+        e_ag_stop:
+            type: "actor"
+            part_of: diagram
+            id: e-ag-stop
+        e_ag_human:
+            type: "actor"
+            part_of: diagram
+            id: e-ag-human
+        h_ag_act:
+            type: "actor"
+            part_of: diagram
+            id: h-ag-act
+        h_ag_obs:
+            type: "actor"
+            part_of: diagram
+            id: h-ag-obs
+        h_ag_stop:
+            type: "actor"
+            part_of: diagram
+            id: h-ag-stop
+        h_ag_human:
+            type: "actor"
+            part_of: diagram
+            id: h-ag-human
+        l_ag_act:
+            type: "actor"
+            part_of: diagram
+            id: l-ag-act
+        l_ag_obs:
+            type: "actor"
+            part_of: diagram
+            id: l-ag-obs
+        l_ag_stop:
+            type: "actor"
+            part_of: diagram
+            id: l-ag-stop
+        l_ag_human:
+            type: "actor"
+            part_of: diagram
+            id: l-ag-human
+        n_environment:
+            type: "actor"
+            part_of: diagram
+            id: n-environment
+        n_human:
+            type: "actor"
+            part_of: diagram
+            id: n-human
+        n_stop:
+            type: "actor"
+            part_of: diagram
+            id: n-stop
+        h_ag_human_up:
+            type: "actor"
+            part_of: diagram
+            id: h-ag-human-up
+        lbl_agent_cost:
+            type: "actor"
+            part_of: diagram
+            id: lbl-agent-cost
+        lbl_agent_risk:
+            type: "actor"
+            part_of: diagram
+            id: lbl-agent-risk
+
+        axis_label:
+            type: "actor"
+            part_of: diagram
+            id: axis-label
+
+        # ── the closing frame ────────────────────────────────────────────────
+        quote_1:
+            type: "actor"
+            part_of: diagram
+            id: quote-1
+        quote_2:
+            type: "actor"
+            part_of: diagram
+            id: quote-2
+        quote_3:
+            type: "actor"
+            part_of: diagram
+            id: quote-3
+        quote_4:
+            type: "actor"
+            part_of: diagram
+            id: quote-4
+        quote_5:
+            type: "actor"
+            part_of: diagram
+            id: quote-5
+        quote_who:
+            type: "actor"
+            part_of: diagram
+            id: quote-who
+        quote_disclaimer:
+            type: "actor"
+            part_of: diagram
+            id: quote-disclaimer
+
+        brand_mark:
+            type: "actor"
+            part_of: brand
+            id: brand_mark
+
+        # ── groups ───────────────────────────────────────────────────────────
+        # ⚠️ THE TWO WAITING STATES ARE DIFFERENT PROPERTIES, NOT ONE STATE. A
+        # faded thing waits at `opacity: 0`; a drawn thing waits at `reveal: 0`.
+        # They cannot share a group because they do not share a verb.
+        #
+        # ⚠️ A GROUP MAY EXPAND TO AT MOST 50 ACTORS. One `not_yet` holding
+        # everything came to 96 and was refused outright. Splitting it per beat
+        # is the better shape anyway: each beat's waiting set is named for its
+        # beat, so `setup` reads as the list of topologies that have not
+        # happened yet rather than as one undifferentiated wall.
+        waiting_ledger:
+            type: "group"
+            member_type: "actor"
+            members: [
+                rail_atom, rail_chain, rail_route, rail_parallel, rail_orchestrate,
+                rail_evaluate, rail_agent, mini_atom, mini_chain, mini_route, mini_parallel,
+                mini_orchestrate, mini_evaluate, mini_agent, n_entry, lbl_entry_atom,
+                lbl_entry_chain, lbl_entry_route, lbl_entry_orchestrate,
+                lbl_entry_evaluate, lbl_entry_agent,
+                badge_entry_icon, badge_entry_text]
+        waiting_atom:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_atom_retr, h_atom_tool, h_atom_mem, n_retrieval, n_tools, n_memory]
+        waiting_chain:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_ch_1, h_ch_2, h_ch_3, h_ch_fail, l_ch_fail, n_gate, lbl_gate, n_call2,
+                n_call3]
+        waiting_route:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_rt_1, h_rt_2, h_rt_3, n_route_1, n_route_2, n_route_3]
+        waiting_parallel:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_pa_1, h_pa_2, h_pa_3, n_par_1, n_par_2, n_par_3, h_pj_1, h_pj_2, h_pj_3,
+                n_aggregator, lbl_variants, n_in]
+        waiting_orchestrate:
+            type: "group"
+            member_type: "actor"
+            members: [
+                e_or_1, e_or_2, e_or_3, e_or_4, h_or_1, h_or_2, h_or_3, h_or_4, n_orc_1,
+                n_orc_2, n_orc_3, n_orc_4, h_oj_1, h_oj_2, h_oj_3, h_oj_4, n_synth,
+                lbl_runtime]
+        waiting_evaluate:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_ev_fwd, h_ev_back, h_ev_out, l_ev_fwd, l_ev_back, l_ev_out, n_evaluator,
+                n_accepted]
+        waiting_agent:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_ag_act, h_ag_obs, h_ag_stop, e_ag_human, h_ag_human, h_ag_human_up,
+                l_ag_act, l_ag_obs, l_ag_stop, l_ag_human, n_environment, n_human, n_stop,
+                lbl_agent_cost, lbl_agent_risk]
+        waiting_close:
+            type: "group"
+            member_type: "actor"
+            members: [
+                quote_1, quote_2, quote_3, quote_4, quote_5, quote_who, quote_disclaimer]
+
+        # Every SOLID shaft in the piece, waiting at zero length. The dashed ones
+        # are not here and never can be — see the header.
+        undrawn:
+            type: "group"
+            member_type: "actor"
+            members: [e_atom_retr, e_atom_tool, e_atom_mem, e_ch_1, e_ch_2, e_ch_3,
+                e_ch_fail, e_rt_1, e_rt_2, e_rt_3, e_pa_1, e_pa_2, e_pa_3, e_pj_1, e_pj_2,
+                e_pj_3, e_oj_1, e_oj_2, e_oj_3, e_oj_4, e_ev_fwd, e_ev_back, e_ev_out,
+                e_ag_act, e_ag_obs, e_ag_stop]
+
+        # The ledger furniture that is there from the first frame: the viewer
+        # should be able to see how far the piece intends to go.
+        ledger:
+            type: "group"
+            member_type: "actor"
+            members: [axis_label, rail_track_atom, rail_track_chain, rail_track_route,
+                rail_track_parallel, rail_track_orchestrate, rail_track_evaluate,
+                rail_track_agent, name_atom, name_chain, name_route, name_parallel,
+                name_orchestrate, name_evaluate, name_agent]
+
+        # ── per-beat build groups ────────────────────────────────────────────
+        atom_shafts:
+            type: "group"
+            member_type: "actor"
+            members: [e_atom_retr, e_atom_tool, e_atom_mem]
+        atom_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_atom_retr, h_atom_tool, h_atom_mem, n_retrieval, n_tools, n_memory]
+
+        chain_shafts:
+            type: "group"
+            member_type: "actor"
+            members: [e_ch_1, e_ch_2, e_ch_3]
+        chain_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_ch_1, h_ch_2, h_ch_3, n_gate, lbl_gate, n_call2, n_call3]
+        # ⚡ The gate's exit is its own phase. The post's point about a gate is
+        # that the chain can STOP there, and an exit drawn at the same moment as
+        # the forward arrows is just more furniture.
+        chain_exit:
+            type: "group"
+            member_type: "actor"
+            members: [h_ch_fail, l_ch_fail]
+
+        route_shafts:
+            type: "group"
+            member_type: "actor"
+            members: [e_rt_1, e_rt_2, e_rt_3]
+        route_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_rt_1, h_rt_2, h_rt_3, n_route_1, n_route_2, n_route_3]
+        # ⚠️ Routing's whole content is that the OTHER lanes do not run, and a
+        # picture where all three look alike says the opposite. Two of them are
+        # dimmed back down once all three have been drawn.
+        route_unchosen:
+            type: "group"
+            member_type: "actor"
+            members: [e_rt_1, h_rt_1, n_route_1, e_rt_3, h_rt_3, n_route_3]
+
+        parallel_shafts:
+            type: "group"
+            member_type: "actor"
+            members: [e_pa_1, e_pa_2, e_pa_3]
+        parallel_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_pa_1, h_pa_2, h_pa_3, n_par_1, n_par_2, n_par_3, lbl_variants, n_in]
+        parallel_joins:
+            type: "group"
+            member_type: "actor"
+            members: [e_pj_1, e_pj_2, e_pj_3]
+        parallel_join_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_pj_1, h_pj_2, h_pj_3, n_aggregator]
+
+        # The three lanes the author drew...
+        orchestrate_fan_a:
+            type: "group"
+            member_type: "actor"
+            members: [e_or_1, h_or_1, n_orc_1, e_or_2, h_or_2, n_orc_2, e_or_3, h_or_3,
+                n_orc_3]
+        # ...and the one nobody did. ⚡ THIS IS THE BEAT THE STILL DIAGRAM CANNOT
+        # HAVE. A fourth worker arriving mid-sentence is what "breaks the task
+        # down dynamically" looks like; on paper it is just a fourth box.
+        orchestrate_fan_b:
+            type: "group"
+            member_type: "actor"
+            members: [e_or_4, h_or_4, n_orc_4, lbl_runtime]
+        orchestrate_joins:
+            type: "group"
+            member_type: "actor"
+            members: [e_oj_1, e_oj_2, e_oj_3, e_oj_4]
+        # ⚠️ The synthesiser lands AFTER the fourth lane, and that is not a
+        # flourish: it sits at the centre of however many lanes exist, so there
+        # is no place to put it until the count is known.
+        orchestrate_join_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_oj_1, h_oj_2, h_oj_3, h_oj_4, n_synth]
+
+        evaluate_loop_shafts:
+            type: "group"
+            member_type: "actor"
+            members: [e_ev_fwd, e_ev_back]
+        evaluate_loop_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_ev_fwd, h_ev_back, l_ev_fwd, l_ev_back, n_evaluator]
+        evaluate_pair:
+            type: "group"
+            member_type: "actor"
+            members: [n_entry, n_evaluator]
+        evaluate_out_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_ev_out, l_ev_out, n_accepted]
+
+        agent_loop_shafts:
+            type: "group"
+            member_type: "actor"
+            members: [e_ag_act, e_ag_obs]
+        agent_loop_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_ag_act, h_ag_obs, l_ag_act, l_ag_obs, n_environment]
+        agent_human:
+            type: "group"
+            member_type: "actor"
+            members: [e_ag_human, h_ag_human, h_ag_human_up, l_ag_human, n_human]
+        agent_stop_body:
+            type: "group"
+            member_type: "actor"
+            members: [h_ag_stop, l_ag_stop, n_stop, lbl_agent_cost, lbl_agent_risk]
+
+        # The row lights AS ITS LINE IS SPOKEN. Listed first in its beat and
+        # given the clip's own duration, so it is both the deposit and the
+        # thing that says how long the beat is — no subtraction anywhere.
+        deposit_atom:
+            type: "group"
+            member_type: "actor"
+            members: [rail_atom, mini_atom]
+        deposit_chain:
+            type: "group"
+            member_type: "actor"
+            members: [rail_chain, mini_chain]
+        deposit_route:
+            type: "group"
+            member_type: "actor"
+            members: [rail_route, mini_route]
+        deposit_parallel:
+            type: "group"
+            member_type: "actor"
+            members: [rail_parallel, mini_parallel]
+        deposit_orchestrate:
+            type: "group"
+            member_type: "actor"
+            members: [rail_orchestrate, mini_orchestrate]
+        deposit_evaluate:
+            type: "group"
+            member_type: "actor"
+            members: [rail_evaluate, mini_evaluate]
+        deposit_agent:
+            type: "group"
+            member_type: "actor"
+            members: [rail_agent, mini_agent]
+
+        # ⚠️ THE BADGE BELONGS TO THE BOX. `n_entry` is hidden for the one beat
+        # whose head is not a model, and a badge left behind would sit on empty
+        # canvas saying LLM. They move as one.
+        entry_box:
+            type: "group"
+            member_type: "actor"
+            members: [n_entry, badge_entry_icon, badge_entry_text]
+
+        # The head, and the first name it wears.
+        entry_open:
+            type: "group"
+            member_type: "actor"
+            members: [n_entry, badge_entry_icon, badge_entry_text, lbl_entry_atom]
+
+        close_body:
+            type: "group"
+            member_type: "actor"
+            members: [
+                quote_1, quote_2, quote_3, quote_4, quote_5, quote_who, quote_disclaimer]
+
+        # ── narration ────────────────────────────────────────────────────────
+        # One clip per beat. Each is declared for its DURATION as much as for
+        # its sound: a beat lasts exactly as long as its own line, so
+        # re-recording one sentence re-times one beat and nothing else.
+        # Generate them with narrate_brief.yaml before rendering.
+        narration_01:
+            type: "audio"
+            file: "./resource/audio/part_01_source.mp3"
+        narration_02:
+            type: "audio"
+            file: "./resource/audio/part_02_atom.mp3"
+        narration_03:
+            type: "audio"
+            file: "./resource/audio/part_03_chain.mp3"
+        narration_04:
+            type: "audio"
+            file: "./resource/audio/part_04_route.mp3"
+        narration_05:
+            type: "audio"
+            file: "./resource/audio/part_05_parallel.mp3"
+        narration_06:
+            type: "audio"
+            file: "./resource/audio/part_06_orchestrate.mp3"
+        narration_07:
+            type: "audio"
+            file: "./resource/audio/part_07_evaluate.mp3"
+        narration_08:
+            type: "audio"
+            file: "./resource/audio/part_08_agent.mp3"
+        narration_09:
+            type: "audio"
+            file: "./resource/audio/part_09_choice.mp3"
+
+        template:
+            type: "template"
+            file: "./resource/template/main.html"
+        style:
+            type: "style"
+            file: "./resource/style/theme_flow.css"
+            themes:
+                - dark
+
+    defaults:
+        assets:
+            template:
+                asset: template
+                style:
+                    asset: style
+                    theme: dark
+
+    const:
+        # Quiet before the first word and after the last, so the piece does not
+        # start or stop on a syllable.
+        VIDEO_MARGIN: 400
+
+        CLEAR_MS: 260 # a topology leaving, so the next one never overlaps it
+        DRAW_MS: 620 # a solid shaft drawing itself
+        FADE_MS: 240 # anything that cannot be drawn, arriving
+        DIM_MS: 400 # a lane that did not run, going quiet
+        CLOSE_FADE_MS: 900 # the last frame arriving
+
+        # How far a dimmed thing goes. Not zero: the unchosen lanes in `route`
+        # still exist, and a router that erased them would be a gate.
+        DIM_TO: 0.22
+
+        # ⚡ A BEAT IS AS LONG AS ITS OWN LINE, AND NOTHING SUBTRACTS TO GET
+        # THERE. Each beat lists its ledger deposit FIRST and gives it the
+        # clip's own duration, so the row lights exactly as the sentence is
+        # spoken and the beat ends when the sentence does. The build happens
+        # inside that, on the moves below.
+        #
+        # ⚡ EVERY BEAT IS BUILT IN MOVES, AND A MOVE HAS TWO INSTANTS: a shaft
+        # starts drawing, and its arrowhead lands when the shaft arrives. Those
+        # six names are the ONLY offsets in this document — no timeline entry
+        # below adds anything together, so a beat can be read as "this, then
+        # this, then this" without doing arithmetic in your head.
+        MOVE_MS: "DRAW_MS + FADE_MS" # one move, end to end
+        MOVE_1_HEAD: DRAW_MS
+        MOVE_2: MOVE_MS
+        MOVE_2_HEAD: "MOVE_MS + DRAW_MS"
+        MOVE_3: "MOVE_MS * 2"
+        MOVE_3_HEAD: "MOVE_MS * 2 + DRAW_MS"
+
+animation:
+    context:
+        layout: stage
+        scenes:
+            - asset: diagram
+              cell:
+                  - 0
+                  - 0
+            - asset: brand
+              cell:
+                  - 0
+                  - 0
+
+    timeline:
+        # ── setup: the masthead, the empty ledger, and nothing else ──────────
+        # ⚡ ACTIONS INSIDE ONE ENTRY RUN IN SEQUENCE, which is why no beat below
+        # does `hold` arithmetic to get its own parts in order. A beat is written
+        # as the list of things that happen, and each states only its own length.
+        0 @ setup:
+            - masthead:
+                  - show:
+                        opacity: 1
+            - ledger:
+                  - show:
+                        opacity: 1
+            - brand_mark:
+                  - show:
+                        opacity: 1
+            - g_atom:
+                  - show:
+                        opacity: 1
+            - g_chain:
+                  - show:
+                        opacity: 1
+            - g_route:
+                  - show:
+                        opacity: 1
+            - g_parallel:
+                  - show:
+                        opacity: 1
+            - g_orchestrate:
+                  - show:
+                        opacity: 1
+            - g_evaluate:
+                  - show:
+                        opacity: 1
+            - g_agent:
+                  - show:
+                        opacity: 1
+            - g_entry:
+                  - show:
+                        opacity: 1
+            - waiting_ledger:
+                  - show:
+                        opacity: 0
+            - waiting_atom:
+                  - show:
+                        opacity: 0
+            - waiting_chain:
+                  - show:
+                        opacity: 0
+            - waiting_route:
+                  - show:
+                        opacity: 0
+            - waiting_parallel:
+                  - show:
+                        opacity: 0
+            - waiting_orchestrate:
+                  - show:
+                        opacity: 0
+            - waiting_evaluate:
+                  - show:
+                        opacity: 0
+            - waiting_agent:
+                  - show:
+                        opacity: 0
+            - waiting_close:
+                  - show:
+                        opacity: 0
+            - undrawn:
+                  - show:
+                        hold:
+                            after: VIDEO_MARGIN
+                        opacity: 1
+                        reveal: 0
+
+        # ── 0. where this comes from ─────────────────────────────────────────
+        # The attribution gets a beat of its own and a line of its own. It is
+        # not a credit crawl at the end of somebody else's argument.
+        #
+        # ⚡ ONE ENTRY, ONE LINE, NO CONSTANTS. The beat lasts exactly as long as
+        # the clip because the only thing in it is given the clip's duration.
+        setup.end @ source:
+            - entry_open:
+                  - show:
+                        duration: "narration_01.duration"
+                        opacity: 1
+
+        # ── 1. the augmented LLM ─────────────────────────────────────────────
+        # Nothing to clear: this is the first topology on the canvas.
+        source.end @ atom:
+            - deposit_atom:
+                  - show:
+                        duration: "narration_02.duration"
+                        opacity: 1
+            - atom_shafts:
+                  - show:
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - atom_body:
+                  - show:
+                        hold:
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+
+        # ── 2. prompt chaining ───────────────────────────────────────────────
+        atom.end @ clear_chain:
+            - g_atom:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - lbl_entry_atom:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - lbl_entry_chain:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 1
+
+        clear_chain.end @ chain:
+            - deposit_chain:
+                  - show:
+                        duration: "narration_03.duration"
+                        opacity: 1
+            - chain_shafts:
+                  - show:
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - chain_body:
+                  - show:
+                        hold:
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+            # The gate's exit is a move of its own. The post's point about a
+            # gate is that the chain can STOP there, and an exit drawn with the
+            # forward arrows is just more furniture.
+            - e_ch_fail:
+                  - show:
+                        hold:
+                            before: MOVE_2
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - chain_exit:
+                  - show:
+                        hold:
+                            before: MOVE_2_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+
+        # ── 3. routing ───────────────────────────────────────────────────────
+        chain.end @ clear_route:
+            - g_chain:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - lbl_entry_chain:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - lbl_entry_route:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 1
+
+        clear_route.end @ route:
+            - deposit_route:
+                  - show:
+                        duration: "narration_04.duration"
+                        opacity: 1
+            - route_shafts:
+                  - show:
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - route_body:
+                  - show:
+                        hold:
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+            # All three are drawn, and then two of them stop being the answer.
+            # Drawing only the chosen lane would have shown a chain.
+            - route_unchosen:
+                  - show:
+                        hold:
+                            before: MOVE_2
+                        duration: DIM_MS
+                        opacity: DIM_TO
+
+        # ── 4. parallelization ───────────────────────────────────────────────
+        route.end @ clear_parallel:
+            - g_route:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - lbl_entry_route:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            # ⚡ THE HEAD ITSELF LEAVES FOR THIS ONE BEAT. Everywhere else the
+            # persistent box is the head; in parallelization the head is `IN`,
+            # which is not a model and so is not that box.
+            - entry_box:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+
+        clear_parallel.end @ parallel:
+            - deposit_parallel:
+                  - show:
+                        duration: "narration_05.duration"
+                        opacity: 1
+            - parallel_shafts:
+                  - show:
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - parallel_body:
+                  - show:
+                        hold:
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+            - parallel_joins:
+                  - show:
+                        hold:
+                            before: MOVE_2
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - parallel_join_body:
+                  - show:
+                        hold:
+                            before: MOVE_2_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+
+        # ── 5. orchestrator-workers ──────────────────────────────────────────
+        parallel.end @ clear_orchestrate:
+            - g_parallel:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - entry_box:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 1
+            - lbl_entry_orchestrate:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 1
+
+        clear_orchestrate.end @ orchestrate:
+            - deposit_orchestrate:
+                  - show:
+                        duration: "narration_06.duration"
+                        opacity: 1
+            - orchestrate_fan_a:
+                  - show:
+                        duration: FADE_MS
+                        opacity: 1
+            # ⚡ THE MOVE THE STILL DIAGRAM CANNOT HAVE. A fourth worker arriving
+            # a move later is what "breaks the task down dynamically" looks like;
+            # on paper it is a fourth box.
+            - orchestrate_fan_b:
+                  - show:
+                        hold:
+                            before: MOVE_2
+                        duration: FADE_MS
+                        opacity: 1
+            - orchestrate_joins:
+                  - show:
+                        hold:
+                            before: MOVE_3
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - orchestrate_join_body:
+                  - show:
+                        hold:
+                            before: MOVE_3_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+
+        # ── 6. evaluator-optimizer ───────────────────────────────────────────
+        orchestrate.end @ clear_evaluate:
+            - g_orchestrate:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - lbl_entry_orchestrate:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - lbl_entry_evaluate:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 1
+
+        clear_evaluate.end @ evaluate:
+            - deposit_evaluate:
+                  - show:
+                        duration: "narration_07.duration"
+                        opacity: 1
+            - evaluate_loop_shafts:
+                  - show:
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - evaluate_loop_body:
+                  - show:
+                        hold:
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+            # The loop RUNS, for one move. Two passes, because one exchange is a
+            # handoff rather than a loop.
+            - evaluate_pair:
+                  - pulse:
+                        hold:
+                            before: MOVE_2
+                        duration: MOVE_MS
+                        cycles: 2
+                        scale:
+                            from: 1
+                            to: 1.04
+                        pivot: center
+            - e_ev_out:
+                  - show:
+                        hold:
+                            before: MOVE_3
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - evaluate_out_body:
+                  - show:
+                        hold:
+                            before: MOVE_3_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+
+        # ── 7. agents ────────────────────────────────────────────────────────
+        evaluate.end @ clear_agent:
+            - g_evaluate:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - lbl_entry_evaluate:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - lbl_entry_agent:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 1
+
+        clear_agent.end @ agent:
+            - deposit_agent:
+                  - show:
+                        duration: "narration_08.duration"
+                        opacity: 1
+            - agent_loop_shafts:
+                  - show:
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - agent_loop_body:
+                  - show:
+                        hold:
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+            # The checkpoint is dashed, so it arrives rather than draws — and
+            # arriving is the right verb for it anyway. It is the only edge in
+            # the piece that leaves the system.
+            - agent_human:
+                  - show:
+                        hold:
+                            before: MOVE_2
+                        duration: FADE_MS
+                        opacity: 1
+            - e_ag_stop:
+                  - show:
+                        hold:
+                            before: MOVE_3
+                        duration: DRAW_MS
+                        reveal:
+                            from: 0
+                            to: 1
+            - agent_stop_body:
+                  - show:
+                        hold:
+                            before: MOVE_3_HEAD
+                        duration: FADE_MS
+                        opacity: 1
+
+        # ── 8. the choice ────────────────────────────────────────────────────
+        # The stage empties and the ledger stays. Seven miniatures, all earned,
+        # and the only sentence in the piece that is quoted rather than drawn.
+        agent.end @ clear_close:
+            - g_agent:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+            - g_entry:
+                  - show:
+                        duration: CLEAR_MS
+                        opacity: 0
+
+        # ⚠️ THE CLOSING BEAT OBEYS THE SAME RULE AS EVERY OTHER ONE, and it
+        # has been wrong twice. First it ran a fixed 900 ms against a 19 s clip,
+        # so the video ended mid-sentence — 69.3 s rendered for 79 s of
+        # narration. Then it took the clip's duration as its FADE, which set the
+        # length correctly but left the quote at roughly half opacity ten
+        # seconds in, washed out rather than deliberate.
+        #
+        # ⚡ WHAT HOLDS THE BEAT OPEN IS THE LEDGER, NOT THE QUOTE. The ledger is
+        # already on screen and already at full opacity, so giving it the clip's
+        # duration animates nothing and states one thing: the seven rows stay up
+        # for as long as the closing line takes to read. The quote then fades on
+        # its own short duration over the top. Still no arithmetic — the
+        # length-setting entry is simply the one that is listed first.
+        clear_close.end @ close:
+            - ledger:
+                  - show:
+                        hold:
+                            after: VIDEO_MARGIN
+                        duration: "narration_09.duration"
+                        opacity: 1
+            - close_body:
+                  - show:
+                        duration: CLOSE_FADE_MS
+                        opacity: 1
+
+    capture:
+        video_agent_patterns_animation:
+            output: "./resource/video/agent_patterns_brief_animation.mp4"
+            fps: 30
+
+composition:
+    context:
+        status: active
+
+    timeline:
+        "0":
+            - video_agent_patterns_animation:
+                  - roll:
+                  - mix:
+                        span:
+                            from: "animation::source.start"
+                        asset: narration_01
+                  - mix:
+                        span:
+                            from: "animation::atom.start"
+                        asset: narration_02
+                  - mix:
+                        span:
+                            from: "animation::chain.start"
+                        asset: narration_03
+                  - mix:
+                        span:
+                            from: "animation::route.start"
+                        asset: narration_04
+                  - mix:
+                        span:
+                            from: "animation::parallel.start"
+                        asset: narration_05
+                  - mix:
+                        span:
+                            from: "animation::orchestrate.start"
+                        asset: narration_06
+                  - mix:
+                        span:
+                            from: "animation::evaluate.start"
+                        asset: narration_07
+                  - mix:
+                        span:
+                            from: "animation::agent.start"
+                        asset: narration_08
+                  - mix:
+                        span:
+                            from: "animation::close.start"
+                        asset: narration_09
+
+    capture:
+        video_agent_patterns:
+            output: "./agent_patterns_brief.mp4"
+            fps: 30

@@ -1,0 +1,1 @@
+The building block. A model augmented with retrieval, tools and memory. The workflows and the agent are arrangements of it.

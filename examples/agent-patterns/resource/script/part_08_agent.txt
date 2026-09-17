@@ -1,0 +1,1 @@
+Agents. The loop closes on the world. The model directs its own tools and reads ground truth. Higher cost and possible compounding errors, traded for performance at scale.
