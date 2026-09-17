@@ -83,38 +83,6 @@ defs:
             cols: 1
 
 
-        # ── the kind legend ──────────────────────────────────────────────────
-        # ⚡ THE LEGEND IS AUTHORED HERE, NOT DRAWN. Four `annotation` notes,
-        # each a box painted exactly like the kind it names, so the legend is a
-        # specimen rather than a description of one. Changing a word is an edit
-        # to this document; it needs no generator run and no SVG.
-        #
-        # ⚠️ A NOTE'S TEXT COLOUR CANNOT FOLLOW A THEME. `font_color` is a
-        # literal here in `defs`, where no style is in scope and `css()` cannot
-        # reach — the open finding `css-var-unresolvable-outside-animation`
-        # names this exact position. It is a literal below for that reason, and
-        # it is only safe because this document now declares ONE theme. The
-        # note's BOX is themed: `fill` and `stroke` on the annotation envelope
-        # do resolve `css()`.
-        kind_model_text:
-            type: "text"
-            content: "LLM CALL"
-            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
-            font_size: 15
-            font_color: "#f6f1ec"
-        kind_code_text:
-            type: "text"
-            content: "CODE"
-            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
-            font_size: 15
-            font_color: "#a2907f"
-        kind_outside_text:
-            type: "text"
-            content: "OUTSIDE"
-            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
-            font_size: 15
-            font_color: "#a2907f"
-
         # ── the masthead, and the attribution it must never lose ─────────────
         masthead:
             type: "actor"
@@ -247,6 +215,14 @@ defs:
             type: "actor"
             part_of: diagram
             id: n-entry
+        badge_entry_icon:
+            type: "actor"
+            part_of: diagram
+            id: badge-entry-icon
+        badge_entry_text:
+            type: "actor"
+            part_of: diagram
+            id: badge-entry-text
         lbl_entry_atom:
             type: "actor"
             part_of: diagram
@@ -778,7 +754,8 @@ defs:
                 rail_evaluate, rail_agent, mini_atom, mini_chain, mini_route, mini_parallel,
                 mini_orchestrate, mini_evaluate, mini_agent, n_entry, lbl_entry_atom,
                 lbl_entry_chain, lbl_entry_route, lbl_entry_orchestrate,
-                lbl_entry_evaluate, lbl_entry_agent]
+                lbl_entry_evaluate, lbl_entry_agent,
+                badge_entry_icon, badge_entry_text]
         waiting_atom:
             type: "group"
             member_type: "actor"
@@ -800,7 +777,7 @@ defs:
             member_type: "actor"
             members: [
                 h_pa_1, h_pa_2, h_pa_3, n_par_1, n_par_2, n_par_3, h_pj_1, h_pj_2, h_pj_3,
-                n_aggregator, lbl_variants]
+                n_aggregator, lbl_variants, n_in]
         waiting_orchestrate:
             type: "group"
             member_type: "actor"
@@ -997,20 +974,19 @@ defs:
             member_type: "actor"
             members: [rail_agent, mini_agent]
 
-        # The entry node and the first name it wears.
+        # ⚠️ THE BADGE BELONGS TO THE BOX. `n_entry` is hidden for the one beat
+        # whose head is not a model, and a badge left behind would sit on empty
+        # canvas saying LLM. They move as one.
+        entry_box:
+            type: "group"
+            member_type: "actor"
+            members: [n_entry, badge_entry_icon, badge_entry_text]
+
+        # The head, and the first name it wears.
         entry_open:
             type: "group"
             member_type: "actor"
-            members: [n_entry, lbl_entry_atom]
-
-        # ⚠️ AN ANNOTATION MUST BE ADDRESSED OR THE COMPILER WARNS. Declared and
-        # never referenced, all four rendered correctly and still raised "the
-        # generated element is constructed but never animated" — the legend is
-        # shown in `setup` for that reason as much as for the fade.
-        legend:
-            type: "group"
-            member_type: "actor"
-            members: [legend_model, legend_code, legend_outside]
+            members: [n_entry, badge_entry_icon, badge_entry_text, lbl_entry_atom]
 
         close_body:
             type: "group"
@@ -1073,15 +1049,6 @@ defs:
         # start or stop on a syllable.
         VIDEO_MARGIN: 400
 
-        # The legend sits in the one band no beat ever uses: below the credits
-        # and above the highest thing any topology draws.
-        LEGEND_W: 168
-        LEGEND_H: 40
-        LEGEND_Y: 158
-        LEGEND_X_1: 1332
-        LEGEND_X_2: 1516
-        LEGEND_X_3: 1700
-
         CLEAR_MS: 260 # a topology leaving, so the next one never overlaps it
         DRAW_MS: 620 # a solid shaft drawing itself
         FADE_MS: 240 # anything that cannot be drawn, arriving
@@ -1123,71 +1090,6 @@ animation:
                   - 0
                   - 0
 
-    annotations:
-        # ⚡ EACH CHIP IS A SPECIMEN OF ITS KIND, as far as a note can be one:
-        # `entry` is the white one and thicker, and the three hues are the
-        # stage's own. A legend drawn in some other style would be a caption,
-        # and a caption can drift from what it captions.
-        #
-        # ⛔ EXCEPT THE DASH. `outside` is dashed on the stage and solid here,
-        # because an annotation envelope has `fill`, `stroke`, `stroke_width`
-        # and `opacity` — and no way to say `stroke-dasharray`. The chip
-        # therefore carries the hue but not the whole signal. Say it out loud
-        # rather than let the legend quietly misdescribe the drawing.
-        legend_model:
-            note:
-                text: kind_model_text
-                shape:
-                    rect:
-                        width: LEGEND_W
-                        height: LEGEND_H
-                        radius: 8
-                padding: 10
-                align: center
-            at:
-                x: LEGEND_X_1
-                y: LEGEND_Y
-            origin: top_left
-            fill: 'css("node-fill-color")'
-            stroke: 'css("kind-model-color")'
-            stroke_width: 2
-
-        legend_code:
-            note:
-                text: kind_code_text
-                shape:
-                    rect:
-                        width: LEGEND_W
-                        height: LEGEND_H
-                        radius: 8
-                padding: 10
-                align: center
-            at:
-                x: LEGEND_X_2
-                y: LEGEND_Y
-            origin: top_left
-            fill: 'css("node-fill-color")'
-            stroke: 'css("kind-code-color")'
-            stroke_width: 2
-
-        legend_outside:
-            note:
-                text: kind_outside_text
-                shape:
-                    rect:
-                        width: LEGEND_W
-                        height: LEGEND_H
-                        radius: 8
-                padding: 10
-                align: center
-            at:
-                x: LEGEND_X_3
-                y: LEGEND_Y
-            origin: top_left
-            fill: 'css("node-fill-color")'
-            stroke: 'css("kind-outside-color")'
-            stroke_width: 2
-
     timeline:
         # ── setup: the masthead, the empty ledger, and nothing else ──────────
         # ⚡ ACTIONS INSIDE ONE ENTRY RUN IN SEQUENCE, which is why no beat below
@@ -1198,9 +1100,6 @@ animation:
                   - show:
                         opacity: 1
             - ledger:
-                  - show:
-                        opacity: 1
-            - legend:
                   - show:
                         opacity: 1
             - brand_mark:
@@ -1400,7 +1299,7 @@ animation:
             # ⚡ THE HEAD ITSELF LEAVES FOR THIS ONE BEAT. Everywhere else the
             # persistent box is the head; in parallelization the head is `IN`,
             # which is not a model and so is not that box.
-            - n_entry:
+            - entry_box:
                   - show:
                         duration: CLEAR_MS
                         opacity: 0
@@ -1443,7 +1342,7 @@ animation:
                   - show:
                         duration: CLEAR_MS
                         opacity: 0
-            - n_entry:
+            - entry_box:
                   - show:
                         duration: CLEAR_MS
                         opacity: 1
