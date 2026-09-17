@@ -28,7 +28,7 @@
 	/* ⛔ Terminals are not a kind. Recessive on purpose: they are where things
 	   enter and leave, not components of the system. */
 	.terminal { fill: var(--node-fill-color, #1c1714); stroke: var(--terminal-stroke-color, #6d5a4b); stroke-width: 2; }
-	.badge { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; fill: var(--badge-text-color, #9c8e80); }
+	.badge { font-size: 14px; font-weight: 700; letter-spacing: 0.07em; fill: var(--badge-text-color, #9c8e80); }
 	/* ⚠️ THE CATALOG'S SYMBOLS PAINT THROUGH CLASSES, NOT THROUGH var() ON THE
 	   USE ELEMENT. They carry class="icon-fill icon-stroke", and the catalog
 	   defines those classes in its OWN stylesheet — which does not come across
@@ -79,25 +79,14 @@
 	.rail-7 { fill: var(--step-7-color, #d9c9b5); }
 	</style>
 <defs><symbol id="llm" viewBox="0 0 24 24">
-            <!-- Four-point spark, large. ⛔ Deliberately NOT a radial asterisk
-                 or sunburst: the first diagram to use this sits beside an
-                 Anthropic attribution, and the glyph must not read as their
-                 mark. -->
-            <path
-				d="M 9.5,2 Q 9.5,9.5 17,9.5 Q 9.5,9.5 9.5,17 Q 9.5,9.5 2,9.5 Q 9.5,9.5 9.5,2 Z"
-				class="icon-fill icon-stroke"
-				stroke-width="1"
-				stroke-linejoin="round"
-			/>
-            <!-- Four-point spark, small. Two sizes read as "generated" where one
-                 reads as a star. ⚡ Chosen for 20px: this survives it, and
-                 `neural-network` — the obvious candidate — does not. -->
-            <path
-				d="M 18,13.5 Q 18,18 22.5,18 Q 18,18 18,22.5 Q 18,18 13.5,18 Q 18,18 18,13.5 Z"
-				class="icon-fill icon-stroke"
-				stroke-width="1"
-				stroke-linejoin="round"
-			/>
+            <!-- Generated language: three rules of decreasing length, with a
+                 caret block resting on the last. What a language model does is
+                 emit text, so the glyph shows text being emitted. -->
+            <line x1="4" y1="7" x2="20" y2="7" class="icon-stroke" stroke-width="1.6" stroke-linecap="round" />
+            <line x1="4" y1="12" x2="17" y2="12" class="icon-stroke" stroke-width="1.6" stroke-linecap="round" />
+            <line x1="4" y1="17" x2="12" y2="17" class="icon-stroke" stroke-width="1.6" stroke-linecap="round" />
+            <!-- The cursor. ⚡ It is what stops this reading as a list icon. -->
+            <rect x="15" y="14.2" width="3.2" height="5.6" rx="0.6" class="icon-fill-dark" />
         </symbol><symbol id="puzzle" viewBox="0 0 24 24">
             <!-- Top-Left piece -->
             <path
@@ -199,62 +188,62 @@
 <path id="e-atom-retr" class="edge" d="M 790.0 536.0 L 790.0 367.0"/><polygon id="h-atom-retr" class="ehead" points="790.0,367.0 783.0,380.0 797.0,380.0"/>
 <path id="e-atom-tool" class="edge" d="M 920.0 580.0 L 1006.0 580.0"/><polygon id="h-atom-tool" class="ehead" points="1006.0,580.0 993.0,573.0 993.0,587.0"/>
 <path id="e-atom-mem" class="edge" d="M 790.0 624.0 L 790.0 793.0"/><polygon id="h-atom-mem" class="ehead" points="790.0,793.0 783.0,780.0 797.0,780.0"/>
-<g id="n-retrieval" class="node-g"><rect class="node kind-augment" x="686" y="293" width="208" height="74" rx="12"/><text class="nt" x="790" y="330">RETRIEVAL</text><use href="#puzzle" x="738.4" y="347.0" width="19" height="19" class="badge-icon"/><text class="badge" x="762.4" y="361.0">AUGMENTATION</text></g>
-<g id="n-tools" class="node-g"><rect class="node kind-augment" x="1006" y="543" width="208" height="74" rx="12"/><text class="nt" x="1110" y="580">TOOLS</text><use href="#puzzle" x="1058.4" y="597.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1082.4" y="611.0">AUGMENTATION</text></g>
-<g id="n-memory" class="node-g"><rect class="node kind-augment" x="686" y="793" width="208" height="74" rx="12"/><text class="nt" x="790" y="830">MEMORY</text><use href="#puzzle" x="738.4" y="847.0" width="19" height="19" class="badge-icon"/><text class="badge" x="762.4" y="861.0">AUGMENTATION</text></g>
+<g id="n-retrieval" class="node-g"><rect class="node kind-augment" x="686" y="293" width="208" height="74" rx="12"/><text class="nt" x="790" y="330">RETRIEVAL</text><use href="#puzzle" x="734.4" y="336.0" width="22" height="22" class="badge-icon"/><text class="badge" x="762.4" y="352.3">AUGMENTATION</text></g>
+<g id="n-tools" class="node-g"><rect class="node kind-augment" x="1006" y="543" width="208" height="74" rx="12"/><text class="nt" x="1110" y="580">TOOLS</text><use href="#puzzle" x="1054.4" y="586.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1082.4" y="602.3">AUGMENTATION</text></g>
+<g id="n-memory" class="node-g"><rect class="node kind-augment" x="686" y="793" width="208" height="74" rx="12"/><text class="nt" x="790" y="830">MEMORY</text><use href="#puzzle" x="734.4" y="836.0" width="22" height="22" class="badge-icon"/><text class="badge" x="762.4" y="852.3">AUGMENTATION</text></g>
 </g>
 <g id="g-chain">
 <path id="e-ch-1" class="edge" d="M 920.0 580.0 L 984.0 580.0"/><polygon id="h-ch-1" class="ehead" points="984.0,580.0 971.0,573.0 971.0,587.0"/>
 <polygon id="n-gate" class="gate kind-code" points="1010,554 1036,580 1010,606 984,580"/>
 <text id="lbl-gate" class="elabel" x="1010" y="536">GATE</text>
 <path id="e-ch-2" class="edge" d="M 1036.0 580.0 L 1110.0 580.0"/><polygon id="h-ch-2" class="ehead" points="1110.0,580.0 1097.0,573.0 1097.0,587.0"/>
-<g id="n-call2" class="node-g"><rect class="node kind-model" x="1110" y="536" width="260" height="88" rx="12"/><text class="nt" x="1240" y="580">CALL 2</text><use href="#llm" x="1218.1" y="604.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1242.1" y="618.0">LLM</text></g>
+<g id="n-call2" class="node-g"><rect class="node kind-model" x="1110" y="536" width="260" height="88" rx="12"/><text class="nt" x="1240" y="580">CALL 2</text><use href="#llm" x="1298.6" y="593.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1326.6" y="609.3">LLM</text></g>
 <path id="e-ch-3" class="edge" d="M 1370.0 580.0 L 1510.0 580.0"/><polygon id="h-ch-3" class="ehead" points="1510.0,580.0 1497.0,573.0 1497.0,587.0"/>
-<g id="n-call3" class="node-g"><rect class="node kind-model" x="1510" y="536" width="260" height="88" rx="12"/><text class="nt" x="1640" y="580">CALL 3</text><use href="#llm" x="1618.1" y="604.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1642.1" y="618.0">LLM</text></g>
+<g id="n-call3" class="node-g"><rect class="node kind-model" x="1510" y="536" width="260" height="88" rx="12"/><text class="nt" x="1640" y="580">CALL 3</text><use href="#llm" x="1698.6" y="593.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1726.6" y="609.3">LLM</text></g>
 <path id="e-ch-fail" class="edge" d="M 1010.0 606.0 L 1010.0 790.0"/><polygon id="h-ch-fail" class="ehead" points="1010.0,790.0 1003.0,777.0 1017.0,777.0"/><text id="l-ch-fail" class="elabel" x="1010" y="822">FAIL → EXIT</text>
 </g>
 <g id="g-route">
 <path id="e-rt-1" class="edge" d="M 920.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 564.0 L 1080.0 416.0 Q 1080.0 400.0 1096.0 400.0 L 1200.0 400.0"/><polygon id="h-rt-1" class="ehead" points="1200.0,400.0 1187.0,393.0 1187.0,407.0"/>
-<g id="n-route-1" class="node-g"><rect class="node kind-model" x="1200" y="356" width="260" height="88" rx="12"/><text class="nt" x="1330" y="400">CALL 1</text><use href="#llm" x="1308.1" y="424.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="438.0">LLM</text></g>
+<g id="n-route-1" class="node-g"><rect class="node kind-model" x="1200" y="356" width="260" height="88" rx="12"/><text class="nt" x="1330" y="400">CALL 1</text><use href="#llm" x="1388.6" y="413.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="429.3">LLM</text></g>
 <path id="e-rt-2" class="edge" d="M 920.0 580.0 L 1079.5 580.0 Q 1080.0 580.0 1080.0 580.0 L 1080.0 580.0 Q 1080.0 580.0 1080.5 580.0 L 1200.0 580.0"/><polygon id="h-rt-2" class="ehead" points="1200.0,580.0 1187.0,573.0 1187.0,587.0"/>
-<g id="n-route-2" class="node-g"><rect class="node kind-model" x="1200" y="536" width="260" height="88" rx="12"/><text class="nt" x="1330" y="580">CALL 2</text><use href="#llm" x="1308.1" y="604.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="618.0">LLM</text></g>
+<g id="n-route-2" class="node-g"><rect class="node kind-model" x="1200" y="536" width="260" height="88" rx="12"/><text class="nt" x="1330" y="580">CALL 2</text><use href="#llm" x="1388.6" y="593.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="609.3">LLM</text></g>
 <path id="e-rt-3" class="edge" d="M 920.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 744.0 Q 1080.0 760.0 1096.0 760.0 L 1200.0 760.0"/><polygon id="h-rt-3" class="ehead" points="1200.0,760.0 1187.0,753.0 1187.0,767.0"/>
-<g id="n-route-3" class="node-g"><rect class="node kind-model" x="1200" y="716" width="260" height="88" rx="12"/><text class="nt" x="1330" y="760">CALL 3</text><use href="#llm" x="1308.1" y="784.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="798.0">LLM</text></g>
+<g id="n-route-3" class="node-g"><rect class="node kind-model" x="1200" y="716" width="260" height="88" rx="12"/><text class="nt" x="1330" y="760">CALL 3</text><use href="#llm" x="1388.6" y="773.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="789.3">LLM</text></g>
 </g>
 <g id="g-parallel">
 <path id="e-pa-1" class="edge" d="M 894.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 564.0 L 1080.0 416.0 Q 1080.0 400.0 1096.0 400.0 L 1200.0 400.0"/><polygon id="h-pa-1" class="ehead" points="1200.0,400.0 1187.0,393.0 1187.0,407.0"/>
-<g id="n-par-1" class="node-g"><rect class="node kind-model" x="1200" y="356" width="260" height="88" rx="12"/><text class="nt" x="1330" y="400">CALL 1</text><use href="#llm" x="1308.1" y="424.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="438.0">LLM</text></g>
+<g id="n-par-1" class="node-g"><rect class="node kind-model" x="1200" y="356" width="260" height="88" rx="12"/><text class="nt" x="1330" y="400">CALL 1</text><use href="#llm" x="1388.6" y="413.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="429.3">LLM</text></g>
 <path id="e-pj-1" class="edge" d="M 1460.0 400.0 L 1499.0 400.0 Q 1515.0 400.0 1515.0 416.0 L 1515.0 564.0 Q 1515.0 580.0 1531.0 580.0 L 1596.0 580.0"/><polygon id="h-pj-1" class="ehead" points="1596.0,580.0 1583.0,573.0 1583.0,587.0"/>
 <path id="e-pa-2" class="edge" d="M 894.0 580.0 L 1079.5 580.0 Q 1080.0 580.0 1080.0 580.0 L 1080.0 580.0 Q 1080.0 580.0 1080.5 580.0 L 1200.0 580.0"/><polygon id="h-pa-2" class="ehead" points="1200.0,580.0 1187.0,573.0 1187.0,587.0"/>
-<g id="n-par-2" class="node-g"><rect class="node kind-model" x="1200" y="536" width="260" height="88" rx="12"/><text class="nt" x="1330" y="580">CALL 2</text><use href="#llm" x="1308.1" y="604.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="618.0">LLM</text></g>
+<g id="n-par-2" class="node-g"><rect class="node kind-model" x="1200" y="536" width="260" height="88" rx="12"/><text class="nt" x="1330" y="580">CALL 2</text><use href="#llm" x="1388.6" y="593.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="609.3">LLM</text></g>
 <path id="e-pj-2" class="edge" d="M 1460.0 580.0 L 1514.5 580.0 Q 1515.0 580.0 1515.0 580.0 L 1515.0 580.0 Q 1515.0 580.0 1515.5 580.0 L 1596.0 580.0"/><polygon id="h-pj-2" class="ehead" points="1596.0,580.0 1583.0,573.0 1583.0,587.0"/>
 <path id="e-pa-3" class="edge" d="M 894.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 744.0 Q 1080.0 760.0 1096.0 760.0 L 1200.0 760.0"/><polygon id="h-pa-3" class="ehead" points="1200.0,760.0 1187.0,753.0 1187.0,767.0"/>
-<g id="n-par-3" class="node-g"><rect class="node kind-model" x="1200" y="716" width="260" height="88" rx="12"/><text class="nt" x="1330" y="760">CALL 3</text><use href="#llm" x="1308.1" y="784.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="798.0">LLM</text></g>
+<g id="n-par-3" class="node-g"><rect class="node kind-model" x="1200" y="716" width="260" height="88" rx="12"/><text class="nt" x="1330" y="760">CALL 3</text><use href="#llm" x="1388.6" y="773.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="789.3">LLM</text></g>
 <path id="e-pj-3" class="edge" d="M 1460.0 760.0 L 1499.0 760.0 Q 1515.0 760.0 1515.0 744.0 L 1515.0 596.0 Q 1515.0 580.0 1531.0 580.0 L 1596.0 580.0"/><polygon id="h-pj-3" class="ehead" points="1596.0,580.0 1583.0,573.0 1583.0,587.0"/>
-<g id="n-aggregator" class="node-g"><rect class="node kind-code" x="1596" y="543" width="208" height="74" rx="12"/><text class="nt" x="1700" y="580">AGGREGATOR</text><use href="#source-code" x="1674.8" y="597.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1698.8" y="611.0">CODE</text></g>
+<g id="n-aggregator" class="node-g"><rect class="node kind-code" x="1596" y="543" width="208" height="74" rx="12"/><text class="nt" x="1700" y="580">AGGREGATOR</text><use href="#source-code" x="1722.8" y="586.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1750.8" y="602.3">CODE</text></g>
 <g id="n-in" class="node-g"><rect class="terminal" x="715" y="557" width="150" height="46" rx="12"/><text class="nt" x="790" y="589">IN</text></g>
 <text id="lbl-variants" class="elabel" x="1330" y="270">SECTIONING · VOTING</text>
 </g>
 <g id="g-orchestrate">
 <path id="e-or-1" class="edge-dash" d="M 920.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 564.0 L 1080.0 416.0 Q 1080.0 400.0 1096.0 400.0 L 1200.0 400.0"/><polygon id="h-or-1" class="ehead" points="1200.0,400.0 1187.0,393.0 1187.0,407.0"/>
-<g id="n-orc-1" class="node-g"><rect class="node kind-model" x="1200" y="356" width="260" height="88" rx="12"/><text class="nt" x="1330" y="400">WORKER 1</text><use href="#llm" x="1308.1" y="424.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="438.0">LLM</text></g>
+<g id="n-orc-1" class="node-g"><rect class="node kind-model" x="1200" y="356" width="260" height="88" rx="12"/><text class="nt" x="1330" y="400">WORKER 1</text><use href="#llm" x="1388.6" y="413.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="429.3">LLM</text></g>
 <path id="e-oj-1" class="edge" d="M 1460.0 400.0 L 1499.0 400.0 Q 1515.0 400.0 1515.0 416.0 L 1515.0 654.0 Q 1515.0 670.0 1531.0 670.0 L 1570.0 670.0"/><polygon id="h-oj-1" class="ehead" points="1570.0,670.0 1557.0,663.0 1557.0,677.0"/>
 <path id="e-or-2" class="edge-dash" d="M 920.0 580.0 L 1079.5 580.0 Q 1080.0 580.0 1080.0 580.0 L 1080.0 580.0 Q 1080.0 580.0 1080.5 580.0 L 1200.0 580.0"/><polygon id="h-or-2" class="ehead" points="1200.0,580.0 1187.0,573.0 1187.0,587.0"/>
-<g id="n-orc-2" class="node-g"><rect class="node kind-model" x="1200" y="536" width="260" height="88" rx="12"/><text class="nt" x="1330" y="580">WORKER 2</text><use href="#llm" x="1308.1" y="604.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="618.0">LLM</text></g>
+<g id="n-orc-2" class="node-g"><rect class="node kind-model" x="1200" y="536" width="260" height="88" rx="12"/><text class="nt" x="1330" y="580">WORKER 2</text><use href="#llm" x="1388.6" y="593.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="609.3">LLM</text></g>
 <path id="e-oj-2" class="edge" d="M 1460.0 580.0 L 1499.0 580.0 Q 1515.0 580.0 1515.0 596.0 L 1515.0 654.0 Q 1515.0 670.0 1531.0 670.0 L 1570.0 670.0"/><polygon id="h-oj-2" class="ehead" points="1570.0,670.0 1557.0,663.0 1557.0,677.0"/>
 <path id="e-or-3" class="edge-dash" d="M 920.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 744.0 Q 1080.0 760.0 1096.0 760.0 L 1200.0 760.0"/><polygon id="h-or-3" class="ehead" points="1200.0,760.0 1187.0,753.0 1187.0,767.0"/>
-<g id="n-orc-3" class="node-g"><rect class="node kind-model" x="1200" y="716" width="260" height="88" rx="12"/><text class="nt" x="1330" y="760">WORKER 3</text><use href="#llm" x="1308.1" y="784.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="798.0">LLM</text></g>
+<g id="n-orc-3" class="node-g"><rect class="node kind-model" x="1200" y="716" width="260" height="88" rx="12"/><text class="nt" x="1330" y="760">WORKER 3</text><use href="#llm" x="1388.6" y="773.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="789.3">LLM</text></g>
 <path id="e-oj-3" class="edge" d="M 1460.0 760.0 L 1499.0 760.0 Q 1515.0 760.0 1515.0 744.0 L 1515.0 686.0 Q 1515.0 670.0 1531.0 670.0 L 1570.0 670.0"/><polygon id="h-oj-3" class="ehead" points="1570.0,670.0 1557.0,663.0 1557.0,677.0"/>
 <path id="e-or-4" class="edge-dash" d="M 920.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 924.0 Q 1080.0 940.0 1096.0 940.0 L 1200.0 940.0"/><polygon id="h-or-4" class="ehead" points="1200.0,940.0 1187.0,933.0 1187.0,947.0"/>
-<g id="n-orc-4" class="node-g"><rect class="node kind-model" x="1200" y="896" width="260" height="88" rx="12"/><text class="nt" x="1330" y="940">WORKER 4</text><use href="#llm" x="1308.1" y="964.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1332.1" y="978.0">LLM</text></g>
+<g id="n-orc-4" class="node-g"><rect class="node kind-model" x="1200" y="896" width="260" height="88" rx="12"/><text class="nt" x="1330" y="940">WORKER 4</text><use href="#llm" x="1388.6" y="953.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1416.6" y="969.3">LLM</text></g>
 <path id="e-oj-4" class="edge" d="M 1460.0 940.0 L 1499.0 940.0 Q 1515.0 940.0 1515.0 924.0 L 1515.0 686.0 Q 1515.0 670.0 1531.0 670.0 L 1570.0 670.0"/><polygon id="h-oj-4" class="ehead" points="1570.0,670.0 1557.0,663.0 1557.0,677.0"/>
-<g id="n-synth" class="node-g"><rect class="node kind-model" x="1570" y="626" width="260" height="88" rx="12"/><text class="nt" x="1700" y="670">SYNTHESIZER</text><use href="#llm" x="1678.1" y="694.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1702.1" y="708.0">LLM</text></g>
+<g id="n-synth" class="node-g"><rect class="node kind-model" x="1570" y="626" width="260" height="88" rx="12"/><text class="nt" x="1700" y="670">SYNTHESIZER</text><use href="#llm" x="1758.6" y="683.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1786.6" y="699.3">LLM</text></g>
 <text id="lbl-runtime" class="elabel" x="1080" y="986">DECIDED AT RUN TIME</text>
 </g>
 <g id="g-evaluate">
 <path id="e-ev-fwd" class="edge" d="M 920.0 554.0 L 1160.0 554.0"/><polygon id="h-ev-fwd" class="ehead" points="1160.0,554.0 1147.0,547.0 1147.0,561.0"/><text id="l-ev-fwd" class="elabel" x="1092" y="536">SOLUTION</text>
 <path id="e-ev-back" class="edge" d="M 1160.0 606.0 L 920.0 606.0"/><polygon id="h-ev-back" class="ehead" points="920.0,606.0 933.0,599.0 933.0,613.0"/><text id="l-ev-back" class="elabel" x="1092" y="642">FEEDBACK</text>
-<g id="n-evaluator" class="node-g"><rect class="node kind-model" x="1160" y="536" width="260" height="88" rx="12"/><text class="nt" x="1290" y="580">EVALUATOR</text><use href="#llm" x="1268.1" y="604.0" width="19" height="19" class="badge-icon"/><text class="badge" x="1292.1" y="618.0">LLM</text></g>
+<g id="n-evaluator" class="node-g"><rect class="node kind-model" x="1160" y="536" width="260" height="88" rx="12"/><text class="nt" x="1290" y="580">EVALUATOR</text><use href="#llm" x="1348.6" y="593.0" width="22" height="22" class="badge-icon"/><text class="badge" x="1376.6" y="609.3">LLM</text></g>
 <path id="e-ev-out" class="edge" d="M 1420.0 580.0 L 1596.0 580.0"/><polygon id="h-ev-out" class="ehead" points="1596.0,580.0 1583.0,573.0 1583.0,587.0"/><text id="l-ev-out" class="elabel" x="1497" y="562">ACCEPTED</text>
 <g id="n-accepted" class="node-g"><rect class="terminal" x="1625" y="557" width="150" height="46" rx="12"/><text class="nt" x="1700" y="589">OUTPUT</text></g>
 </g>
@@ -271,8 +260,8 @@
 </g>
 <g id="g-entry">
 <rect id="n-entry" class="node kind-model" x="660" y="536" width="260" height="88" rx="12"/>
-<use id="badge-entry-icon" href="#llm" x="768.1" y="604.0" width="19" height="19" class="badge-icon"/>
-<text id="badge-entry-text" class="badge" x="792.1" y="618.0">LLM</text>
+<use id="badge-entry-icon" href="#llm" x="848.6" y="593.0" width="22" height="22" class="badge-icon"/>
+<text id="badge-entry-text" class="badge" x="876.6" y="609.3">LLM</text>
 <text id="lbl-entry-atom" class="nt" x="790" y="589">MODEL</text>
 <text id="lbl-entry-chain" class="nt" x="790" y="589">CALL 1</text>
 <text id="lbl-entry-route" class="nt" x="790" y="589">ROUTER</text>
