@@ -173,17 +173,14 @@ defs:
 
         PHRASE_6_CYCLES: 4 # "See you in module one."
 
-        TALK_MS: "PHRASE_6_AT + narration_6.duration"
+        TALK_MS: "narration_1.duration + narration_2.duration + narration_3.duration
+            + narration_4.duration + narration_5.duration + narration_6.duration
+            + PAUSE_1_MS + PAUSE_2_MS + PAUSE_3_MS + PAUSE_4_MS + PAUSE_5_MS"
 
         # ⚠️ `hold.before` IS MEASURED FROM THE BOOKMARK, NOT FROM THE ENTRY ABOVE.
         # Sub-actions of the same type chain inside ONE entry; separate actors each
         # start at the bookmark. The six lines are six actors, so each states the
         # whole elapsed time — write a gap instead and line 3 arrives before line 2.
-        PHRASE_2_AT: "narration_1.duration + PAUSE_1_MS"
-        PHRASE_3_AT: "PHRASE_2_AT + narration_2.duration + PAUSE_2_MS"
-        PHRASE_4_AT: "PHRASE_3_AT + narration_3.duration + PAUSE_3_MS"
-        PHRASE_5_AT: "PHRASE_4_AT + narration_4.duration + PAUSE_4_MS"
-        PHRASE_6_AT: "PHRASE_5_AT + narration_5.duration + PAUSE_5_MS"
 
         # ── Blinking ─────────────────────────────────────────────────────────
         # ⚠️ EVENLY SPACED BLINKS READ AS A METRONOME. These five gaps are
@@ -236,98 +233,11 @@ animation:
                         hold:
                             before: "VIDEO_MARGIN"
 
-        setup_ts.end @ talk_ts:
-            # ── The type: one line per phrase, each in before its phrase opens ─
-            - line_1:
-                  - show:
-                        duration: FADE_WINDOW
-                        actions:
-                            - show:
-                                  opacity: 1
-                            - move:
-                                  from:
-                                      dx: 0
-                                      dy: 18
-                                  to:
-                                      dx: 0
-                                      dy: -18
-            - line_2:
-                  - show:
-                        hold:
-                            before: "PHRASE_2_AT - FADE_WINDOW"
-                        duration: FADE_WINDOW
-                        actions:
-                            - show:
-                                  opacity: 1
-                            - move:
-                                  from:
-                                      dx: 0
-                                      dy: 18
-                                  to:
-                                      dx: 0
-                                      dy: -18
-            - line_3:
-                  - show:
-                        hold:
-                            before: "PHRASE_3_AT - FADE_WINDOW"
-                        duration: FADE_WINDOW
-                        actions:
-                            - show:
-                                  opacity: 1
-                            - move:
-                                  from:
-                                      dx: 0
-                                      dy: 18
-                                  to:
-                                      dx: 0
-                                      dy: -18
-            - line_4:
-                  - show:
-                        hold:
-                            before: "PHRASE_4_AT - FADE_WINDOW"
-                        duration: FADE_WINDOW
-                        actions:
-                            - show:
-                                  opacity: 1
-                            - move:
-                                  from:
-                                      dx: 0
-                                      dy: 18
-                                  to:
-                                      dx: 0
-                                      dy: -18
-            - line_5:
-                  - show:
-                        hold:
-                            before: "PHRASE_5_AT - FADE_WINDOW"
-                        duration: FADE_WINDOW
-                        actions:
-                            - show:
-                                  opacity: 1
-                            - move:
-                                  from:
-                                      dx: 0
-                                      dy: 18
-                                  to:
-                                      dx: 0
-                                      dy: -18
-            - line_6:
-                  - show:
-                        hold:
-                            before: "PHRASE_6_AT - FADE_WINDOW"
-                        duration: FADE_WINDOW
-                        actions:
-                            - show:
-                                  opacity: 1
-                            - move:
-                                  from:
-                                      dx: 0
-                                      dy: 18
-                                  to:
-                                      dx: 0
-                                      dy: -18
-
-            # ── Idle motion: two slow cycles on the whole bubble ─────────────
+        # ⚠️ ITS OWN BOOKMARK, ANCHORED BY NOTHING. The breath, the sway and
+        # the blinks run the length of the whole talk. Chained into the phrase
+        # sequence they would make phrase two wait for the talk to finish, so
+        # nothing anchors to `idle.end`.
+        setup_ts.end @ idle:
             - presenter:
                   - pulse:
                         duration: "TALK_MS"
@@ -342,112 +252,6 @@ animation:
                         rotation:
                             from: 0
                             to: SWAY_DEGREES
-
-            # ── The mouth ────────────────────────────────────────────────────
-            # The resting smile leaves on every phrase, so it carries a
-            # counter-pulse for each — same window, same cycles as whichever
-            # shape is arriving. These ARE same-type sub-actions inside one
-            # entry, so each `hold.before` is the gap since the last, not the
-            # elapsed time.
-            - mouth_closed:
-                  - pulse:
-                        duration: "narration_1.duration"
-                        cycles: PHRASE_1_CYCLES
-                        opacity:
-                            from: 1
-                            to: 0
-                  - pulse:
-                        hold:
-                            before: PAUSE_1_MS
-                        duration: "narration_2.duration"
-                        cycles: PHRASE_2_CYCLES
-                        opacity:
-                            from: 1
-                            to: 0.4
-                  - pulse:
-                        hold:
-                            before: PAUSE_2_MS
-                        duration: "narration_3.duration"
-                        cycles: PHRASE_3_CYCLES
-                        opacity:
-                            from: 1
-                            to: 0
-                  - pulse:
-                        hold:
-                            before: PAUSE_3_MS
-                        duration: "narration_4.duration"
-                        cycles: PHRASE_4_CYCLES
-                        opacity:
-                            from: 1
-                            to: 0.4
-                  - pulse:
-                        hold:
-                            before: PAUSE_4_MS
-                        duration: "narration_5.duration"
-                        cycles: PHRASE_5_CYCLES
-                        opacity:
-                            from: 1
-                            to: 0
-                  - pulse:
-                        hold:
-                            before: PAUSE_5_MS
-                        duration: "narration_6.duration"
-                        cycles: PHRASE_6_CYCLES
-                        opacity:
-                            from: 1
-                            to: 0.4
-
-            # Wide open on the emphatic phrases — 1, 3 and 5.
-            - mouth_open:
-                  - pulse:
-                        duration: "narration_1.duration"
-                        cycles: PHRASE_1_CYCLES
-                        opacity:
-                            from: 0
-                            to: 1
-                  - pulse:
-                        hold:
-                            before: "PAUSE_1_MS + narration_2.duration + PAUSE_2_MS"
-                        duration: "narration_3.duration"
-                        cycles: PHRASE_3_CYCLES
-                        opacity:
-                            from: 0
-                            to: 1
-                  - pulse:
-                        hold:
-                            before: "PAUSE_3_MS + narration_4.duration + PAUSE_4_MS"
-                        duration: "narration_5.duration"
-                        cycles: PHRASE_5_CYCLES
-                        opacity:
-                            from: 0
-                            to: 1
-
-            # Half-open on the quieter ones — 2, 4 and 6.
-            - mouth_mid:
-                  - pulse:
-                        hold:
-                            before: "narration_1.duration + PAUSE_1_MS"
-                        duration: "narration_2.duration"
-                        cycles: PHRASE_2_CYCLES
-                        opacity:
-                            from: 0
-                            to: 0.85
-                  - pulse:
-                        hold:
-                            before: "PAUSE_2_MS + narration_3.duration + PAUSE_3_MS"
-                        duration: "narration_4.duration"
-                        cycles: PHRASE_4_CYCLES
-                        opacity:
-                            from: 0
-                            to: 0.85
-                  - pulse:
-                        hold:
-                            before: "PAUSE_4_MS + narration_5.duration + PAUSE_5_MS"
-                        duration: "narration_6.duration"
-                        cycles: PHRASE_6_CYCLES
-                        opacity:
-                            from: 0
-                            to: 0.85
 
             # ── The eyes ─────────────────────────────────────────────────────
             # Each blink is one cycle of a pair: the lids arrive as the open eyes
@@ -537,7 +341,199 @@ animation:
                             to: 0
 
         # The tail margin is quiet, like the head.
-        talk_ts.end @ tear_down_ts:
+
+        # ── One bookmark per phrase ──────────────────────────────────────────
+        # ⚡ EACH PHRASE IS ITS OWN BEAT, so nothing needs to know how much talk
+        # came before it. This replaces a chain of running sums — PHRASE_3_AT
+        # was PHRASE_2_AT plus a clip plus a pause, and so on — which any
+        # inserted line silently broke. What arithmetic is left is LOCAL: a
+        # line leads its own phrase in by FADE_WINDOW, and says so in its own
+        # beat rather than in a total carried from the top.
+        setup_ts.end @ phrase_1:
+            - line_1:
+                  - show:
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 18
+                                  to:
+                                      dx: 0
+                                      dy: -18
+            - mouth_closed:
+                  - pulse:
+                        duration: "narration_1.duration"
+                        cycles: PHRASE_1_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0
+            - mouth_open:
+                  - pulse:
+                        duration: "narration_1.duration"
+                        cycles: PHRASE_1_CYCLES
+                        opacity:
+                            from: 0
+                            to: 1
+            - line_2:
+                  - show:
+                        hold:
+                            before: "narration_1.duration + PAUSE_1_MS - FADE_WINDOW"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 18
+                                  to:
+                                      dx: 0
+                                      dy: -18
+
+        phrase_1.end @ phrase_2:
+            - mouth_closed:
+                  - pulse:
+                        duration: "narration_2.duration"
+                        cycles: PHRASE_2_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0.4
+            - mouth_mid:
+                  - pulse:
+                        duration: "narration_2.duration"
+                        cycles: PHRASE_2_CYCLES
+                        opacity:
+                            from: 0
+                            to: 0.85
+            - line_3:
+                  - show:
+                        hold:
+                            before: "narration_2.duration + PAUSE_2_MS - FADE_WINDOW"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 18
+                                  to:
+                                      dx: 0
+                                      dy: -18
+
+        phrase_2.end @ phrase_3:
+            - mouth_closed:
+                  - pulse:
+                        duration: "narration_3.duration"
+                        cycles: PHRASE_3_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0
+            - mouth_open:
+                  - pulse:
+                        duration: "narration_3.duration"
+                        cycles: PHRASE_3_CYCLES
+                        opacity:
+                            from: 0
+                            to: 1
+            - line_4:
+                  - show:
+                        hold:
+                            before: "narration_3.duration + PAUSE_3_MS - FADE_WINDOW"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 18
+                                  to:
+                                      dx: 0
+                                      dy: -18
+
+        phrase_3.end @ phrase_4:
+            - mouth_closed:
+                  - pulse:
+                        duration: "narration_4.duration"
+                        cycles: PHRASE_4_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0.4
+            - mouth_mid:
+                  - pulse:
+                        duration: "narration_4.duration"
+                        cycles: PHRASE_4_CYCLES
+                        opacity:
+                            from: 0
+                            to: 0.85
+            - line_5:
+                  - show:
+                        hold:
+                            before: "narration_4.duration + PAUSE_4_MS - FADE_WINDOW"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 18
+                                  to:
+                                      dx: 0
+                                      dy: -18
+
+        phrase_4.end @ phrase_5:
+            - mouth_closed:
+                  - pulse:
+                        duration: "narration_5.duration"
+                        cycles: PHRASE_5_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0
+            - mouth_open:
+                  - pulse:
+                        duration: "narration_5.duration"
+                        cycles: PHRASE_5_CYCLES
+                        opacity:
+                            from: 0
+                            to: 1
+            - line_6:
+                  - show:
+                        hold:
+                            before: "narration_5.duration + PAUSE_5_MS - FADE_WINDOW"
+                        duration: FADE_WINDOW
+                        actions:
+                            - show:
+                                  opacity: 1
+                            - move:
+                                  from:
+                                      dx: 0
+                                      dy: 18
+                                  to:
+                                      dx: 0
+                                      dy: -18
+
+        phrase_5.end @ phrase_6:
+            - mouth_closed:
+                  - pulse:
+                        duration: "narration_6.duration"
+                        cycles: PHRASE_6_CYCLES
+                        opacity:
+                            from: 1
+                            to: 0.4
+            - mouth_mid:
+                  - pulse:
+                        duration: "narration_6.duration"
+                        cycles: PHRASE_6_CYCLES
+                        opacity:
+                            from: 0
+                            to: 0.85
+
+        phrase_6.end @ tear_down_ts:
             - backdrop:
                   - show:
                         hold:
@@ -564,27 +560,27 @@ composition:
                   - roll:
                   - mix:
                         span:
-                            from: "VIDEO_MARGIN"
+                            from: "animation::phrase_1.start"
                         asset: narration_1
                   - mix:
                         span:
-                            from: "VIDEO_MARGIN + PHRASE_2_AT"
+                            from: "animation::phrase_2.start"
                         asset: narration_2
                   - mix:
                         span:
-                            from: "VIDEO_MARGIN + PHRASE_3_AT"
+                            from: "animation::phrase_3.start"
                         asset: narration_3
                   - mix:
                         span:
-                            from: "VIDEO_MARGIN + PHRASE_4_AT"
+                            from: "animation::phrase_4.start"
                         asset: narration_4
                   - mix:
                         span:
-                            from: "VIDEO_MARGIN + PHRASE_5_AT"
+                            from: "animation::phrase_5.start"
                         asset: narration_5
                   - mix:
                         span:
-                            from: "VIDEO_MARGIN + PHRASE_6_AT"
+                            from: "animation::phrase_6.start"
                         asset: narration_6
 
     capture:
