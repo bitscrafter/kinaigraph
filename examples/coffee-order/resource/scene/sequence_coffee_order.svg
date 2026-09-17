@@ -5,6 +5,20 @@
          clip-path resolves in its own element's user space, so putting it on
          `sheet` would make the window travel with the content and clip nothing.
          `sheet_viewport` never moves; `sheet` moves inside it. -->
+    <!-- ⚡ A MARKER RIDES ITS ELEMENT'S `opacity` BUT NOT ITS `reveal`. Measured:
+         fading a line fades its marker in lockstep, while revealing a line paints
+         the marker at full strength from the first frame — the point arrives
+         before the shaft. So the RETURNS, which fade, use a marker; the CALLS,
+         which draw themselves, cannot and carry their own head element.
+         The head is drawn the way its shaft is drawn. -->
+    <marker id="ret_head" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="20"
+            refX="16" refY="10" orient="auto">
+      <!-- ⚠️ A MARKER'S LOCAL +X IS THE DIRECTION OF TRAVEL, so the tip belongs
+           at the LARGER x and the arms trail behind it. Drawn the other way round
+           the chevron points back down its own arrow. -->
+      <path d="M 3,2 L 16,10 L 3,18" fill="none" class="ret-head" stroke-width="2.4"/>
+    </marker>
+
     <clipPath id="sheet_clip">
       <rect x="0" y="208" width="1920" height="872"/>
     </clipPath>
@@ -112,17 +126,13 @@
     <line id="msg_steam" class="call" x1="759" y1="1106" x2="1635" y2="1106"/>
     <path id="head_steam" class="call-head" d="M 1635,1106 L 1621,1099 L 1621,1113 Z"/>
     <text id="lbl_outofoat" class="t ret" x="525" y="578" text-anchor="middle">sorry — we're out of oat</text>
-    <line id="ret_outofoat" class="return" x1="741" y1="594" x2="315" y2="594"/>
-    <path id="head_outofoat" class="ret-head" d="M 317,586 L 303,594 L 317,602"/>
+    <line id="ret_outofoat" class="return" x1="741" y1="594" x2="315" y2="594" marker-end="url(#ret_head)"/>
     <text id="lbl_espresso" class="t ret" x="975" y="984" text-anchor="middle">espresso</text>
-    <line id="ret_espresso" class="return" x1="1191" y1="1000" x2="765" y2="1000"/>
-    <path id="head_espresso" class="ret-head" d="M 767,992 L 753,1000 L 767,1008"/>
+    <line id="ret_espresso" class="return" x1="1191" y1="1000" x2="765" y2="1000" marker-end="url(#ret_head)"/>
     <text id="lbl_milk" class="t ret" x="1200" y="1244" text-anchor="middle">steamed milk</text>
-    <line id="ret_milk" class="return" x1="1641" y1="1260" x2="765" y2="1260"/>
-    <path id="head_milk" class="ret-head" d="M 767,1252 L 753,1260 L 767,1268"/>
+    <line id="ret_milk" class="return" x1="1641" y1="1260" x2="765" y2="1260" marker-end="url(#ret_head)"/>
     <text id="lbl_handoff" class="t ret" x="525" y="1522" text-anchor="middle">one flat white</text>
-    <line id="ret_handoff" class="return" x1="741" y1="1538" x2="315" y2="1538"/>
-    <path id="head_handoff" class="ret-head" d="M 317,1530 L 303,1538 L 317,1546"/>
+    <line id="ret_handoff" class="return" x1="741" y1="1538" x2="315" y2="1538" marker-end="url(#ret_head)"/>
     <text id="lbl_name" class="t msg" x="889" y="356" text-anchor="start">write the name on the cup</text>
     <path id="msg_name" class="call" d="M 759 372 L 869 372 L 869 436 L 775 436"/>
     <path id="head_name" class="call-head" d="M 775,436 L 789,429 L 789,443 Z"/>

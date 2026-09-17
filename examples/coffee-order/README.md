@@ -90,9 +90,21 @@ a constant rate across the whole piece instead and they lag the conversation and
 read as a creep. The row positions are the drawing's own, expressed as fractions
 of the bar, so moving a row in the artwork moves the bar with it.
 
-⚠️ **Every arrowhead is its own actor, not a `marker`.** A marker is untouched by
-the dash machinery, so a marker-headed arrow shows its point at full strength
-before the shaft has travelled. Each head is shown when its shaft lands.
+⚡ **A MARKER RIDES ITS ELEMENT'S `opacity` BUT NOT ITS `reveal`.** That one
+measured fact decides how every arrowhead here is built:
+
+| shaft | head | why |
+| --- | --- | --- |
+| returns — **faded** | a `<marker>`, the ordinary way | the marker fades in lockstep with its line |
+| calls — **drawn** | its own element, shown when the shaft lands | a marker paints at full strength from the first frame |
+
+Revealing a marker-headed arrow puts the point at the far end while the shaft is
+still a fifth of the way across. So the head is drawn the way its shaft is
+drawn, and the split is not a matter of taste.
+
+⚠️ **A marker's local +x is the direction of travel**, so the tip belongs at the
+larger x with the arms trailing. Drawn the other way round the chevron points
+back down its own arrow — which is easy to miss on a left-pointing return.
 
 ## Groups say a thing once
 

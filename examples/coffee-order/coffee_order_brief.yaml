@@ -93,7 +93,6 @@ defs:
 
         frag_opt: { type: "actor", part_of: diagram, id: frag_opt }
         ret_outofoat: { type: "actor", part_of: diagram, id: ret_outofoat }
-        head_outofoat: { type: "actor", part_of: diagram, id: head_outofoat }
         lbl_outofoat: { type: "actor", part_of: diagram, id: lbl_outofoat }
         msg_semi: { type: "actor", part_of: diagram, id: msg_semi }
         head_semi: { type: "actor", part_of: diagram, id: head_semi }
@@ -105,13 +104,11 @@ defs:
         head_shot: { type: "actor", part_of: diagram, id: head_shot }
         lbl_shot: { type: "actor", part_of: diagram, id: lbl_shot }
         ret_espresso: { type: "actor", part_of: diagram, id: ret_espresso }
-        head_espresso: { type: "actor", part_of: diagram, id: head_espresso }
         lbl_espresso: { type: "actor", part_of: diagram, id: lbl_espresso }
         msg_steam: { type: "actor", part_of: diagram, id: msg_steam }
         head_steam: { type: "actor", part_of: diagram, id: head_steam }
         lbl_steam: { type: "actor", part_of: diagram, id: lbl_steam }
         ret_milk: { type: "actor", part_of: diagram, id: ret_milk }
-        head_milk: { type: "actor", part_of: diagram, id: head_milk }
         lbl_milk: { type: "actor", part_of: diagram, id: lbl_milk }
 
         msg_prepare: { type: "actor", part_of: diagram, id: msg_prepare }
@@ -119,7 +116,6 @@ defs:
         lbl_prepare: { type: "actor", part_of: diagram, id: lbl_prepare }
 
         ret_handoff: { type: "actor", part_of: diagram, id: ret_handoff }
-        head_handoff: { type: "actor", part_of: diagram, id: head_handoff }
         lbl_handoff: { type: "actor", part_of: diagram, id: lbl_handoff }
 
         # ── the riders ───────────────────────────────────────────────────────
@@ -148,8 +144,8 @@ defs:
         not_yet:
             type: "group"
             member_type: "actor"
-            members: [head_order, head_name, head_semi, head_shot, head_steam, head_prepare, head_outofoat,
-                head_espresso, head_milk, head_handoff, ret_outofoat, ret_espresso, ret_milk, ret_handoff,
+            members: [head_order, head_name, head_semi, head_shot, head_steam, head_prepare,
+                ret_outofoat, ret_espresso, ret_milk, ret_handoff,
                 lbl_order, lbl_name, lbl_outofoat, lbl_semi, lbl_shot, lbl_espresso, lbl_steam, lbl_milk,
                 lbl_prepare, lbl_handoff, frag_opt, frag_par, frag_par_divider, rider_order, rider_semi,
                 rider_shot, rider_steam, rider_outofoat, rider_espresso, rider_milk, rider_name,
@@ -200,10 +196,6 @@ defs:
             type: "group"
             member_type: "actor"
             members: [lbl_espresso, lbl_milk, ret_espresso, ret_milk]
-        par_return_heads:
-            type: "group"
-            member_type: "actor"
-            members: [head_espresso, head_milk]
 
         # ── narration ────────────────────────────────────────────────────────
         # One clip per beat. Each is declared for its DURATION as much as for its
@@ -340,9 +332,6 @@ animation:
             - ret_outofoat:
                   - show: { opacity: 0, duration: "narration_03.duration * DRAW" }
                   - show: { opacity: 1, duration: "narration_03.duration * FADE" }
-            - head_outofoat:
-                  - show: { opacity: 0, duration: "narration_03.duration * FADE" }
-                  - show: { opacity: 1, duration: 1 }
             - rider_outofoat:
                   - show: { opacity: 0, duration: "narration_03.duration * FADE" }
                   - show: { opacity: 1, duration: "narration_03.duration * FADE" }
@@ -398,9 +387,6 @@ animation:
             - par_returns:
                   - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55)" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
-            - par_return_heads:
-                  - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55 + FADE)" }
-                  - show: { opacity: 1, duration: 1 }
             - rider_espresso:
                   - show: { opacity: 0, duration: "narration_04.duration * (DRAW + FADE * 2 + RUN * 0.55 + FADE)" }
                   - show: { opacity: 1, duration: "narration_04.duration * FADE" }
@@ -448,9 +434,6 @@ animation:
         beat_prepare.end @ beat_handoff:
             - lbl_handoff: [{ show: { opacity: 1, duration: "narration_06.duration * FADE", hold: { after: "narration_06.duration * (1 + PAUSE - FADE)" } } }]
             - ret_handoff: [{ show: { opacity: 1, duration: "narration_06.duration * FADE" } }]
-            - head_handoff:
-                  - show: { opacity: 0, duration: "narration_06.duration * FADE" }
-                  - show: { opacity: 1, duration: 1 }
             - long_bars:
                   - show: { reveal: "GROWN_PREPARE", duration: "narration_06.duration * DRAW" }
                   - show: { reveal: { from: "GROWN_PREPARE", to: "1" }, duration: "narration_06.duration * RUN" }
