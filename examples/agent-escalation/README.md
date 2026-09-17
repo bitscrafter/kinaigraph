@@ -60,6 +60,12 @@ spine, and it is why the order is not negotiable.
 
 ## What this example is a good place to notice
 
+**No timeline entry does arithmetic.** Each beat lists its ledger deposit first
+and gives it the clip's own duration, so the beat is exactly as long as its line
+with nothing subtracted to get there. Everything else in the beat waits on one
+named move — `MOVE_2`, `MOVE_3_HEAD` — and those six names are derived from two
+numbers. A beat reads top to bottom as a list of things that happen, in order.
+
 **The build is the argument.** The patterns are not seven topics; they are the
 same few parts rewired, and they sit in an order. A tour would have shown seven
 pictures. This shows one picture seven times, and each transition is a single
@@ -71,10 +77,17 @@ orchestrator, generator, agent — and it is the one shape that does not take th
 escalation ramp. A constant that re-tinted itself every beat would be claiming
 to be seven things.
 
-**Renaming a node means having authored every name.** An actor's text is not an
-animatable property, so the entry node carries one text actor per beat, stacked
-at a single baseline, and the `clear_*` entries swap which one is visible. That
-is also why the names are in the drawing rather than decided in the timeline.
+**Renaming a node means having authored every name.** The entry node carries one
+`text` element per beat, stacked at a single baseline, and the `clear_*` entries
+swap which one is visible.
+
+⚠️ The other way to author text is `animation.annotations` — a note whose words
+come from a `type: text` asset. It is the better tool when the words belong to
+the document rather than the drawing, but it cannot be used here: a text asset's
+`font_color` is a literal in `defs`, where no style is in scope and `css()`
+cannot reach it. This example declares two themes whose title ink sits at
+opposite ends of the ramp, so one literal would be unreadable in one of them.
+Text that must follow a theme belongs in the scene.
 
 **Solid edges draw and dashed edges fade — and here that carries meaning.**
 `reveal` works by arc-length dash offset, the same attribute a dashed stroke
@@ -105,10 +118,10 @@ different *kinds* of thing; one ramp says they are one thing escalating. `dark`
 brightens toward AGENTS and `paper` darkens — in both, further along means
 further from the background.
 
-**The scripts are a word budget.** The piece is meant to run under a minute and
-a beat is as long as its own sentence by construction, so length is decided in
-the scripts and nowhere else. The first draft ran 217 words — about 85 seconds —
-and was cut rather than compressed in the edit.
+**The scripts are a word budget.** A beat is as long as its own sentence by
+construction, so the length of the piece is decided in `resource/script/` and
+nowhere else — there is no edit in which to trim it. The target is about 75
+seconds; the scripts hold the word count that should land there.
 
 **A scene opens on its own.** Every `var()` in `flow.svg` is emitted with the
 stylesheet's `dark` value as its fallback, so opening it in a browser, an editor
@@ -145,14 +158,17 @@ attribute, so a dashed shaft that gets revealed renders nothing at all, and
 nothing warns you. If an edge needs to be dashed, it belongs in a `*_body` or
 `*_fan_*` group and it fades.
 
-⚠️ **The deposit is placed from the *end* of its own line.** A beat's length is
-its clip's probed duration, so `DEPOSIT_AT_NN` subtracts. A clip shorter than
-`DEPOSIT_MS` would place the miniature before its beat began.
+⚠️ **Change `DRAW_MS` or `FADE_MS` and every move moves.** The six `MOVE_*`
+constants are derived from those two, and they are the only offsets in the
+document. That is deliberate — retiming the piece should be two numbers, not
+forty — but it does mean a longer `DRAW_MS` pushes the last move later in every
+beat at once. Three moves plus a head is about 2.5 s; keep it well inside the
+shortest clip.
 
 ⚠️ **`synthesis.context.status` is section-wide.** Re-running `narrate_brief.yaml`
 regenerates every clip and bills for every clip, even if you edited one line.
 
-⚠️ **Nothing here holds on both sides of one action.** `hold` with `before` and
-`after` together is unproven in this repository, and as a single mapping it is
-not even valid YAML. Where a beat needs a tail, it uses a second `show` action —
-actions inside one entry run in sequence.
+⚠️ **An action's window is `hold.before + duration + hold.after`.** A beat is as
+long as its longest actor's window, which is why each beat lists its deposit
+first and gives it the clip's duration — that one line sets the beat's length,
+and nothing else in the beat may run past it.

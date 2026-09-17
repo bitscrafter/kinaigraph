@@ -1,1 +1,1 @@
-Orchestrator-workers. The same fan-out, but nothing above fixed the count. A central model decides it dynamically.
+Orchestrator-workers. The same fan-out, except nothing above it decided how many lanes there are. A central model breaks the task down dynamically.

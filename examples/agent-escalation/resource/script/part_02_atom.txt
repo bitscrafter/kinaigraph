@@ -1,1 +1,1 @@
-The building block. A model augmented with retrieval, tools and memory. Everything after is this, arranged.
+The building block. A language model augmented with retrieval, tools and memory. Everything that follows is this, arranged.

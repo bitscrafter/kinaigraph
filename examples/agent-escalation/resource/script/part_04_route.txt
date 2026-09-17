@@ -1,1 +1,1 @@
-Routing. One call classifies, then directs to a specialised followup. One lane runs.
+Routing. One call classifies the input and sends it to a specialised followup. One lane runs; the others never see it.

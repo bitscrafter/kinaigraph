@@ -1,1 +1,1 @@
-December twenty twenty-four. Anthropic's Building Effective AI Agents: five workflows, one agent, one building block.
+December twenty twenty-four. Anthropic publishes Building Effective AI Agents: five workflow patterns, one agent pattern, one building block.

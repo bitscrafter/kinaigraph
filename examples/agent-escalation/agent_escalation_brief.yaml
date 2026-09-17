@@ -16,9 +16,15 @@
 # ⚡ THE ENTRY NODE NEVER MOVES AND NEVER CHANGES COLOUR. It is the head of
 # every topology in turn, and it is the only shape that does not take the
 # escalation ramp — a constant that re-tinted itself each beat would be claiming
-# to be seven things. Only its LABEL swaps, which is why there are seven label
-# actors stacked at one baseline: an actor's text is not an animatable property,
-# so the only way to rename a node is to have authored every name it will wear.
+# to be seven things. Only its LABEL swaps, and the seven names are seven `text`
+# elements stacked at one baseline in the scene, shown one at a time.
+#
+# ⚠️ THE OTHER WAY TO DO THAT IS `animation.annotations`, AND IT CANNOT BE USED
+# HERE. A note's words come from a `type: text` asset, whose `font_color` is a
+# literal authored in `defs` where no style is in scope — `css()` cannot reach
+# it. This document declares two themes whose title ink is at opposite ends of
+# the ramp, so one literal would be unreadable in one of them. Text that has to
+# follow a theme belongs in the scene; a note is for text that does not.
 #
 # ⚠️ THE TOPOLOGIES COLLIDE ON THE CANVAS AND MUST NOT COLLIDE IN TIME. Beat
 # `chain` puts a node at x=1240 and beat `route` puts one at x=1330; they
@@ -38,10 +44,16 @@
 # machinery, so a marker-headed arrow would show its point before its shaft. The
 # heads are polygons in the `*_heads` groups and land when their shafts do.
 #
-# ⚡ EVERY BEAT DEPOSITS ITS MINIATURE ON THE LEDGER as it ends. That is the
-# reason this is a video and not a poster: a still diagram cannot accumulate,
-# and the closing frame is an argument only because the viewer watched each of
-# the seven being earned.
+# ⚡ EVERY BEAT DEPOSITS ITS MINIATURE ON THE LEDGER as its line is spoken. That
+# is the reason this is a video and not a poster: a still diagram cannot
+# accumulate, and the closing frame is an argument only because the viewer
+# watched each of the seven being earned.
+#
+# ⚡ NO TIMELINE ENTRY IN THIS DOCUMENT DOES ARITHMETIC. A beat lists its ledger
+# deposit first and gives it the clip's own duration, so the beat is exactly as
+# long as its line with nothing subtracted to get there; everything else waits
+# on one named move. Read a beat top to bottom and it is a list of things that
+# happen, in order.
 
 metadata:
     title: "Agent Escalation - five workflows, one agent"
@@ -849,6 +861,44 @@ defs:
             member_type: "actor"
             members: [h_ag_stop, l_ag_stop, n_stop]
 
+        # The row lights AS ITS LINE IS SPOKEN. Listed first in its beat and
+        # given the clip's own duration, so it is both the deposit and the
+        # thing that says how long the beat is — no subtraction anywhere.
+        deposit_atom:
+            type: "group"
+            member_type: "actor"
+            members: [rail_atom, mini_atom]
+        deposit_chain:
+            type: "group"
+            member_type: "actor"
+            members: [rail_chain, mini_chain]
+        deposit_route:
+            type: "group"
+            member_type: "actor"
+            members: [rail_route, mini_route]
+        deposit_parallel:
+            type: "group"
+            member_type: "actor"
+            members: [rail_parallel, mini_parallel]
+        deposit_orchestrate:
+            type: "group"
+            member_type: "actor"
+            members: [rail_orchestrate, mini_orchestrate]
+        deposit_evaluate:
+            type: "group"
+            member_type: "actor"
+            members: [rail_evaluate, mini_evaluate]
+        deposit_agent:
+            type: "group"
+            member_type: "actor"
+            members: [rail_agent, mini_agent]
+
+        # The entry node and the first name it wears.
+        entry_open:
+            type: "group"
+            member_type: "actor"
+            members: [n_entry, lbl_entry_atom]
+
         close_body:
             type: "group"
             member_type: "actor"
@@ -910,43 +960,33 @@ defs:
         # start or stop on a syllable.
         VIDEO_MARGIN: 400
 
-        # ⚡ TWO CLOCKS, AND EVERY BEAT USES BOTH. The mechanical half — a shaft
-        # drawing, a node landing — runs on plain milliseconds and is over in
-        # about a second. The narrated half is the beat itself, and it lasts
-        # exactly as long as the line spoken over it. So the build happens
-        # INSIDE the line rather than before it, and the only fixed overhead in
-        # the piece is the clear between topologies.
         CLEAR_MS: 260 # a topology leaving, so the next one never overlaps it
         DRAW_MS: 620 # a solid shaft drawing itself
         FADE_MS: 240 # anything that cannot be drawn, arriving
         DIM_MS: 400 # a lane that did not run, going quiet
-        DEPOSIT_MS: 420 # a rail tick and its miniature being earned
+        CLOSE_MS: 900 # the last frame arriving
 
         # How far a dimmed thing goes. Not zero: the unchosen lanes in `route`
         # still exist, and a router that erased them would be a gate.
         DIM_TO: 0.22
 
-        # ⚠️ THE DEPOSIT IS PLACED FROM THE END OF ITS OWN LINE, not from the
-        # start. A beat's length is its clip's probed duration, so the only way
-        # to land the miniature just before the voice stops is to subtract.
-        # A clip shorter than this would place the deposit before the beat
-        # begins; the shortest line in the piece runs several seconds.
-        DEPOSIT_AT_01: "narration_02.duration - DEPOSIT_MS"
-        DEPOSIT_AT_02: "narration_03.duration - DEPOSIT_MS"
-        DEPOSIT_AT_03: "narration_04.duration - DEPOSIT_MS"
-        DEPOSIT_AT_04: "narration_05.duration - DEPOSIT_MS"
-        DEPOSIT_AT_05: "narration_06.duration - DEPOSIT_MS"
-        DEPOSIT_AT_06: "narration_07.duration - DEPOSIT_MS"
-        DEPOSIT_AT_07: "narration_08.duration - DEPOSIT_MS"
-
-        # The orchestrator's fourth lane arrives midway through its own
-        # sentence, on the word that says nobody wrote the count down.
-        RUNTIME_AT: "narration_06.duration * 0.42"
-
-        # The entry node appears partway through the opening line, so the first
-        # thing on the stage is the attribution and not a diagram.
-        SOURCE_REVEAL_AT: "narration_01.duration * 0.55"
-        SOURCE_TAIL: "narration_01.duration - SOURCE_REVEAL_AT - FADE_MS"
+        # ⚡ A BEAT IS AS LONG AS ITS OWN LINE, AND NOTHING SUBTRACTS TO GET
+        # THERE. Each beat lists its ledger deposit FIRST and gives it the
+        # clip's own duration, so the row lights exactly as the sentence is
+        # spoken and the beat ends when the sentence does. The build happens
+        # inside that, on the moves below.
+        #
+        # ⚡ EVERY BEAT IS BUILT IN MOVES, AND A MOVE HAS TWO INSTANTS: a shaft
+        # starts drawing, and its arrowhead lands when the shaft arrives. Those
+        # six names are the ONLY offsets in this document — no timeline entry
+        # below adds anything together, so a beat can be read as "this, then
+        # this, then this" without doing arithmetic in your head.
+        MOVE: "DRAW_MS + FADE_MS" # one move, end to end
+        MOVE_1_HEAD: DRAW_MS
+        MOVE_2: MOVE
+        MOVE_2_HEAD: "MOVE + DRAW_MS"
+        MOVE_3: "MOVE * 2"
+        MOVE_3_HEAD: "MOVE * 2 + DRAW_MS"
 
 animation:
     context:
@@ -1005,315 +1045,268 @@ animation:
                         opacity: 0
             - undrawn:
                   - show:
-                        opacity: 1
-                        reveal: 0
                         hold:
                             after: VIDEO_MARGIN
+                        opacity: 1
+                        reveal: 0
 
         # ── 0. where this comes from ─────────────────────────────────────────
         # The attribution gets a beat of its own and a line of its own. It is
         # not a credit crawl at the end of somebody else's argument.
+        #
+        # ⚡ ONE ENTRY, ONE LINE, NO CONSTANTS. The beat lasts exactly as long as
+        # the clip because the only thing in it is given the clip's duration.
         setup.end @ source:
-            - n_entry:
+            - entry_open:
                   - show:
-                        hold:
-                            before: "SOURCE_REVEAL_AT"
-                        duration: "FADE_MS"
+                        duration: "narration_01.duration"
                         opacity: 1
-            # ⚠️ TWO ACTIONS, NOT ONE `hold` CARRYING BOTH `before` AND
-            # `after`. Nothing else in this repository holds on both sides of a
-            # single action, so whether the two keys compose is unproven here —
-            # and as one mapping it is not even YAML, since `hold` would appear
-            # twice under one `show`. Actions inside one entry run in sequence,
-            # so a second `show` at the same opacity is the padding idiom the
-            # other examples already use, and it is what makes `source.end`
-            # land on the end of the line rather than on the fade.
-            - lbl_entry_atom:
-                  - show:
-                        hold:
-                            before: "SOURCE_REVEAL_AT"
-                        duration: "FADE_MS"
-                        opacity: 1
-                  - show:
-                        opacity: 1
-                        hold:
-                            after: "SOURCE_TAIL"
 
         # ── 1. the augmented LLM ─────────────────────────────────────────────
         # Nothing to clear: this is the first topology on the canvas.
         source.end @ atom:
+            - deposit_atom:
+                  - show:
+                        duration: "narration_02.duration"
+                        opacity: 1
             - atom_shafts:
                   - show:
-                        duration: "DRAW_MS"
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - atom_body:
                   - show:
                         hold:
-                            before: "DRAW_MS"
-                        duration: "FADE_MS"
-                        opacity: 1
-            - rail_atom:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_01"
-                        duration: "DEPOSIT_MS"
-                        opacity: 1
-            - mini_atom:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_01"
-                        duration: "DEPOSIT_MS"
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
                         opacity: 1
 
         # ── 2. prompt chaining ───────────────────────────────────────────────
         atom.end @ clear_chain:
             - g_atom:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_atom:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_chain:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 1
 
         clear_chain.end @ chain:
+            - deposit_chain:
+                  - show:
+                        duration: "narration_03.duration"
+                        opacity: 1
             - chain_shafts:
                   - show:
-                        duration: "DRAW_MS"
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - chain_body:
                   - show:
                         hold:
-                            before: "DRAW_MS"
-                        duration: "FADE_MS"
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
                         opacity: 1
+            # The gate's exit is a move of its own. The post's point about a
+            # gate is that the chain can STOP there, and an exit drawn with the
+            # forward arrows is just more furniture.
             - e_ch_fail:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS"
-                        duration: "DRAW_MS"
+                            before: MOVE_2
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - chain_exit:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS + DRAW_MS"
-                        duration: "FADE_MS"
-                        opacity: 1
-            - rail_chain:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_02"
-                        duration: "DEPOSIT_MS"
-                        opacity: 1
-            - mini_chain:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_02"
-                        duration: "DEPOSIT_MS"
+                            before: MOVE_2_HEAD
+                        duration: FADE_MS
                         opacity: 1
 
         # ── 3. routing ───────────────────────────────────────────────────────
         chain.end @ clear_route:
             - g_chain:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_chain:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_route:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 1
 
         clear_route.end @ route:
+            - deposit_route:
+                  - show:
+                        duration: "narration_04.duration"
+                        opacity: 1
             - route_shafts:
                   - show:
-                        duration: "DRAW_MS"
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - route_body:
                   - show:
                         hold:
-                            before: "DRAW_MS"
-                        duration: "FADE_MS"
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
                         opacity: 1
             # All three are drawn, and then two of them stop being the answer.
             # Drawing only the chosen lane would have shown a chain.
             - route_unchosen:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS + 300"
-                        duration: "DIM_MS"
-                        opacity: "DIM_TO"
-            - rail_route:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_03"
-                        duration: "DEPOSIT_MS"
-                        opacity: 1
-            - mini_route:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_03"
-                        duration: "DEPOSIT_MS"
-                        opacity: 1
+                            before: MOVE_2
+                        duration: DIM_MS
+                        opacity: DIM_TO
 
         # ── 4. parallelization ───────────────────────────────────────────────
         route.end @ clear_parallel:
             - g_route:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_route:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_parallel:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 1
 
         clear_parallel.end @ parallel:
+            - deposit_parallel:
+                  - show:
+                        duration: "narration_05.duration"
+                        opacity: 1
             - parallel_shafts:
                   - show:
-                        duration: "DRAW_MS"
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - parallel_body:
                   - show:
                         hold:
-                            before: "DRAW_MS"
-                        duration: "FADE_MS"
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
                         opacity: 1
             - parallel_joins:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS"
-                        duration: "DRAW_MS"
+                            before: MOVE_2
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - parallel_join_body:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS + DRAW_MS"
-                        duration: "FADE_MS"
-                        opacity: 1
-            - rail_parallel:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_04"
-                        duration: "DEPOSIT_MS"
-                        opacity: 1
-            - mini_parallel:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_04"
-                        duration: "DEPOSIT_MS"
+                            before: MOVE_2_HEAD
+                        duration: FADE_MS
                         opacity: 1
 
         # ── 5. orchestrator-workers ──────────────────────────────────────────
         parallel.end @ clear_orchestrate:
             - g_parallel:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_parallel:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_orchestrate:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 1
 
         clear_orchestrate.end @ orchestrate:
+            - deposit_orchestrate:
+                  - show:
+                        duration: "narration_06.duration"
+                        opacity: 1
             - orchestrate_fan_a:
                   - show:
-                        duration: "FADE_MS"
+                        duration: FADE_MS
                         opacity: 1
+            # ⚡ THE MOVE THE STILL DIAGRAM CANNOT HAVE. A fourth worker arriving
+            # a move later is what "breaks the task down dynamically" looks like;
+            # on paper it is a fourth box.
             - orchestrate_fan_b:
                   - show:
                         hold:
-                            before: "RUNTIME_AT"
-                        duration: "FADE_MS"
+                            before: MOVE_2
+                        duration: FADE_MS
                         opacity: 1
             - orchestrate_joins:
                   - show:
                         hold:
-                            before: "RUNTIME_AT + FADE_MS"
-                        duration: "DRAW_MS"
+                            before: MOVE_3
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - orchestrate_join_body:
                   - show:
                         hold:
-                            before: "RUNTIME_AT + FADE_MS + DRAW_MS"
-                        duration: "FADE_MS"
-                        opacity: 1
-            - rail_orchestrate:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_05"
-                        duration: "DEPOSIT_MS"
-                        opacity: 1
-            - mini_orchestrate:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_05"
-                        duration: "DEPOSIT_MS"
+                            before: MOVE_3_HEAD
+                        duration: FADE_MS
                         opacity: 1
 
         # ── 6. evaluator-optimizer ───────────────────────────────────────────
         orchestrate.end @ clear_evaluate:
             - g_orchestrate:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_orchestrate:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_evaluate:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 1
 
         clear_evaluate.end @ evaluate:
+            - deposit_evaluate:
+                  - show:
+                        duration: "narration_07.duration"
+                        opacity: 1
             - evaluate_loop_shafts:
                   - show:
-                        duration: "DRAW_MS"
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - evaluate_loop_body:
                   - show:
                         hold:
-                            before: "DRAW_MS"
-                        duration: "FADE_MS"
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
                         opacity: 1
-            # The loop RUNS. Two passes, because one exchange is a handoff and
-            # three would outlast the sentence.
+            # The loop RUNS, for one move. Two passes, because one exchange is a
+            # handoff rather than a loop.
             - evaluate_pair:
                   - pulse:
                         hold:
-                            before: "DRAW_MS + FADE_MS"
-                        duration: 900
+                            before: MOVE_2
+                        duration: MOVE
                         cycles: 2
                         scale:
                             from: 1
@@ -1322,57 +1315,49 @@ animation:
             - e_ev_out:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS + 900"
-                        duration: "DRAW_MS"
+                            before: MOVE_3
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - evaluate_out_body:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS + 900 + DRAW_MS"
-                        duration: "FADE_MS"
-                        opacity: 1
-            - rail_evaluate:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_06"
-                        duration: "DEPOSIT_MS"
-                        opacity: 1
-            - mini_evaluate:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_06"
-                        duration: "DEPOSIT_MS"
+                            before: MOVE_3_HEAD
+                        duration: FADE_MS
                         opacity: 1
 
         # ── 7. agents ────────────────────────────────────────────────────────
         evaluate.end @ clear_agent:
             - g_evaluate:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_evaluate:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - lbl_entry_agent:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 1
 
         clear_agent.end @ agent:
+            - deposit_agent:
+                  - show:
+                        duration: "narration_08.duration"
+                        opacity: 1
             - agent_loop_shafts:
                   - show:
-                        duration: "DRAW_MS"
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - agent_loop_body:
                   - show:
                         hold:
-                            before: "DRAW_MS"
-                        duration: "FADE_MS"
+                            before: MOVE_1_HEAD
+                        duration: FADE_MS
                         opacity: 1
             # The checkpoint is dashed, so it arrives rather than draws — and
             # arriving is the right verb for it anyway. It is the only edge in
@@ -1380,34 +1365,22 @@ animation:
             - agent_human:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS"
-                        duration: "FADE_MS"
+                            before: MOVE_2
+                        duration: FADE_MS
                         opacity: 1
             - e_ag_stop:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS + FADE_MS"
-                        duration: "DRAW_MS"
+                            before: MOVE_3
+                        duration: DRAW_MS
                         reveal:
                             from: 0
                             to: 1
             - agent_stop_body:
                   - show:
                         hold:
-                            before: "DRAW_MS + FADE_MS + FADE_MS + DRAW_MS"
-                        duration: "FADE_MS"
-                        opacity: 1
-            - rail_agent:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_07"
-                        duration: "DEPOSIT_MS"
-                        opacity: 1
-            - mini_agent:
-                  - show:
-                        hold:
-                            before: "DEPOSIT_AT_07"
-                        duration: "DEPOSIT_MS"
+                            before: MOVE_3_HEAD
+                        duration: FADE_MS
                         opacity: 1
 
         # ── 8. the choice ────────────────────────────────────────────────────
@@ -1416,20 +1389,20 @@ animation:
         agent.end @ clear_close:
             - g_agent:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
             - g_entry:
                   - show:
-                        duration: "CLEAR_MS"
+                        duration: CLEAR_MS
                         opacity: 0
 
         clear_close.end @ close:
             - close_body:
                   - show:
-                        duration: 900
-                        opacity: 1
                         hold:
                             after: VIDEO_MARGIN
+                        duration: CLOSE_MS
+                        opacity: 1
 
     capture:
         video_agent_escalation_animation:
