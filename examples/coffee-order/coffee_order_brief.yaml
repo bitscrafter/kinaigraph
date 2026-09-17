@@ -229,6 +229,16 @@ defs:
         # fraction of the sentence being spoken over that beat, so a longer line
         # does not just wait longer — it draws, travels and rests longer, in
         # proportion. Re-record anything and the whole beat re-fits itself.
+        # ⚡ WHAT A THING DOES TAKES AS LONG AS IT TAKES. A mug crossing the gap
+        # between two lifelines is the same crossing whether the narrator said
+        # twelve words over it or forty — timing it as a share of the line made
+        # the same journey run anywhere from 0.98s to 4.15s. These are plain
+        # milliseconds, and they do not move.
+        FADE_MS: 300 # anything that cannot be drawn, arriving
+        DRAW_MS: 900 # a call arrow drawing itself
+        RUN_MS: 1200 # a mug crossing the gap between two lifelines
+        PAUSE_MS: 700 # quiet after the line, before the next begins
+
         DRAW: 0.16 # a call arrow drawing itself
         FADE: 0.09 # anything that cannot be drawn, arriving
         RUN: 0.36 # a mug crossing the gap between two lifelines
@@ -287,20 +297,23 @@ animation:
 
         # ── 1. the order ─────────────────────────────────────────────────────
         setup.end @ beat_order:
-            - lifelines: [{ show: { opacity: 1, duration: "narration_01.duration * FADE" } }]
-            - lbl_order: [{ show: { opacity: 1, duration: "narration_01.duration * FADE", hold: { after: "narration_01.duration * (1 + PAUSE - FADE)" } } }]
-            - msg_order: [{ show: { reveal: { from: 0, to: 1 }, duration: "narration_01.duration * DRAW" } }]
+            - lifelines: [{ show: { opacity: 1, duration: "FADE_MS" } }]
+            # ⚠️ THE ONE THING STILL PACED BY THE VOICE IS THE BEAT'S OWN LENGTH.
+            # That is the whole thesis and it stays: the beat lasts the line, plus
+            # a breath. What happens INSIDE it takes as long as it takes.
+            - lbl_order: [{ show: { opacity: 1, duration: "FADE_MS", hold: { after: "narration_01.duration + PAUSE_MS - FADE_MS" } } }]
+            - msg_order: [{ show: { reveal: { from: 0, to: 1 }, duration: "DRAW_MS" } }]
             - head_order:
-                  - show: { opacity: 0, duration: "narration_01.duration * DRAW" }
+                  - show: { opacity: 0, duration: "DRAW_MS" }
                   - show: { opacity: 1, duration: 1 }
             - rider_order:
-                  - show: { opacity: 0, duration: "narration_01.duration * DRAW" }
-                  - show: { opacity: 1, duration: "narration_01.duration * FADE" }
-                  - move: { dx: "X_BARISTA - X_CUSTOMER", duration: "narration_01.duration * RUN", easing: "ease_in_out_quad" }
-                  - show: { opacity: 0, duration: "narration_01.duration * FADE" }
+                  - show: { opacity: 0, duration: "DRAW_MS" }
+                  - show: { opacity: 1, duration: "FADE_MS" }
+                  - move: { dx: "X_BARISTA - X_CUSTOMER", duration: "RUN_MS", easing: "ease_in_out_quad" }
+                  - show: { opacity: 0, duration: "FADE_MS" }
             - long_bars:
-                  - show: { reveal: 0, duration: "narration_01.duration * DRAW" }
-                  - show: { reveal: { from: 0, to: "GROWN_ORDER" }, duration: "narration_01.duration * RUN" }
+                  - show: { reveal: 0, duration: "DRAW_MS" }
+                  - show: { reveal: { from: 0, to: "GROWN_ORDER" }, duration: "RUN_MS" }
 
         # ── 2. the cup is written ────────────────────────────────────────────
         beat_order.end @ beat_name:
