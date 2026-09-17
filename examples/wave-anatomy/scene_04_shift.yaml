@@ -77,6 +77,13 @@ defs:
             type: "style"
             file: "./resource/style/theme_paper.css"
 
+
+        # What is not on screen when the beat opens. A group broadcasts — one
+        # instruction per member — so each is still addressed on its own beat.
+        not_yet:
+            type: "group"
+            member_type: "actor"
+            members: [wave_cos, tag_phase, tag_cos, tag_offset]
     const:
         VIDEO_MARGIN: 350
 
@@ -254,25 +261,18 @@ animation:
                         opacity: 1
             - plot:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
             - frame_layer:
                   - show:
                         opacity: 1
             - wave:
                   - show:
                         opacity: 1
-            - wave_cos:
-                  - show:
-                        opacity: 0
-            - tag_phase:
-                  - show:
-                        opacity: 0
-            - tag_cos:
-                  - show:
-                        opacity: 0
-            - tag_offset:
+            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one line. A
+            # group BROADCASTS, so each of these is still shown on its own beat.
+            - not_yet:
                   - show:
                         opacity: 0
 
@@ -295,14 +295,14 @@ animation:
         phase_ts.end @ cos_ts:
             - wave_cos:
                   - show:
+                        hold:
+                            after: "COS_MS - FADE_MS"
                         opacity: 1
                         reveal:
                             from: 0
                             to: 1
                         duration: FADE_MS
                         easing: ease_out_quad
-                        hold:
-                            after: "COS_MS - FADE_MS"
             - tag_phase:
                   - show:
                         opacity: 0
@@ -318,12 +318,12 @@ animation:
         cos_ts.end @ offset_ts:
             - wave:
                   - move:
+                        hold:
+                            after: "VIDEO_MARGIN"
                         to:
                             dy: OFFSET_DY
                         duration: OFFSET_MS
                         easing: ease_in_out_cubic
-                        hold:
-                            after: "VIDEO_MARGIN"
             - wave_cos:
                   - move:
                         to:
