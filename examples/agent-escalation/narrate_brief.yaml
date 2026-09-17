@@ -1,0 +1,87 @@
+# ------------------------------------------
+# agent-escalation — narration (brief)
+# ------------------------------------------
+# Generates the nine clips. Run ONCE before rendering, and again whenever one of
+# the scripts changes.
+#
+#     kinaigraph narrate_brief.yaml
+#
+# The animation is timed to the voice: every beat lasts exactly its own clip's
+# probed `.duration`, so the picture stretches to the narration rather than the
+# narration being trimmed to fit. Re-record one line and one beat re-fits itself.
+#
+# Needs ELEVENLABS_API_KEY. Every run costs credits, which is why this is a
+# separate document — re-rendering must not re-synthesise audio that did not
+# change.
+#
+# ⚠️ `synthesis.context.status` is SECTION-WIDE. There is no per-entry switch, so
+# this regenerates all nine clips and bills for all nine, even for a one-word
+# edit to a single script.
+#
+# ⚠️ THE SCRIPTS ARE A WORD BUDGET, NOT JUST A TEXT. The piece is meant to run
+# under a minute and there is no way to know what a line costs until it has been
+# spoken, so the sum is held near 150 words and checked against the render. The
+# first draft ran 217 words — about 85 seconds — and was cut, not compressed in
+# the edit, because a beat is as long as its own sentence by construction.
+
+metadata:
+    title: "Agent Escalation - Narration (brief)"
+    description: "Generate the nine narration clips for the agent-escalation brief"
+    version: "1.0"
+
+defs:
+    assets:
+        elevenlabs_credentials:
+            type: "credentials"
+            env: "ELEVENLABS_API_KEY"
+
+    defaults:
+        tts:
+            provider: "elevenlabs"
+            credentials: "elevenlabs_credentials"
+            voice: "ogwqBH5bbF03DSbNiRNN" # Savvy
+
+synthesis:
+    context:
+        status: active
+
+    tts:
+        # ⚠️ The suffix of every filename is the SLUG of the pattern it belongs
+        # to — the same slug that names the SVG's group, rail tick and
+        # miniature. Re-order the piece and nothing can silently pair a line
+        # with the wrong topology.
+        audio_01_source:
+            file: "./resource/script/part_01_source.txt"
+            export: "./resource/audio/part_01_source.mp3"
+
+        audio_02_atom:
+            file: "./resource/script/part_02_atom.txt"
+            export: "./resource/audio/part_02_atom.mp3"
+
+        audio_03_chain:
+            file: "./resource/script/part_03_chain.txt"
+            export: "./resource/audio/part_03_chain.mp3"
+
+        audio_04_route:
+            file: "./resource/script/part_04_route.txt"
+            export: "./resource/audio/part_04_route.mp3"
+
+        audio_05_parallel:
+            file: "./resource/script/part_05_parallel.txt"
+            export: "./resource/audio/part_05_parallel.mp3"
+
+        audio_06_orchestrate:
+            file: "./resource/script/part_06_orchestrate.txt"
+            export: "./resource/audio/part_06_orchestrate.mp3"
+
+        audio_07_evaluate:
+            file: "./resource/script/part_07_evaluate.txt"
+            export: "./resource/audio/part_07_evaluate.mp3"
+
+        audio_08_agent:
+            file: "./resource/script/part_08_agent.txt"
+            export: "./resource/audio/part_08_agent.mp3"
+
+        audio_09_choice:
+            file: "./resource/script/part_09_choice.txt"
+            export: "./resource/audio/part_09_choice.mp3"
