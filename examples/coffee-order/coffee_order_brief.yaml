@@ -474,14 +474,6 @@ defs:
         # ── how far each long bar has grown ──────────────────────────────────
         # The drawing's own row positions, as fractions of the bar's length, so
         # moving a row in the artwork moves the bar with it.
-        # ⚡ A BEAT THAT CARRIES A THERE-AND-BACK SPLITS ITS LINE EXACTLY. Two
-        # journeys plus the transitions between them must sum to the whole
-        # sentence — guess a fraction instead and the beat ends early, leaving
-        # the tail of the narration to play over the NEXT one. `0.42` twice did
-        # exactly that: 1.09s of the par's line spilled over.
-        OPT_LEG: "(narration_03.duration - FADE_MS * 3 - DRAW_MS) / 2"
-        PAR_LEG: "(narration_04.duration - FADE_MS * 3) / 2"
-
         BAR_TOP: 284
         BAR_BOTTOM: 1538
         GROWN_ORDER: "(344 - BAR_TOP) / (BAR_BOTTOM - BAR_TOP)"
@@ -710,7 +702,7 @@ animation:
         beat_pre_opt.end @ beat_opt:
             - rider_outofoat:
                   - move:
-                        duration: "OPT_LEG"
+                        duration: "narration_03.duration * 0.5"
                         anchor:
                             asset: ret_outofoat
                             pos: left
@@ -723,13 +715,13 @@ animation:
             - lbl_semi:
                   - show:
                         hold:
-                            before: "OPT_LEG + FADE_MS"
+                            before: "narration_03.duration * 0.5 + FADE_MS"
                         duration: "FADE_MS"
                         opacity: 1
             - msg_semi:
                   - show:
                         hold:
-                            before: "OPT_LEG + FADE_MS"
+                            before: "narration_03.duration * 0.5 + FADE_MS"
                         duration: "DRAW_MS"
                         reveal:
                             from: 0
@@ -737,17 +729,17 @@ animation:
             - head_semi:
                   - show:
                         hold:
-                            before: "OPT_LEG + FADE_MS + DRAW_MS"
+                            before: "narration_03.duration * 0.5 + FADE_MS + DRAW_MS"
                         duration: "FADE_MS"
                         opacity: 1
             - rider_semi:
                   - show:
                         hold:
-                            before: "OPT_LEG + FADE_MS + DRAW_MS"
+                            before: "narration_03.duration * 0.5 + FADE_MS + DRAW_MS"
                         duration: "FADE_MS"
                         opacity: 1
                   - move:
-                        duration: "OPT_LEG"
+                        duration: "narration_03.duration * 0.5"
                         anchor:
                             asset: msg_semi
                             pos: right
@@ -760,7 +752,7 @@ animation:
             - head_customer:
                   - pulse:
                         hold:
-                            before: "OPT_LEG"
+                            before: "narration_03.duration * 0.5"
                         duration: "NOD_MS"
                         cycles: 1
                         scale:
@@ -832,7 +824,7 @@ animation:
         beat_pre_par.end @ beat_par:
             - rider_shot:
                   - move:
-                        duration: "PAR_LEG"
+                        duration: "narration_04.duration * 0.5"
                         anchor:
                             asset: msg_shot
                             pos: right
@@ -844,7 +836,7 @@ animation:
                         opacity: 0
             - rider_steam:
                   - move:
-                        duration: "PAR_LEG"
+                        duration: "narration_04.duration * 0.5"
                         anchor:
                             asset: msg_steam
                             pos: right
@@ -857,17 +849,17 @@ animation:
             - par_returns:
                   - show:
                         hold:
-                            before: "PAR_LEG + FADE_MS"
+                            before: "narration_04.duration * 0.5 + FADE_MS"
                         duration: "FADE_MS"
                         opacity: 1
             - rider_espresso:
                   - show:
                         hold:
-                            before: "PAR_LEG + FADE_MS"
+                            before: "narration_04.duration * 0.5 + FADE_MS"
                         duration: "FADE_MS"
                         opacity: 1
                   - move:
-                        duration: "PAR_LEG"
+                        duration: "narration_04.duration * 0.5"
                         anchor:
                             asset: ret_espresso
                             pos: left
@@ -880,11 +872,11 @@ animation:
             - rider_milk:
                   - show:
                         hold:
-                            before: "PAR_LEG + FADE_MS"
+                            before: "narration_04.duration * 0.5 + FADE_MS"
                         duration: "FADE_MS"
                         opacity: 1
                   - move:
-                        duration: "PAR_LEG"
+                        duration: "narration_04.duration * 0.5"
                         anchor:
                             asset: ret_milk
                             pos: left
@@ -897,7 +889,7 @@ animation:
             - par_boxes:
                   - pulse:
                         hold:
-                            before: "PAR_LEG"
+                            before: "narration_04.duration * 0.5"
                         duration: "NOD_MS"
                         cycles: 1
                         scale:
