@@ -458,7 +458,8 @@ defs:
         FRAME_H: 1080
         SHEET_BOTTOM: 1600 # how deep the conversation runs; the helper prints it
         TRAVEL: "SHEET_BOTTOM - FRAME_H"
-        STOP_MID: "TRAVEL * 0.42"
+        # ⚠️ 0.42 left the par frame's bottom edge 1.6px off screen.
+        STOP_MID: "TRAVEL * 0.50"
 
         # ⚡ TWO CLOCKS, AND EACH BEAT USES BOTH. The mechanical half — an arrow
         # drawing, a label arriving, a bar advancing — runs on plain
@@ -669,11 +670,6 @@ animation:
 
         # ── 3. the detour some mornings take ─────────────────────────────────
         beat_name.end @ beat_pre_opt:
-            - sheet:
-                  - move:
-                        duration: "DRAW_MS"
-                        dy: "-STOP_MID"
-                        easing: "ease_in_out_quad"
             - frag_opt:
                   - show:
                         duration: "FADE_MS"
@@ -772,6 +768,11 @@ animation:
 
         # ── 4. the two slow jobs, at the same time ───────────────────────────
         beat_opt.end @ beat_pre_par:
+            - sheet:
+                  - move:
+                        duration: "DRAW_MS"
+                        dy: "-STOP_MID"
+                        easing: "ease_in_out_quad"
             - par_frame:
                   - show:
                         duration: "FADE_MS"
