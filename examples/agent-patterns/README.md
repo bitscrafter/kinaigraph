@@ -55,7 +55,7 @@ nothing for the timeline to measure.
 | `resource/scene/flow.svg` | The ledger, the seven topologies and the closing frame — all on one canvas. |
 | `resource/scene/brand_layer.svg` | The brand mark, embedded as base64 data. |
 | `resource/image/bitscrafter_logo.png` | The mark as a raster, before embedding. |
-| `resource/style/theme_flow.css` | The palette and type, in two themes. |
+| `resource/style/theme_flow.css` | The palette and type. One theme. |
 | `resource/script/part_NN_*.txt` | The narration, one file per beat. |
 | `resource/audio/part_NN_*.mp3` | The recordings, once generated. |
 
@@ -138,10 +138,12 @@ fans out from the input, so that beat's head is `IN`, a code box, and the
 persistent box steps aside for it. That is also most of what separates the two
 fan-out diagrams — see below.
 
-⚠️ **The `LLM ` prefix on labels is ours, not the source's.** Its diagrams are
-images and their box labels cannot be read from the page, so nothing here claims
-to reproduce them. The prefix is added because a white box says "model call"
-only to a reader who consulted the legend, and `WORKER 4` says it to nobody.
+⚠️ **`WORKER` is ours; the other node names are the source's.** Its
+diagrams are images, but they download and read: `Orchestrator`,
+`Synthesizer`, `Aggregator`, `Gate`, `In`, `Out`, `Exit` and `LLM Call
+Router` are its own box labels. `WORKER` comes from the prose -
+*"delegates them to worker LLMs"* - because the diagram's boxes there read
+`LLM Call 1/2/3`.
 
 ⚡ **The aggregator/synthesiser split is the source's, and it was invisible.**
 Both were one size and one colour until the kinds existed, which drew them as
@@ -154,28 +156,30 @@ and you can now see which is which without reading the narration.
 you build. `ENVIRONMENT` keeps its own outsized geometry as the one deliberate
 exception: it is a container, not a node.
 
-⚠️ **A `code` box cannot carry two lines.** `AGGREGATOR` had an "in code"
-subtitle that clipped its own bottom edge at 62 high. It was dropped rather than
-made to fit — if the taxonomy is real, a box should not also have to spell out
-what it is.
+⚠️ **`AGGREGATOR` has no subtitle and should not regain one.** It said
+"in code" until the kinds existed. The colour says that now and the badge
+says it again; a third statement of the same fact would be the box
+apologising for its own kind.
 
-**The entry node never moves and never changes colour.** It is the head of every
-topology in turn — augmented LLM, first call in the chain, router, input,
-orchestrator, generator, agent — and it is the one shape that does not take the
-complexity ramp. A constant that re-tinted itself every beat would be claiming
-to be seven things.
+**The head of the pattern never moves.** It is the head of every topology in
+turn - augmented LLM, first call in the chain, router, orchestrator, generator,
+agent - and in six of the seven it is an ordinary model box. Its persistence is
+carried by position alone: it is the only box that is in the same place in every
+beat.
 
 **Renaming a node means having authored every name.** The entry node carries one
 `text` element per beat, stacked at a single baseline, and the `clear_*` entries
 swap which one is visible.
 
-⚠️ The other way to author text is `animation.annotations` — a note whose words
-come from a `type: text` asset. It is the better tool when the words belong to
-the document rather than the drawing, but it cannot be used here: a text asset's
-`font_color` is a literal in `defs`, where no style is in scope and `css()`
-cannot reach it. This example declares two themes whose title ink sits at
-opposite ends of the ramp, so one literal would be unreadable in one of them.
-Text that must follow a theme belongs in the scene.
+⚠️ **A note's words cannot follow a theme, and that is worth knowing even
+though it does not bite here.** `animation.annotations` is the better tool when
+words belong to the document rather than the drawing, but a note's text comes
+from a `type: text` asset whose `font_color` is a literal in `defs`, where no
+style is in scope and `css()` cannot reach it - the open finding
+`css-var-unresolvable-outside-animation` names that exact position. With one
+theme declared, a literal is safe; with two it would be unreadable in one of
+them. The note's *box* is themed either way, since `fill` and `stroke` on the
+annotation envelope do resolve `css()`.
 
 **Solid edges draw and dashed edges fade — and here that carries meaning.**
 `reveal` works by arc-length dash offset, the same attribute a dashed stroke
@@ -241,7 +245,8 @@ nowhere else — there is no edit in which to trim it.
 ran between **0.371 and 0.557 seconds per word** depending on punctuation — a
 50% spread, which is the difference between 74 and 89 seconds over a piece this
 long. Budget with each line's own measured rate, not an average, and re-measure
-after any rewrite. 160 words lands at 73.9 s.
+after any rewrite. The nine scripts run 165 words and the piece renders
+74.1 s.
 
 **A scene opens on its own.** Every `var()` in `flow.svg` is emitted with the
 stylesheet's `dark` value as its fallback, so opening it in a browser, an editor
@@ -253,25 +258,18 @@ emits both from one table so they cannot drift.
 not installed by default on Windows, macOS and Linux — an example that renders
 differently depending on who clones it is a broken example.
 
-**The legend is authored in the document, not drawn.** Four `annotation` notes,
-each a box painted like the kind it names, so the legend is a specimen rather
-than a description of one. Changing a word is an edit to
-`agent_patterns_brief.yaml` — no generator run, no SVG.
+**Every box says what it is, so there is no legend.** The icon marks the
+TYPE and the classifier word beside it names that type, while the box's
+own name in the middle says which one - `ORCHESTRATOR` is an instance of
+LLM, `MEMORY` an instance of AUGMENTATION. Nothing has to be looked up, so
+nothing has to be listed.
 
-⛔ **Except the dash.** An annotation envelope has `fill`, `stroke`,
-`stroke_width` and `opacity`, and no way to say `stroke-dasharray`. So the
-`outside` chip carries the hue but not the whole signal: dashed on the stage,
-solid in the legend.
-
-⚠️ **A note's text colour cannot follow a theme.** `font_color` is a literal in
-`defs`, where no style is in scope and `css()` cannot reach — the open finding
-`css-var-unresolvable-outside-animation` names this exact position. It is only
-safe here because the document declares one theme. The note's *box* is themed;
-its words are not.
-
-⚠️ **An annotation must be addressed or the compiler warns.** Declared and never
-referenced, all four rendered correctly and still raised *"the generated element
-is constructed but never animated"*. They are shown in `setup`.
+⚠️ **This example therefore uses no `annotation.note`.** It carried a
+four-chip legend built from notes until the badges made it redundant, and
+that was the repository's one demonstration of the feature. If it should
+demonstrate one, the better showcase is a *pointered* callout - a note
+with a leader line tracking an actor, which a static legend never
+exercised.
 
 **The source's own division is on the ledger.** Three brackets — BUILDING BLOCK,
 WORKFLOWS, AGENT — because that split is the article's section headings, not a
