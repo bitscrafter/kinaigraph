@@ -212,26 +212,26 @@ animation:
         0 @ setup_ts:
             - backdrop:
                   - show:
-                        opacity: 1
                         hold:
                             before: "VIDEO_MARGIN"
+                        opacity: 1
             - pitch_text:
                   - show:
-                        opacity: 1
                         hold:
                             before: "VIDEO_MARGIN"
+                        opacity: 1
             - avatar_layer:
                   - show:
-                        opacity: 1
                         hold:
                             before: "VIDEO_MARGIN"
+                        opacity: 1
             # Present from the first frame and never touched again — it is the
             # publisher's mark, not part of the story.
             - brand:
                   - show:
-                        opacity: 1
                         hold:
                             before: "VIDEO_MARGIN"
+                        opacity: 1
 
         # ⚠️ ITS OWN BOOKMARK, ANCHORED BY NOTHING. The breath, the sway and
         # the blinks run the length of the whole talk. Chained into the phrase
