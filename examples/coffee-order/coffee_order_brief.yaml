@@ -537,9 +537,9 @@ animation:
                         opacity: 0
             - rider_handoff:
                   - show:
-                        opacity: 0
                         hold:
                             after: BEAT_PAD
+                        opacity: 0
 
         # ── 1. the order ─────────────────────────────────────────────────────
         setup.end @ beat_pre_order:
@@ -1023,10 +1023,10 @@ animation:
                         origin: center
                         easing: "ease_in_out_quad"
                   - show:
-                        duration: "FADE_MS"
-                        opacity: 0
                         hold:
                             after: "VIDEO_MARGIN"
+                        duration: "FADE_MS"
+                        opacity: 0
             - head_customer:
                   - pulse:
                         hold:

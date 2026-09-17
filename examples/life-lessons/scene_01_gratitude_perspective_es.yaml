@@ -94,9 +94,9 @@ animation:
         0 @ setup:
             - background:
                   - show:
-                        opacity: 1
                         hold:
                             before: "MARGIN"
+                        opacity: 1
             - quote:
                   - show:
                         opacity: 0
@@ -118,9 +118,9 @@ animation:
         setup.end @ narrate_quote:
             - background:
                   - show:
-                        opacity: 1
                         hold:
                             after: "narration.duration"
+                        opacity: 1
 
         # Teardown: a tail of quiet.
         # ⚡ THE QUOTE LEAVES THE WAY IT ARRIVED. Both scenes stand on the SAME
@@ -135,9 +135,9 @@ animation:
                         duration: "FADE_OUT"
             - background:
                   - show:
-                        opacity: 1
                         hold:
                             after: "MARGIN + FADE_OUT"
+                        opacity: 1
 
     capture:
         # Silent animation (paper + fading quote). The composition below rolls

@@ -145,6 +145,13 @@ defs:
             type: "style"
             file: "./resource/style/theme_dark.css"
 
+
+        # The callouts, as one name. Each is still revealed on its own stop;
+        # this only says "all of them" where all of them do the same thing.
+        all_notes:
+            type: "group"
+            member_type: "actor"
+            members: [note_title, note_upper, note_iss, note_mesosphere, note_stratosphere, note_troposphere]
     const:
         FRAME_W: 1920
         FRAME_H: 1080
@@ -331,35 +338,17 @@ animation:
                         duration: 0
             - atmosphere_infographic:
                   - show:
+                        hold:
+                            after: "ESTABLISH_MS"
                         opacity: 1
                         scale:
                             from: "OVERVIEW_ZOOM"
                             to: "OVERVIEW_ZOOM"
                         duration: 0
-                        hold:
-                            after: "ESTABLISH_MS"
             # Every callout starts hidden; each stop is what brings its own up.
-            - note_title:
-                  - show:
-                        opacity: 0
-                        duration: 0
-            - note_upper:
-                  - show:
-                        opacity: 0
-                        duration: 0
-            - note_iss:
-                  - show:
-                        opacity: 0
-                        duration: 0
-            - note_mesosphere:
-                  - show:
-                        opacity: 0
-                        duration: 0
-            - note_stratosphere:
-                  - show:
-                        opacity: 0
-                        duration: 0
-            - note_troposphere:
+            # ⚡ ALL SIX CALLOUTS PARKED IN ONE LINE. A group BROADCASTS, so each
+            # is still revealed on its own stop.
+            - all_notes:
                   - show:
                         opacity: 0
                         duration: 0
@@ -388,12 +377,12 @@ animation:
         push_in.end @ title:
             - note_title:
                   - show:
+                        hold:
+                            after: "narration_title.duration - FADE_MS * 2"
                         opacity:
                             from: 0
                             to: 1
                         duration: "FADE_MS"
-                        hold:
-                            after: "narration_title.duration - FADE_MS * 2"
                   - show:
                         opacity:
                             from: 1
@@ -410,12 +399,12 @@ animation:
         pan_upper.end @ upper:
             - note_upper:
                   - show:
+                        hold:
+                            after: "narration_upper.duration - FADE_MS * 2"
                         opacity:
                             from: 0
                             to: 1
                         duration: "FADE_MS"
-                        hold:
-                            after: "narration_upper.duration - FADE_MS * 2"
                   - show:
                         opacity:
                             from: 1
@@ -426,12 +415,12 @@ animation:
         upper.end @ upper_iss:
             - note_iss:
                   - show:
+                        hold:
+                            after: "narration_iss.duration - FADE_MS * 2"
                         opacity:
                             from: 0
                             to: 1
                         duration: "FADE_MS"
-                        hold:
-                            after: "narration_iss.duration - FADE_MS * 2"
                   - show:
                         opacity:
                             from: 1
@@ -448,12 +437,12 @@ animation:
         pan_mesosphere.end @ mesosphere:
             - note_mesosphere:
                   - show:
+                        hold:
+                            after: "narration_mesosphere.duration - FADE_MS * 2"
                         opacity:
                             from: 0
                             to: 1
                         duration: "FADE_MS"
-                        hold:
-                            after: "narration_mesosphere.duration - FADE_MS * 2"
                   - show:
                         opacity:
                             from: 1
@@ -470,12 +459,12 @@ animation:
         pan_stratosphere.end @ stratosphere:
             - note_stratosphere:
                   - show:
+                        hold:
+                            after: "narration_stratosphere.duration - FADE_MS * 2"
                         opacity:
                             from: 0
                             to: 1
                         duration: "FADE_MS"
-                        hold:
-                            after: "narration_stratosphere.duration - FADE_MS * 2"
                   - show:
                         opacity:
                             from: 1
@@ -492,12 +481,12 @@ animation:
         pan_troposphere.end @ troposphere:
             - note_troposphere:
                   - show:
+                        hold:
+                            after: "narration_troposphere.duration - FADE_MS * 2"
                         opacity:
                             from: 0
                             to: 1
                         duration: "FADE_MS"
-                        hold:
-                            after: "narration_troposphere.duration - FADE_MS * 2"
                   - show:
                         opacity:
                             from: 1
@@ -511,29 +500,29 @@ animation:
         troposphere.end @ closing:
             - atmosphere_infographic:
                   - show:
-                        opacity: 1
-                        duration: 0
                         hold:
                             after: "narration_closing.duration"
+                        opacity: 1
+                        duration: 0
 
         closing.end @ pull_out:
             - atmosphere_infographic:
                   - move:
+                        hold:
+                            after: "END_MS"
                         dx: "OVERVIEW_PAN_X - DETAIL_PAN_X"
                         dy: "-TROPOSPHERE_PAN_Y"
                         duration: "ZOOM_MS"
                         easing: ease_in_out_quad
-                        hold:
-                            after: "END_MS"
             - atmosphere_infographic:
                   - show:
+                        hold:
+                            after: "END_MS"
                         scale:
                             from: "DETAIL_ZOOM"
                             to: "OVERVIEW_ZOOM"
                         duration: "ZOOM_MS"
                         easing: ease_in_out_quad
-                        hold:
-                            after: "END_MS"
 
     capture:
         infographic_atmosphere_brief_silent:
