@@ -23,106 +23,6 @@
       <rect x="0" y="208" width="1920" height="872"/>
     </clipPath>
 
-    <symbol id="user" viewBox="0 0 24 24">
-      <!-- Head (circle) -->
-      <circle cx="12" cy="9" r="4" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      <!-- Shoulders (arc at bottom) -->
-      <path
-      d="M 6,22 Q 6,16 12,16 Q 18,16 18,22"
-      class="head-icon-fill head-icon-stroke"
-      stroke-width="1"
-      />
-      </symbol>
-
-    <symbol id="group" viewBox="0 0 24 24">
-      <!-- Links first, so the nodes sit over them -->
-      <path
-      d="M 12,8 L 12,12 M 12,12 L 6,15.6 M 12,12 L 18,15.6"
-      fill="none"
-      class="head-icon-stroke"
-      stroke-width="1"
-      />
-      <!-- Lead node -->
-      <circle cx="12" cy="5.2" r="3" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      <!-- The two it reaches -->
-      <circle cx="5.4" cy="18.2" r="2.8" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      <circle cx="18.6" cy="18.2" r="2.8" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      </symbol>
-
-    <symbol id="gauge" viewBox="0 0 24 24">
-      <!-- Outer Ring (semi-circle) -->
-      <path
-      d="M 4,16 A 8,8 0 0,1 20,16"
-      fill="none"
-      class="head-icon-stroke"
-      stroke-width="1.25"
-      stroke-linecap="round"
-      />
-      <!-- Inner Ring (smaller semi-circle) -->
-      <path
-      d="M 8,16 A 4,4 0 0,1 16,16"
-      fill="none"
-      class="head-icon-stroke"
-      stroke-width="1"
-      stroke-linecap="round"
-      />
-      <!-- Divider Lines (splitting into 3 sections) -->
-      <!-- Left Divider (approx 60deg) -->
-      <line
-      x1="7.5"
-      y1="10.75"
-      x2="9"
-      y2="12.25"
-      class="head-icon-stroke"
-      stroke-width="1"
-      stroke-linecap="round"
-      />
-      <!-- Right Divider (symmetrical to left) -->
-      <line
-      x1="16.5"
-      y1="10.75"
-      x2="15"
-      y2="12.25"
-      class="head-icon-stroke"
-      stroke-width="1"
-      stroke-linecap="round"
-      />
-      <!-- Pointer (Needle) -->
-      <path
-      d="M 12.5,18 L 13.5,15.5"
-      fill="none"
-      class="head-icon-stroke"
-      stroke-width="1.25"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      />
-      <!-- Pivot Point -->
-      <circle cx="12" cy="20" r="1.25" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      </symbol>
-
-    <symbol id="cloud" viewBox="0 0 24 24">
-      <!-- More irregular cloud shape -->
-      <!-- Left bump -->
-      <circle cx="7" cy="13" r="3.5" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      <!-- Left-center bump -->
-      <circle cx="10" cy="11" r="3" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      <!-- Center bump (top) -->
-      <circle cx="13" cy="9" r="4" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      <!-- Right-center bump -->
-      <circle cx="16" cy="11" r="3.2" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      <!-- Right bump -->
-      <circle cx="19" cy="13.5" r="2.8" class="head-icon-fill head-icon-stroke" stroke-width="1" />
-      <!-- Fill areas between bumps -->
-      <rect x="7" y="11" width="12" height="5" class="head-icon-fill" stroke="none" />
-      <!-- Irregular curved bottom edge -->
-      <path
-      d="M 4,14 Q 6,17 9,16.5 Q 11,16 13,16.5 Q 15,17 17,16 Q 19,15.5 21,16.5"
-      fill="none"
-      class="head-icon-stroke"
-      stroke-width="1"
-      />
-      </symbol>
-
     <!-- From the icon catalog, `mug`: a drink SERVED, drunk where it is made.
          The geometry is the catalog's; the theme rebinds its two variables. -->
     <symbol id="mug" viewBox="0 0 24 24">
@@ -146,6 +46,18 @@
       .bar      { stroke: var(--bar-stroke-color, #9ec9dd); stroke-width: 18; }
       .bar-wait { stroke: var(--bar-wait-stroke-color, #dfe4e9); stroke-width: 18; }
       .bar-nest { stroke: var(--bar-nest-stroke-color, #6ba9c6); stroke-width: 18; }
+      .p-customer.box, .p-customer.lifeline { stroke: var(--p-customer, #6b7f99); }
+      .p-customer.head { fill: var(--p-customer, #6b7f99); }
+      .p-customer.bar { stroke: var(--p-customer-bar, #dfe4e9); }
+      .p-barista.box, .p-barista.lifeline { stroke: var(--p-barista, #2d7d9a); }
+      .p-barista.head { fill: var(--p-barista, #2d7d9a); }
+      .p-barista.bar { stroke: var(--p-barista-bar, #cfe3ee); }
+      .p-machine.box, .p-machine.lifeline { stroke: var(--p-machine, #5f8f6e); }
+      .p-machine.head { fill: var(--p-machine, #5f8f6e); }
+      .p-machine.bar { stroke: var(--p-machine-bar, #d9e6dd); }
+      .p-wand.box, .p-wand.lifeline { stroke: var(--p-wand, #7a6b9d); }
+      .p-wand.head { fill: var(--p-wand, #7a6b9d); }
+      .p-wand.bar { stroke: var(--p-wand-bar, #e0dcea); }
       .call     { stroke: var(--call-stroke-color, #1f2933); stroke-width: 2.6; fill: none; }
       .call-head{ fill: var(--call-stroke-color, #1f2933); }
       .return   { stroke: var(--return-stroke-color, #5b6773); stroke-width: 2.2; fill: none; stroke-dasharray: 9 7; }
@@ -158,9 +70,6 @@
       .tab-opt  { fill: var(--opt-color, #b0672f); }
       .tab-t    { font-size: 19px; font-weight: 800; fill: var(--tab-text-color, #ffffff); letter-spacing: 0.10em; }
       .guard    { font-size: 21px; font-weight: 700; fill: var(--opt-color, #b0672f); }
-      .head-icon-fill   { fill: var(--head-fill-color, #ffffff); }
-      .head-icon-stroke { stroke: var(--head-icon-color, #3a4550); stroke-width: 1.7; }
-      .head-icon-dark   { fill: var(--head-icon-color, #3a4550); }
       .icon-fill   { fill: var(--icon-fill, #f6e7d6); }
       .icon-stroke { stroke: var(--icon-stroke, #6f4326); }
     </style>
@@ -172,40 +81,36 @@
   <!-- ⚠️ NO STANDFIRST. A second line here would say what the narrator is
        already saying, and the viewer would read it instead of listening. -->
   <text id="title" class="t title" x="960" y="78" text-anchor="middle">Coffee Shop — Placing an Order</text>
-  <line id="life_customer" class="lifeline" x1="300" y1="208" x2="300" y2="1080"/>
-  <line id="life_barista" class="lifeline" x1="750" y1="208" x2="750" y2="1080"/>
-  <line id="life_machine" class="lifeline" x1="1200" y1="208" x2="1200" y2="1080"/>
-  <line id="life_wand" class="lifeline" x1="1650" y1="208" x2="1650" y2="1080"/>
+  <line id="life_customer" class="lifeline p-customer" x1="300" y1="208" x2="300" y2="1080"/>
+  <line id="life_barista" class="lifeline p-barista" x1="750" y1="208" x2="750" y2="1080"/>
+  <line id="life_machine" class="lifeline p-machine" x1="1200" y1="208" x2="1200" y2="1080"/>
+  <line id="life_wand" class="lifeline p-wand" x1="1650" y1="208" x2="1650" y2="1080"/>
 
   <g id="head_customer">
-    <rect class="box" x="150" y="132" width="300" height="76" rx="10"/>
-    <use href="#user" x="170" y="150" width="40" height="40"/>
-    <text class="t head" x="326" y="179" text-anchor="middle">Customer</text>
+    <rect class="box p-customer" x="150" y="132" width="300" height="76" rx="10"/>
+    <text class="t head p-customer" x="300" y="179" text-anchor="middle">Customer</text>
   </g>
   <g id="head_barista">
-    <rect class="box" x="600" y="132" width="300" height="76" rx="10"/>
-    <use href="#group" x="620" y="150" width="40" height="40"/>
-    <text class="t head" x="776" y="179" text-anchor="middle">Barista</text>
+    <rect class="box p-barista" x="600" y="132" width="300" height="76" rx="10"/>
+    <text class="t head p-barista" x="750" y="179" text-anchor="middle">Barista</text>
   </g>
   <g id="head_machine">
-    <rect class="box" x="1050" y="132" width="300" height="76" rx="10"/>
-    <use href="#gauge" x="1070" y="150" width="40" height="40"/>
-    <text class="t head" x="1226" y="179" text-anchor="middle">Espresso machine</text>
+    <rect class="box p-machine" x="1050" y="132" width="300" height="76" rx="10"/>
+    <text class="t head p-machine" x="1200" y="179" text-anchor="middle">Espresso machine</text>
   </g>
   <g id="head_wand">
-    <rect class="box" x="1500" y="132" width="300" height="76" rx="10"/>
-    <use href="#cloud" x="1520" y="150" width="40" height="40"/>
-    <text class="t head" x="1676" y="179" text-anchor="middle">Steam wand</text>
+    <rect class="box p-wand" x="1500" y="132" width="300" height="76" rx="10"/>
+    <text class="t head p-wand" x="1650" y="179" text-anchor="middle">Steam wand</text>
   </g>
 
   <!-- ── the conversation: everything that scrolls ─────────────────────── -->
   <g id="sheet_viewport" clip-path="url(#sheet_clip)">
   <g id="sheet">
-    <line id="bar_customer" class="bar-wait" x1="300" y1="284" x2="300" y2="1538"/>
-    <line id="bar_barista" class="bar" x1="750" y1="284" x2="750" y2="1538"/>
-    <line id="bar_machine" class="bar" x1="1200" y1="846" x2="1200" y2="1000"/>
-    <line id="bar_wand" class="bar" x1="1650" y1="1106" x2="1650" y2="1260"/>
-    <line id="bar_prepare" class="bar-nest" x1="759" y1="1380" x2="759" y2="1460"/>
+    <line id="bar_customer" class="bar-wait p-customer" x1="300" y1="284" x2="300" y2="1538"/>
+    <line id="bar_barista" class="bar p-barista" x1="750" y1="284" x2="750" y2="1538"/>
+    <line id="bar_machine" class="bar p-machine" x1="1200" y1="846" x2="1200" y2="1000"/>
+    <line id="bar_wand" class="bar p-wand" x1="1650" y1="1106" x2="1650" y2="1260"/>
+    <line id="bar_prepare" class="bar-nest p-barista" x1="759" y1="1380" x2="759" y2="1460"/>
 
     <g id="frag_opt">
       <rect class="frag-box frag-opt" x="200" y="500" width="950" height="240" rx="6"/>

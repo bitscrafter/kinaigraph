@@ -30,6 +30,20 @@
     --lifeline-stroke-color: #bcc5ce;
     --bar-wait-stroke-color: #dfe4e9;
 
+    /* ── one hue per participant ──────────────────────────────────────────
+       Chosen at matching saturation (0.18-0.20) so no box advances in front of
+       the others; the barista is deliberately the loudest, being the busiest.
+       The customer's BAR stays pale: they are waiting, not working, and a full
+       colour there would claim otherwise. */
+    --p-customer: #6b7f99;
+    --p-customer-bar: #dfe4e9;
+    --p-barista: #2d7d9a;
+    --p-barista-bar: #cfe3ee;
+    --p-machine: #5f8f6e;
+    --p-machine-bar: #d9e6dd;
+    --p-wand: #7a6b9d;
+    --p-wand-bar: #e0dcea;
+
     /* Structure */
     --head-fill-color: #ffffff;
     --head-stroke-color: #3a4550;
