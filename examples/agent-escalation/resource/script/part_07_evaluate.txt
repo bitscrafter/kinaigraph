@@ -1,0 +1,1 @@
+Evaluator-optimizer. One generates, one gives feedback, and it goes back around. The first arrow pointing backwards.

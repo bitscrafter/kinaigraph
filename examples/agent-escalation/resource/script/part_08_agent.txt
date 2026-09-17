@@ -1,0 +1,1 @@
+Agents. The loop closes on the world. The model directs its own tools, reads ground truth, pauses for a human.
