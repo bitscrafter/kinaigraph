@@ -487,17 +487,9 @@ defs:
         GROWN_PREPARE: "(1460 - BAR_TOP) / (BAR_BOTTOM - BAR_TOP)"
 
         # ── the lifelines, so a mug's run is a distance between people ───────
-        X_CUSTOMER: 300
-        X_BARISTA: 750
-        X_MACHINE: 1200
-        X_WAND: 1650
 
-        # The three legs of a self-call loop: out, down, back onto the bar.
-        SELF_OUT: 110
-        SELF_DOWN: 64
-        SELF_BACK: -94
-
-        MARGIN: 400 # quiet at the very end
+        VIDEO_MARGIN: 400 # quiet at the very end
+        BEAT_PAD: 250
 
 animation:
     context:
@@ -550,7 +542,7 @@ animation:
                   - show:
                         opacity: 0
                         hold:
-                            after: 400
+                            after: BEAT_PAD
 
         # ── 1. the order ─────────────────────────────────────────────────────
         setup.end @ beat_order:
@@ -588,7 +580,11 @@ animation:
                         opacity: 1
                         duration: "FADE_MS"
                   - move:
-                        dx: "X_BARISTA - X_CUSTOMER"
+                        anchor:
+                            asset: msg_order
+                            pos: right
+                            dx: -28
+                        origin: center
                         duration: "RUN_MS"
                         easing: "ease_in_out_quad"
                   - show:
@@ -633,15 +629,24 @@ animation:
                         opacity: 1
                         duration: "narration_02.duration * FADE"
                   - move:
-                        dx: "SELF_OUT"
+                        anchor:
+                            asset: msg_name
+                            pos: top_right
+                        origin: center
                         duration: "narration_02.duration * RUN * 0.4"
                         easing: "ease_in_out_quad"
                   - move:
-                        dy: "SELF_DOWN"
+                        anchor:
+                            asset: msg_name
+                            pos: bottom_right
+                        origin: center
                         duration: "narration_02.duration * RUN * 0.25"
                         easing: "linear"
                   - move:
-                        dx: "SELF_BACK"
+                        anchor:
+                            asset: msg_name
+                            pos: bottom_left
+                        origin: center
                         duration: "narration_02.duration * RUN * 0.35"
                         easing: "ease_in_out_quad"
                   - show:
@@ -695,7 +700,11 @@ animation:
                         opacity: 1
                         duration: "narration_03.duration * FADE"
                   - move:
-                        dx: "X_CUSTOMER - X_BARISTA"
+                        anchor:
+                            asset: ret_outofoat
+                            pos: left
+                            dx: 28
+                        origin: center
                         duration: "narration_03.duration * RUN * 0.55"
                         easing: "ease_in_out_quad"
                   - show:
@@ -732,7 +741,11 @@ animation:
                         opacity: 1
                         duration: "narration_03.duration * FADE"
                   - move:
-                        dx: "X_BARISTA - X_CUSTOMER"
+                        anchor:
+                            asset: msg_semi
+                            pos: right
+                            dx: -28
+                        origin: center
                         duration: "narration_03.duration * RUN * 0.55"
                         easing: "ease_in_out_quad"
                   - show:
@@ -793,7 +806,11 @@ animation:
                         opacity: 1
                         duration: "narration_04.duration * FADE"
                   - move:
-                        dx: "X_MACHINE - X_BARISTA"
+                        anchor:
+                            asset: msg_shot
+                            pos: right
+                            dx: -28
+                        origin: center
                         duration: "narration_04.duration * RUN * 0.55"
                         easing: "ease_in_out_quad"
                   - show:
@@ -807,7 +824,11 @@ animation:
                         opacity: 1
                         duration: "narration_04.duration * FADE"
                   - move:
-                        dx: "X_WAND - X_BARISTA"
+                        anchor:
+                            asset: msg_steam
+                            pos: right
+                            dx: -28
+                        origin: center
                         duration: "narration_04.duration * RUN * 0.55"
                         easing: "ease_in_out_quad"
                   - show:
@@ -837,7 +858,11 @@ animation:
                         opacity: 1
                         duration: "narration_04.duration * FADE"
                   - move:
-                        dx: "X_BARISTA - X_MACHINE"
+                        anchor:
+                            asset: ret_espresso
+                            pos: left
+                            dx: 28
+                        origin: center
                         duration: "narration_04.duration * RUN * 0.55"
                         easing: "ease_in_out_quad"
                   - show:
@@ -851,7 +876,11 @@ animation:
                         opacity: 1
                         duration: "narration_04.duration * FADE"
                   - move:
-                        dx: "X_BARISTA - X_WAND"
+                        anchor:
+                            asset: ret_milk
+                            pos: left
+                            dx: 28
+                        origin: center
                         duration: "narration_04.duration * RUN * 0.55"
                         easing: "ease_in_out_quad"
                   - show:
@@ -907,15 +936,24 @@ animation:
                         opacity: 1
                         duration: "narration_05.duration * FADE"
                   - move:
-                        dx: "SELF_OUT"
+                        anchor:
+                            asset: msg_prepare
+                            pos: top_right
+                        origin: center
                         duration: "narration_05.duration * RUN * 0.4"
                         easing: "ease_in_out_quad"
                   - move:
-                        dy: "SELF_DOWN"
+                        anchor:
+                            asset: msg_prepare
+                            pos: bottom_right
+                        origin: center
                         duration: "narration_05.duration * RUN * 0.25"
                         easing: "linear"
                   - move:
-                        dx: "SELF_BACK"
+                        anchor:
+                            asset: msg_prepare
+                            pos: bottom_left
+                        origin: center
                         duration: "narration_05.duration * RUN * 0.35"
                         easing: "ease_in_out_quad"
                   - show:
@@ -980,11 +1018,15 @@ animation:
                         opacity: 1
                         duration: "narration_06.duration * FADE"
                   - move:
-                        dx: "X_CUSTOMER - X_BARISTA"
+                        anchor:
+                            asset: ret_handoff
+                            pos: left
+                            dx: 28
+                        origin: center
                         duration: "narration_06.duration * RUN"
                         easing: "ease_in_out_quad"
                         hold:
-                            after: "MARGIN"
+                            after: "VIDEO_MARGIN"
 
     capture:
         video_coffee_order_animation:
