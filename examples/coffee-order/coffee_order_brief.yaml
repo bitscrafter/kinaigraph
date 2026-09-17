@@ -322,7 +322,7 @@ animation:
 
         # ── 3. the detour some mornings take ─────────────────────────────────
         beat_name.end @ beat_opt:
-            - sheet: [{ move: { dy: "-STOP_MID", duration: "narration_03.duration * DRAW", easing: "ease_in_out_quad" } }]
+            - sheet: [{ move: { dy: "-STOP_MID", duration: "narration_03.duration * DESCEND", easing: "ease_in_out_quad" } }]
             - frag_opt:
                   - show: { opacity: 0, duration: "narration_03.duration * DRAW" }
                   - show: { opacity: 1, duration: "narration_03.duration * FADE" }
@@ -344,7 +344,7 @@ animation:
                   - show: { reveal: 0, duration: "narration_03.duration * (FADE * 3 + RUN * 0.55)" }
                   - show: { reveal: { from: 0, to: 1 }, duration: "narration_03.duration * DRAW" }
             - head_semi:
-                  - show: { opacity: 0, duration: "narration_03.duration * ((DESCEND + 0.34) + DRAW)" }
+                  - show: { opacity: 0, duration: "narration_03.duration * (FADE * 3 + RUN * 0.55 + DRAW)" }
                   - show: { opacity: 1, duration: 1 }
             - rider_semi:
                   - show: { opacity: 0, duration: "narration_03.duration * (FADE * 3 + RUN * 0.55 + DRAW)" }
