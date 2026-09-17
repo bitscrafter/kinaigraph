@@ -704,24 +704,67 @@ defs:
         # ⚠️ THE TWO WAITING STATES ARE DIFFERENT PROPERTIES, NOT ONE STATE. A
         # faded thing waits at `opacity: 0`; a drawn thing waits at `reveal: 0`.
         # They cannot share a group because they do not share a verb.
-        not_yet:
+        #
+        # ⚠️ A GROUP MAY EXPAND TO AT MOST 50 ACTORS. One `not_yet` holding
+        # everything came to 96 and was refused outright. Splitting it per beat
+        # is the better shape anyway: each beat's waiting set is named for its
+        # beat, so `setup` reads as the list of topologies that have not
+        # happened yet rather than as one undifferentiated wall.
+        waiting_ledger:
             type: "group"
             member_type: "actor"
-            members: [rail_atom, rail_chain, rail_route, rail_parallel, rail_orchestrate,
+            members: [
+                rail_atom, rail_chain, rail_route, rail_parallel, rail_orchestrate,
                 rail_evaluate, rail_agent, mini_atom, mini_chain, mini_route, mini_parallel,
                 mini_orchestrate, mini_evaluate, mini_agent, n_entry, lbl_entry_atom,
                 lbl_entry_chain, lbl_entry_route, lbl_entry_parallel, lbl_entry_orchestrate,
-                lbl_entry_evaluate, lbl_entry_agent, h_atom_retr, h_atom_tool, h_atom_mem,
-                n_retrieval, n_tools, n_memory, h_ch_1, h_ch_2, h_ch_3, h_ch_fail, l_ch_fail,
-                n_gate, lbl_gate, n_call2, n_call3, h_rt_1, h_rt_2, h_rt_3, n_route_1,
-                n_route_2, n_route_3, h_pa_1, h_pa_2, h_pa_3, n_par_1, n_par_2, n_par_3,
-                h_pj_1, h_pj_2, h_pj_3, n_aggregator, lbl_variants, e_or_1, e_or_2, e_or_3,
-                e_or_4, h_or_1, h_or_2, h_or_3, h_or_4, n_orc_1, n_orc_2, n_orc_3, n_orc_4,
-                h_oj_1, h_oj_2, h_oj_3, h_oj_4, n_synth, lbl_runtime, h_ev_fwd, h_ev_back,
-                h_ev_out, l_ev_fwd, l_ev_back, l_ev_out, n_evaluator, n_accepted, h_ag_act,
-                h_ag_obs, h_ag_stop, e_ag_human, h_ag_human, l_ag_act, l_ag_obs, l_ag_stop,
-                l_ag_human, n_environment, n_human, n_stop, quote_1, quote_2, quote_3,
-                quote_who]
+                lbl_entry_evaluate, lbl_entry_agent]
+        waiting_atom:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_atom_retr, h_atom_tool, h_atom_mem, n_retrieval, n_tools, n_memory]
+        waiting_chain:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_ch_1, h_ch_2, h_ch_3, h_ch_fail, l_ch_fail, n_gate, lbl_gate, n_call2,
+                n_call3]
+        waiting_route:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_rt_1, h_rt_2, h_rt_3, n_route_1, n_route_2, n_route_3]
+        waiting_parallel:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_pa_1, h_pa_2, h_pa_3, n_par_1, n_par_2, n_par_3, h_pj_1, h_pj_2, h_pj_3,
+                n_aggregator, lbl_variants]
+        waiting_orchestrate:
+            type: "group"
+            member_type: "actor"
+            members: [
+                e_or_1, e_or_2, e_or_3, e_or_4, h_or_1, h_or_2, h_or_3, h_or_4, n_orc_1,
+                n_orc_2, n_orc_3, n_orc_4, h_oj_1, h_oj_2, h_oj_3, h_oj_4, n_synth,
+                lbl_runtime]
+        waiting_evaluate:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_ev_fwd, h_ev_back, h_ev_out, l_ev_fwd, l_ev_back, l_ev_out, n_evaluator,
+                n_accepted]
+        waiting_agent:
+            type: "group"
+            member_type: "actor"
+            members: [
+                h_ag_act, h_ag_obs, h_ag_stop, e_ag_human, h_ag_human, l_ag_act, l_ag_obs,
+                l_ag_stop, l_ag_human, n_environment, n_human, n_stop]
+        waiting_close:
+            type: "group"
+            member_type: "actor"
+            members: [
+                quote_1, quote_2, quote_3, quote_who]
 
         # Every SOLID shaft in the piece, waiting at zero length. The dashed ones
         # are not here and never can be — see the header.
@@ -964,7 +1007,6 @@ defs:
         DRAW_MS: 620 # a solid shaft drawing itself
         FADE_MS: 240 # anything that cannot be drawn, arriving
         DIM_MS: 400 # a lane that did not run, going quiet
-        CLOSE_MS: 900 # the last frame arriving
 
         # How far a dimmed thing goes. Not zero: the unchosen lanes in `route`
         # still exist, and a router that erased them would be a gate.
@@ -981,12 +1023,12 @@ defs:
         # six names are the ONLY offsets in this document — no timeline entry
         # below adds anything together, so a beat can be read as "this, then
         # this, then this" without doing arithmetic in your head.
-        MOVE: "DRAW_MS + FADE_MS" # one move, end to end
+        MOVE_MS: "DRAW_MS + FADE_MS" # one move, end to end
         MOVE_1_HEAD: DRAW_MS
-        MOVE_2: MOVE
-        MOVE_2_HEAD: "MOVE + DRAW_MS"
-        MOVE_3: "MOVE * 2"
-        MOVE_3_HEAD: "MOVE * 2 + DRAW_MS"
+        MOVE_2: MOVE_MS
+        MOVE_2_HEAD: "MOVE_MS + DRAW_MS"
+        MOVE_3: "MOVE_MS * 2"
+        MOVE_3_HEAD: "MOVE_MS * 2 + DRAW_MS"
 
 animation:
     context:
@@ -1040,7 +1082,31 @@ animation:
             - g_entry:
                   - show:
                         opacity: 1
-            - not_yet:
+            - waiting_ledger:
+                  - show:
+                        opacity: 0
+            - waiting_atom:
+                  - show:
+                        opacity: 0
+            - waiting_chain:
+                  - show:
+                        opacity: 0
+            - waiting_route:
+                  - show:
+                        opacity: 0
+            - waiting_parallel:
+                  - show:
+                        opacity: 0
+            - waiting_orchestrate:
+                  - show:
+                        opacity: 0
+            - waiting_evaluate:
+                  - show:
+                        opacity: 0
+            - waiting_agent:
+                  - show:
+                        opacity: 0
+            - waiting_close:
                   - show:
                         opacity: 0
             - undrawn:
@@ -1306,7 +1372,7 @@ animation:
                   - pulse:
                         hold:
                             before: MOVE_2
-                        duration: MOVE
+                        duration: MOVE_MS
                         cycles: 2
                         scale:
                             from: 1
@@ -1396,12 +1462,18 @@ animation:
                         duration: CLEAR_MS
                         opacity: 0
 
+        # ⚠️ THE CLOSING BEAT OBEYS THE SAME RULE AS EVERY OTHER ONE, and it
+        # did not at first: it ran for a fixed 900 ms while its clip — the
+        # longest line in the piece — ran 10 s, so the video ended mid-sentence.
+        # Measured, not read: the animation came out 69.3 s instead of 79 s.
+        # The quote now arrives as it is read, exactly as a ledger row lights as
+        # its own line is spoken.
         clear_close.end @ close:
             - close_body:
                   - show:
                         hold:
                             after: VIDEO_MARGIN
-                        duration: CLOSE_MS
+                        duration: "narration_09.duration"
                         opacity: 1
 
     capture:
