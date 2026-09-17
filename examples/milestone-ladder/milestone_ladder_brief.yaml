@@ -189,6 +189,19 @@ defs:
                 - dark
                 - care
 
+        # ⚡ EVERYTHING THAT HAS NOT HAPPENED YET, hidden in one line. A group
+        # BROADCASTS — it expands into one instruction per member, so each of
+        # these is still addressed on its own beat later. This replaced 23
+        # identical entries whose only content was "not yet".
+        not_yet:
+            type: "group"
+            member_type: "actor"
+            members: [node_career_decision, label_career_decision, node_medical_school, label_medical_school,
+                node_internship, label_internship, node_family, label_family, node_community,
+                label_community, node_teaching, label_teaching, seg_medical_school, seg_internship,
+                seg_family, seg_community, seg_teaching, icon_career_decision, icon_medical_school,
+                icon_internship, icon_family, icon_community, icon_teaching]
+
     defaults:
         assets:
             template:
@@ -196,6 +209,7 @@ defs:
                 style:
                     asset: style
                     theme: dark
+
 
     const:
         # Quiet before the first word and after the last, so the piece does not
@@ -248,106 +262,33 @@ animation:
         # unwalked road being visible is the point: the shape of the life is
         # legible before any of it has happened.
         0 @ setup:
+            # ⚡ THE TITLE SETS THE LENGTH of this beat; everything else here
+            # lands instantly. Listed first so the beat's duration is the first
+            # thing read.
             - title:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
             - brand_mark:
                   - show:
                         opacity: 1
-            - node_career_decision:
-                  - show:
-                        opacity: 0
-            - label_career_decision:
-                  - show:
-                        opacity: 0
-            - node_medical_school:
-                  - show:
-                        opacity: 0
-            - label_medical_school:
-                  - show:
-                        opacity: 0
-            # ⚠️ `show` carries no duration, so it lands instantly — the glyph
-            # becomes visible and `move` puts it at the span's start on the same
-            # frame. Fading it in first would fade it in at its RESTING position
-            # and then snap it back to the start of the rail.
-            - node_internship:
-                  - show:
-                        opacity: 0
-            - label_internship:
-                  - show:
-                        opacity: 0
-            # ⚠️ `show` carries no duration, so it lands instantly — the glyph
-            # becomes visible and `move` puts it at the span's start on the same
-            # frame. Fading it in first would fade it in at its RESTING position
-            # and then snap it back to the start of the rail.
-            - node_family:
-                  - show:
-                        opacity: 0
-            - label_family:
-                  - show:
-                        opacity: 0
-            # ⚠️ `show` carries no duration, so it lands instantly — the glyph
-            # becomes visible and `move` puts it at the span's start on the same
-            # frame. Fading it in first would fade it in at its RESTING position
-            # and then snap it back to the start of the rail.
-            - node_community:
-                  - show:
-                        opacity: 0
-            - label_community:
-                  - show:
-                        opacity: 0
-            # ⚠️ `show` carries no duration, so it lands instantly — the glyph
-            # becomes visible and `move` puts it at the span's start on the same
-            # frame. Fading it in first would fade it in at its RESTING position
-            # and then snap it back to the start of the rail.
-            - node_teaching:
-                  - show:
-                        opacity: 0
-            - label_teaching:
-                  - show:
-                        opacity: 0
-            # ⚠️ `show` carries no duration, so it lands instantly — the glyph
-            # becomes visible and `move` puts it at the span's start on the same
-            # frame. Fading it in first would fade it in at its RESTING position
-            # and then snap it back to the start of the rail.
-            - seg_medical_school:
-                  - show:
-                        opacity: 0
-            - seg_internship:
-                  - show:
-                        opacity: 0
-            - seg_family:
-                  - show:
-                        opacity: 0
-            - seg_community:
-                  - show:
-                        opacity: 0
-            - seg_teaching:
-                  - show:
-                        opacity: 0
-            - icon_career_decision:
-                  - show:
-                        opacity: 0
-            - icon_medical_school:
-                  - show:
-                        opacity: 0
-            - icon_internship:
-                  - show:
-                        opacity: 0
-            - icon_family:
-                  - show:
-                        opacity: 0
-            - icon_community:
-                  - show:
-                        opacity: 0
-            - icon_teaching:
+            # ⚠️ NOTHING FADES IN HERE, including the glyphs. A glyph faded in
+            # would fade in at its RESTING position and then snap back to the
+            # start of its rail; it is hidden outright and placed by `move` on
+            # the frame it appears.
+            - not_yet:
                   - show:
                         opacity: 0
 
-        # ── Step 1 — no span precedes the first node ────────────────────────
         setup.end @ step_1:
+            - label_career_decision:
+                  - show:
+                        hold:
+                            after: "STEP_1_HOLD_MS"
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
             - node_career_decision:
                   - show:
                         duration: NODE_FADE_MS
@@ -356,13 +297,6 @@ animation:
                             from: 0.7
                             to: 1
                         easing: ease_out_back
-            - label_career_decision:
-                  - show:
-                        duration: NODE_FADE_MS
-                        opacity: 1
-                        easing: ease_out_quad
-                        hold:
-                            after: "STEP_1_HOLD_MS"
             - icon_career_decision:
                   - show:
                         duration: NODE_FADE_MS
@@ -373,6 +307,13 @@ animation:
                         easing: ease_out_back
 
         step_1.end @ step_2:
+            - label_medical_school:
+                  - show:
+                        hold:
+                            after: "STEP_2_HOLD_MS"
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
             - seg_medical_school:
                   - show:
                         duration: SEG_DRAW_MS
@@ -389,13 +330,6 @@ animation:
                             from: 0.7
                             to: 1
                         easing: ease_out_back
-            - label_medical_school:
-                  - show:
-                        duration: NODE_FADE_MS
-                        opacity: 1
-                        easing: ease_out_quad
-                        hold:
-                            after: "STEP_2_HOLD_MS"
             # ⚠️ `show` carries no duration, so it lands instantly — the glyph
             # becomes visible and `move` places it at the span's start on the same
             # frame. Fading it in first would fade it in at its RESTING position
@@ -409,6 +343,13 @@ animation:
                         along: ladder::seg_medical_school
 
         step_2.end @ step_3:
+            - label_internship:
+                  - show:
+                        hold:
+                            after: "STEP_3_HOLD_MS"
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
             - seg_internship:
                   - show:
                         duration: SEG_DRAW_MS
@@ -425,13 +366,6 @@ animation:
                             from: 0.7
                             to: 1
                         easing: ease_out_back
-            - label_internship:
-                  - show:
-                        duration: NODE_FADE_MS
-                        opacity: 1
-                        easing: ease_out_quad
-                        hold:
-                            after: "STEP_3_HOLD_MS"
             # ⚠️ `show` carries no duration, so it lands instantly — the glyph
             # becomes visible and `move` places it at the span's start on the same
             # frame. Fading it in first would fade it in at its RESTING position
@@ -445,6 +379,13 @@ animation:
                         along: ladder::seg_internship
 
         step_3.end @ step_4:
+            - label_family:
+                  - show:
+                        hold:
+                            after: "STEP_4_HOLD_MS"
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
             - seg_family:
                   - show:
                         duration: SEG_DRAW_MS
@@ -461,13 +402,6 @@ animation:
                             from: 0.7
                             to: 1
                         easing: ease_out_back
-            - label_family:
-                  - show:
-                        duration: NODE_FADE_MS
-                        opacity: 1
-                        easing: ease_out_quad
-                        hold:
-                            after: "STEP_4_HOLD_MS"
             # ⚠️ `show` carries no duration, so it lands instantly — the glyph
             # becomes visible and `move` places it at the span's start on the same
             # frame. Fading it in first would fade it in at its RESTING position
@@ -481,6 +415,13 @@ animation:
                         along: ladder::seg_family
 
         step_4.end @ step_5:
+            - label_community:
+                  - show:
+                        hold:
+                            after: "STEP_5_HOLD_MS"
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
             - seg_community:
                   - show:
                         duration: SEG_DRAW_MS
@@ -497,13 +438,6 @@ animation:
                             from: 0.7
                             to: 1
                         easing: ease_out_back
-            - label_community:
-                  - show:
-                        duration: NODE_FADE_MS
-                        opacity: 1
-                        easing: ease_out_quad
-                        hold:
-                            after: "STEP_5_HOLD_MS"
             # ⚠️ `show` carries no duration, so it lands instantly — the glyph
             # becomes visible and `move` places it at the span's start on the same
             # frame. Fading it in first would fade it in at its RESTING position
@@ -517,6 +451,13 @@ animation:
                         along: ladder::seg_community
 
         step_5.end @ step_6:
+            - label_teaching:
+                  - show:
+                        hold:
+                            after: "STEP_6_HOLD_MS"
+                        duration: NODE_FADE_MS
+                        opacity: 1
+                        easing: ease_out_quad
             - seg_teaching:
                   - show:
                         duration: SEG_DRAW_MS
@@ -533,13 +474,6 @@ animation:
                             from: 0.7
                             to: 1
                         easing: ease_out_back
-            - label_teaching:
-                  - show:
-                        duration: NODE_FADE_MS
-                        opacity: 1
-                        easing: ease_out_quad
-                        hold:
-                            after: "STEP_6_HOLD_MS"
             # ⚠️ `show` carries no duration, so it lands instantly — the glyph
             # becomes visible and `move` places it at the span's start on the same
             # frame. Fading it in first would fade it in at its RESTING position
@@ -556,9 +490,9 @@ animation:
         step_6.end @ teardown:
             - title:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
 
     capture:
         milestone_ladder_brief_silent:
