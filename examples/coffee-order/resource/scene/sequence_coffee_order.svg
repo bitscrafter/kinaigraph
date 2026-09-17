@@ -68,7 +68,7 @@
   <!-- ── pinned: the title, the heads and the lifelines ─────────────────── -->
   <!-- ⚠️ NO STANDFIRST. A second line here would say what the narrator is
        already saying, and the viewer would read it instead of listening. -->
-  <text id="title" class="t title" x="100" y="78">Ordering a flat white</text>
+  <text id="title" class="t title" x="960" y="78" text-anchor="middle">Coffee Shop - Placing an Order</text>
   <line id="life_customer" class="lifeline" x1="300" y1="208" x2="300" y2="1080"/>
   <line id="life_barista" class="lifeline" x1="750" y1="208" x2="750" y2="1080"/>
   <line id="life_machine" class="lifeline" x1="1200" y1="208" x2="1200" y2="1080"/>

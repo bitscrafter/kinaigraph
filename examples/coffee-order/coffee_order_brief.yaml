@@ -932,8 +932,8 @@ animation:
                         duration: "FADE_MS"
                         opacity: 1
 
-        # The mug stays where it lands. It is the drink, and the drink
-        # does not go anywhere after this.
+        # The drink reaches the customer and goes with them — the last thing to
+        # leave, and the only actor that exits rather than simply stopping.
         beat_pre_handoff.end @ beat_handoff:
             - rider_handoff:
                   - move:
@@ -944,6 +944,9 @@ animation:
                             dx: 30
                         origin: center
                         easing: "ease_in_out_quad"
+                  - show:
+                        duration: "FADE_MS"
+                        opacity: 0
                         hold:
                             after: "VIDEO_MARGIN"
 
