@@ -90,6 +90,34 @@ same few parts rewired, and they sit in an order. A tour would have shown seven
 pictures. This shows one picture seven times, and each transition is a single
 new idea rather than a new drawing.
 
+**Four kinds of node, and the drawing means it.** A reader who sees two stroke
+colours and several box sizes will infer a taxonomy whether or not one was
+intended, so every box declares a *kind* and takes that kind's stroke and size
+from one table. There is no size argument at any call site.
+
+| kind | stroke | size | what it is |
+| ---- | ------ | ---- | ---------- |
+| entry | white, solid, 4px | 250×84 | the one node present in all seven beats |
+| model | ramp, solid, 3px | 210×84 | an LLM invocation |
+| code | ramp, solid, 3px | 200×62 | explicitly *not* a model |
+| outside | ramp, **dashed**, 3px | 200×62 | not part of the system you build |
+
+⚡ **The aggregator/synthesiser split is the source's, and it was invisible.**
+Both were one size and one colour until the kinds existed, which drew them as
+the same sort of thing. They are not: outputs are *"aggregated
+programmatically"*, whereas the orchestrator *"synthesizes their results"* and
+is a central LLM. So `AGGREGATOR` is **code** and `SYNTHESIZER` is a **model**,
+and you can now see which is which without reading the narration.
+
+`HUMAN` is dashed for the same reason `ENVIRONMENT` is — neither is something
+you build. `ENVIRONMENT` keeps its own outsized geometry as the one deliberate
+exception: it is a container, not a node.
+
+⚠️ **A `code` box cannot carry two lines.** `AGGREGATOR` had an "in code"
+subtitle that clipped its own bottom edge at 62 high. It was dropped rather than
+made to fit — if the taxonomy is real, a box should not also have to spell out
+what it is.
+
 **The entry node never moves and never changes colour.** It is the head of every
 topology in turn — augmented LLM, first call in the chain, router, input,
 orchestrator, generator, agent — and it is the one shape that does not take the
