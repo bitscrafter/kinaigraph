@@ -177,6 +177,14 @@ defs:
             type: "style"
             file: "./resource/style/theme_dark.css"
 
+
+        # Everything that is not on screen when the walk begins. A group
+        # broadcasts — one instruction per member — so every one of these is
+        # still shown on its own beat later.
+        not_yet:
+            type: "group"
+            member_type: "actor"
+            members: [seg_1, seg_2, seg_3, seg_4, seg_5, seg_6, seg_7, dest_ring, dest_star, traveller_solid, traveller_ghost, rest_note, chip_capability]
     const:
         # ── Pace ──────────────────────────────────────────────────────────────────
         # ONE walking speed, shared verbatim by all three route scenes, and THIS scene
@@ -354,51 +362,18 @@ animation:
         0 @ setup_ts:
             - map:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
             # A scene is hidden until shown, the map included — the badge is no
             # different, and declaring it without this draws nothing.
             - brand:
                   - show:
                         opacity: 1
-            - seg_1:
-                  - show:
-                        opacity: 0
-            - seg_2:
-                  - show:
-                        opacity: 0
-            - seg_3:
-                  - show:
-                        opacity: 0
-            - seg_4:
-                  - show:
-                        opacity: 0
-            - seg_5:
-                  - show:
-                        opacity: 0
-            - seg_6:
-                  - show:
-                        opacity: 0
-            - seg_7:
-                  - show:
-                        opacity: 0
-            - dest_ring:
-                  - show:
-                        opacity: 0
-            - dest_star:
-                  - show:
-                        opacity: 0
-            - traveller_solid:
-                  - show:
-                        opacity: 0
-            - traveller_ghost:
-                  - show:
-                        opacity: 0
-            - rest_note:
-                  - show:
-                        opacity: 0
-            - chip_capability:
+            # ⚡ EVERYTHING THE WALK HAS NOT REACHED YET, hidden in one line.
+            # A group BROADCASTS, so each of these is still addressed on its own
+            # beat afterwards.
+            - not_yet:
                   - show:
                         opacity: 0
 
@@ -421,14 +396,14 @@ animation:
                         along: route_layer_rest::seg_1_line
             - chip_capability:
                   - show:
+                        hold:
+                            before: "CHIP_DELAY_MS"
                         duration: CHIP_REVEAL_MS
                         opacity: 1
                         reveal:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-                        hold:
-                            before: "CHIP_DELAY_MS"
 
         # --- Leg 2 (HIDDEN): the long passage behind the cabin and its roof ---
         leg1_ts.end @ leg2_ts:
@@ -577,21 +552,21 @@ animation:
                         opacity: 0
             - rest_note:
                   - show:
+                        hold:
+                            after: "NOTE_HOLD_MS"
                         duration: NOTE_REVEAL_MS
                         opacity: 1
                         reveal:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-                        hold:
-                            after: "NOTE_HOLD_MS"
 
         note_ts.end @ tear_down_ts:
             - map:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
 
     capture:
         video_rest:
