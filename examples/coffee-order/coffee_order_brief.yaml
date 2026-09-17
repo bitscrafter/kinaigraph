@@ -388,6 +388,12 @@ defs:
             members:
                 - frag_par
                 - frag_par_divider
+        # The two devices acknowledge together, as they work together.
+        par_boxes:
+            type: "group"
+            member_type: "actor"
+            members: [head_machine, head_wand]
+
         par_calls:
             type: "group"
             member_type: "actor"
@@ -460,6 +466,7 @@ defs:
         # JOURNEY, and that takes exactly as long as the line spoken over it.
         # So every beat is a pair: `beat_pre_<x>` sets the message up fast,
         # `beat_<x>` carries the voice across.
+        NOD_MS: 360 # a participant acknowledging what just reached it
         FADE_MS: 250 # anything that cannot be drawn, arriving
         DRAW_MS: 750 # a call arrow drawing itself
 
@@ -467,6 +474,14 @@ defs:
         # ── how far each long bar has grown ──────────────────────────────────
         # The drawing's own row positions, as fractions of the bar's length, so
         # moving a row in the artwork moves the bar with it.
+        # ⚡ A BEAT THAT CARRIES A THERE-AND-BACK SPLITS ITS LINE EXACTLY. Two
+        # journeys plus the transitions between them must sum to the whole
+        # sentence — guess a fraction instead and the beat ends early, leaving
+        # the tail of the narration to play over the NEXT one. `0.42` twice did
+        # exactly that: 1.09s of the par's line spilled over.
+        OPT_LEG: "(narration_03.duration - FADE_MS * 3 - DRAW_MS) / 2"
+        PAR_LEG: "(narration_04.duration - FADE_MS * 3) / 2"
+
         BAR_TOP: 284
         BAR_BOTTOM: 1538
         GROWN_ORDER: "(344 - BAR_TOP) / (BAR_BOTTOM - BAR_TOP)"
@@ -581,6 +596,16 @@ animation:
                   - show:
                         duration: "FADE_MS"
                         opacity: 0
+            - head_barista:
+                  - pulse:
+                        hold:
+                            before: "narration_01.duration"
+                        duration: "NOD_MS"
+                        cycles: 1
+                        scale:
+                            from: 1
+                            to: 1.06
+                        pivot: center
 
         # ── 2. the cup is written ────────────────────────────────────────────
         beat_order.end @ beat_pre_name:
@@ -639,6 +664,16 @@ animation:
                   - show:
                         duration: "FADE_MS"
                         opacity: 0
+            - head_barista:
+                  - pulse:
+                        hold:
+                            before: "narration_02.duration"
+                        duration: "NOD_MS"
+                        cycles: 1
+                        scale:
+                            from: 1
+                            to: 1.06
+                        pivot: center
 
         # ── 3. the detour some mornings take ─────────────────────────────────
         beat_name.end @ beat_pre_opt:
@@ -675,7 +710,7 @@ animation:
         beat_pre_opt.end @ beat_opt:
             - rider_outofoat:
                   - move:
-                        duration: "narration_03.duration * 0.42"
+                        duration: "OPT_LEG"
                         anchor:
                             asset: ret_outofoat
                             pos: left
@@ -688,13 +723,13 @@ animation:
             - lbl_semi:
                   - show:
                         hold:
-                            before: "narration_03.duration * 0.42 + FADE_MS"
+                            before: "OPT_LEG + FADE_MS"
                         duration: "FADE_MS"
                         opacity: 1
             - msg_semi:
                   - show:
                         hold:
-                            before: "narration_03.duration * 0.42 + FADE_MS"
+                            before: "OPT_LEG + FADE_MS"
                         duration: "DRAW_MS"
                         reveal:
                             from: 0
@@ -702,17 +737,17 @@ animation:
             - head_semi:
                   - show:
                         hold:
-                            before: "narration_03.duration * 0.42 + FADE_MS + DRAW_MS"
+                            before: "OPT_LEG + FADE_MS + DRAW_MS"
                         duration: "FADE_MS"
                         opacity: 1
             - rider_semi:
                   - show:
                         hold:
-                            before: "narration_03.duration * 0.42 + FADE_MS + DRAW_MS"
+                            before: "OPT_LEG + FADE_MS + DRAW_MS"
                         duration: "FADE_MS"
                         opacity: 1
                   - move:
-                        duration: "narration_03.duration * 0.42"
+                        duration: "OPT_LEG"
                         anchor:
                             asset: msg_semi
                             pos: right
@@ -722,6 +757,26 @@ animation:
                   - show:
                         duration: "FADE_MS"
                         opacity: 0
+            - head_customer:
+                  - pulse:
+                        hold:
+                            before: "OPT_LEG"
+                        duration: "NOD_MS"
+                        cycles: 1
+                        scale:
+                            from: 1
+                            to: 1.06
+                        pivot: center
+            - head_barista:
+                  - pulse:
+                        hold:
+                            before: "narration_03.duration"
+                        duration: "NOD_MS"
+                        cycles: 1
+                        scale:
+                            from: 1
+                            to: 1.06
+                        pivot: center
 
         # ── 4. the two slow jobs, at the same time ───────────────────────────
         beat_opt.end @ beat_pre_par:
@@ -777,7 +832,7 @@ animation:
         beat_pre_par.end @ beat_par:
             - rider_shot:
                   - move:
-                        duration: "narration_04.duration * 0.42"
+                        duration: "PAR_LEG"
                         anchor:
                             asset: msg_shot
                             pos: right
@@ -789,7 +844,7 @@ animation:
                         opacity: 0
             - rider_steam:
                   - move:
-                        duration: "narration_04.duration * 0.42"
+                        duration: "PAR_LEG"
                         anchor:
                             asset: msg_steam
                             pos: right
@@ -802,17 +857,17 @@ animation:
             - par_returns:
                   - show:
                         hold:
-                            before: "narration_04.duration * 0.42 + FADE_MS"
+                            before: "PAR_LEG + FADE_MS"
                         duration: "FADE_MS"
                         opacity: 1
             - rider_espresso:
                   - show:
                         hold:
-                            before: "narration_04.duration * 0.42 + FADE_MS"
+                            before: "PAR_LEG + FADE_MS"
                         duration: "FADE_MS"
                         opacity: 1
                   - move:
-                        duration: "narration_04.duration * 0.42"
+                        duration: "PAR_LEG"
                         anchor:
                             asset: ret_espresso
                             pos: left
@@ -825,11 +880,11 @@ animation:
             - rider_milk:
                   - show:
                         hold:
-                            before: "narration_04.duration * 0.42 + FADE_MS"
+                            before: "PAR_LEG + FADE_MS"
                         duration: "FADE_MS"
                         opacity: 1
                   - move:
-                        duration: "narration_04.duration * 0.42"
+                        duration: "PAR_LEG"
                         anchor:
                             asset: ret_milk
                             pos: left
@@ -839,6 +894,26 @@ animation:
                   - show:
                         duration: "FADE_MS"
                         opacity: 0
+            - par_boxes:
+                  - pulse:
+                        hold:
+                            before: "PAR_LEG"
+                        duration: "NOD_MS"
+                        cycles: 1
+                        scale:
+                            from: 1
+                            to: 1.06
+                        pivot: center
+            - head_barista:
+                  - pulse:
+                        hold:
+                            before: "narration_04.duration"
+                        duration: "NOD_MS"
+                        cycles: 1
+                        scale:
+                            from: 1
+                            to: 1.06
+                        pivot: center
 
         # ── 5. the two halves become one drink ───────────────────────────────
         beat_par.end @ beat_pre_prepare:
@@ -908,6 +983,16 @@ animation:
                   - show:
                         duration: "FADE_MS"
                         opacity: 0
+            - head_barista:
+                  - pulse:
+                        hold:
+                            before: "narration_05.duration"
+                        duration: "NOD_MS"
+                        cycles: 1
+                        scale:
+                            from: 1
+                            to: 1.06
+                        pivot: center
 
         # ── 6. the handover ──────────────────────────────────────────────────
         beat_prepare.end @ beat_pre_handoff:
@@ -949,6 +1034,16 @@ animation:
                         opacity: 0
                         hold:
                             after: "VIDEO_MARGIN"
+            - head_customer:
+                  - pulse:
+                        hold:
+                            before: "narration_06.duration"
+                        duration: "NOD_MS"
+                        cycles: 1
+                        scale:
+                            from: 1
+                            to: 1.06
+                        pivot: center
 
     capture:
         video_coffee_order_animation:
