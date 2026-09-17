@@ -156,9 +156,9 @@ animation:
         0 @ setup_ts:
             - get_user_profile_v1:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
             # Present from the first frame and never touched again — it is the
             # publisher's mark, not part of the story.
             - brand_mark:
@@ -312,9 +312,9 @@ animation:
                         opacity: 0
             - get_user_profile_v1:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
 
     capture:
         video_flow_with_orient_at_parent_action:

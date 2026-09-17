@@ -112,6 +112,13 @@ defs:
             type: "style"
             file: "./resource/style/theme_blueprint.css"
 
+
+        # What is not on screen when the beat opens. A group broadcasts — one
+        # instruction per member — so each is still shown on its own beat later.
+        not_yet:
+            type: "group"
+            member_type: "actor"
+            members: [data_store, link_store_user, packet, store_note]
     const:
         VIDEO_MARGIN: 350
         PULSE_CYCLES: 1
@@ -232,19 +239,12 @@ animation:
         0 @ setup_ts:
             - get_user_profile_v2:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
-            - data_store:
-                  - show:
-                        opacity: 0
-            - link_store_user:
-                  - show:
-                        opacity: 0
-            - packet:
-                  - show:
-                        opacity: 0
-            - store_note:
+                        opacity: 1
+            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one line. A
+            # group BROADCASTS, so each is still addressed on its own beat.
+            - not_yet:
                   - show:
                         opacity: 0
             # Present from the first frame and never touched again.
@@ -384,9 +384,9 @@ animation:
                         opacity: 0
             - get_user_profile_v2:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
 
     capture:
         video_store:

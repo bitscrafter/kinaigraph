@@ -203,9 +203,9 @@ animation:
         0 @ setup_ts:
             - diagram_top:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
             - diagram_bottom:
                   - show:
                         opacity: 1
@@ -245,34 +245,67 @@ animation:
                         actions:
                             - move:
                                   orient: auto
-                                  along: { asset: link_client_gateway_top }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_client_gateway_top
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_gateway_auth_top }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_gateway_auth_top
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_gateway_auth_top, head: right }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_gateway_auth_top
+                                      head: right
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_gateway_user_top }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_gateway_user_top
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_gateway_user_top, head: right }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_gateway_user_top
+                                      head: right
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_client_gateway_top, head: right }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_client_gateway_top
+                                      head: right
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
 
             - packet_bottom:
                   - show:
@@ -284,34 +317,67 @@ animation:
                         actions:
                             - move:
                                   orient: auto
-                                  along: { asset: link_client_gateway_bottom }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_client_gateway_bottom
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_gateway_auth_bottom }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_gateway_auth_bottom
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_gateway_auth_bottom, head: right }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_gateway_auth_bottom
+                                      head: right
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_gateway_user_bottom }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_gateway_user_bottom
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_gateway_user_bottom, head: right }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_gateway_user_bottom
+                                      head: right
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
                             - move:
                                   orient: auto
-                                  along: { asset: link_client_gateway_bottom, head: right }
-                                  inset: { from: LINK_INSET, to: LINK_INSET }
-                                  lateral: { side: left, distance: LANE_OFFSET }
+                                  along:
+                                      asset: link_client_gateway_bottom
+                                      head: right
+                                  inset:
+                                      from: LINK_INSET
+                                      to: LINK_INSET
+                                  lateral:
+                                      side: left
+                                      distance: LANE_OFFSET
 
         # --- Both packets leave together; both diagrams hold. ---
         walk_top.end @ tear_down_ts:
@@ -323,9 +389,9 @@ animation:
                         opacity: 0
             - diagram_top:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
 
     capture:
         video_theme:
