@@ -1,1 +1,0 @@
-The building block. A language model augmented with retrieval, tools and memory. The five workflows and the agent are all arrangements of it.

@@ -1,1 +1,0 @@
-Parallelization. Lanes run at once and code aggregates. Sectioning splits a task into pieces; voting repeats one task for diverse outputs.

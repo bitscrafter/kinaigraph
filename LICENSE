@@ -36,6 +36,18 @@ The example projects in the examples/ directory may be copied, modified, and
 used for non-commercial purposes only, with attribution. You may NOT use them
 for commercial purposes (as defined in the Binaries section above).
 
+THIRD-PARTY MATERIAL. Some examples quote or refer to material owned by others.
+That material is NOT covered by the grant above and is not the copyright holder's
+to license. It remains the property of its owner and is included here for
+commentary and illustration; your right to reuse it is a question between you and
+its owner. Each such example names its source in its README. As of this writing:
+
+  examples/agent-patterns/  quotes three sentences from "Building effective
+                            agents" (Anthropic, Erik S. and Barry Zhang,
+                            19 December 2024) and uses that article's pattern
+                            names. The diagrams are redrawn, not reproduced.
+                            Not affiliated with, or endorsed by, Anthropic.
+
 --------------------------------------------------------------------------------
 3. Documentation
 --------------------------------------------------------------------------------

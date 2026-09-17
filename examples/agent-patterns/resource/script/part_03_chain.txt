@@ -1,0 +1,1 @@
+Prompt chaining. Steps in sequence, each working the last one's output. You can add a programmatic gate between them.

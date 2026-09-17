@@ -1,5 +1,5 @@
 # ------------------------------------------
-# agent-escalation — narration (brief)
+# agent-patterns — narration (brief)
 # ------------------------------------------
 # Generates the nine clips. Run ONCE before rendering, and again whenever one of
 # the scripts changes.
@@ -25,8 +25,8 @@
 # the edit, because a beat is as long as its own sentence by construction.
 
 metadata:
-    title: "Agent Escalation - Narration (brief)"
-    description: "Generate the nine narration clips for the agent-escalation brief"
+    title: "Agent Patterns - Narration (brief)"
+    description: "Generate the nine narration clips for the agent-patterns brief"
     version: "1.0"
 
 defs:

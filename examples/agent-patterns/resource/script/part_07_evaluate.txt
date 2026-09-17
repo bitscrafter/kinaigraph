@@ -1,0 +1,1 @@
+Evaluator-optimizer. One generates, another gives feedback, and the work goes back around.

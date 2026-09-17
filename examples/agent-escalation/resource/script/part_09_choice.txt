@@ -1,1 +1,0 @@
-Seven concepts: one building block, five workflows that run the path you wrote, and one agent that picks its own. Workflows offer predictability; agents, flexibility. Success isn't the most sophisticated system — it's the right one for your needs.

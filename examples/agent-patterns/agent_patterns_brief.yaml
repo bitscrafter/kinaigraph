@@ -15,7 +15,7 @@
 #
 # ⚡ THE ENTRY NODE NEVER MOVES AND NEVER CHANGES COLOUR. It is the head of
 # every topology in turn, and it is the only shape that does not take the
-# escalation ramp — a constant that re-tinted itself each beat would be claiming
+# complexity ramp — a constant that re-tinted itself each beat would be claiming
 # to be seven things. Only its LABEL swaps, and the seven names are seven `text`
 # elements stacked at one baseline in the scene, shown one at a time.
 #
@@ -56,7 +56,7 @@
 # happen, in order.
 
 metadata:
-    title: "Agent Escalation - five workflows, one agent"
+    title: "Agent Patterns - five workflows, one agent"
     description: "The patterns from Anthropic's Building Effective AI Agents, built one edge at a time"
     version: "1.0"
 
@@ -676,6 +676,19 @@ defs:
             type: "actor"
             part_of: diagram
             id: n-stop
+        h_ag_human_up:
+            type: "actor"
+            part_of: diagram
+            id: h-ag-human-up
+        lbl_agent_cost:
+            type: "actor"
+            part_of: diagram
+            id: lbl-agent-cost
+
+        axis_label:
+            type: "actor"
+            part_of: diagram
+            id: axis-label
 
         # ── the closing frame ────────────────────────────────────────────────
         quote_1:
@@ -690,10 +703,22 @@ defs:
             type: "actor"
             part_of: diagram
             id: quote-3
+        quote_4:
+            type: "actor"
+            part_of: diagram
+            id: quote-4
+        quote_5:
+            type: "actor"
+            part_of: diagram
+            id: quote-5
         quote_who:
             type: "actor"
             part_of: diagram
             id: quote-who
+        quote_disclaimer:
+            type: "actor"
+            part_of: diagram
+            id: quote-disclaimer
 
         brand_mark:
             type: "actor"
@@ -758,13 +783,14 @@ defs:
             type: "group"
             member_type: "actor"
             members: [
-                h_ag_act, h_ag_obs, h_ag_stop, e_ag_human, h_ag_human, l_ag_act, l_ag_obs,
-                l_ag_stop, l_ag_human, n_environment, n_human, n_stop]
+                h_ag_act, h_ag_obs, h_ag_stop, e_ag_human, h_ag_human, h_ag_human_up,
+                l_ag_act, l_ag_obs, l_ag_stop, l_ag_human, n_environment, n_human, n_stop,
+                lbl_agent_cost]
         waiting_close:
             type: "group"
             member_type: "actor"
             members: [
-                quote_1, quote_2, quote_3, quote_who]
+                quote_1, quote_2, quote_3, quote_4, quote_5, quote_who, quote_disclaimer]
 
         # Every SOLID shaft in the piece, waiting at zero length. The dashed ones
         # are not here and never can be — see the header.
@@ -781,7 +807,7 @@ defs:
         ledger:
             type: "group"
             member_type: "actor"
-            members: [rail_track_atom, rail_track_chain, rail_track_route,
+            members: [axis_label, rail_track_atom, rail_track_chain, rail_track_route,
                 rail_track_parallel, rail_track_orchestrate, rail_track_evaluate,
                 rail_track_agent, name_atom, name_chain, name_route, name_parallel,
                 name_orchestrate, name_evaluate, name_agent]
@@ -898,11 +924,11 @@ defs:
         agent_human:
             type: "group"
             member_type: "actor"
-            members: [e_ag_human, h_ag_human, l_ag_human, n_human]
+            members: [e_ag_human, h_ag_human, h_ag_human_up, l_ag_human, n_human]
         agent_stop_body:
             type: "group"
             member_type: "actor"
-            members: [h_ag_stop, l_ag_stop, n_stop]
+            members: [h_ag_stop, l_ag_stop, n_stop, lbl_agent_cost]
 
         # The row lights AS ITS LINE IS SPOKEN. Listed first in its beat and
         # given the clip's own duration, so it is both the deposit and the
@@ -945,7 +971,8 @@ defs:
         close_body:
             type: "group"
             member_type: "actor"
-            members: [quote_1, quote_2, quote_3, quote_who]
+            members: [
+                quote_1, quote_2, quote_3, quote_4, quote_5, quote_who, quote_disclaimer]
 
         # ── narration ────────────────────────────────────────────────────────
         # One clip per beat. Each is declared for its DURATION as much as for
@@ -1489,8 +1516,8 @@ animation:
                         opacity: 1
 
     capture:
-        video_agent_escalation_animation:
-            output: "./resource/video/agent_escalation_brief_animation.mp4"
+        video_agent_patterns_animation:
+            output: "./resource/video/agent_patterns_brief_animation.mp4"
             fps: 30
 
 composition:
@@ -1499,7 +1526,7 @@ composition:
 
     timeline:
         "0":
-            - video_agent_escalation_animation:
+            - video_agent_patterns_animation:
                   - roll:
                   - mix:
                         span:
@@ -1539,6 +1566,6 @@ composition:
                         asset: narration_09
 
     capture:
-        video_agent_escalation:
-            output: "./agent_escalation_brief.mp4"
+        video_agent_patterns:
+            output: "./agent_patterns_brief.mp4"
             fps: 30

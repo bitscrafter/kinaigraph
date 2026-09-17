@@ -1,4 +1,4 @@
-# Agent Escalation — five workflows, one agent
+# Agent Patterns — five workflows, one agent
 
 Seven ways to put an agentic system together, built one edge at a time on a
 single canvas. The stage rewires; the ledger down the left keeps what each beat
@@ -6,9 +6,13 @@ earned; the closing frame is all of it at once.
 
 ## Where this comes from
 
-The patterns, their names, their order and the sentence that ends the piece are
-from **["Building Effective AI Agents"](https://www.anthropic.com/engineering/building-effective-agents)**
+The patterns, their names, their order and the passage that ends the piece are
+from **["Building effective agents"](https://www.anthropic.com/engineering/building-effective-agents)**
 — Anthropic, by Erik S. and Barry Zhang, 19 December 2024.
+
+⚠️ The page carries two titles: its headline is *"Building effective agents"* and its
+`<title>` metadata is *"Building Effective AI Agents"*. This example uses the headline,
+because that is what a reader sees and what the article is cited as.
 
 The post's own structure is one building block, five workflow patterns and one
 agent pattern, and this example follows it exactly rather than inventing a
@@ -17,15 +21,20 @@ taxonomy. Its vocabulary is used as published: *gate*, *sectioning*, *voting*,
 
 ⚠️ **The diagrams here are redrawn, not reproduced.** The post's own images are
 Anthropic's; these are new drawings in this repository's flow-diagram language.
-The pattern names are vocabulary and are used as such. The one direct quotation
-is the closing frame, and it is attributed on screen.
+The pattern names are vocabulary and are used as such. The one direct quotation is
+the closing frame — the source's complete summary instruction, three sentences, not
+a fragment of it — attributed on screen.
+
+⚠️ **Not affiliated with, or endorsed by, Anthropic.** The quotation is used for
+commentary under fair use; attribution is not itself a copyright permission, and
+nothing in this repository's LICENSE grants you rights over the quoted sentences.
 
 ## Running it
 
 ```sh
 kinaigraph narrate_brief.yaml        # once — needs ELEVENLABS_API_KEY, costs credits
-kinaigraph agent_escalation_brief.yaml
-open ./agent_escalation_brief.mp4
+kinaigraph agent_patterns_brief.yaml
+open ./agent_patterns_brief.mp4
 ```
 
 The narration has to exist before the animation will render: every beat derives
@@ -35,7 +44,7 @@ nothing for the timeline to measure.
 | File | What it is |
 | ---- | ---------- |
 | `narrate_brief.yaml` | Synthesis only. Turns the scripts into one clip each. |
-| `agent_escalation_brief.yaml` | The piece. Animation plus the composition that mixes the narration onto it. |
+| `agent_patterns_brief.yaml` | The piece. Animation plus the composition that mixes the narration onto it. |
 | `resource/scene/flow.svg` | The ledger, the seven topologies and the closing frame — all on one canvas. |
 | `resource/scene/brand_layer.svg` | The brand mark, embedded as base64 data. |
 | `resource/image/bitscrafter_logo.png` | The mark as a raster, before embedding. |
@@ -45,8 +54,18 @@ nothing for the timeline to measure.
 
 ## The beats
 
-Each one adds exactly the one edge class the beat before it lacked. That is the
-spine, and it is why the order is not negotiable.
+Each one adds an edge class the one before it lacked, in the source's own order —
+*"progressively increase complexity, from simple compositional workflows to
+autonomous agents."*
+
+⚠️ **The order is not a ranking, and the piece has to work to say so.** The
+source is explicit that *"These building blocks aren't prescriptive"*, and its
+recommendation runs the other way: *"add multi-step agentic systems only when
+simpler solutions fall short."* Seven rows arriving one after another on a
+brightening ramp reads as a ladder whatever the author intended, so the axis is
+labelled **MORE COMPLEXITY, MORE COST**, the masthead carries the source's
+instruction for all 74 seconds, and the agent beat is the one beat that names
+its own downside.
 
 | Beat | Pattern | What it adds |
 | ---- | ------- | ------------ |
@@ -56,7 +75,7 @@ spine, and it is why the order is not negotiable.
 | `parallel` | Parallelization | Concurrency, and a join |
 | `orchestrate` | Orchestrator–workers | A lane count nobody wrote down |
 | `evaluate` | Evaluator–optimizer | The first arrow that points backwards |
-| `agent` | Agents | The loop closes on the world, and pauses for a human |
+| `agent` | Agents | The loop closes on the world, and pauses for a human — at higher cost, and risking compounding errors |
 
 ## What this example is a good place to notice
 
@@ -74,7 +93,7 @@ new idea rather than a new drawing.
 **The entry node never moves and never changes colour.** It is the head of every
 topology in turn — augmented LLM, first call in the chain, router, input,
 orchestrator, generator, agent — and it is the one shape that does not take the
-escalation ramp. A constant that re-tinted itself every beat would be claiming
+complexity ramp. A constant that re-tinted itself every beat would be claiming
 to be seven things.
 
 **Renaming a node means having authored every name.** The entry node carries one
@@ -99,8 +118,8 @@ checkpoint are the two that arrive.
 
 **The synthesiser lands after the fourth worker, and that is not a flourish.**
 It sits at the centre of however many lanes exist, so there is no place to put
-it until the count is known. Watching a fourth lane appear mid-sentence is what
-"breaks the task down dynamically" looks like; on paper it is a fourth box.
+it until the count is known. Watching a fourth lane appear mid-sentence is what the source means by
+a central LLM that *"dynamically breaks down tasks"*; on paper it is a fourth box.
 
 **Routing draws all three lanes and then dims two.** The content of routing is
 that the other lanes *do not run*. Drawing only the chosen lane would have shown
@@ -114,14 +133,20 @@ the source post, being a page, cannot do.
 
 **The palette is sequential, not categorical.** One hue walked across the rows,
 rather than one colour per pattern. Different colours would say these are
-different *kinds* of thing; one ramp says they are one thing escalating. `dark`
-brightens toward AGENTS and `paper` darkens — in both, further along means
+different *kinds* of thing; one ramp says they are one thing increasing — and
+what increases is complexity, which the axis label names as a cost. `dark`
+brightens toward AGENTS and `paper` darkens; in both, further along means
 further from the background.
 
 **The scripts are a word budget.** A beat is as long as its own sentence by
 construction, so the length of the piece is decided in `resource/script/` and
-nowhere else — there is no edit in which to trim it. The target is about 75
-seconds; the scripts hold the word count that should land there.
+nowhere else — there is no edit in which to trim it.
+
+⚠️ **Word count alone predicts badly.** Measured across one synthesis, the voice
+ran between **0.371 and 0.557 seconds per word** depending on punctuation — a
+50% spread, which is the difference between 74 and 89 seconds over a piece this
+long. Budget with each line's own measured rate, not an average, and re-measure
+after any rewrite. 160 words lands at 73.9 s.
 
 **A scene opens on its own.** Every `var()` in `flow.svg` is emitted with the
 stylesheet's `dark` value as its fallback, so opening it in a browser, an editor

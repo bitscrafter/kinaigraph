@@ -1,0 +1,1 @@
+Routing. A classifier, not necessarily a model, sends the input to one specialised followup.

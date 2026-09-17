@@ -1,0 +1,1 @@
+Seven concepts: one block, five workflows on paths you wrote, one agent that picks its own. Add complexity only when simpler solutions fall short.
