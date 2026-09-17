@@ -145,7 +145,7 @@
 <rect id="stage" class="stage" x="0" y="0" width="1920" height="1080"/>
 <g id="masthead">
 <text id="title-main" class="title-main" x="90" y="104">Five Workflows, One Agent</text>
-<text id="title-sub" class="title-sub" x="93" y="140">ADD COMPLEXITY ONLY WHEN SIMPLER SOLUTIONS FALL SHORT</text>
+<text id="title-sub" class="title-sub" x="93" y="140">ADD COMPLEXITY ONLY WHEN IT DEMONSTRABLY IMPROVES OUTCOMES</text>
 <text id="credit-1" class="credit" x="1830" y="94">after “Building effective agents” · Anthropic</text>
 <text id="credit-2" class="credit" x="1830" y="122">Erik S. and Barry Zhang · 19 December 2024</text>
 </g>
@@ -155,7 +155,7 @@
 <text id="bracket-label-workflows" class="bracket-label" transform="rotate(-90 60 596)" x="60" y="596">WORKFLOWS</text>
 <path id="bracket-agent" class="bracket" d="M 86 892 L 74 892 L 74 996 L 86 996"/>
 <text id="bracket-label-agent" class="bracket-label" transform="rotate(-90 60 944)" x="60" y="944">AGENT</text>
-<text id="axis-label" class="axis" x="152" y="168">MORE COMPLEXITY, MORE COST ↓</text>
+<text id="axis-label" class="axis" x="152" y="168">MORE COMPLEXITY ↓</text>
 <rect id="rail-track-atom" class="rail-track" x="120" y="196" width="8" height="104" rx="4"/>
 <rect id="rail-atom" class="rail-1" x="120" y="196" width="8" height="104" rx="4"/>
 <text id="name-atom" class="ledger-name" x="152" y="216">AUGMENTED LLM</text>
@@ -256,7 +256,8 @@
 <g id="n-human" class="node-g"><rect class="outside kind-outside" x="686" y="843" width="208" height="74" rx="12"/><text class="nt" x="790" y="889">HUMAN</text></g>
 <path id="e-ag-stop" class="edge" d="M 790.0 536.0 L 790.0 316.0 Q 790.0 300.0 806.0 300.0 L 1636.0 300.0"/><polygon id="h-ag-stop" class="ehead" points="1636.0,300.0 1623.0,293.0 1623.0,307.0"/><text id="l-ag-stop" class="elabel" x="1290" y="278">STOPPING CONDITION</text>
 <g id="n-stop" class="node-g"><rect class="terminal" x="1665" y="277" width="150" height="46" rx="12"/><text class="nt" x="1740" y="309">STOP</text></g>
-<text id="lbl-agent-cost" class="elabel" x="1040" y="1000">HIGHER COSTS · COMPOUNDING ERRORS</text>
+<text id="lbl-agent-cost" class="elabel" x="1040" y="984">TRADES LATENCY AND COST FOR BETTER TASK PERFORMANCE</text>
+<text id="lbl-agent-risk" class="elabel" x="1040" y="1010">· AND THE POTENTIAL FOR COMPOUNDING ERRORS</text>
 </g>
 <g id="g-entry">
 <rect id="n-entry" class="node kind-model" x="660" y="536" width="260" height="88" rx="12"/>

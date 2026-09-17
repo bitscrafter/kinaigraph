@@ -16,8 +16,15 @@ because that is what a reader sees and what the article is cited as.
 
 The post's own structure is one building block, five workflow patterns and one
 agent pattern, and this example follows it exactly rather than inventing a
-taxonomy. Its vocabulary is used as published: *gate*, *sectioning*, *voting*,
-*ground truth*, *workflows offer predictability*.
+taxonomy. Words taken as published: *gate*, *sectioning*, *voting*, *ground
+truth*, *stopping condition*, *pause … at checkpoints*, and the closing
+quotation.
+
+⚠️ **Words that are ours** — because a viewer cannot tell them apart on screen,
+they are listed here: *decided at run time*, *tool call* (the source has "tool
+call results"), *more complexity*, and the node name `WORKER`, which comes from
+the prose *"delegates them to worker LLMs"* and not from the diagram, whose
+boxes read `LLM Call 1/2/3`.
 
 ⚠️ **The diagrams here are redrawn, not reproduced.** The post's own images are
 Anthropic's; these are new drawings in this repository's flow-diagram language.
@@ -95,11 +102,25 @@ colours and several box sizes will infer a taxonomy whether or not one was
 intended, so every box declares a *kind* and takes that kind's stroke and size
 from one table. There is no size argument at any call site.
 
-| kind | stroke | size | what it is |
-| ---- | ------ | ---- | ---------- |
-| model | `#f6f1ec` white, solid | 290×84 | an LLM invocation |
-| code | `#d95926` orange, solid | 200×62 | explicitly *not* a model |
-| outside | `#199e70` aqua, **dashed** | 200×62 | not part of the system you build |
+| kind | stroke | what it is |
+| ---- | ------ | ---------- |
+| model | `#f6f1ec` white | an LLM invocation |
+| augmentation | `#3987e5` blue | retrieval, tools, memory |
+| code | `#d95926` orange | explicitly *not* a model |
+| outside | `#199e70` aqua, **dashed** | not part of the system you build |
+| *(terminal)* | neutral pill | where things enter and leave |
+
+⚡ **Three of these are the source's own, which I only confirmed late.** Its
+diagrams are images, so the labels are not in the page text — but the PNG can be
+downloaded and read, and it uses three colours: **green** `LLM Call`, **purple**
+`Aggregator` / `Gate`, and **pink pills** for `In` / `Out` / `Exit`. Our
+model / code / terminal split is that split.
+
+⚠️ **The fourth, `augmentation`, is ours.** The source colours `Retrieval`,
+`Tools` and `Memory` the *same purple* as `Gate` and `Aggregator` — it has no
+separate kind for them. Splitting them out is a refinement the prose supports
+(*"augmentations such as retrieval, tools, and memory"* against *"programmatic
+checks"*), but it is not the article's taxonomy and should not be read as one.
 
 **Model is achromatic because it is the default.** Most boxes are model calls;
 the two hues mark what *isn't* one. Colouring the common case and leaving the
@@ -168,6 +189,13 @@ checkpoint are the two that arrive.
 It sits at the centre of however many lanes exist, so there is no place to put
 it until the count is known. Watching a fourth lane appear mid-sentence is what the source means by
 a central LLM that *"dynamically breaks down tasks"*; on paper it is a fourth box.
+
+**The router is a model box, and the source's diagram agrees.** Its routing
+figure draws `LLM Call Router` in the same green as every other call. The prose
+is broader — *"classification can be handled accurately, either by an LLM or a
+more traditional classification model/algorithm"* — so the diagram commits to
+the LLM realisation and so do we. The alternative has no cell in this taxonomy:
+a traditional classifier is neither an LLM nor "explicitly not a model".
 
 **Routing draws all three lanes and then dims two.** The content of routing is
 that the other lanes *do not run*. Drawing only the chosen lane would have shown

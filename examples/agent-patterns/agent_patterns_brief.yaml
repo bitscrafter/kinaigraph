@@ -695,6 +695,10 @@ defs:
             type: "actor"
             part_of: diagram
             id: lbl-agent-cost
+        lbl_agent_risk:
+            type: "actor"
+            part_of: diagram
+            id: lbl-agent-risk
 
         axis_label:
             type: "actor"
@@ -797,7 +801,7 @@ defs:
             members: [
                 h_ag_act, h_ag_obs, h_ag_stop, e_ag_human, h_ag_human, h_ag_human_up,
                 l_ag_act, l_ag_obs, l_ag_stop, l_ag_human, n_environment, n_human, n_stop,
-                lbl_agent_cost]
+                lbl_agent_cost, lbl_agent_risk]
         waiting_close:
             type: "group"
             member_type: "actor"
@@ -940,7 +944,7 @@ defs:
         agent_stop_body:
             type: "group"
             member_type: "actor"
-            members: [h_ag_stop, l_ag_stop, n_stop, lbl_agent_cost]
+            members: [h_ag_stop, l_ag_stop, n_stop, lbl_agent_cost, lbl_agent_risk]
 
         # The row lights AS ITS LINE IS SPOKEN. Listed first in its beat and
         # given the clip's own duration, so it is both the deposit and the
