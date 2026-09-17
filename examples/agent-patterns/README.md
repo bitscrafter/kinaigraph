@@ -97,10 +97,10 @@ from one table. There is no size argument at any call site.
 
 | kind | stroke | size | what it is |
 | ---- | ------ | ---- | ---------- |
-| entry | white, solid, 4px | 250×84 | the one node present in all seven beats |
-| model | ramp, solid, 3px | 210×84 | an LLM invocation |
-| code | ramp, solid, 3px | 200×62 | explicitly *not* a model |
-| outside | ramp, **dashed**, 3px | 200×62 | not part of the system you build |
+| entry | `#f6f1ec` white, solid, 4px | 250×84 | the one node present in all seven beats |
+| model | `#3987e5` blue, solid, 3px | 210×84 | an LLM invocation |
+| code | `#d95926` orange, solid, 3px | 200×62 | explicitly *not* a model |
+| outside | `#199e70` aqua, **dashed**, 3px | 200×62 | not part of the system you build |
 
 ⚡ **The aggregator/synthesiser split is the source's, and it was invisible.**
 Both were one size and one colour until the kinds existed, which drew them as
@@ -159,12 +159,30 @@ diagram cannot accumulate. The closing frame reads as an argument only because
 the viewer watched each row being earned, one at a time — which is the one thing
 the source post, being a page, cannot do.
 
-**The palette is sequential, not categorical.** One hue walked across the rows,
-rather than one colour per pattern. Different colours would say these are
-different *kinds* of thing; one ramp says they are one thing increasing — and
-what increases is complexity, which the axis label names as a cost. `dark`
-brightens toward AGENTS and `paper` darkens; in both, further along means
-further from the background.
+**Two encodings, two channels, two regions.** Colour and lightness were both
+carrying *which row is this*, which left nothing to say *what a box is*. They
+are split now and nothing crosses over: the **ledger** — rail ticks and
+miniatures — is a warm-neutral **lightness** ramp, because it is an axis and
+axes should be recessive; the **stage** is **hue**, and every colour there names
+a kind. So colour = what a box is, lightness = how complex the row is.
+
+⚡ **The three kind hues were computed, not chosen.** Any two kinds can share a
+frame, so this is an *all-pairs* case rather than an adjacent one. Blue / orange
+/ aqua clears every gate: worst all-pairs CVD ΔE **9.4**, worst normal-vision ΔE
+**20.9**, all three ≥3:1 on the surface. Blue / aqua / **violet** was tried
+first, specifically to avoid the warm ramp, and **failed** — violet against blue
+is ΔE 9.8 to normal vision, under the 15 floor. Three is also the ceiling: the
+source palette validates only its first three slots for all-pairs use. Re-run
+the validator before changing one.
+
+⚠️ **The ramp's dim end has a floor.** A first ramp starting `#3a352f` measured
+**1.56:1** against the background, under the 2:1 minimum — the step existed and
+could not be seen. It starts at `#544c43` and measures 2.25:1.
+
+**One theme.** `paper` was declared and never rendered — the document captures
+`theme: dark` — so every claim about it was untested. An unexercised theme in a
+published example is a liability, not a feature. Its values are now at `:root`
+rather than under a theme selector, which is also what lets `css()` reach them.
 
 **The scripts are a word budget.** A beat is as long as its own sentence by
 construction, so the length of the piece is decided in `resource/script/` and
@@ -185,6 +203,31 @@ emits both from one table so they cannot drift.
 **Arial only, deliberately.** Nothing in the stylesheet may name a font that is
 not installed by default on Windows, macOS and Linux — an example that renders
 differently depending on who clones it is a broken example.
+
+**The legend is authored in the document, not drawn.** Four `annotation` notes,
+each a box painted like the kind it names, so the legend is a specimen rather
+than a description of one. Changing a word is an edit to
+`agent_patterns_brief.yaml` — no generator run, no SVG.
+
+⛔ **Except the dash.** An annotation envelope has `fill`, `stroke`,
+`stroke_width` and `opacity`, and no way to say `stroke-dasharray`. So the
+`outside` chip carries the hue but not the whole signal: dashed on the stage,
+solid in the legend.
+
+⚠️ **A note's text colour cannot follow a theme.** `font_color` is a literal in
+`defs`, where no style is in scope and `css()` cannot reach — the open finding
+`css-var-unresolvable-outside-animation` names this exact position. It is only
+safe here because the document declares one theme. The note's *box* is themed;
+its words are not.
+
+⚠️ **An annotation must be addressed or the compiler warns.** Declared and never
+referenced, all four rendered correctly and still raised *"the generated element
+is constructed but never animated"*. They are shown in `setup`.
+
+**The source's own division is on the ledger.** Three brackets — BUILDING BLOCK,
+WORKFLOWS, AGENT — because that split is the article's section headings, not a
+reading of them, and it used to live only in the narration. A viewer who joins
+late, or watches without sound, could not see it anywhere in the frame.
 
 **Names are the contract.** Every pattern carries a slug — `orchestrate` — and
 it is the SVG id suffix (`g-orchestrate`, `rail-orchestrate`, `mini-orchestrate`,
