@@ -1007,6 +1007,7 @@ defs:
         DRAW_MS: 620 # a solid shaft drawing itself
         FADE_MS: 240 # anything that cannot be drawn, arriving
         DIM_MS: 400 # a lane that did not run, going quiet
+        CLOSE_FADE_MS: 900 # the last frame arriving
 
         # How far a dimmed thing goes. Not zero: the unchosen lanes in `route`
         # still exist, and a router that erased them would be a gate.
@@ -1463,17 +1464,28 @@ animation:
                         opacity: 0
 
         # ⚠️ THE CLOSING BEAT OBEYS THE SAME RULE AS EVERY OTHER ONE, and it
-        # did not at first: it ran for a fixed 900 ms while its clip — the
-        # longest line in the piece — ran 10 s, so the video ended mid-sentence.
-        # Measured, not read: the animation came out 69.3 s instead of 79 s.
-        # The quote now arrives as it is read, exactly as a ledger row lights as
-        # its own line is spoken.
+        # has been wrong twice. First it ran a fixed 900 ms against a 19 s clip,
+        # so the video ended mid-sentence — 69.3 s rendered for 79 s of
+        # narration. Then it took the clip's duration as its FADE, which set the
+        # length correctly but left the quote at roughly half opacity ten
+        # seconds in, washed out rather than deliberate.
+        #
+        # ⚡ WHAT HOLDS THE BEAT OPEN IS THE LEDGER, NOT THE QUOTE. The ledger is
+        # already on screen and already at full opacity, so giving it the clip's
+        # duration animates nothing and states one thing: the seven rows stay up
+        # for as long as the closing line takes to read. The quote then fades on
+        # its own short duration over the top. Still no arithmetic — the
+        # length-setting entry is simply the one that is listed first.
         clear_close.end @ close:
-            - close_body:
+            - ledger:
                   - show:
                         hold:
                             after: VIDEO_MARGIN
                         duration: "narration_09.duration"
+                        opacity: 1
+            - close_body:
+                  - show:
+                        duration: CLOSE_FADE_MS
                         opacity: 1
 
     capture:
