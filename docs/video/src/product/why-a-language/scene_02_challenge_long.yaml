@@ -193,91 +193,15 @@ animation:
         # is where the box was drawn. Its duration is the line's, so the four
         # boxes are still arriving as the last clause names the last of them.
         common_heading.end + BEAT_PAD @ common:
-            - common_1:
+            - box_common:
                   - show:
                         opacity: 1
                   - restore:
-                        apply: [x, y]
+                        apply:
+                            - x
+                            - y
                         duration: narration_intro.duration
-            - common_1:
-                  - pulse:
-                        duration: narration_intro.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - common_2:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_intro.duration
-            - common_2:
-                  - pulse:
-                        duration: narration_intro.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - common_3:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_intro.duration
-            - common_3:
-                  - pulse:
-                        duration: narration_intro.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - common_4:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_intro.duration
-            - common_4:
-                  - pulse:
-                        duration: narration_intro.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - common_5:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_intro.duration
-            - common_5:
-                  - pulse:
-                        duration: narration_intro.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - common_6:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_intro.duration
-            - common_6:
-                  - pulse:
-                        duration: narration_intro.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - common_7:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_intro.duration
-            - common_7:
+            - box_common:
                   - pulse:
                         duration: narration_intro.duration
                         cycles: PULSE_CYCLES
@@ -296,52 +220,15 @@ animation:
                         duration: HEADING_FADE_MS
 
         traditional_heading.end + BEAT_PAD @ traditional:
-            - traditional_1:
+            - box_traditional:
                   - show:
                         opacity: 1
                   - restore:
-                        apply: [x, y]
+                        apply:
+                            - x
+                            - y
                         duration: narration_traditional.duration
-            - traditional_1:
-                  - pulse:
-                        duration: narration_traditional.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - traditional_2:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_traditional.duration
-            - traditional_2:
-                  - pulse:
-                        duration: narration_traditional.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - traditional_3:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_traditional.duration
-            - traditional_3:
-                  - pulse:
-                        duration: narration_traditional.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - traditional_4:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_traditional.duration
-            - traditional_4:
+            - box_traditional:
                   - pulse:
                         duration: narration_traditional.duration
                         cycles: PULSE_CYCLES
@@ -361,52 +248,15 @@ animation:
                         duration: HEADING_FADE_MS
 
         ai_heading.end + BEAT_PAD @ ai:
-            - ai_1:
+            - box_ai:
                   - show:
                         opacity: 1
                   - restore:
-                        apply: [x, y]
+                        apply:
+                            - x
+                            - y
                         duration: narration_ai.duration
-            - ai_1:
-                  - pulse:
-                        duration: narration_ai.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - ai_2:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_ai.duration
-            - ai_2:
-                  - pulse:
-                        duration: narration_ai.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - ai_3:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_ai.duration
-            - ai_3:
-                  - pulse:
-                        duration: narration_ai.duration
-                        cycles: PULSE_CYCLES
-                        scale:
-                            amplitude: PULSE_SWELL
-                        pivot: center
-            - ai_4:
-                  - show:
-                        opacity: 1
-                  - restore:
-                        apply: [x, y]
-                        duration: narration_ai.duration
-            - ai_4:
+            - box_ai:
                   - pulse:
                         duration: narration_ai.duration
                         cycles: PULSE_CYCLES

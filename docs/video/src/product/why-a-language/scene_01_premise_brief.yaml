@@ -146,9 +146,9 @@ animation:
                         opacity: 1
             - wordmark:
                   - show:
-                        opacity: 1
                         hold:
                             after: WORDMARK_HOLD_MS
+                        opacity: 1
             - title:
                   - show:
                         opacity: 0
@@ -172,12 +172,12 @@ animation:
         wordmark_out.end @ title_in:
             - title:
                   - show:
+                        hold:
+                            after: SCENE_PAD
                         opacity:
                             from: 0
                             to: 1
                         duration: TEXT_FADE_MS
-                        hold:
-                            after: SCENE_PAD
             - subtitle:
                   - show:
                         opacity:
@@ -189,12 +189,12 @@ animation:
         title_in.end @ icons_in:
             - all_icons:
                   - show:
+                        hold:
+                            after: SCENE_PAD
                         opacity:
                             from: 0
                             to: 1
                         duration: ICON_FADE_MS
-                        hold:
-                            after: SCENE_PAD
 
         # ── The drift, for the length of the line ─────────────────────────────
         # `audio_in` is the bookmark the narration is mixed at, at the foot of
@@ -330,9 +330,9 @@ animation:
         audio_in.end @ audio_out:
             - premise:
                   - show:
-                        opacity: 1
                         hold:
                             after: SCENE_PAD
+                        opacity: 1
 
         # # ── Clearing the frame, evidence first ────────────────────────────────
         # audio_out.end @ icons_out:
