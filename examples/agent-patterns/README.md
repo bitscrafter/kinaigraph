@@ -97,10 +97,30 @@ from one table. There is no size argument at any call site.
 
 | kind | stroke | size | what it is |
 | ---- | ------ | ---- | ---------- |
-| entry | `#f6f1ec` white, solid, 4px | 250×84 | the one node present in all seven beats |
-| model | `#3987e5` blue, solid, 3px | 210×84 | an LLM invocation |
-| code | `#d95926` orange, solid, 3px | 200×62 | explicitly *not* a model |
-| outside | `#199e70` aqua, **dashed**, 3px | 200×62 | not part of the system you build |
+| model | `#f6f1ec` white, solid | 290×84 | an LLM invocation |
+| code | `#d95926` orange, solid | 200×62 | explicitly *not* a model |
+| outside | `#199e70` aqua, **dashed** | 200×62 | not part of the system you build |
+
+**Model is achromatic because it is the default.** Most boxes are model calls;
+the two hues mark what *isn't* one. Colouring the common case and leaving the
+exceptions plain would be the wrong way round.
+
+⛔ **There is no `entry` kind, and there was.** It painted the head of every
+pattern white while the identical thing one box along was blue — `LLM CALL 1`
+white, `LLM CALL 2` not — because *entry* is a **role**, where the pattern
+starts, and a role does not belong in the channel that carries **type**. The
+head now takes its own kind, and its persistence is carried by the one thing
+that always carried it: it never moves.
+
+⚡ **Parallelization is the one pattern whose head is not a model.** The source
+fans out from the input, so that beat's head is `IN`, a code box, and the
+persistent box steps aside for it. That is also most of what separates the two
+fan-out diagrams — see below.
+
+⚠️ **The `LLM ` prefix on labels is ours, not the source's.** Its diagrams are
+images and their box labels cannot be read from the page, so nothing here claims
+to reproduce them. The prefix is added because a white box says "model call"
+only to a reader who consulted the legend, and `WORKER 4` says it to nobody.
 
 ⚡ **The aggregator/synthesiser split is the source's, and it was invisible.**
 Both were one size and one colour until the kinds existed, which drew them as
@@ -166,14 +186,15 @@ miniatures — is a warm-neutral **lightness** ramp, because it is an axis and
 axes should be recessive; the **stage** is **hue**, and every colour there names
 a kind. So colour = what a box is, lightness = how complex the row is.
 
-⚡ **The three kind hues were computed, not chosen.** Any two kinds can share a
-frame, so this is an *all-pairs* case rather than an adjacent one. Blue / orange
-/ aqua clears every gate: worst all-pairs CVD ΔE **9.4**, worst normal-vision ΔE
-**20.9**, all three ≥3:1 on the surface. Blue / aqua / **violet** was tried
-first, specifically to avoid the warm ramp, and **failed** — violet against blue
-is ΔE 9.8 to normal vision, under the 15 floor. Three is also the ceiling: the
-source palette validates only its first three slots for all-pairs use. Re-run
-the validator before changing one.
+⚡ **The two chromatic hues were computed, not chosen.** Any two kinds can share
+a frame, so this is an *all-pairs* case. Orange / aqua: CVD ΔE **9.4**,
+normal-vision ΔE **26.5**, both ≥3:1 on the surface. White measures **16.9:1**
+against the surface and ≥3:1 against both hues.
+
+⚠️ **Two earlier palettes failed the validator, which is why it gets run.**
+Blue / aqua / violet — violet against blue at ΔE 9.8 normal-vision, under the 15
+floor. And yellow beside orange at ΔE 10.6 normal-vision, CVD 4.8: a yellow
+`model` forces `code` off orange entirely.
 
 ⚠️ **The ramp's dim end has a floor.** A first ramp starting `#3a352f` measured
 **1.56:1** against the background, under the 2:1 minimum — the step existed and

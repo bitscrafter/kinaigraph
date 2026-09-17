@@ -17,16 +17,13 @@
 	.elabel { font-size: 16px; font-weight: 700; letter-spacing: 0.1em; fill: var(--edge-label-text-color, #a2907f); text-anchor: middle; }
 
 	/* ⚡ EVERY COLOUR ON THE STAGE NAMES A KIND. None of them is a row. */
-	.kind-model   { stroke: var(--kind-model-color, #3987e5); }
+	.kind-model   { stroke: var(--kind-model-color, #f6f1ec); }
 	.kind-code    { stroke: var(--kind-code-color, #d95926); }
 	.kind-outside { stroke: var(--kind-outside-color, #199e70); }
 	.node { fill: var(--node-fill-color, #1c1714); stroke-width: 3; }
 	/* Not part of the system you build — the human and the environment. Dashed
 	   for that reason, not for emphasis. */
 	.outside { fill: var(--node-fill-color, #1c1714); stroke-width: 3; stroke-dasharray: 6 6; }
-	/* The one shape that is the same in all seven pictures, so the one shape
-	   that never takes the ramp. */
-	.entry { fill: var(--node-fill-color, #1c1714); stroke: var(--entry-stroke-color, #f6f1ec); stroke-width: 4; }
 	.env  { fill: none; stroke-width: 3; stroke-dasharray: 3 7; }
 	.bracket { fill: none; stroke: var(--bracket-color, #5d4e42); stroke-width: 2; }
 	.bracket-label { font-size: 13px; font-weight: 700; letter-spacing: 0.16em; fill: var(--bracket-color, #5d4e42); text-anchor: middle; }
@@ -105,69 +102,70 @@
 <g id="mini-agent" class="mini step-m7"><rect class="mini-box" x="221.0" y="948.0" width="30" height="16" rx="3"/><rect class="mini-box" x="295.0" y="930.0" width="62" height="52" rx="3"/><path class="mini-edge" d="M 251.0 943.0 L 295.0 943.0"/><path class="mini-edge" d="M 295.0 969.0 L 251.0 969.0"/></g>
 <g id="g-atom">
 <path id="e-atom-retr" class="edge" d="M 790.0 538.0 L 790.0 361.0"/><polygon id="h-atom-retr" class="ehead" points="790.0,361.0 783.0,374.0 797.0,374.0"/>
-<path id="e-atom-tool" class="edge" d="M 915.0 580.0 L 1010.0 580.0"/><polygon id="h-atom-tool" class="ehead" points="1010.0,580.0 997.0,573.0 997.0,587.0"/>
+<path id="e-atom-tool" class="edge" d="M 935.0 580.0 L 1010.0 580.0"/><polygon id="h-atom-tool" class="ehead" points="1010.0,580.0 997.0,573.0 997.0,587.0"/>
 <path id="e-atom-mem" class="edge" d="M 790.0 622.0 L 790.0 799.0"/><polygon id="h-atom-mem" class="ehead" points="790.0,799.0 783.0,786.0 797.0,786.0"/>
 <g id="n-retrieval" class="node-g"><rect class="node kind-code" x="690" y="299" width="200" height="62" rx="12"/><text class="nt" x="790" y="339">RETRIEVAL</text></g>
 <g id="n-tools" class="node-g"><rect class="node kind-code" x="1010" y="549" width="200" height="62" rx="12"/><text class="nt" x="1110" y="589">TOOLS</text></g>
 <g id="n-memory" class="node-g"><rect class="node kind-code" x="690" y="799" width="200" height="62" rx="12"/><text class="nt" x="790" y="839">MEMORY</text></g>
 </g>
 <g id="g-chain">
-<path id="e-ch-1" class="edge" d="M 915.0 580.0 L 984.0 580.0"/><polygon id="h-ch-1" class="ehead" points="984.0,580.0 971.0,573.0 971.0,587.0"/>
+<path id="e-ch-1" class="edge" d="M 935.0 580.0 L 984.0 580.0"/><polygon id="h-ch-1" class="ehead" points="984.0,580.0 971.0,573.0 971.0,587.0"/>
 <polygon id="n-gate" class="gate kind-code" points="1010,554 1036,580 1010,606 984,580"/>
 <text id="lbl-gate" class="elabel" x="1010" y="536">GATE</text>
-<path id="e-ch-2" class="edge" d="M 1036.0 580.0 L 1135.0 580.0"/><polygon id="h-ch-2" class="ehead" points="1135.0,580.0 1122.0,573.0 1122.0,587.0"/>
-<g id="n-call2" class="node-g"><rect class="node kind-model" x="1135" y="538" width="210" height="84" rx="12"/><text class="nt" x="1240" y="589">LLM CALL 2</text></g>
-<path id="e-ch-3" class="edge" d="M 1345.0 580.0 L 1535.0 580.0"/><polygon id="h-ch-3" class="ehead" points="1535.0,580.0 1522.0,573.0 1522.0,587.0"/>
-<g id="n-call3" class="node-g"><rect class="node kind-model" x="1535" y="538" width="210" height="84" rx="12"/><text class="nt" x="1640" y="589">LLM CALL 3</text></g>
+<path id="e-ch-2" class="edge" d="M 1036.0 580.0 L 1095.0 580.0"/><polygon id="h-ch-2" class="ehead" points="1095.0,580.0 1082.0,573.0 1082.0,587.0"/>
+<g id="n-call2" class="node-g"><rect class="node kind-model" x="1095" y="538" width="290" height="84" rx="12"/><text class="nt" x="1240" y="589">LLM CALL 2</text></g>
+<path id="e-ch-3" class="edge" d="M 1385.0 580.0 L 1495.0 580.0"/><polygon id="h-ch-3" class="ehead" points="1495.0,580.0 1482.0,573.0 1482.0,587.0"/>
+<g id="n-call3" class="node-g"><rect class="node kind-model" x="1495" y="538" width="290" height="84" rx="12"/><text class="nt" x="1640" y="589">LLM CALL 3</text></g>
 <path id="e-ch-fail" class="edge" d="M 1010.0 606.0 L 1010.0 790.0"/><polygon id="h-ch-fail" class="ehead" points="1010.0,790.0 1003.0,777.0 1017.0,777.0"/><text id="l-ch-fail" class="elabel" x="1010" y="822">FAIL → EXIT</text>
 </g>
 <g id="g-route">
-<path id="e-rt-1" class="edge" d="M 915.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 564.0 L 1080.0 416.0 Q 1080.0 400.0 1096.0 400.0 L 1225.0 400.0"/><polygon id="h-rt-1" class="ehead" points="1225.0,400.0 1212.0,393.0 1212.0,407.0"/>
-<g id="n-route-1" class="node-g"><rect class="node kind-model" x="1225" y="358" width="210" height="84" rx="12"/><text class="nt" x="1330" y="409">LLM CALL 1</text></g>
-<path id="e-rt-2" class="edge" d="M 915.0 580.0 L 1079.5 580.0 Q 1080.0 580.0 1080.0 580.0 L 1080.0 580.0 Q 1080.0 580.0 1080.5 580.0 L 1225.0 580.0"/><polygon id="h-rt-2" class="ehead" points="1225.0,580.0 1212.0,573.0 1212.0,587.0"/>
-<g id="n-route-2" class="node-g"><rect class="node kind-model" x="1225" y="538" width="210" height="84" rx="12"/><text class="nt" x="1330" y="589">LLM CALL 2</text></g>
-<path id="e-rt-3" class="edge" d="M 915.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 744.0 Q 1080.0 760.0 1096.0 760.0 L 1225.0 760.0"/><polygon id="h-rt-3" class="ehead" points="1225.0,760.0 1212.0,753.0 1212.0,767.0"/>
-<g id="n-route-3" class="node-g"><rect class="node kind-model" x="1225" y="718" width="210" height="84" rx="12"/><text class="nt" x="1330" y="769">LLM CALL 3</text></g>
+<path id="e-rt-1" class="edge" d="M 935.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 564.0 L 1080.0 416.0 Q 1080.0 400.0 1096.0 400.0 L 1185.0 400.0"/><polygon id="h-rt-1" class="ehead" points="1185.0,400.0 1172.0,393.0 1172.0,407.0"/>
+<g id="n-route-1" class="node-g"><rect class="node kind-model" x="1185" y="358" width="290" height="84" rx="12"/><text class="nt" x="1330" y="409">LLM CALL 1</text></g>
+<path id="e-rt-2" class="edge" d="M 935.0 580.0 L 1079.5 580.0 Q 1080.0 580.0 1080.0 580.0 L 1080.0 580.0 Q 1080.0 580.0 1080.5 580.0 L 1185.0 580.0"/><polygon id="h-rt-2" class="ehead" points="1185.0,580.0 1172.0,573.0 1172.0,587.0"/>
+<g id="n-route-2" class="node-g"><rect class="node kind-model" x="1185" y="538" width="290" height="84" rx="12"/><text class="nt" x="1330" y="589">LLM CALL 2</text></g>
+<path id="e-rt-3" class="edge" d="M 935.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 744.0 Q 1080.0 760.0 1096.0 760.0 L 1185.0 760.0"/><polygon id="h-rt-3" class="ehead" points="1185.0,760.0 1172.0,753.0 1172.0,767.0"/>
+<g id="n-route-3" class="node-g"><rect class="node kind-model" x="1185" y="718" width="290" height="84" rx="12"/><text class="nt" x="1330" y="769">LLM CALL 3</text></g>
 </g>
 <g id="g-parallel">
-<path id="e-pa-1" class="edge" d="M 915.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 564.0 L 1080.0 416.0 Q 1080.0 400.0 1096.0 400.0 L 1225.0 400.0"/><polygon id="h-pa-1" class="ehead" points="1225.0,400.0 1212.0,393.0 1212.0,407.0"/>
-<g id="n-par-1" class="node-g"><rect class="node kind-model" x="1225" y="358" width="210" height="84" rx="12"/><text class="nt" x="1330" y="409">LLM CALL 1</text></g>
-<path id="e-pj-1" class="edge" d="M 1435.0 400.0 L 1544.0 400.0 Q 1560.0 400.0 1560.0 416.0 L 1560.0 564.0 Q 1560.0 580.0 1576.0 580.0 L 1600.0 580.0"/><polygon id="h-pj-1" class="ehead" points="1600.0,580.0 1587.0,573.0 1587.0,587.0"/>
-<path id="e-pa-2" class="edge" d="M 915.0 580.0 L 1079.5 580.0 Q 1080.0 580.0 1080.0 580.0 L 1080.0 580.0 Q 1080.0 580.0 1080.5 580.0 L 1225.0 580.0"/><polygon id="h-pa-2" class="ehead" points="1225.0,580.0 1212.0,573.0 1212.0,587.0"/>
-<g id="n-par-2" class="node-g"><rect class="node kind-model" x="1225" y="538" width="210" height="84" rx="12"/><text class="nt" x="1330" y="589">LLM CALL 2</text></g>
-<path id="e-pj-2" class="edge" d="M 1435.0 580.0 L 1559.5 580.0 Q 1560.0 580.0 1560.0 580.0 L 1560.0 580.0 Q 1560.0 580.0 1560.5 580.0 L 1600.0 580.0"/><polygon id="h-pj-2" class="ehead" points="1600.0,580.0 1587.0,573.0 1587.0,587.0"/>
-<path id="e-pa-3" class="edge" d="M 915.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 744.0 Q 1080.0 760.0 1096.0 760.0 L 1225.0 760.0"/><polygon id="h-pa-3" class="ehead" points="1225.0,760.0 1212.0,753.0 1212.0,767.0"/>
-<g id="n-par-3" class="node-g"><rect class="node kind-model" x="1225" y="718" width="210" height="84" rx="12"/><text class="nt" x="1330" y="769">LLM CALL 3</text></g>
-<path id="e-pj-3" class="edge" d="M 1435.0 760.0 L 1544.0 760.0 Q 1560.0 760.0 1560.0 744.0 L 1560.0 596.0 Q 1560.0 580.0 1576.0 580.0 L 1600.0 580.0"/><polygon id="h-pj-3" class="ehead" points="1600.0,580.0 1587.0,573.0 1587.0,587.0"/>
+<path id="e-pa-1" class="edge" d="M 890.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 564.0 L 1080.0 416.0 Q 1080.0 400.0 1096.0 400.0 L 1185.0 400.0"/><polygon id="h-pa-1" class="ehead" points="1185.0,400.0 1172.0,393.0 1172.0,407.0"/>
+<g id="n-par-1" class="node-g"><rect class="node kind-model" x="1185" y="358" width="290" height="84" rx="12"/><text class="nt" x="1330" y="409">LLM CALL 1</text></g>
+<path id="e-pj-1" class="edge" d="M 1475.0 400.0 L 1499.0 400.0 Q 1515.0 400.0 1515.0 416.0 L 1515.0 564.0 Q 1515.0 580.0 1531.0 580.0 L 1600.0 580.0"/><polygon id="h-pj-1" class="ehead" points="1600.0,580.0 1587.0,573.0 1587.0,587.0"/>
+<path id="e-pa-2" class="edge" d="M 890.0 580.0 L 1079.5 580.0 Q 1080.0 580.0 1080.0 580.0 L 1080.0 580.0 Q 1080.0 580.0 1080.5 580.0 L 1185.0 580.0"/><polygon id="h-pa-2" class="ehead" points="1185.0,580.0 1172.0,573.0 1172.0,587.0"/>
+<g id="n-par-2" class="node-g"><rect class="node kind-model" x="1185" y="538" width="290" height="84" rx="12"/><text class="nt" x="1330" y="589">LLM CALL 2</text></g>
+<path id="e-pj-2" class="edge" d="M 1475.0 580.0 L 1514.5 580.0 Q 1515.0 580.0 1515.0 580.0 L 1515.0 580.0 Q 1515.0 580.0 1515.5 580.0 L 1600.0 580.0"/><polygon id="h-pj-2" class="ehead" points="1600.0,580.0 1587.0,573.0 1587.0,587.0"/>
+<path id="e-pa-3" class="edge" d="M 890.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 744.0 Q 1080.0 760.0 1096.0 760.0 L 1185.0 760.0"/><polygon id="h-pa-3" class="ehead" points="1185.0,760.0 1172.0,753.0 1172.0,767.0"/>
+<g id="n-par-3" class="node-g"><rect class="node kind-model" x="1185" y="718" width="290" height="84" rx="12"/><text class="nt" x="1330" y="769">LLM CALL 3</text></g>
+<path id="e-pj-3" class="edge" d="M 1475.0 760.0 L 1499.0 760.0 Q 1515.0 760.0 1515.0 744.0 L 1515.0 596.0 Q 1515.0 580.0 1531.0 580.0 L 1600.0 580.0"/><polygon id="h-pj-3" class="ehead" points="1600.0,580.0 1587.0,573.0 1587.0,587.0"/>
 <g id="n-aggregator" class="node-g"><rect class="node kind-code" x="1600" y="549" width="200" height="62" rx="12"/><text class="nt" x="1700" y="589">AGGREGATOR</text></g>
+<g id="n-in" class="node-g"><rect class="node kind-code" x="690" y="549" width="200" height="62" rx="12"/><text class="nt" x="790" y="589">IN</text></g>
 <text id="lbl-variants" class="elabel" x="1330" y="270">SECTIONING · VOTING</text>
 </g>
 <g id="g-orchestrate">
-<path id="e-or-1" class="edge-dash" d="M 915.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 564.0 L 1080.0 416.0 Q 1080.0 400.0 1096.0 400.0 L 1225.0 400.0"/><polygon id="h-or-1" class="ehead" points="1225.0,400.0 1212.0,393.0 1212.0,407.0"/>
-<g id="n-orc-1" class="node-g"><rect class="node kind-model" x="1225" y="358" width="210" height="84" rx="12"/><text class="nt" x="1330" y="409">WORKER 1</text></g>
-<path id="e-oj-1" class="edge" d="M 1435.0 400.0 L 1544.0 400.0 Q 1560.0 400.0 1560.0 416.0 L 1560.0 654.0 Q 1560.0 670.0 1576.0 670.0 L 1595.0 670.0"/><polygon id="h-oj-1" class="ehead" points="1595.0,670.0 1582.0,663.0 1582.0,677.0"/>
-<path id="e-or-2" class="edge-dash" d="M 915.0 580.0 L 1079.5 580.0 Q 1080.0 580.0 1080.0 580.0 L 1080.0 580.0 Q 1080.0 580.0 1080.5 580.0 L 1225.0 580.0"/><polygon id="h-or-2" class="ehead" points="1225.0,580.0 1212.0,573.0 1212.0,587.0"/>
-<g id="n-orc-2" class="node-g"><rect class="node kind-model" x="1225" y="538" width="210" height="84" rx="12"/><text class="nt" x="1330" y="589">WORKER 2</text></g>
-<path id="e-oj-2" class="edge" d="M 1435.0 580.0 L 1544.0 580.0 Q 1560.0 580.0 1560.0 596.0 L 1560.0 654.0 Q 1560.0 670.0 1576.0 670.0 L 1595.0 670.0"/><polygon id="h-oj-2" class="ehead" points="1595.0,670.0 1582.0,663.0 1582.0,677.0"/>
-<path id="e-or-3" class="edge-dash" d="M 915.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 744.0 Q 1080.0 760.0 1096.0 760.0 L 1225.0 760.0"/><polygon id="h-or-3" class="ehead" points="1225.0,760.0 1212.0,753.0 1212.0,767.0"/>
-<g id="n-orc-3" class="node-g"><rect class="node kind-model" x="1225" y="718" width="210" height="84" rx="12"/><text class="nt" x="1330" y="769">WORKER 3</text></g>
-<path id="e-oj-3" class="edge" d="M 1435.0 760.0 L 1544.0 760.0 Q 1560.0 760.0 1560.0 744.0 L 1560.0 686.0 Q 1560.0 670.0 1576.0 670.0 L 1595.0 670.0"/><polygon id="h-oj-3" class="ehead" points="1595.0,670.0 1582.0,663.0 1582.0,677.0"/>
-<path id="e-or-4" class="edge-dash" d="M 915.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 924.0 Q 1080.0 940.0 1096.0 940.0 L 1225.0 940.0"/><polygon id="h-or-4" class="ehead" points="1225.0,940.0 1212.0,933.0 1212.0,947.0"/>
-<g id="n-orc-4" class="node-g"><rect class="node kind-model" x="1225" y="898" width="210" height="84" rx="12"/><text class="nt" x="1330" y="949">WORKER 4</text></g>
-<path id="e-oj-4" class="edge" d="M 1435.0 940.0 L 1544.0 940.0 Q 1560.0 940.0 1560.0 924.0 L 1560.0 686.0 Q 1560.0 670.0 1576.0 670.0 L 1595.0 670.0"/><polygon id="h-oj-4" class="ehead" points="1595.0,670.0 1582.0,663.0 1582.0,677.0"/>
-<g id="n-synth" class="node-g"><rect class="node kind-model" x="1595" y="628" width="210" height="84" rx="12"/><text class="nt" x="1700" y="679">SYNTHESIZER</text></g>
+<path id="e-or-1" class="edge-dash" d="M 935.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 564.0 L 1080.0 416.0 Q 1080.0 400.0 1096.0 400.0 L 1185.0 400.0"/><polygon id="h-or-1" class="ehead" points="1185.0,400.0 1172.0,393.0 1172.0,407.0"/>
+<g id="n-orc-1" class="node-g"><rect class="node kind-model" x="1185" y="358" width="290" height="84" rx="12"/><text class="nt" x="1330" y="409">LLM WORKER 1</text></g>
+<path id="e-oj-1" class="edge" d="M 1475.0 400.0 L 1499.0 400.0 Q 1515.0 400.0 1515.0 416.0 L 1515.0 654.0 Q 1515.0 670.0 1531.0 670.0 L 1555.0 670.0"/><polygon id="h-oj-1" class="ehead" points="1555.0,670.0 1542.0,663.0 1542.0,677.0"/>
+<path id="e-or-2" class="edge-dash" d="M 935.0 580.0 L 1079.5 580.0 Q 1080.0 580.0 1080.0 580.0 L 1080.0 580.0 Q 1080.0 580.0 1080.5 580.0 L 1185.0 580.0"/><polygon id="h-or-2" class="ehead" points="1185.0,580.0 1172.0,573.0 1172.0,587.0"/>
+<g id="n-orc-2" class="node-g"><rect class="node kind-model" x="1185" y="538" width="290" height="84" rx="12"/><text class="nt" x="1330" y="589">LLM WORKER 2</text></g>
+<path id="e-oj-2" class="edge" d="M 1475.0 580.0 L 1499.0 580.0 Q 1515.0 580.0 1515.0 596.0 L 1515.0 654.0 Q 1515.0 670.0 1531.0 670.0 L 1555.0 670.0"/><polygon id="h-oj-2" class="ehead" points="1555.0,670.0 1542.0,663.0 1542.0,677.0"/>
+<path id="e-or-3" class="edge-dash" d="M 935.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 744.0 Q 1080.0 760.0 1096.0 760.0 L 1185.0 760.0"/><polygon id="h-or-3" class="ehead" points="1185.0,760.0 1172.0,753.0 1172.0,767.0"/>
+<g id="n-orc-3" class="node-g"><rect class="node kind-model" x="1185" y="718" width="290" height="84" rx="12"/><text class="nt" x="1330" y="769">LLM WORKER 3</text></g>
+<path id="e-oj-3" class="edge" d="M 1475.0 760.0 L 1499.0 760.0 Q 1515.0 760.0 1515.0 744.0 L 1515.0 686.0 Q 1515.0 670.0 1531.0 670.0 L 1555.0 670.0"/><polygon id="h-oj-3" class="ehead" points="1555.0,670.0 1542.0,663.0 1542.0,677.0"/>
+<path id="e-or-4" class="edge-dash" d="M 935.0 580.0 L 1064.0 580.0 Q 1080.0 580.0 1080.0 596.0 L 1080.0 924.0 Q 1080.0 940.0 1096.0 940.0 L 1185.0 940.0"/><polygon id="h-or-4" class="ehead" points="1185.0,940.0 1172.0,933.0 1172.0,947.0"/>
+<g id="n-orc-4" class="node-g"><rect class="node kind-model" x="1185" y="898" width="290" height="84" rx="12"/><text class="nt" x="1330" y="949">LLM WORKER 4</text></g>
+<path id="e-oj-4" class="edge" d="M 1475.0 940.0 L 1499.0 940.0 Q 1515.0 940.0 1515.0 924.0 L 1515.0 686.0 Q 1515.0 670.0 1531.0 670.0 L 1555.0 670.0"/><polygon id="h-oj-4" class="ehead" points="1555.0,670.0 1542.0,663.0 1542.0,677.0"/>
+<g id="n-synth" class="node-g"><rect class="node kind-model" x="1555" y="628" width="290" height="84" rx="12"/><text class="nt" x="1700" y="679">LLM SYNTHESIZER</text></g>
 <text id="lbl-runtime" class="elabel" x="1080" y="986">DECIDED AT RUN TIME</text>
 </g>
 <g id="g-evaluate">
-<path id="e-ev-fwd" class="edge" d="M 915.0 554.0 L 1185.0 554.0"/><polygon id="h-ev-fwd" class="ehead" points="1185.0,554.0 1172.0,547.0 1172.0,561.0"/><text id="l-ev-fwd" class="elabel" x="1092" y="536">SOLUTION</text>
-<path id="e-ev-back" class="edge" d="M 1185.0 606.0 L 915.0 606.0"/><polygon id="h-ev-back" class="ehead" points="915.0,606.0 928.0,599.0 928.0,613.0"/><text id="l-ev-back" class="elabel" x="1092" y="642">FEEDBACK</text>
-<g id="n-evaluator" class="node-g"><rect class="node kind-model" x="1185" y="538" width="210" height="84" rx="12"/><text class="nt" x="1290" y="589">EVALUATOR</text></g>
-<path id="e-ev-out" class="edge" d="M 1395.0 580.0 L 1600.0 580.0"/><polygon id="h-ev-out" class="ehead" points="1600.0,580.0 1587.0,573.0 1587.0,587.0"/><text id="l-ev-out" class="elabel" x="1497" y="562">ACCEPTED</text>
+<path id="e-ev-fwd" class="edge" d="M 935.0 554.0 L 1145.0 554.0"/><polygon id="h-ev-fwd" class="ehead" points="1145.0,554.0 1132.0,547.0 1132.0,561.0"/><text id="l-ev-fwd" class="elabel" x="1092" y="536">SOLUTION</text>
+<path id="e-ev-back" class="edge" d="M 1145.0 606.0 L 935.0 606.0"/><polygon id="h-ev-back" class="ehead" points="935.0,606.0 948.0,599.0 948.0,613.0"/><text id="l-ev-back" class="elabel" x="1092" y="642">FEEDBACK</text>
+<g id="n-evaluator" class="node-g"><rect class="node kind-model" x="1145" y="538" width="290" height="84" rx="12"/><text class="nt" x="1290" y="589">LLM EVALUATOR</text></g>
+<path id="e-ev-out" class="edge" d="M 1435.0 580.0 L 1600.0 580.0"/><polygon id="h-ev-out" class="ehead" points="1600.0,580.0 1587.0,573.0 1587.0,587.0"/><text id="l-ev-out" class="elabel" x="1497" y="562">ACCEPTED</text>
 <g id="n-accepted" class="node-g"><rect class="node kind-code" x="1600" y="549" width="200" height="62" rx="12"/><text class="nt" x="1700" y="589">OUTPUT</text></g>
 </g>
 <g id="g-agent">
-<path id="e-ag-act" class="edge" d="M 915.0 520.0 L 1150.0 520.0"/><polygon id="h-ag-act" class="ehead" points="1150.0,520.0 1137.0,513.0 1137.0,527.0"/><text id="l-ag-act" class="elabel" x="1022" y="502">ACTION · TOOL CALL</text>
-<path id="e-ag-obs" class="edge" d="M 1150.0 640.0 L 915.0 640.0"/><polygon id="h-ag-obs" class="ehead" points="915.0,640.0 928.0,633.0 928.0,647.0"/><text id="l-ag-obs" class="elabel" x="1022" y="676">GROUND TRUTH</text>
+<path id="e-ag-act" class="edge" d="M 935.0 520.0 L 1150.0 520.0"/><polygon id="h-ag-act" class="ehead" points="1150.0,520.0 1137.0,513.0 1137.0,527.0"/><text id="l-ag-act" class="elabel" x="1022" y="502">ACTION · TOOL CALL</text>
+<path id="e-ag-obs" class="edge" d="M 1150.0 640.0 L 935.0 640.0"/><polygon id="h-ag-obs" class="ehead" points="935.0,640.0 948.0,633.0 948.0,647.0"/><text id="l-ag-obs" class="elabel" x="1022" y="676">GROUND TRUTH</text>
 <g id="n-environment" class="node-g"><rect class="env kind-outside" x="1150" y="452" width="280" height="256" rx="14"/><text class="nt" x="1290" y="574">ENVIRONMENT</text><text class="ns" x="1290" y="602">tool results · code execution</text></g>
 <path id="e-ag-human" class="edge-dash" d="M 790.0 622.0 L 790.0 849.0"/><polygon id="h-ag-human" class="ehead" points="790.0,849.0 783.0,836.0 797.0,836.0"/><text id="l-ag-human" class="elabel" x="790" y="950">PAUSE AT CHECKPOINTS</text>
 <polygon id="h-ag-human-up" class="ehead" points="790,622.0 783,635.0 797,635.0"/>
@@ -177,13 +175,12 @@
 <text id="lbl-agent-cost" class="elabel" x="1040" y="1000">HIGHER COSTS · COMPOUNDING ERRORS</text>
 </g>
 <g id="g-entry">
-<rect id="n-entry" class="entry" x="665" y="538" width="250" height="84" rx="12"/>
+<rect id="n-entry" class="node kind-model" x="645" y="538" width="290" height="84" rx="12"/>
 <text id="lbl-entry-atom" class="nt" x="790" y="589">LLM</text>
 <text id="lbl-entry-chain" class="nt" x="790" y="589">LLM CALL 1</text>
-<text id="lbl-entry-route" class="nt" x="790" y="589">ROUTER</text>
-<text id="lbl-entry-parallel" class="nt" x="790" y="589">IN</text>
-<text id="lbl-entry-orchestrate" class="nt" x="790" y="589">ORCHESTRATOR</text>
-<text id="lbl-entry-evaluate" class="nt" x="790" y="589">GENERATOR</text>
+<text id="lbl-entry-route" class="nt" x="790" y="589">LLM ROUTER</text>
+<text id="lbl-entry-orchestrate" class="nt" x="790" y="589">LLM ORCHESTRATOR</text>
+<text id="lbl-entry-evaluate" class="nt" x="790" y="589">LLM GENERATOR</text>
 <text id="lbl-entry-agent" class="nt" x="790" y="589">LLM</text>
 </g>
 <g id="g-close">

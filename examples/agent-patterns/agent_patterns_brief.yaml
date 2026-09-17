@@ -96,18 +96,12 @@ defs:
         # it is only safe because this document now declares ONE theme. The
         # note's BOX is themed: `fill` and `stroke` on the annotation envelope
         # do resolve `css()`.
-        kind_entry_text:
+        kind_model_text:
             type: "text"
-            content: "ENTRY"
+            content: "LLM CALL"
             font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
             font_size: 15
             font_color: "#f6f1ec"
-        kind_model_text:
-            type: "text"
-            content: "MODEL CALL"
-            font_family: 'Arial, "Liberation Sans", Helvetica, sans-serif'
-            font_size: 15
-            font_color: "#a2907f"
         kind_code_text:
             type: "text"
             content: "CODE"
@@ -265,10 +259,6 @@ defs:
             type: "actor"
             part_of: diagram
             id: lbl-entry-route
-        lbl_entry_parallel:
-            type: "actor"
-            part_of: diagram
-            id: lbl-entry-parallel
         lbl_entry_orchestrate:
             type: "actor"
             part_of: diagram
@@ -513,6 +503,12 @@ defs:
             type: "actor"
             part_of: diagram
             id: n-aggregator
+        # ⚡ Parallelization's own head. The source fans out from the INPUT, not
+        # from a model, so this beat does not borrow the persistent box.
+        n_in:
+            type: "actor"
+            part_of: diagram
+            id: n-in
         lbl_variants:
             type: "actor"
             part_of: diagram
@@ -781,7 +777,7 @@ defs:
                 rail_atom, rail_chain, rail_route, rail_parallel, rail_orchestrate,
                 rail_evaluate, rail_agent, mini_atom, mini_chain, mini_route, mini_parallel,
                 mini_orchestrate, mini_evaluate, mini_agent, n_entry, lbl_entry_atom,
-                lbl_entry_chain, lbl_entry_route, lbl_entry_parallel, lbl_entry_orchestrate,
+                lbl_entry_chain, lbl_entry_route, lbl_entry_orchestrate,
                 lbl_entry_evaluate, lbl_entry_agent]
         waiting_atom:
             type: "group"
@@ -900,7 +896,7 @@ defs:
         parallel_body:
             type: "group"
             member_type: "actor"
-            members: [h_pa_1, h_pa_2, h_pa_3, n_par_1, n_par_2, n_par_3, lbl_variants]
+            members: [h_pa_1, h_pa_2, h_pa_3, n_par_1, n_par_2, n_par_3, lbl_variants, n_in]
         parallel_joins:
             type: "group"
             member_type: "actor"
@@ -1014,7 +1010,7 @@ defs:
         legend:
             type: "group"
             member_type: "actor"
-            members: [legend_entry, legend_model, legend_code, legend_outside]
+            members: [legend_model, legend_code, legend_outside]
 
         close_body:
             type: "group"
@@ -1082,10 +1078,9 @@ defs:
         LEGEND_W: 168
         LEGEND_H: 40
         LEGEND_Y: 158
-        LEGEND_X_1: 1148
-        LEGEND_X_2: 1332
-        LEGEND_X_3: 1516
-        LEGEND_X_4: 1700
+        LEGEND_X_1: 1332
+        LEGEND_X_2: 1516
+        LEGEND_X_3: 1700
 
         CLEAR_MS: 260 # a topology leaving, so the next one never overlaps it
         DRAW_MS: 620 # a solid shaft drawing itself
@@ -1139,24 +1134,6 @@ animation:
         # and `opacity` — and no way to say `stroke-dasharray`. The chip
         # therefore carries the hue but not the whole signal. Say it out loud
         # rather than let the legend quietly misdescribe the drawing.
-        legend_entry:
-            note:
-                text: kind_entry_text
-                shape:
-                    rect:
-                        width: LEGEND_W
-                        height: LEGEND_H
-                        radius: 8
-                padding: 10
-                align: center
-            at:
-                x: LEGEND_X_1
-                y: LEGEND_Y
-            origin: top_left
-            fill: 'css("node-fill-color")'
-            stroke: 'css("entry-stroke-color")'
-            stroke_width: 3
-
         legend_model:
             note:
                 text: kind_model_text
@@ -1168,7 +1145,7 @@ animation:
                 padding: 10
                 align: center
             at:
-                x: LEGEND_X_2
+                x: LEGEND_X_1
                 y: LEGEND_Y
             origin: top_left
             fill: 'css("node-fill-color")'
@@ -1186,7 +1163,7 @@ animation:
                 padding: 10
                 align: center
             at:
-                x: LEGEND_X_3
+                x: LEGEND_X_2
                 y: LEGEND_Y
             origin: top_left
             fill: 'css("node-fill-color")'
@@ -1204,7 +1181,7 @@ animation:
                 padding: 10
                 align: center
             at:
-                x: LEGEND_X_4
+                x: LEGEND_X_3
                 y: LEGEND_Y
             origin: top_left
             fill: 'css("node-fill-color")'
@@ -1420,10 +1397,13 @@ animation:
                   - show:
                         duration: CLEAR_MS
                         opacity: 0
-            - lbl_entry_parallel:
+            # ⚡ THE HEAD ITSELF LEAVES FOR THIS ONE BEAT. Everywhere else the
+            # persistent box is the head; in parallelization the head is `IN`,
+            # which is not a model and so is not that box.
+            - n_entry:
                   - show:
                         duration: CLEAR_MS
-                        opacity: 1
+                        opacity: 0
 
         clear_parallel.end @ parallel:
             - deposit_parallel:
@@ -1463,10 +1443,10 @@ animation:
                   - show:
                         duration: CLEAR_MS
                         opacity: 0
-            - lbl_entry_parallel:
+            - n_entry:
                   - show:
                         duration: CLEAR_MS
-                        opacity: 0
+                        opacity: 1
             - lbl_entry_orchestrate:
                   - show:
                         duration: CLEAR_MS
