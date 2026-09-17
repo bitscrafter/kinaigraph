@@ -170,12 +170,12 @@ animation:
         start_entry.end @ intro_fade_in:
             - heading:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 0
                             to: 1
                         duration: HEADING_FADE_IN_MS
-                        hold:
-                            after: BEAT_PAD
 
         # ── All four rings, at resting brightness ────────────────────────────
         # They arrive together and at HALF, so the frame shows the whole set
@@ -184,12 +184,12 @@ animation:
         intro_fade_in.end @ audio_intro:
             - all_circle_shape:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 0
                             to: RING_RESTING
                         duration: narration_intro.duration
-                        hold:
-                            after: BEAT_PAD
 
         # ── Social media, from the top-left corner ─────────────────────────────────────
         # Two entries on one timestamp: the ring brightens and its text arrives
@@ -205,51 +205,51 @@ animation:
         audio_intro.end + BEAT_PAD @ social_fade_in:
             - text_social:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 0
                             to: 1
                         duration: TOPIC_FADE_IN_MS
-                        hold:
-                            after: BEAT_PAD
             - circle_social:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: RING_RESTING
                             to: RING_ACTIVE
                         duration: TOPIC_FADE_IN_MS
-                        hold:
-                            after: BEAT_PAD
 
         audio_intro.end + BEAT_PAD @ social_walk:
             - circle_social:
                   - move:
+                        hold:
+                            after: BEAT_PAD
                         x: GATHER_LEFT_X
                         y: GATHER_TOP_Y
                         duration: narration_social.duration
-                        hold:
-                            after: BEAT_PAD
 
         # The ring settles back to resting as its sentence runs out — it stays on
         # screen, it just stops being the one being talked about.
         social_walk.end - TOPIC_DIM_MS @ social_dim:
             - circle_social:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: RING_ACTIVE
                             to: RING_RESTING
                         duration: TOPIC_DIM_MS
-                        hold:
-                            after: BEAT_PAD
 
         social_walk.end - TOPIC_FADE_OUT_MS @ social_fade_out:
             - text_social:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 1
                             to: 0
                         duration: TOPIC_FADE_OUT_MS
-                        hold:
-                            after: BEAT_PAD
 
         # ── Documentation, from the top-right corner ─────────────────────────────────────
         # Two entries on one timestamp: the ring brightens and its text arrives
@@ -258,51 +258,51 @@ animation:
         social_fade_out.end @ docs_fade_in:
             - text_docs:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 0
                             to: 1
                         duration: TOPIC_FADE_IN_MS
-                        hold:
-                            after: BEAT_PAD
             - circle_docs:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: RING_RESTING
                             to: RING_ACTIVE
                         duration: TOPIC_FADE_IN_MS
-                        hold:
-                            after: BEAT_PAD
 
         social_fade_out.end @ docs_walk:
             - circle_docs:
                   - move:
+                        hold:
+                            after: BEAT_PAD
                         x: GATHER_RIGHT_X
                         y: GATHER_TOP_Y
                         duration: narration_docs.duration
-                        hold:
-                            after: BEAT_PAD
 
         # The ring settles back to resting as its sentence runs out — it stays on
         # screen, it just stops being the one being talked about.
         docs_walk.end - TOPIC_DIM_MS @ docs_dim:
             - circle_docs:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: RING_ACTIVE
                             to: RING_RESTING
                         duration: TOPIC_DIM_MS
-                        hold:
-                            after: BEAT_PAD
 
         docs_walk.end - TOPIC_FADE_OUT_MS @ docs_fade_out:
             - text_docs:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 1
                             to: 0
                         duration: TOPIC_FADE_OUT_MS
-                        hold:
-                            after: BEAT_PAD
 
         # ── Education, from the bottom-left corner ─────────────────────────────────────
         # Two entries on one timestamp: the ring brightens and its text arrives
@@ -311,51 +311,51 @@ animation:
         docs_fade_out.end @ edu_fade_in:
             - text_edu:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 0
                             to: 1
                         duration: TOPIC_FADE_IN_MS
-                        hold:
-                            after: BEAT_PAD
             - circle_edu:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: RING_RESTING
                             to: RING_ACTIVE
                         duration: TOPIC_FADE_IN_MS
-                        hold:
-                            after: BEAT_PAD
 
         docs_fade_out.end @ edu_walk:
             - circle_edu:
                   - move:
+                        hold:
+                            after: BEAT_PAD
                         x: GATHER_LEFT_X
                         y: GATHER_BOTTOM_Y
                         duration: narration_edu.duration
-                        hold:
-                            after: BEAT_PAD
 
         # The ring settles back to resting as its sentence runs out — it stays on
         # screen, it just stops being the one being talked about.
         edu_walk.end - TOPIC_DIM_MS @ edu_dim:
             - circle_edu:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: RING_ACTIVE
                             to: RING_RESTING
                         duration: TOPIC_DIM_MS
-                        hold:
-                            after: BEAT_PAD
 
         edu_walk.end - TOPIC_FADE_OUT_MS @ edu_fade_out:
             - text_edu:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 1
                             to: 0
                         duration: TOPIC_FADE_OUT_MS
-                        hold:
-                            after: BEAT_PAD
 
         # ── Business, from the bottom-right corner ─────────────────────────────────────
         # Two entries on one timestamp: the ring brightens and its text arrives
@@ -364,29 +364,29 @@ animation:
         edu_fade_out.end @ biz_fade_in:
             - text_biz:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 0
                             to: 1
                         duration: TOPIC_FADE_IN_MS
-                        hold:
-                            after: BEAT_PAD
             - circle_biz:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: RING_RESTING
                             to: RING_ACTIVE
                         duration: TOPIC_FADE_IN_MS
-                        hold:
-                            after: BEAT_PAD
 
         edu_fade_out.end @ biz_walk:
             - circle_biz:
                   - move:
+                        hold:
+                            after: BEAT_PAD
                         x: GATHER_RIGHT_X
                         y: GATHER_BOTTOM_Y
                         duration: narration_biz.duration
-                        hold:
-                            after: BEAT_PAD
 
         # ── The last text leaves, and the rings with it ──────────────────────
         # ⚠️ `opacity: 0` WITHOUT A `from` IS LOAD-BEARING HERE. The shorthand
@@ -397,18 +397,18 @@ animation:
         biz_walk.end - TOPIC_FADE_OUT_MS @ biz_fade_out:
             - text_biz:
                   - show:
+                        hold:
+                            after: BEAT_PAD
                         opacity:
                             from: 1
                             to: 0
                         duration: TOPIC_FADE_OUT_MS
-                        hold:
-                            after: BEAT_PAD
             - all_circle_shape:
                   - show:
-                        opacity: 0
-                        duration: TOPIC_FADE_OUT_MS
                         hold:
                             after: BEAT_PAD
+                        opacity: 0
+                        duration: TOPIC_FADE_OUT_MS
 
         # ── The heading last ─────────────────────────────────────────────────
         # The frame empties in the order it filled, so the last thing on screen
@@ -425,12 +425,12 @@ animation:
         end_entry.end @ wordmark_in:
             - wordmark:
                   - show:
+                        hold:
+                            after: WORDMARK_HOLD_MS
                         opacity:
                             from: 0
                             to: 1
                         duration: WORDMARK_FADE_MS
-                        hold:
-                            after: WORDMARK_HOLD_MS
 
     capture:
         scene_04_possibilities_long_silent:
