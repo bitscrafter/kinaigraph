@@ -1,1 +1,1 @@
-Evaluator-optimizer. One model generates, another gives feedback, and the work goes back around. The first arrow here that points backwards.
+Evaluator-optimizer. One model generates, another gives feedback, the work goes back around. The first arrow pointing backwards.

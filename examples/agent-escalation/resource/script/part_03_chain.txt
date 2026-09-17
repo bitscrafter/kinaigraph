@@ -1,1 +1,1 @@
-Prompt chaining. Steps in sequence, each call working the last one's output. A gate between them checks the process is on track.
+Prompt chaining. Steps in sequence, each call working the last one's output. A gate checks it stays on track.
