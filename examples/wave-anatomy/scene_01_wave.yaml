@@ -87,6 +87,13 @@ defs:
             type: "style"
             file: "./resource/style/theme_paper.css"
 
+
+        # What is not on screen when the beat opens. A group broadcasts — one
+        # instruction per member — so each is still addressed on its own beat.
+        not_yet:
+            type: "group"
+            member_type: "actor"
+            members: [wave, dot, source_note]
     const:
         VIDEO_MARGIN: 350
 
@@ -186,19 +193,15 @@ animation:
                         opacity: 1
             - plot:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
             - frame_layer:
                   - show:
                         opacity: 1
-            - wave:
-                  - show:
-                        opacity: 0
-            - dot:
-                  - show:
-                        opacity: 0
-            - source_note:
+            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one line. A
+            # group BROADCASTS, so each of these is still shown on its own beat.
+            - not_yet:
                   - show:
                         opacity: 0
 
@@ -240,10 +243,10 @@ animation:
                         easing: ease_out_quad
             - dot:
                   - show:
-                        duration: SOURCE_MS
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        duration: SOURCE_MS
+                        opacity: 1
 
     capture:
         video_beat_01_wave:

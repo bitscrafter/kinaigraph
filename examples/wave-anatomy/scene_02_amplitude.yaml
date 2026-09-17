@@ -81,6 +81,13 @@ defs:
             type: "style"
             file: "./resource/style/theme_paper.css"
 
+
+        # What is not on screen when the beat opens. A group broadcasts — one
+        # instruction per member — so each is still addressed on its own beat.
+        not_yet:
+            type: "group"
+            member_type: "actor"
+            members: [wave_low, wave_mid, wave_high, tag_low, tag_mid, tag_high]
     const:
         VIDEO_MARGIN: 350
 
@@ -269,28 +276,15 @@ animation:
                         opacity: 1
             - plot:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN + LEAD_MS"
+                        opacity: 1
             - frame_layer:
                   - show:
                         opacity: 1
-            - wave_low:
-                  - show:
-                        opacity: 0
-            - wave_mid:
-                  - show:
-                        opacity: 0
-            - wave_high:
-                  - show:
-                        opacity: 0
-            - tag_low:
-                  - show:
-                        opacity: 0
-            - tag_mid:
-                  - show:
-                        opacity: 0
-            - tag_high:
+            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one line. A
+            # group BROADCASTS, so each of these is still shown on its own beat.
+            - not_yet:
                   - show:
                         opacity: 0
 
@@ -298,14 +292,14 @@ animation:
         setup_ts.end @ low_ts:
             - wave_low:
                   - show:
+                        hold:
+                            after: "STEP_MS - FADE_MS"
                         opacity: 1
                         reveal:
                             from: 0
                             to: 1
                         duration: FADE_MS
                         easing: ease_out_quad
-                        hold:
-                            after: "STEP_MS - FADE_MS"
             - tag_low:
                   - show:
                         opacity: 1
@@ -315,14 +309,14 @@ animation:
         low_ts.end @ mid_ts:
             - wave_mid:
                   - show:
+                        hold:
+                            after: "STEP_MS - FADE_MS"
                         opacity: 1
                         reveal:
                             from: 0
                             to: 1
                         duration: FADE_MS
                         easing: ease_out_quad
-                        hold:
-                            after: "STEP_MS - FADE_MS"
             - wave_low:
                   - show:
                         opacity: 'css("curve-ghost-opacity")'
@@ -341,14 +335,14 @@ animation:
         mid_ts.end @ high_ts:
             - wave_high:
                   - show:
+                        hold:
+                            after: "TAIL_MS + VIDEO_MARGIN"
                         opacity: 1
                         reveal:
                             from: 0
                             to: 1
                         duration: FADE_MS
                         easing: ease_out_quad
-                        hold:
-                            after: "TAIL_MS + VIDEO_MARGIN"
             - wave_mid:
                   - show:
                         opacity: 'css("curve-ghost-opacity")'
