@@ -197,6 +197,13 @@ defs:
             type: "style"
             file: "./resource/style/theme_blueprint.css"
 
+
+        # What is not on screen when the beat opens. A group broadcasts — one
+        # instruction per member — so each is still shown on its own beat later.
+        not_yet:
+            type: "group"
+            member_type: "actor"
+            members: [packet, callout_client_request, callout_profile_response, callout_authz_request, callout_authz_response, callout_user_request]
     const:
         VIDEO_MARGIN: 350
         PULSE_CYCLES: 1
@@ -474,30 +481,17 @@ animation:
         0 @ setup_ts:
             - get_user_profile_v1:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
             # Present from the first frame and never touched again — it is the
             # publisher's mark, not part of the story.
             - brand_mark:
                   - show:
                         opacity: 1
-            - packet:
-                  - show:
-                        opacity: 0
-            - callout_client_request:
-                  - show:
-                        opacity: 0
-            - callout_profile_response:
-                  - show:
-                        opacity: 0
-            - callout_authz_request:
-                  - show:
-                        opacity: 0
-            - callout_authz_response:
-                  - show:
-                        opacity: 0
-            - callout_user_request:
+            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one line. A
+            # group BROADCASTS, so each is still addressed on its own beat.
+            - not_yet:
                   - show:
                         opacity: 0
 
@@ -623,13 +617,13 @@ animation:
             # linger a fade into leg 2.
             - callout_client_request:
                   - show:
+                        hold:
+                            after: "leg1.duration * (1 - CALLOUT_FADE_SHARE * 2)"
                         duration: "leg1.duration * CALLOUT_FADE_SHARE"
                         opacity:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-                        hold:
-                            after: "leg1.duration * (1 - CALLOUT_FADE_SHARE * 2)"
                   - show:
                         duration: "leg1.duration * CALLOUT_FADE_SHARE"
                         opacity:
@@ -647,13 +641,13 @@ animation:
             # Hop B outbound: the gateway asks authn/authz to vouch for the caller.
             - callout_authz_request:
                   - show:
+                        hold:
+                            after: "(leg2.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
                         duration: "(leg2.duration) * CALLOUT_FADE_SHARE"
                         opacity:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-                        hold:
-                            after: "(leg2.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
                   - show:
                         duration: "(leg2.duration) * CALLOUT_FADE_SHARE"
                         opacity:
@@ -671,13 +665,13 @@ animation:
             # Hop B home: the verdict, and the subject id leg 4 is addressed with.
             - callout_authz_response:
                   - show:
+                        hold:
+                            after: "(leg3.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
                         duration: "(leg3.duration) * CALLOUT_FADE_SHARE"
                         opacity:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-                        hold:
-                            after: "(leg3.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
                   - show:
                         duration: "(leg3.duration) * CALLOUT_FADE_SHARE"
                         opacity:
@@ -695,13 +689,13 @@ animation:
             # Hop C outbound: addressed by that id, on the gateway's own credentials.
             - callout_user_request:
                   - show:
+                        hold:
+                            after: "(leg4.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
                         duration: "(leg4.duration) * CALLOUT_FADE_SHARE"
                         opacity:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-                        hold:
-                            after: "(leg4.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
                   - show:
                         duration: "(leg4.duration) * CALLOUT_FADE_SHARE"
                         opacity:
@@ -723,13 +717,13 @@ animation:
             # box could only assert: the gateway did not touch it.
             - callout_profile_response:
                   - show:
+                        hold:
+                            after: "(leg5.duration + leg6.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
                         duration: "(leg5.duration + leg6.duration) * CALLOUT_FADE_SHARE"
                         opacity:
                             from: 0
                             to: 1
                         easing: ease_out_quad
-                        hold:
-                            after: "(leg5.duration + leg6.duration) * (1 - CALLOUT_FADE_SHARE * 2)"
                   - show:
                         duration: "(leg5.duration + leg6.duration) * CALLOUT_FADE_SHARE"
                         opacity:
@@ -754,9 +748,9 @@ animation:
                         opacity: 0
             - get_user_profile_v1:
                   - show:
-                        opacity: 1
                         hold:
                             after: "VIDEO_MARGIN"
+                        opacity: 1
 
     capture:
         # An INTERMEDIATE: the beats stitch into ./request_response.mp4, which is the
