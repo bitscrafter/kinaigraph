@@ -12,6 +12,8 @@ Kinaigraph is early software, rolling out in stages:
 - ✅ **Examples** — complete, compiler-validated example projects. Available now (below).
 - ✅ **Binaries** — the Kinaigraph command-line tool that renders the examples. Available now, from [Releases](https://github.com/bitscrafter/kinaigraph/releases).
 - 🔜 **Documentation** — a guide to authoring with Kinaigraph. Coming later.
+- 🗓 **Releases expire** — every alpha release stops rendering on a date; `kinaigraph doctor`
+  shows it. See [Each release expires](#each-release-expires).
 
 Until the authoring guide lands, the examples are the documentation: each carries a
 README describing what it shows and how to render it.
@@ -136,6 +138,23 @@ If one does, `doctor` prints what it searched and a `Hint:` telling you what to 
 
 That is almost always `ffmpeg` missing, or installed but not on your `PATH` — see step 1.
 Fix it before going further; rendering will fail without it.
+
+### Each release expires
+
+Every alpha release carries the date it stops rendering. `doctor` shows it under
+**Kinaigraph**, directly beneath the version:
+
+```text
+    Kinaigraph
+        Version: 0.1.0-alpha.1
+        Expires: 2026-12-31 (UTC)
+```
+
+In the last two weeks before that date every render prints a notice naming it. After it,
+`kinaigraph run` and the compiler refuse with a message pointing at
+[Releases](https://github.com/bitscrafter/kinaigraph/releases), and `doctor` says `expired`.
+Nothing else changes: `--version`, `--help` and `doctor` keep working, and your documents are
+untouched. Download a newer release and carry on.
 
 ### If macOS refuses to run it
 
