@@ -10,9 +10,8 @@
 # sees at the cut is one quote dissolving, a beat of empty page, and the next
 # arriving. The effect is authored where it belongs: in the scenes.
 #
-# ⚠️ IT ROLLS THE SILENT ANIMATIONS, NOT THE FINISHED SCENES. A scene's own
-# deliverable already carries its narration; rolling that and mixing again would
-# lay the voice over itself.
+# ⚡ THE SCENES ARE SILENT BY CONSTRUCTION. Each writes only its animation, under
+# resource/video/, and this document is where the voice is laid over them — once.
 
 metadata:
     title: "Life Lessons — both quotes (Spanish)"
@@ -23,10 +22,10 @@ defs:
     assets:
         gratitude:
             type: video
-            file: "./resource/video/scene_01_gratitude_perspective_es_animation.mp4"
+            file: "./resource/video/scene_01_gratitude_perspective_es_silent.mp4"
         life_meaning:
             type: video
-            file: "./resource/video/scene_02_life_meaning_es_animation.mp4"
+            file: "./resource/video/scene_02_life_meaning_es_silent.mp4"
 
         narration_gratitude:
             type: audio

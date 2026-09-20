@@ -113,8 +113,7 @@ animation:
                         opacity: 1
                         duration: "FADE"
 
-        # Narrate: hold the scene through the narration (this bookmark also anchors
-        # where the mix starts in the composition below).
+        # Narrate: hold the scene through the narration.
         setup.end @ narrate_quote:
             - background:
                   - show:
@@ -140,29 +139,9 @@ animation:
                         opacity: 1
 
     capture:
-        # Silent animation (paper + fading quote). The composition below rolls
-        # this and mixes the narration into the final video.
+        # Silent animation (paper + fading quote). `stitch_en.yaml` rolls this and
+        # lays the narration over it; nothing here carries sound.
         video_scene_02_animation:
-            output: "./resource/video/scene_02_life_meaning_en_animation.mp4"
+            output: "./resource/video/scene_02_life_meaning_en_silent.mp4"
             fps: 30
 
-composition:
-    context:
-        status: active
-
-    timeline:
-        # Roll the animation and lay the narration over it, starting at the
-        # narrate_quote bookmark in the animation.
-        "0":
-            - video_scene_02_animation:
-                  - roll:
-                  - mix:
-                        span:
-                            from: "animation::narrate_quote.start"
-                        asset: narration
-
-    capture:
-        # Final scene: the animation with the narration mixed in.
-        video_scene_02:
-            output: "./life_meaning_en.mp4"
-            fps: 30

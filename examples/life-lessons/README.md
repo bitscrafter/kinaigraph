@@ -94,9 +94,9 @@ paper**, so the cut between them shows no seam — the only thing that changes a
 the words. Each scene fades its quote out before its tail pad, so the join reads as one
 quote dissolving, a beat of empty page, and the next arriving.
 
-⚠️ **The stitch rolls the SILENT animations, not the finished scenes.** A scene's own
-deliverable already carries its narration; rolling that and mixing again lays the voice
-over itself.
+⚡ **The scenes are silent by construction.** Each scene document writes only its
+animation, under `resource/video/`, and the stitch is the one place the voice is laid over
+them — so no clip is ever mixed twice.
 
 ⚠️ **A document cannot read another's constants.** The stitch states `HEAD_PAD` to place
 each voice where its scene's head pad ends — keep it equal to `MARGIN` in the scenes, or
@@ -117,8 +117,8 @@ kinaigraph stitch_es.yaml
 ```
 
 Paths inside a scene resolve against the scene file's own folder — which is this
-directory, since the YAML sits at the top — so `file:` values need no `../`. The
-deliverable lands beside the document; the silent intermediate goes to `resource/video/`.
+directory, since the YAML sits at the top — so `file:` values need no `../`. A scene's
+silent animation goes to `resource/video/`; the stitched piece lands beside the documents.
 
 Re-recording needs `ELEVENLABS_API_KEY`, and synthesis is a separate document on purpose:
 re-rendering a scene must never re-synthesise audio that did not change.
