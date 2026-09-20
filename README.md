@@ -290,7 +290,7 @@ kept the same way.
 
 | Example | What it shows |
 | --- | --- |
-| [`request-response`](examples/request-response/) | The same request, authored **twice** — once with hand-measured timings, once with action bookmarks and `pace_by: distance`. The two disagree, and the shorter one is the correct one. |
+| [`request-response`](examples/request-response/) | A "Get User Profile" request walks a small system. One packet rides the drawn connectors through six legs, paced by distance so it holds one speed, with payload callouts that keep aiming at it as it travels. |
 | [`wave-anatomy`](examples/wave-anatomy/) | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is drawn anywhere** — every curve is generated from its own equation and sampled by the compiler. |
 | [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. One route layer carries the drawn line, the travelled path and the distance the callout quotes. |
 | [`milestone-ladder`](examples/milestone-ladder/) | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark. |

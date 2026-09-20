@@ -12,21 +12,10 @@
 #   - `leg1.duration`       its window, as a value
 #   - `pace_by: distance` on a parent whose sub-actions are bookmarked
 #
-# ⚡ IT IS ALSO MORE CORRECT THAN `scene_01_flow_with_orient_at_parent_action.yaml`, not merely shorter. Both put the
-# packet on the road at 350 ms and take it off at 13442.7 ms — the envelope matches to a
-# tenth of a millisecond. The LEG BOUNDARIES do not:
-#
-#     leg          hand-measured        compiler-measured
-#     1 & 6           2552.2 ms            2674.2 ms   (372.0 px)
-#     2..5            1997.1 ms            1936.1 ms   (269.3 px)
-#
-# The compiler's numbers hold ONE speed across every leg — 372.0/2674.2 and 269.3/1936.1
-# are both 0.1391 px/ms. The hand-measured consts give leg 1 a length ratio of 1.278
-# where the true arc ratio is 1.381, so the packet SPEEDS UP AND SLOWS DOWN at each leg
-# boundary. That is the whole point of `pace_by: distance`, and it was silently not
-# being delivered: the consts were measured on the raw `<path>`, while the ride is
-# `inset` 14 px at both ends and pushed onto a parallel lane by `lateral`. The script
-# measured a line the packet never travels.
+# ⚡ `pace_by: distance` is what holds ONE speed across every leg: the compiler measures
+# each leg as the packet actually rides it — `inset` at both ends and pushed onto its
+# `lateral` lane — and splits the walk in proportion. Leg lengths typed by an author
+# cannot do that, and drift the moment a node moves.
 #
 # A "Get User Profile" request walks the system: the client calls the gateway, the gateway
 # checks the caller with auth, fetches the profile from the user service, and carries
@@ -44,12 +33,9 @@
 # per-leg bookkeeping, and the two passes read as distinct.
 #
 # WHY ONE `move` WITH SIX SUB-ACTIONS rather than six timeline entries: a sub-action can
-# now be BOOKMARKED, so a badge pulse hangs off a leg boundary by name. That is what
-# `scene_01_flow_with_orient_at_parent_action.yaml` could not do — it pays for the addressability with six entries,
-# six hand-measured `LEG_n_PX` consts, six `LEG_n_MS` expressions, a `PATH_PX` total, and
-# a generator script whose only job is to measure arc lengths the compiler already knows.
-# Move a node in the SVG there and thirteen numbers must be re-derived by hand; here the
-# timing follows by itself.
+# be BOOKMARKED, so a badge pulse hangs off a leg boundary by name, and the leg lengths
+# are the compiler's rather than six numbers an author maintains. Move a node in the SVG
+# and the timing follows by itself.
 
 defs:
     assets:
@@ -504,7 +490,7 @@ animation:
         # Each leg is bookmarked, which is what makes this spelling possible at all:
         # the badge pulses below hang off those bookmarks. Without them a sub-action
         # has no name, nothing can be scheduled at a leg boundary, and the whole
-        # journey has to be six separate entries with six hand-measured durations.
+        # journey would have to be six separate entries, each carrying its own duration.
         #
         # `orient: auto` sits on EVERY LEG, never on the parent. The parent carries no
         # `along`, so it has no tangent to face — and it would still claim the rotation

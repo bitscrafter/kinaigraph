@@ -1,29 +1,22 @@
-# Request/Response — One Packet, Two Authorings
+# Request/Response — One Packet, Six Legs
 
 A "Get User Profile" request walks a small system: the client calls the gateway, the gateway
 checks the caller with auth, fetches the profile from the user service, and carries the
 answer home. Six legs over three drawn connectors, each ridden twice.
 
-What makes this example worth reading is that the **same beat is authored twice**, and
-the two files disagree about something real. It is the closest thing in this repository
-to a before-and-after.
+What makes this example worth reading is that the packet's timing is never typed. One
+`move` with six bookmarked sub-actions and `pace_by: distance` lets the compiler measure
+the legs and hold one speed across them, and every callout and pulse hangs off those
+bookmarks by name.
 
 ## The scenes
 
 | File | What it is |
 | ---- | ---------- |
-| `scene_01_flow.yaml` | Beat 1, authored with **action bookmarks** and `pace_by: distance`. The canonical one. |
-| `scene_01_flow_with_orient_at_parent_action.yaml` | The same beat, authored with **six explicit `move` entries** and hand-measured leg lengths. |
+| `scene_01_flow.yaml` | Beat 1 — one parent `move` carrying six bookmarked **sub-actions**, paced by distance. |
 
-The names say where `orient: auto` sits, because that is what the two structures force.
-The canonical file rides one parent `move` carrying six bookmarked **sub-actions**, and
-`orient` goes on each sub-action. The other has no parent at all — six independent
-top-level **actions**, one per timeline entry, each carrying its own `orient`.
-
-⚠️ Neither is the *third* spelling, `orient` on a parent that carries only `actions:` and
-no `along` of its own. That parent has no tangent to read, writes a constant `0` rotation,
-and the chevron never turns around on the return legs. It is an open bug in the engine,
-not an authoring choice, and nothing in this example does it.
+`orient: auto` sits on each sub-action, never on the parent `move`: the parent carries no
+`along` of its own, so it has no heading to face.
 
 `narrate.yaml` is synthesis-only. It generates the narration for all
 three beats from the scripts under `resource/script/`. Run it once, before rendering, and again
@@ -176,10 +169,8 @@ leg shorter than twice it — and a leg's length comes from `narration.duration`
 windows are `SHARE + (1 - 2·SHARE) + SHARE`, which is 1 at every narration length.
 
 Keying the fade-out at `leg1.end` instead would *start* it there and let the box linger a
-fade into leg 2. Only `scene_01_flow.yaml` carries the callouts: naming the window
-`leg1.duration` costs nothing there, where the leg is already addressable, while
-`scene_01_flow_with_orient_at_parent_action.yaml` would have to spend another
-hand-measured constant on it.
+fade into leg 2. Naming the window `leg1.duration` costs nothing, because the leg is
+already addressable by its bookmark.
 
 **The payload text is read from `resource/text/`, not inlined.** Each callout's
 `type: text` asset names its payload with `file:`; the compiler reads the file at Pass 3
@@ -276,33 +267,15 @@ text colour is a literal on its `type: text` asset, tracking `theme_blueprint.cs
 - **A fixed box with a moving pointer.** `binding: live` on a callout's `pointer.target`
   re-resolves the apex every frame, so each payload callout keeps aiming at the packet
   as it travels while their boxes stay put and stay readable.
-- **Why six entries rather than one `move` with six sub-actions:** each entry is
-  addressable from the timeline, so a badge pulse can hang on a leg boundary. The cost is
-  six hand-measured lengths.
-
-### The disagreement, and why the shorter file is the better one
-
-Both files put the packet on the road at 350 ms and take it off at 13442.7 ms — the
-envelope matches to a tenth of a millisecond. The **leg boundaries** do not:
-
-| leg | hand-measured | compiler-measured |
-| --- | --- | --- |
-| 1 & 6 | 2552.2 ms | 2674.2 ms (372.0 px) |
-| 2–5 | 1997.1 ms | 1936.1 ms (269.3 px) |
-
-The compiler's numbers hold **one speed** across every leg: 372.0 / 2674.2 and
-269.3 / 1936.1 are both 0.1391 px/ms. The hand-measured constants give leg 1 a length
-ratio of 1.278 where the true arc ratio is 1.381 — so in
-`scene_01_flow_with_orient_at_parent_action.yaml` the packet **speeds up and slows down at
-each leg boundary**. That is exactly what
-`pace_by: distance` exists to prevent, and it was silently not happening.
+- **One `move`, six bookmarked sub-actions.** Each leg is addressable from the timeline
+  by name, so a badge pulse can hang on a leg boundary, and the leg lengths are the
+  compiler's rather than the author's.
 
 ## Layout
 
 ```text
 narrate.yaml                       narration synthesis (run first)
 scene_01_flow.yaml                                 beat 1, paced by distance
-scene_01_flow_with_orient_at_parent_action.yaml    beat 1, hand-timed
 scene_02_store.yaml                                beat 2, the store arrives
 scene_03_theme.yaml                                beat 3, two themes at once
 stitch.yaml                               the three beats, with narration
@@ -350,9 +323,6 @@ pictures it describes, with nothing to keep in step by hand. The timestamps chai
 **bookmark** (`flow_bk.end`, `store_bk.end`) rather than by number, so the offsets are
 read from the clips' own probed durations: re-record a line, re-render that beat, and
 everything after it moves by itself.
-
-Render `scene_01_flow_with_orient_at_parent_action.yaml` too if you want to see the
-difference the table above describes.
 
 Paths inside a scene resolve against the scene file's own folder — which is this
 directory — so `file:` values need no `../`. **Outputs resolve against the document's own
