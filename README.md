@@ -330,9 +330,12 @@ There is no support commitment while Kinaigraph is pre-release; see [LICENSE](LI
 
 ## License
 
-Kinaigraph is pre-release software provided **as is**, for **non-commercial use**,
-with no warranty and no support — use it at your own risk. The example projects may be
-copied and modified for non-commercial purposes, with attribution.
+Kinaigraph is pre-release software provided **as is**, with no warranty and no support —
+use it at your own risk. Until a release's expiration date you may use it **for any
+purpose, commercial included**, and **what you make with it is yours**: your documents,
+your artwork, your recordings and the videos rendered from them. Only the example projects
+are restricted: they may be copied and modified for non-commercial purposes, with
+attribution.
 
 See [LICENSE](LICENSE) for the full terms.
 

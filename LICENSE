@@ -13,15 +13,18 @@ clause at the end applies to all of them.
 1. Binaries
 --------------------------------------------------------------------------------
 You are granted a non-exclusive, royalty-free right to download, run, and use
-the Kinaigraph binaries for non-commercial purposes only.
+the Kinaigraph binaries for any purpose, commercial purposes included, until
+the release's expiration date. Every release carries the date on which it stops
+rendering (`kinaigraph doctor` shows it). On that date the right to run that
+release ends; a newer release carries its own date and its own terms.
 
-You may NOT use the Kinaigraph binaries for commercial purposes. "Commercial
-purposes" means any use primarily intended for or directed toward commercial
-advantage or monetary compensation.
+YOUR INPUT AND YOUR OUTPUT ARE YOURS. The documents, artwork, scripts and
+recordings you author (the input) and the videos and other files Kinaigraph
+produces from them (the output) belong to you. This license claims no rights in
+either, and you may use, publish, sell and license them as you see fit.
 
-You may redistribute the binaries only in their original, unmodified form, and
-only for non-commercial purposes.
-
+The binaries themselves remain the property of the copyright holder. You may
+redistribute them only in their original, unmodified form and free of charge.
 You may NOT modify, adapt, decompile, disassemble, reverse-engineer, or create
 derivative works of the binaries.
 
@@ -34,7 +37,10 @@ Use them at your own risk.
 --------------------------------------------------------------------------------
 The example projects in the examples/ directory may be copied, modified, and
 used for non-commercial purposes only, with attribution. You may NOT use them
-for commercial purposes (as defined in the Binaries section above).
+for commercial purposes. "Commercial purposes" means any use primarily intended
+for or directed toward commercial advantage or monetary compensation. This
+restriction is about the example material itself; what you make with Kinaigraph
+from your own material is covered by the Binaries section above and is yours.
 
 THIRD-PARTY MATERIAL. Some examples quote or refer to material owned by others.
 That material is NOT covered by the grant above and is not the copyright holder's
