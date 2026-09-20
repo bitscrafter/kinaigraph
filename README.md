@@ -302,6 +302,16 @@ kept the same way.
 Narration audio is generated from the scripts via text-to-speech, so a scene reads
 its timing from the spoken lines. See each example's folder for its specific layout.
 
+## Feedback
+
+Feedback is welcome through the repository's
+[issue tracker](https://github.com/bitscrafter/kinaigraph/issues). The report that matters most
+during the alpha is an example from this repository that rendered on one release and stops on the
+next — that is the measure in [What ends the alpha](#what-ends-the-alpha). Include the output of
+`kinaigraph --version` and `kinaigraph doctor`, the document you ran, and the command.
+
+There is no support commitment while Kinaigraph is pre-release; see [LICENSE](LICENSE).
+
 ## License
 
 Kinaigraph is pre-release software provided **as is**, for **non-commercial use**,
