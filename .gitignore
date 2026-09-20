@@ -21,6 +21,9 @@ examples/**/animation.html
 examples/**/*.mp3
 !examples/*/resource/audio/
 !examples/*/resource/audio/**
+# ⚠️ That negation re-includes EVERYTHING beneath resource/audio/, Finder's .DS_Store
+# included, so the OS rule at the top no longer reaches it; exclude it again here.
+examples/*/resource/audio/**/.DS_Store
 
 # ── Local authoring tools and scratch, not published ──
 # Generators that produced a committed SVG (make_*.py / make_*.sh) and their input data
