@@ -24,9 +24,10 @@ produces from them (the output) belong to you. This license claims no rights in
 either, and you may use, publish, sell and license them as you see fit.
 
 The binaries themselves remain the property of the copyright holder. You may
-redistribute them only in their original, unmodified form and free of charge.
-You may NOT modify, adapt, decompile, disassemble, reverse-engineer, or create
-derivative works of the binaries.
+NOT redistribute them: anyone who needs a copy downloads it from the Releases
+page at https://github.com/bitscrafter/kinaigraph/releases. You may NOT modify,
+adapt, decompile, disassemble, reverse-engineer, or create derivative works of
+the binaries.
 
 The binaries are pre-release software provided on an "AS IS" basis. No guarantee
 is made as to whether or how they work, and no support of any kind is provided.
