@@ -35,10 +35,10 @@ cannot run `sudo`, stop here — the rest of this section will not work.
 
 macOS only, for now. Two builds are published with every release:
 
-| your Mac | download |
-| --- | --- |
+| your Mac                     | download                                           |
+| ---------------------------- | -------------------------------------------------- |
 | Apple Silicon (M1 and later) | `kinaigraph-<version>-aarch64-apple-darwin.tar.gz` |
-| Intel | `kinaigraph-<version>-x86_64-apple-darwin.tar.gz` |
+| Intel                        | `kinaigraph-<version>-x86_64-apple-darwin.tar.gz`  |
 
 If you are not sure which you have, ask the machine — `uname -m` prints `arm64` on Apple
 Silicon and `x86_64` on Intel:
@@ -97,7 +97,7 @@ Two things are happening:
    repository uses; before this step you would have to type `./kinaigraph`.
 
 `sudo` is needed even on an administrator account: `/usr/local/bin` is owned by `root`, and
-being an administrator means you *may* use `sudo`, not that you own root's directories.
+being an administrator means you _may_ use `sudo`, not that you own root's directories.
 
 Now check the install:
 
@@ -163,8 +163,8 @@ You will probably not need this. A binary you downloaded through a browser carri
 something is launched through Finder (double-clicking it, or `open`). Typing `kinaigraph` in
 Terminal is not blocked.
 
-If you do launch it that way and macOS says *"cannot be opened because the developer cannot be
-verified"*, clear the flag on the **extracted binary** — not on the `.tar.gz`:
+If you do launch it that way and macOS says _"cannot be opened because the developer cannot be
+verified"_, clear the flag on the **extracted binary** — not on the `.tar.gz`:
 
 ```sh
 xattr -dr com.apple.quarantine /usr/local/bin/kinaigraph
@@ -217,7 +217,7 @@ open ./infographic_atmosphere_teaser.mp4
 
 That is the whole loop: a scene file in, an MP4 out.
 
-Outputs land in the folder containing the scene file, beside it. Paths *inside* a scene
+Outputs land in the folder containing the scene file, beside it. Paths _inside_ a scene
 resolve against that same folder, so what a scene writes is where the next scene looks for
 it — which is why you `cd` into the example first.
 
@@ -288,17 +288,17 @@ Every one of them is about **somebody else's subject** — a map, an equation, a
 life. For videos about Kinaigraph itself, see [Documentation videos](#documentation-videos)
 below, whose sources are kept the same way.
 
-| Example | What it shows | Watch |
-| --- | --- | --- |
-| [`request-response`](examples/request-response/) | A "Get User Profile" request walks a small system. One packet rides the drawn connectors through six legs, paced by distance so it holds one speed, with payload callouts that keep aiming at it as it travels. | [watch](https://youtu.be/PASTE) |
-| [`wave-anatomy`](examples/wave-anatomy/) | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is pre-drawn anywhere** — every curve is generated from its own equation and sampled by the compiler. | [watch](https://youtu.be/PASTE) |
-| [`hiking-trails`](examples/hiking-trails/) | Three routes across a cartoon map, with a marker that ducks behind the scenery. One route layer carries the drawn line, the travelled path and the distance the callout quotes. | [watch](https://youtu.be/PASTE) |
-| [`milestone-ladder`](examples/milestone-ladder/) | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark. | [teaser](https://youtu.be/PASTE) · [brief](https://youtu.be/PASTE) |
-| [`life-lessons`](examples/life-lessons/) | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. The same two scenes in **English and Spanish**, sharing one paper, one stylesheet and one timeline: a localisation you can count rather than take on trust. | [English](https://youtu.be/PASTE) · [Spanish](https://youtu.be/PASTE) |
-| [`course-welcome`](examples/course-welcome/) | The first half-minute of an online course: an instructor talks, blinks and breathes in the corner while the practicalities arrive beside her. Three mouth shapes and two eye states, swapped by pulses written against each other — the language has no concept of a face. | [watch](https://youtu.be/PASTE) |
-| [`infographic-atmosphere`](examples/infographic-atmosphere/) | A narrated tour of **a picture that already existed** — a PNG poster nobody authored here. The language has no camera, so the picture moves instead, and callouts park in the frame while it pans beneath them. | [teaser](https://youtu.be/PASTE) · [brief](https://youtu.be/PASTE) |
-| [`coffee-order`](examples/coffee-order/) | A café order as a **sequence diagram**, drawn as it is told. The one diagram whose vertical axis is time, so the drawing runs deeper than the frame and the camera walks down it. A mug rides every message, and during the `par` two are in flight at once. | [watch](https://youtu.be/PASTE) |
-| [`agent-patterns`](examples/agent-patterns/) | Seven ways to put an agentic system together — one building block, five workflow patterns and one agent pattern, after Anthropic's *Building effective agents* — built one edge at a time on a single canvas. The stage rewires between beats, a ledger down the left keeps what each beat earned, and the closing frame shows all of it at once. | [watch](https://youtu.be/PASTE) |
+| Example                                                      | What it shows                                                                                                                                                                                                                                                                                                                                     | Watch                                                                          |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [`request-response`](examples/request-response/)             | A "Get User Profile" request walks a small system. One packet rides the drawn connectors through six legs, paced by distance so it holds one speed, with payload callouts that keep aiming at it as it travels.                                                                                                                                   | [watch](https://youtu.be/g3HoPt_wLTY)                                          |
+| [`wave-anatomy`](examples/wave-anatomy/)                     | `y = A · sin( B · (x − C) ) + D`, one beat per parameter. **No wave is pre-drawn anywhere** — every curve is generated from its own equation and sampled by the compiler.                                                                                                                                                                         | [watch](https://youtu.be/PASTE)                                                |
+| [`hiking-trails`](examples/hiking-trails/)                   | Three routes across a cartoon map, with a marker that ducks behind the scenery. One route layer carries the drawn line, the travelled path and the distance the callout quotes.                                                                                                                                                                   | [watch](https://youtu.be/rtdeMvB7Iq4)                                          |
+| [`milestone-ladder`](examples/milestone-ladder/)             | One life as six milestones on a rising ladder. Glyphs ride the rail they draw; two themes, light and dark.                                                                                                                                                                                                                                        | [teaser](https://youtu.be/PASTE) · [brief](https://youtu.be/PASTE)             |
+| [`life-lessons`](examples/life-lessons/)                     | Kinetic typography — quotes that fade in over paper texture, paced to spoken narration. The same two scenes in **English and Spanish**, sharing one paper, one stylesheet and one timeline: a localisation you can count rather than take on trust.                                                                                               | [English](https://youtu.be/PASTE) · [Spanish](https://youtu.be/PASTE)          |
+| [`course-welcome`](examples/course-welcome/)                 | The first half-minute of an online course: an instructor talks, blinks and breathes in the corner while the practicalities arrive beside her. Three mouth shapes and two eye states, swapped by pulses written against each other — the language has no concept of a face.                                                                        | [watch](https://youtu.be/xK1zhCfihEI)                                          |
+| [`infographic-atmosphere`](examples/infographic-atmosphere/) | A narrated tour of **a picture that already existed** — a PNG poster nobody authored here. The language has no camera, so the picture moves instead, and callouts park in the frame while it pans beneath them.                                                                                                                                   | [teaser](https://youtu.be/HN9fEezW_P8) · [brief](https://youtu.be/uTB6J7EQwiw) |
+| [`coffee-order`](examples/coffee-order/)                     | A café order as a **sequence diagram**, drawn as it is told. The one diagram whose vertical axis is time, so the drawing runs deeper than the frame and the camera walks down it. A mug rides every message, and during the `par` two are in flight at once.                                                                                      | [watch](https://youtu.be/2Vdh-ymGRIg)                                          |
+| [`agent-patterns`](examples/agent-patterns/)                 | Seven ways to put an agentic system together — one building block, five workflow patterns and one agent pattern, after Anthropic's _Building effective agents_ — built one edge at a time on a single canvas. The stage rewires between beats, a ledger down the left keeps what each beat earned, and the closing frame shows all of it at once. | [watch](https://youtu.be/nlPJAZ6zzo4)                                          |
 
 Narration audio is generated from the scripts via text-to-speech, so a scene reads
 its timing from the spoken lines. See each example's folder for its specific layout.
@@ -310,10 +310,10 @@ The videos that explain Kinaigraph are made with Kinaigraph, and their sources l
 stylesheet, and narration scripts with their recordings. Every recording is committed, so
 both render from a clone with no key.
 
-| Video | What it covers | Watch |
-| --- | --- | --- |
-| [`why-a-language`](docs/video/src/product/why-a-language/) | The case for Kinaigraph, in four scenes: why explainer videos are worth making, what making them costs today, what a language does about that cost, and what it opens up. Two cuts from one set of drawings — a **brief** that names a category and lets the boxes enumerate it, and a **long** that names every box — differing in narration and theme and in nothing else. | [brief](https://youtu.be/PASTE) · [long](https://youtu.be/PASTE) |
-| [`structural_layers`](docs/video/src/architecture/structural_layers/) | How the engine itself is built: the ports, adapters, subsystems and layers, over one diagram. Three cuts of that diagram — a **teaser**, a **brief** that names each ring in a breath, and a **long** that gives every port and subsystem its own beat. | [teaser](https://youtu.be/PASTE) · [brief](https://youtu.be/PASTE) · [long](https://youtu.be/PASTE) |
+| Video                                                                 | What it covers                                                                                                                                                                                                                                                                                                                                                               | Watch                                                                                                                 |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| [`why-a-language`](docs/video/src/product/why-a-language/)            | The case for Kinaigraph, in four scenes: why explainer videos are worth making, what making them costs today, what a language does about that cost, and what it opens up. Two cuts from one set of drawings — a **brief** that names a category and lets the boxes enumerate it, and a **long** that names every box — differing in narration and theme and in nothing else. | [brief](https://youtu.be/0wKzgIzAa88) · [long](https://youtu.be/a79LIWseWPg)                                          |
+| [`structural_layers`](docs/video/src/architecture/structural_layers/) | How the engine itself is built: the ports, adapters, subsystems and layers, over one diagram. Three cuts of that diagram — a **teaser**, a **brief** that names each ring in a breath, and a **long** that gives every port and subsystem its own beat.                                                                                                                      | [teaser](https://youtu.be/zfJF80UaQK0) · [brief](https://youtu.be/ChgGW_ZQfc4) · [long](https://youtu.be/ad1ImM1bZdc) |
 
 Each piece is one folder with its cuts side by side. [`docs/video/README.md`](docs/video/README.md)
 says which category a piece belongs to and how to render one.
