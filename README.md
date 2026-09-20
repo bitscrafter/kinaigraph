@@ -211,7 +211,7 @@ Render the self-contained scene:
 
 ```sh
 cd kinaigraph/examples/infographic-atmosphere
-kinaigraph scene_01_layers_tour_teaser.yaml
+kinaigraph infographic_atmosphere_teaser.yaml
 open ./infographic_atmosphere_teaser.mp4
 ```
 

@@ -10,7 +10,7 @@ by keyframe. Here the whole thing is 24 seconds of declarations.
 
 ```sh
 kinaigraph narrate.yaml   # once — costs credits; the recordings are committed
-kinaigraph scene_01_welcome.yaml
+kinaigraph course_welcome.yaml
 ```
 
 The narration is in the repository, so a clone renders it with no key.
@@ -94,7 +94,7 @@ viewer is faster.
 
 | Path | What |
 | ---- | ---- |
-| `scene_01_welcome.yaml` | The document: the rig, the phrases and the type. |
+| `course_welcome.yaml` | The document: the rig, the phrases and the type. |
 | `resource/scene/avatar_layer.svg` | The instructor's bubble — groups `presenter`, `eyes-open`, `eyes-closed`, `mouth-closed`, `mouth-mid`, `mouth-open`, stacked at the same place. |
 | `resource/scene/pitch_text.svg` | Six lines of type, one actor each. |
 | `resource/scene/backdrop_agentic.svg` | The default ground: a lit gradient and a diagram of agents wired to their tools, kept to the right of the type. |

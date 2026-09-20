@@ -13,8 +13,8 @@ scanned, screenshotted, handed to you — and want an annotated video of it.
 
 | Cut | Document | Length | Stops |
 | --- | -------- | ------ | ----- |
-| Brief | `scene_01_layers_tour_brief.yaml` → `infographic_atmosphere_brief.mp4` | 79.3 s | Seven, one per layer plus the space station and a recap |
-| Teaser | `scene_01_layers_tour_teaser.yaml` → `infographic_atmosphere_teaser.mp4` | 24.1 s | Three: the top, the bottom, and the surprise between them |
+| Brief | `infographic_atmosphere_brief.yaml` → `infographic_atmosphere_brief.mp4` | 79.3 s | Seven, one per layer plus the space station and a recap |
+| Teaser | `infographic_atmosphere_teaser.yaml` → `infographic_atmosphere_teaser.mp4` | 24.1 s | Three: the top, the bottom, and the surprise between them |
 
 ⚠️ **The teaser is not the brief cut played fast.** Sampling all five layers in
 25 seconds would give a viewer five glances and no fact; the teaser drops the
@@ -177,8 +177,8 @@ exactly as the picture would have been.
 
 | Path | Role |
 | ---- | ---- |
-| `scene_01_layers_tour_brief.yaml` | The brief cut: camera, callouts, timeline, and the narration mix. |
-| `scene_01_layers_tour_teaser.yaml` | The teaser cut — three stops, shorter moves, one line per note. |
+| `infographic_atmosphere_brief.yaml` | The brief cut: camera, callouts, timeline, and the narration mix. |
+| `infographic_atmosphere_teaser.yaml` | The teaser cut — three stops, shorter moves, one line per note. |
 | `narrate_brief.yaml` | Synthesis only — the brief cut's nine lines. Costs credits; run it once, and again only when a script changes. |
 | `narrate_teaser.yaml` | Synthesis only — the teaser's five. Two of them are already on disk as copies; read its header before running it. |
 | `resource/script/{brief,teaser}/*.txt` | One file per line. These are the source; the MP3s are derived. |
@@ -193,8 +193,8 @@ exactly as the picture would have been.
 
 ```sh
 kinaigraph narrate_brief.yaml      # once — costs ElevenLabs credits
-kinaigraph scene_01_layers_tour_brief.yaml
-kinaigraph scene_01_layers_tour_teaser.yaml
+kinaigraph infographic_atmosphere_brief.yaml
+kinaigraph infographic_atmosphere_teaser.yaml
 ```
 
 ⚡ **`for y in scene_*.yaml` is safe here**, and that is what the names are for: the
