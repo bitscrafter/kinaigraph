@@ -210,9 +210,9 @@ The videos under `docs/video/` are the same, except where their recordings are c
 Render the self-contained scene:
 
 ```sh
-cd kinaigraph/examples/milestone-ladder
-kinaigraph milestone_ladder_teaser.yaml
-open ./milestone_ladder_teaser.mp4
+cd kinaigraph/examples/infographic-atmosphere
+kinaigraph scene_01_layers_tour_teaser.yaml
+open ./infographic_atmosphere_teaser.mp4
 ```
 
 That is the whole loop: a scene file in, an MP4 out.
