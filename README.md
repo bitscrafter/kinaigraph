@@ -285,8 +285,8 @@ themes, and narration scripts. Kinaigraph compiles a scene and renders it to an 
 (and can also play it live in the browser).
 
 Every one of them is about **somebody else's subject** — a map, an equation, a poster, a
-life. For videos about Kinaigraph itself, see [`docs/video/`](docs/video/), whose sources are
-kept the same way.
+life. For videos about Kinaigraph itself, see [Documentation videos](#documentation-videos)
+below, whose sources are kept the same way.
 
 | Example | What it shows |
 | --- | --- |
@@ -301,6 +301,21 @@ kept the same way.
 
 Narration audio is generated from the scripts via text-to-speech, so a scene reads
 its timing from the spoken lines. See each example's folder for its specific layout.
+
+## Documentation videos
+
+The videos that explain Kinaigraph are made with Kinaigraph, and their sources live under
+[`docs/video/`](docs/video/) in the same shape as an example: scene files, artwork, a
+stylesheet, and narration scripts with their recordings. Every recording is committed, so
+both render from a clone with no key.
+
+| Video | What it covers |
+| --- | --- |
+| [`why-a-language`](docs/video/src/product/why-a-language/) | The case for Kinaigraph, in four scenes: why explainer videos are worth making, what making them costs today, what a language does about that cost, and what it opens up. Two cuts from one set of drawings — a **brief** that names a category and lets the boxes enumerate it, and a **long** that names every box — differing in narration and theme and in nothing else. |
+| [`structural_layers`](docs/video/src/architecture/structural_layers/) | How the engine itself is built: the ports, adapters, subsystems and layers, over one diagram. Three cuts of that diagram — a **teaser**, a **brief** that names each ring in a breath, and a **long** that gives every port and subsystem its own beat. |
+
+Each piece is one folder with its cuts side by side. [`docs/video/README.md`](docs/video/README.md)
+says which category a piece belongs to and how to render one.
 
 ## Feedback
 
