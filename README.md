@@ -2,18 +2,36 @@
 
 **A declarative language for animation and motion graphics.** You author scenes in YAML that bring together your SVG artwork and narration scripts, declaring how they work together and what happens when. Kinaigraph does the tedious, exacting work: timing motion to narration, interpolating every frame, and keeping audio and video in sync — then renders the scene as a video file or live playback in the browser.
 
-This repository is the public home for Kinaigraph. It will hold the **examples**, the
-**binaries**, and the **documentation**.
+## See it
+
+[![Why a language — the case for Kinaigraph, in four scenes](https://img.youtube.com/vi/0wKzgIzAa88/maxresdefault.jpg)](https://youtu.be/0wKzgIzAa88)
+
+**That video is a text file.** Here is [the YAML that made it](docs/video/src/product/why-a-language/):
+four scene documents, one stitch, the SVG drawings and the narration scripts. Nothing in it
+is a number somebody timed by hand — every scene is as long as the lines spoken over it.
+The [examples](#examples) below are nine more, each with its source beside its video.
+
+This repository is the public home for Kinaigraph: the **examples**, the **binaries**, and
+the **documentation**.
 
 ## Status — pre-release (alpha)
 
-Kinaigraph is early software, rolling out in stages:
+Kinaigraph renders every video on this page today. It is an alpha for one reason: the
+**language** may still change, in ways that break a scene you wrote, because the goal is
+the best possible language rather than the first one. Three things follow from that:
+
+- **Every release expires** on a date `kinaigraph doctor` shows, so nobody is left on an
+  old dialect — see [Each release expires](#each-release-expires).
+- **The examples are the compatibility contract.** Every release renders all of them end
+  to end, and a release that breaks one is what keeps the `-alpha` on.
+- **Your work is yours.** The [license](#license) puts no restriction on what you make
+  with it, commercial included.
+
+What is here, and what is still coming:
 
 - ✅ **Examples** — complete, compiler-validated example projects. Available now (below).
 - ✅ **Binaries** — the Kinaigraph command-line tool that renders the examples. Available now, from [Releases](https://github.com/bitscrafter/kinaigraph/releases).
 - 🔜 **Documentation** — a guide to authoring with Kinaigraph. Coming later.
-- 🗓 **Releases expire** — every alpha release stops rendering on a date; `kinaigraph doctor`
-  shows it. See [Each release expires](#each-release-expires).
 
 Until the authoring guide lands, the examples are the documentation: each carries a
 README describing what it shows and how to render it.
