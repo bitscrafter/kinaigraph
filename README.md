@@ -6,24 +6,24 @@
 
 [![Why a language — the case for Kinaigraph, in four scenes](https://img.youtube.com/vi/0wKzgIzAa88/maxresdefault.jpg)](https://youtu.be/0wKzgIzAa88)
 
-**That video is a text file.** Here is [the YAML that made it](docs/video/src/product/why-a-language/):
-four scene documents, one stitch, the SVG drawings and the narration scripts. Nothing in it
-is a number somebody timed by hand — every scene is as long as the lines spoken over it.
-The [examples](#examples) below are nine more, each with its source beside its video.
+**That video was produced from text files.** Here is [everything that made it](docs/video/src/product/why-a-language/):
+four YAML scene documents and a stitch, the SVG drawings, an HTML template, the CSS themes,
+and the narration scripts. Nothing in it is a number somebody timed by hand — every scene
+is as long as the lines spoken over it. The [examples](#examples) below are nine more, each
+with its sources beside its video.
 
 This repository is the public home for Kinaigraph: the **examples**, the **binaries**, and
 the **documentation**.
 
 ## Status — pre-release (alpha)
 
-Kinaigraph renders every video on this page today. It is an alpha for one reason: the
-**language** may still change, in ways that break a scene you wrote, because the goal is
-the best possible language rather than the first one. Three things follow from that:
+Kinaigraph is in an alpha release cadence with the goal of evolving into the best possible
+language. Three things follow from that:
 
-- **Every release expires** on a date `kinaigraph doctor` shows, so nobody is left on an
-  old dialect — see [Each release expires](#each-release-expires).
+- **Every release expires** on a date `kinaigraph doctor` shows, so everyone is always on
+  the current language — see [Each release expires](#each-release-expires).
 - **The examples are the compatibility contract.** Every release renders all of them end
-  to end, and a release that breaks one is what keeps the `-alpha` on.
+  to end, and they are how you can see what changed.
 - **Your work is yours.** The [license](#license) puts no restriction on what you make
   with it, commercial included.
 
