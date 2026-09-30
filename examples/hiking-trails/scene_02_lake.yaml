@@ -178,10 +178,10 @@ defs:
         # Everything in the clip that is NOT the callout's dwell.
         #
         # `FADE_WINDOW` is in here because the traveller's fade-in and its walk are two
-        # actions in ONE timeline entry, and actions within an entry SEQUENCE — the
+        # actions on ONE timeline target asset, and actions on one target asset SEQUENCE — the
         # marker finishes appearing before it starts moving, so the fade is real clip
         # time, not something hidden under the leg. Concurrency would need separate
-        # entries or sub-actions.
+        # target assets or sub-actions.
         FIXED_MS: "VIDEO_MARGIN * 2 + FADE_WINDOW + PULSE_MS + NOTE_REVEAL_MS"
         # The dwell is the ELASTIC term, and this is the whole timing model: the walk
         # is rigid (distance over a shared pace) and whatever the narration has left

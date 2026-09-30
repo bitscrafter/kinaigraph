@@ -42,7 +42,7 @@ viewer watching for a difference in timing will not find one.
 Three things the beat gives up, each for its own reason:
 
 - ⛔ **No `css()`, and therefore no pulses.** `css()` bakes one value per animation
-  section from the default-scope scene and never looks at which scene an entry targets,
+  section from the default-scope scene and never looks at which scene a target asset belongs to,
   so under a grid a `css()`-driven colour comes out identical in both cells while
   everything around it re-themes. Beat 1's badge pulses all read
   `css("pulse-stroke-color")`, so they are dropped rather than frozen.
@@ -147,7 +147,7 @@ The two boxes sit on the sides their own packets travel. `lateral` has already p
 outbound pass above the connector and the return below it, so the request box is placed
 above the line and the response box below, and neither leader ever crosses it.
 
-Each callout's window is spelled as **actions in sequence inside one timeline entry** — a
+Each callout's window is spelled as **actions in sequence on one timeline target asset** — a
 fade in, a hold, a fade out — whose three durations sum to `leg1.duration` exactly:
 
 ```yaml

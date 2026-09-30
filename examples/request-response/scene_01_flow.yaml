@@ -32,7 +32,7 @@
 # opposite side of the line from the outbound pass automatically. One keyword, no
 # per-leg bookkeeping, and the two passes read as distinct.
 #
-# WHY ONE `move` WITH SIX SUB-ACTIONS rather than six timeline entries: a sub-action can
+# WHY ONE `move` WITH SIX SUB-ACTIONS rather than six timeline target assets: a sub-action can
 # be BOOKMARKED, so a badge pulse hangs off a leg boundary by name, and the leg lengths
 # are the compiler's rather than six numbers an author maintains. Move a node in the SVG
 # and the timing follows by itself.
@@ -586,7 +586,7 @@ animation:
         # ── The badges ────────────────────────────────────────────────────────────
         # Each leg pulses the badge of the node it is ARRIVING at, for exactly that
         # leg's window. This is the part that could not be written before: a badge
-        # entry keyed on a sub-action's bookmark, sized by that sub-action's duration.
+        # target asset at a timestamp keyed on a sub-action's bookmark, sized by that sub-action's duration.
         leg1.start:
             - badge_gateway:
                   - pulse:

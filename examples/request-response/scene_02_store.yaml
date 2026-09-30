@@ -255,7 +255,7 @@ animation:
         # ── The edit ──────────────────────────────────────────────────────────────
         # One node and one link, arriving together because they arrived together in the
         # source. Nothing else on screen is written to at this timestamp, which is the
-        # beat's whole claim expressed as a timeline entry.
+        # beat's whole claim expressed as one timestamp.
         setup_ts.end @ reveal_ts:
             - data_store:
                   - show:

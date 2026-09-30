@@ -49,7 +49,7 @@
 # accumulate, and the closing frame is an argument only because the viewer
 # watched each of the seven being earned.
 #
-# ⚡ NO TIMELINE ENTRY IN THIS DOCUMENT DOES ARITHMETIC. A beat lists its ledger
+# ⚡ NO TIMESTAMP IN THIS DOCUMENT DOES ARITHMETIC. A beat lists its ledger
 # deposit first and gives it the clip's own duration, so the beat is exactly as
 # long as its line with nothing subtracted to get there; everything else waits
 # on one named move. Read a beat top to bottom and it is a list of things that
@@ -1071,7 +1071,7 @@ defs:
         #
         # ⚡ EVERY BEAT IS BUILT IN MOVES, AND A MOVE HAS TWO INSTANTS: a shaft
         # starts drawing, and its arrowhead lands when the shaft arrives. Those
-        # six names are the ONLY offsets in this document — no timeline entry
+        # six names are the ONLY offsets in this document — no timestamp
         # below adds anything together, so a beat can be read as "this, then
         # this, then this" without doing arithmetic in your head.
         MOVE_MS: "DRAW_MS + FADE_MS" # one move, end to end

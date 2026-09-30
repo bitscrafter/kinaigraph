@@ -13,7 +13,7 @@
 #
 # ⛔ NO `css()` ANYWHERE IN THIS DOCUMENT, AND THEREFORE NO PULSES. `css()` bakes ONE
 # value per animation section, taken from the default-scope scene, and never looks at
-# which scene a timeline entry targets. Under a grid that means a `css()`-driven colour
+# which scene a timeline target asset belongs to. Under a grid that means a `css()`-driven colour
 # would come out IDENTICAL in both cells while everything around it re-themed — a
 # visible exception in the one beat that can least afford one. Beat 1's badge pulses
 # all read `css("pulse-stroke-color")`, so they are dropped here rather than frozen.

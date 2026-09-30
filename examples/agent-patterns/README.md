@@ -86,7 +86,7 @@ its own downside.
 
 ## What this example is a good place to notice
 
-**No timeline entry does arithmetic.** Each beat lists its ledger deposit first
+**No timestamp does arithmetic.** Each beat lists its ledger deposit first
 and gives it the clip's own duration, so the beat is exactly as long as its line
 with nothing subtracted to get there. Everything else in the beat waits on one
 named move — `MOVE_2`, `MOVE_3_HEAD` — and those six names are derived from two
