@@ -1,4 +1,0 @@
-There is a better way, and it begins with a language.
-You describe the what, not the how.
-Because it is deterministic, the same source always gives the same result.
-And because it is plain text, an AI model can write it, and you can review what it wrote.

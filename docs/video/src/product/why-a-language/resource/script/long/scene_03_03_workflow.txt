@@ -1,6 +1,0 @@
-And the workflow behaves like code.
-Version control, with text made for Git.
-Iterations are fast: edit the source and regenerate.
-It scales, automating variations without repetitive labor.
-One source serves many languages.
-And it renders on your own machine, with no model in the loop.

@@ -1,1 +1,0 @@
-The better way is a language: you describe what, not how, the same source always gives the same result, and an AI model can write it.

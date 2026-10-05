@@ -1,8 +1,0 @@
-Making a video explainer means friction, whichever tools you reach for.
-Motion is synced to narration by hand.
-The work is labor-intensive and repetitive.
-Nothing sits under version control, so you cannot see what changed.
-Styling drifts from one video to the next.
-Variations resist automation, and each one is built again.
-The source moves, the video goes stale, and fixing it is heavy re-work.
-And every language means authoring the whole thing over.

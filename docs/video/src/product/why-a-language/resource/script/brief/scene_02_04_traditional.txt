@@ -1,1 +1,0 @@
-A traditional editor puts it all in the timeline: keyframes by hand, assets by hand, one vendor's proprietary file.

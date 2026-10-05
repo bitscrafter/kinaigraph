@@ -6,11 +6,10 @@
 
 [![Why a language — the case for Kinaigraph, in four scenes](https://img.youtube.com/vi/0wKzgIzAa88/maxresdefault.jpg)](https://youtu.be/0wKzgIzAa88)
 
-**That video was produced from text files.** Here is [everything that made it](docs/video/src/product/why-a-language/):
-four YAML scene documents and a stitch, the SVG drawings, an HTML template, the CSS themes,
-and the narration scripts. Nothing in it is a number somebody timed by hand — every scene
-is as long as the lines spoken over it. The [examples](#examples) below are nine more, each
-with its sources beside its video.
+**That video was produced from text files:** four YAML scene documents and a stitch, the
+SVG drawings, an HTML template, the CSS themes, and the narration scripts. Nothing in it is
+a number somebody timed by hand — every scene is as long as the lines spoken over it. The
+[examples](#examples) below are nine more, each with its sources beside its video.
 
 This repository is the public home for Kinaigraph: the **examples**, the **binaries**, and
 the **documentation**.
@@ -323,14 +322,13 @@ its timing from the spoken lines. See each example's folder for its specific lay
 
 ## Documentation videos
 
-The videos that explain Kinaigraph are made with Kinaigraph, and their sources live under
-[`docs/video/`](docs/video/) in the same shape as an example: scene files, artwork, a
-stylesheet, and narration scripts with their recordings. Every recording is committed, so
-both render from a clone with no key.
+The videos that explain Kinaigraph are made with Kinaigraph. The one below has its sources
+under [`docs/video/`](docs/video/) in the same shape as an example: scene files, artwork, a
+stylesheet, and narration scripts with their recordings. Its recordings are committed, so it
+renders from a clone with no key.
 
 | Video                                                                 | What it covers                                                                                                                                                                                                                                                                                                                                                               | Watch                                                                                                                 |
 | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| [`why-a-language`](docs/video/src/product/why-a-language/)            | The case for Kinaigraph, in four scenes: why explainer videos are worth making, what making them costs today, what a language does about that cost, and what it opens up. Two cuts from one set of drawings — a **brief** that names a category and lets the boxes enumerate it, and a **long** that names every box — differing in narration and theme and in nothing else. | [brief](https://youtu.be/0wKzgIzAa88) · [long](https://youtu.be/a79LIWseWPg)                                          |
 | [`structural_layers`](docs/video/src/architecture/structural_layers/) | How the engine itself is built: the ports, adapters, subsystems and layers, over one diagram. Three cuts of that diagram — a **teaser**, a **brief** that names each ring in a breath, and a **long** that gives every port and subsystem its own beat.                                                                                                                      | [teaser](https://youtu.be/zfJF80UaQK0) · [brief](https://youtu.be/ChgGW_ZQfc4) · [long](https://youtu.be/ad1ImM1bZdc) |
 
 Each piece is one folder with its cuts side by side. [`docs/video/README.md`](docs/video/README.md)

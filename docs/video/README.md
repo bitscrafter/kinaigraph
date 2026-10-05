@@ -57,7 +57,6 @@ word.
 
 | category | piece | what it covers |
 | --- | --- | --- |
-| `product` | `why-a-language` | why these videos are worth making, what making them costs today, what a language does about that cost, and what it opens up — in two cuts from one set of drawings |
 | `architecture` | `structural_layers` | the ports, adapters, subsystems and layers the engine is built from |
 
 ## Rendering one

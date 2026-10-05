@@ -1,4 +1,0 @@
-Traditional editors put you back in the timeline for every change.
-Keyframe animation is painstaking and slow.
-Assets are managed by hand.
-And the project itself is a proprietary file, locked to one vendor.

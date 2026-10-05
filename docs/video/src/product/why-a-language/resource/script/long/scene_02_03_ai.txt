@@ -1,5 +1,0 @@
-Generative AI moves fast, but today its output is hard to predict, so you work by trial and error.
-Fine-grained control is still limited.
-Costs climb with every run.
-And what comes back is a finished video, not a source.
-There has to be a better way.
