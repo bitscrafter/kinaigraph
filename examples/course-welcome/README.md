@@ -61,7 +61,7 @@ for part of every cycle both shapes will be visible, or neither.
   to see and short enough not to look like a wince.
 - **Two idle cycles that do not divide into each other.** The bubble breathes
   (scale, 8 cycles) and sways (rotation, 3 cycles) across the same window, so it
-  never returns to the same pose on a beat. ⚠️ A rotation target must sit in
+  never returns to the same scale and angle on a beat. ⚠️ A rotation target must sit in
   `[0, 360)`, so the sway rocks from upright to 1.6° rather than either side of
   centre.
 - **One line of type per phrase**, arriving as that phrase opens, so a viewer

@@ -18,10 +18,10 @@
   the palette differs — the icon set is themed for documentation via CSS vars,
   while these carry the map's own trail tones.
 
-  The `transform` on each traveller is a RESTING POSE only: it is where the glyph
+  The `transform` on each traveller is a RESTING PLACEMENT only: it is where the glyph
   sits during its fade-in, before its first `move` takes over and places it. The
   values track the trace's trailhead and first hidden-stretch start; if a re-trace
-  moves those appreciably, nudge them to match (a stale pose shows as a marker
+  moves those appreciably, nudge them to match (a stale placement shows as a marker
   that jumps on its first leg).
 -->
 <svg id="markers" width="1920" height="1080" viewBox="0 0 1920 1080"

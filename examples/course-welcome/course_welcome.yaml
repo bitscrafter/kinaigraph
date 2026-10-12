@@ -195,7 +195,7 @@ defs:
 
         # ── Idle motion ──────────────────────────────────────────────────────
         # Two slow cycles that do not divide into each other, so the bubble never
-        # returns to the same pose on a beat: breathing scales, the sway rotates.
+        # returns to the same scale and angle on a beat: breathing scales, the sway rotates.
         BREATHE_CYCLES: 8
         SWAY_CYCLES: 3
         # ⚠️ A rotation target must sit in [0, 360), so the sway rocks from upright
