@@ -186,10 +186,13 @@ defs:
 
         # What is not on screen when the beat opens. A group broadcasts — one
         # instruction per member — so each is still shown on its own beat later.
+        # The section's annotations are not members: an annotation is known
+        # only inside its own section, so a `defs` group cannot name it.
         not_yet:
             type: "group"
             member_type: "actor"
-            members: [packet, callout_client_request, callout_profile_response, callout_authz_request, callout_authz_response, callout_user_request]
+            members:
+                - packet
     const:
         VIDEO_MARGIN: 350
         PULSE_CYCLES: 1
@@ -475,9 +478,26 @@ animation:
             - brand_mark:
                   - show:
                         opacity: 1
-            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one line. A
-            # group BROADCASTS, so each is still addressed on its own beat.
+            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one instant:
+            # the scene's elements through the group, and the section's own
+            # annotations by name beside it. A group BROADCASTS, so each is still
+            # addressed on its own beat.
             - not_yet:
+                  - show:
+                        opacity: 0
+            - callout_client_request:
+                  - show:
+                        opacity: 0
+            - callout_profile_response:
+                  - show:
+                        opacity: 0
+            - callout_authz_request:
+                  - show:
+                        opacity: 0
+            - callout_authz_response:
+                  - show:
+                        opacity: 0
+            - callout_user_request:
                   - show:
                         opacity: 0
 

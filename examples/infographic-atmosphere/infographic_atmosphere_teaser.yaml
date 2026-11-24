@@ -82,14 +82,6 @@ defs:
         style:
             type: "style"
             file: "./resource/style/theme_dark.css"
-
-
-        # The callouts, as one name. Each is still revealed on its own stop;
-        # this only says "all of them" where all of them do the same thing.
-        all_notes:
-            type: "group"
-            member_type: "actor"
-            members: [note_title, note_upper, note_troposphere]
     const:
         FRAME_W: 1920
         FRAME_H: 1080
@@ -200,9 +192,18 @@ animation:
                             from: "OVERVIEW_ZOOM"
                             to: "OVERVIEW_ZOOM"
                         duration: 0
-            # ⚡ ALL SIX CALLOUTS PARKED IN ONE LINE. A group BROADCASTS, so each
-            # is still revealed on its own stop.
-            - all_notes:
+            # ⚡ ALL THREE CALLOUTS PARKED IN ONE INSTANT. Each is an annotation of
+            # this section, so each is named here: an annotation is known only
+            # inside its own section, and a `defs` group cannot name it.
+            - note_title:
+                  - show:
+                        opacity: 0
+                        duration: 0
+            - note_upper:
+                  - show:
+                        opacity: 0
+                        duration: 0
+            - note_troposphere:
                   - show:
                         opacity: 0
                         duration: 0
