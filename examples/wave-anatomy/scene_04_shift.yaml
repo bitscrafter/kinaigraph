@@ -76,14 +76,6 @@ defs:
         style:
             type: "style"
             file: "./resource/style/theme_paper.css"
-
-
-        # What is not on screen when the beat opens. A group broadcasts — one
-        # instruction per member — so each is still addressed on its own beat.
-        not_yet:
-            type: "group"
-            member_type: "actor"
-            members: [wave_cos, tag_phase, tag_cos, tag_offset]
     const:
         VIDEO_MARGIN: 350
 
@@ -270,9 +262,20 @@ animation:
             - wave:
                   - show:
                         opacity: 1
-            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one line. A
-            # group BROADCASTS, so each of these is still shown on its own beat.
-            - not_yet:
+            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one instant.
+            # Each is an annotation of this section, so each is named here: an
+            # annotation is known only inside its own section, and a `defs` group
+            # cannot name it. Each is still shown on its own beat.
+            - wave_cos:
+                  - show:
+                        opacity: 0
+            - tag_phase:
+                  - show:
+                        opacity: 0
+            - tag_cos:
+                  - show:
+                        opacity: 0
+            - tag_offset:
                   - show:
                         opacity: 0
 

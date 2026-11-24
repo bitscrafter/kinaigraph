@@ -198,10 +198,25 @@ defs:
         # Everything that is not on screen when the walk begins. A group
         # broadcasts — one instruction per member — so every one of these is
         # still shown on its own beat later.
+        # The section's annotations are not members: an annotation is known
+        # only inside its own section, so a `defs` group cannot name it.
         not_yet:
             type: "group"
             member_type: "actor"
-            members: [seg_1, seg_2, seg_3, seg_4, seg_5, seg_6, seg_7, seg_8, seg_9, dest_ring, dest_star, traveller_solid, traveller_ghost, summit_note, chip_capability]
+            members:
+                - seg_1
+                - seg_2
+                - seg_3
+                - seg_4
+                - seg_5
+                - seg_6
+                - seg_7
+                - seg_8
+                - seg_9
+                - dest_ring
+                - dest_star
+                - traveller_solid
+                - traveller_ghost
     const:
         # ── Pace ──────────────────────────────────────────────────────────────────
         # ONE walking speed, shared verbatim by all three route scenes, so the marker
@@ -394,10 +409,17 @@ animation:
             - brand:
                   - show:
                         opacity: 1
-            # ⚡ EVERYTHING THE WALK HAS NOT REACHED YET, hidden in one line.
-            # A group BROADCASTS, so each of these is still addressed on its own
-            # beat afterwards.
+            # ⚡ EVERYTHING THE WALK HAS NOT REACHED YET, hidden in one instant:
+            # the scene's elements through the group, and the section's own
+            # annotations by name beside it. A group BROADCASTS, so each of these
+            # is still addressed on its own beat afterwards.
             - not_yet:
+                  - show:
+                        opacity: 0
+            - summit_note:
+                  - show:
+                        opacity: 0
+            - chip_capability:
                   - show:
                         opacity: 0
 

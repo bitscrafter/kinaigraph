@@ -90,10 +90,13 @@ defs:
 
         # What is not on screen when the beat opens. A group broadcasts — one
         # instruction per member — so each is still addressed on its own beat.
+        # The section's annotations are not members: an annotation is known
+        # only inside its own section, so a `defs` group cannot name it.
         not_yet:
             type: "group"
             member_type: "actor"
-            members: [wave, dot, source_note]
+            members:
+                - dot
     const:
         VIDEO_MARGIN: 350
 
@@ -199,9 +202,17 @@ animation:
             - frame_layer:
                   - show:
                         opacity: 1
-            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one line. A
-            # group BROADCASTS, so each of these is still shown on its own beat.
+            # ⚡ EVERYTHING THE BEAT HAS NOT REACHED YET, hidden in one instant:
+            # the dot through the group, and the section's own annotations by
+            # name beside it. A group BROADCASTS, so each of these is still shown
+            # on its own beat.
             - not_yet:
+                  - show:
+                        opacity: 0
+            - wave:
+                  - show:
+                        opacity: 0
+            - source_note:
                   - show:
                         opacity: 0
 
